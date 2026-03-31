@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UnifiedLoginController;
+use App\Http\Controllers\Admin\StudentController;
 
 // Redirect awal
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect('/admin/students');
 });
 
 // login
-
 Route::middleware('guest')->group(function () {
 
     Route::get('/login', [UnifiedLoginController::class, 'showLoginForm'])
@@ -31,6 +31,6 @@ Route::middleware('auth')->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
+        Route::resource('students', StudentController::class);
     });
-
 });

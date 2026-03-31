@@ -24,7 +24,7 @@ class TeacherController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('admin.teachers.index', compact('teachers', 'q'));
+        return view('admin.teacher.index', compact('teachers', 'q'));
     }
 
     public function create()

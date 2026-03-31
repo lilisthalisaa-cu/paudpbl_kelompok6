@@ -26,9 +26,8 @@
         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
         <a href="{{ route('admin.teachers.index') }}">Guru</a>
         <a href="{{ route('admin.students.index') }}">Siswa</a>
-        <a href="{{ route('admin.recap.teachers') }}">Rekap Guru</a>
-        <a href="{{ route('admin.recap.students') }}">Rekap Siswa</a>
-
+        {{-- route('admin.recap.teachers') --}}
+        {{-- route('admin.recap.students') --}}
         <form method="POST" action="{{ route('logout') }}" style="margin:0;">
           @csrf
           <button class="btn-orange" type="submit">Logout</button>

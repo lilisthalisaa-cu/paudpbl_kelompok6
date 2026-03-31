@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\Class as SchoolClass;
+use App\Models\SchoolClass;
+
 
 class Teacher extends Model
 {
+    protected $table = 'guru';
     protected $fillable = ['user_id', 'class_id'];
 
     // relasi ke user
@@ -22,8 +24,8 @@ class Teacher extends Model
         return $this->belongsTo(SchoolClass::class);
     }
 
-    public function attendances()
-    {
-        return $this->hasMany(TeacherAttendance::class);
-    }
+    // public function attendances()
+    // {
+    //     return $this->hasMany(TeacherAttendance::class);
+    // }
 }

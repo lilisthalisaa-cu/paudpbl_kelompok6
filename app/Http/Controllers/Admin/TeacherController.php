@@ -92,6 +92,7 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         $teacher->user->delete();
+
         return redirect()->route('admin.teachers.index')
             ->with('success', 'Guru berhasil dihapus');
     }

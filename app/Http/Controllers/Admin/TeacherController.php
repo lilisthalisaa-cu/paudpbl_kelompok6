@@ -93,7 +93,7 @@ class TeacherController extends Controller
     {
         $teacher->user->delete();
 
-        return redirect()->route('admin.teachers.index')
+      return redirect()->route('admin.teachers.index')
             ->with('success', 'Guru berhasil dihapus');
     }
 }

@@ -2,14 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UnifiedLoginController;
-use App\Http\Controllers\Admin\StudentController;
 
-// Redirect awal
-Route::get('/', function () {
-    return redirect('/admin/students');
-});
-
-// login
+//Login
 Route::middleware('guest')->group(function () {
 
     Route::get('/login', [UnifiedLoginController::class, 'showLoginForm'])
@@ -19,18 +13,9 @@ Route::middleware('guest')->group(function () {
         ->name('login.post');
 });
 
-// Admin area (auth)
+// Logout
 Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [UnifiedLoginController::class, 'logout'])
         ->name('logout');
-
-    Route::prefix('admin')->name('admin.')->group(function () {
-
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
-
-        Route::resource('students', StudentController::class);
-    });
 });

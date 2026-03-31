@@ -16,9 +16,9 @@ class TeacherController extends Controller
 
         $teachers = Teacher::with('user', 'class')
             ->when($q, function ($query) use ($q) {
-                $query->whereHas('user', function ($q2) use ($q) {
-                    $q2->where('name', 'like', "%{$q}%") 
-                       ->orWhere('email', 'like', "%{$q}%");
+                return $query->whereHas('user', function ($subQuery) use ($q) {
+                    $subQuery->where('name', 'like', "%{$q}%")
+                             ->orWhere('email', 'like', "%{$q}%");
                 });
             })
             ->paginate(10)
@@ -44,7 +44,7 @@ class TeacherController extends Controller
 
         // simpan ke user
         $user = User::create([
-            'name' => $data['nama'], 
+            'name' => $data['nama'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'role' => 'guru'
@@ -76,7 +76,7 @@ class TeacherController extends Controller
 
         // update user
         $teacher->user->update([
-            'name' => $data['nama'], 
+            'name' => $data['nama'],
             'email' => $data['email'],
         ]);
 
@@ -91,7 +91,7 @@ class TeacherController extends Controller
 
     public function destroy(Teacher $teacher)
     {
-        $teacher->user->delete(); 
+        $teacher->user->delete();
         return redirect()->route('admin.teachers.index')
             ->with('success', 'Guru berhasil dihapus');
     }

@@ -30,7 +30,7 @@ class TeacherController extends Controller
     public function create()
     {
         $classes = SchoolClass::all();
-        return view('admin.teachers.create', compact('classes'));
+        return view('admin.teacher.create', compact('classes'));
     }
 
     public function store(Request $request)
@@ -42,7 +42,6 @@ class TeacherController extends Controller
             'class_id' => ['required']
         ]);
 
-        // simpan ke user
         $user = User::create([
             'name' => $data['nama'],
             'email' => $data['email'],
@@ -50,20 +49,19 @@ class TeacherController extends Controller
             'role' => 'guru'
         ]);
 
-        // simpan ke teacher
         Teacher::create([
             'user_id' => $user->id,
             'class_id' => $data['class_id']
         ]);
 
-        return redirect()->route('admin.teachers.index')
+        return redirect()->route('admin.teacher.index') 
             ->with('success', 'Guru berhasil ditambahkan');
     }
 
     public function edit(Teacher $teacher)
     {
         $classes = SchoolClass::all();
-        return view('admin.teachers.edit', compact('teacher', 'classes'));
+        return view('admin.teacher.edit', compact('teacher', 'classes')); 
     }
 
     public function update(Request $request, Teacher $teacher)
@@ -74,18 +72,16 @@ class TeacherController extends Controller
             'class_id' => ['required']
         ]);
 
-        // update user
         $teacher->user->update([
             'name' => $data['nama'],
             'email' => $data['email'],
         ]);
 
-        // update teacher
         $teacher->update([
             'class_id' => $data['class_id']
         ]);
 
-        return redirect()->route('admin.teachers.index')
+        return redirect()->route('admin.teacher.index') 
             ->with('success', 'Guru berhasil diperbarui');
     }
 
@@ -93,7 +89,7 @@ class TeacherController extends Controller
     {
         $teacher->user->delete();
 
-      return redirect()->route('admin.teachers.index')
+        return redirect()->route('admin.teacher.index') 
             ->with('success', 'Guru berhasil dihapus');
     }
 }

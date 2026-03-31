@@ -1,152 +1,139 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Admin</title>
 
-<style>
-/* BACKGROUND */
-body {
-    background-color: #bfbfbf;
-    font-family: 'Segoe UI', sans-serif;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f3f4f6;
+        }
 
-/* TOPBAR */
-.topbar {
-    background-color: #0e8a78;
-    color: white;
-    font-size: 13px;
-    padding: 8px 30px;
-    display: flex;
-    justify-content: space-between;
-}
+        /* TOPBAR */
+        .topbar {
+            background: #0f766e;
+            color: white;
+            padding: 8px 20px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
 
-/* HEADER */
-.header {
-    background-color: #dcdcdc;
-    padding: 15px 30px;
-}
+        /* NAVBAR */
+        .navbar {
+            background: #e5e7eb;
+            padding: 15px 20px;
+            font-weight: bold;
+            color: #065f46;
+        }
 
-.header h4 {
-    color: #0e8a78;
-    font-weight: bold;
-    margin: 0;
-}
+        /* CONTAINER */
+        .container {
+            height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* CARD */
-.auth-card {
-    width: 400px;
-    margin: 80px auto;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-}
+        /* CARD */
+        .card {
+            width: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
 
-/* HEAD */
-.auth-head {
-    background-color: #0e8a78;
-    color: white;
-    padding: 15px;
-}
+        /* HEADER */
+        .card-header {
+            background: #0f766e;
+            color: white;
+            padding: 20px;
+        }
 
-/* BODY */
-.auth-body {
-    background-color: #e6e6e6;
-    padding: 20px;
-}
+        .card-header h2 {
+            margin: 0;
+        }
 
-/* INPUT */
-.input {
-    width: 100%;
-    height: 40px;
-    border-radius: 10px;
-    border: none;
-    background-color: #b7c3d0;
-    padding: 10px;
-}
+        /* BODY */
+        .card-body {
+            padding: 20px;
+        }
 
-/* LABEL */
-.label {
-    font-size: 13px;
-    margin-bottom: 5px;
-    display: block;
-}
+        label {
+            font-weight: 600;
+            font-size: 14px;
+        }
 
-/* BUTTON */
-.btn-primary {
-    background-color: #d4942a;
-    border: none;
-    border-radius: 20px;
-    padding: 8px 25px;
-}
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background: #e5e7eb;
+        }
 
-.btn-primary:hover {
-    background-color: #c17f20;
-}
+        button {
+            background: orange;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            float: right;
+        }
 
-/* ERROR */
-.auth-error {
-    background: #ffdddd;
-    padding: 8px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    font-size: 12px;
-}
-</style>
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
 
-<!-- TOPBAR -->
 <div class="topbar">
     <div>Dusun Pasinan Timur, Singojuruh, Banyuwangi</div>
-    <div>kbroulotulilmisinoguruh@gmail.com</div>
     <div>+62 821 4518 2975</div>
 </div>
 
-<!-- HEADER -->
-<div class="header">
-    <h4>PAUD Raudhatul Ilmi</h4>
+<div class="navbar">
+    PAUD Raudhatul Ilmi
 </div>
 
-<!-- ORIGINAL CODE (TIDAK DIUBAH) -->
-<div class="auth-card">
-  <div class="auth-head">
-    <h1>Login Sistem</h1>
-    <p>Masuk sebagai admin.</p>
-  </div>
+<div class="container">
+    <div class="card">
 
-  <div class="auth-body">
-    @if ($errors->any())
-      <div class="auth-error">{{ $errors->first() }}</div>
-    @endif
+        <div class="card-header">
+            <h2>Login Admin</h2>
+            <small>Masuk untuk mengelola data guru, siswa, dan rekap absensi.</small>
+        </div>
 
-    <form method="POST" action="{{ route('login.post') }}" class="auth-form">
-      @csrf
+        <div class="card-body">
 
-      <div class="field">
-        <label class="label" for="npsn">NPSN</label>
-        <input id="npsn"
-               class="input"
-               type="text"
-               name="npsn"
-               value="{{ old('npsn') }}"
-               required
-               autofocus
-               placeholder="Masukkan NPSN">
-      </div>
+            @if ($errors->any())
+                <div class="error">{{ $errors->first() }}</div>
+            @endif
 
-      <div class="field" style="margin-top:10px;">
-        <label class="label" for="password">Password</label>
-        <input id="password"
-               class="input"
-               type="password"
-               name="password"
-               required
-               placeholder="Masukkan password">
-      </div>
+            <form method="POST" action="{{ route('login.post') }}">
+                @csrf
 
-      <div class="auth-footer" style="margin-top:15px;text-align:right;">
-        <div></div>
-        <button type="submit" class="btn btn-primary">
-          Login
-        </button>
-      </div>
-    </form>
-  </div>
+                <label>NPSN</label>
+                <input type="text" name="npsn" value="{{ old('npsn') }}" required>
+
+                <label>Password</label>
+                <input type="password" name="password" required>
+
+                <button type="submit">Login</button>
+            </form>
+
+        </div>
+    </div>
 </div>
 
-</x-guest-layout>
+</body>
+</html>

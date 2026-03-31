@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UnifiedLoginController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\TeacherController;
 
 // Redirect awal
 Route::get('/', function () {
@@ -12,10 +13,10 @@ Route::get('/', function () {
 // login
 Route::middleware('guest')->group(function () {
 
-    Route::get('/login', [UnifiedLoginController::class, 'showLoginForm'])
+    Route::get('/login', [UnifiedLoginController::class, 'create'])
         ->name('login');
 
-    Route::post('/login', [UnifiedLoginController::class, 'login'])
+    Route::post('/login', [UnifiedLoginController::class, 'store'])
         ->name('login.post');
 });
 
@@ -32,5 +33,7 @@ Route::middleware('auth')->group(function () {
         })->name('dashboard');
 
         Route::resource('students', StudentController::class);
+
+        Route::resource('teachers', TeacherController::class);
     });
 });

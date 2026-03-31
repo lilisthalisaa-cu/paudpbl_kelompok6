@@ -122,11 +122,11 @@
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf
 
-                <label>NPSN</label>
-                <input type="text" name="npsn" value="{{ old('npsn') }}" required>
+               <label>NPSN</label>
+               <input type="text" name="npsn" value="{{ old('npsn') }}" required placeholder="Masukkan npsn">
 
                 <label>Password</label>
-                <input type="password" name="password" required>
+                <input type="password" name="password" required placeholder="Masukkan password">
 
                 <button type="submit">Login</button>
             </form>
@@ -137,3 +137,5 @@
 
 </body>
 </html>
+<link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+<link rel="stylesheet" href="{{ asset('css/auth-custom.css') }}">

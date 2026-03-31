@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @extends('admin.layouts.app')
 
 @section('title','Dashboard')
@@ -52,3 +53,14 @@
 @section('content')
 {{-- kosong --}}
 @endsection
+=======
+<div class="stat">
+  <small>Total Guru</small>
+  <strong>-</strong>
+</div>
+
+<div class="stat">
+  <small>Total Siswa</small>
+  <strong>-</strong>
+</div>
+>>>>>>> develop

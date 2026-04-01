@@ -24,11 +24,11 @@
       {{-- EMAIL --}}
       <div>
         <label class="label">Email</label>
-        <input class="input" name="email" value="{{ old('email') }}" placeholder="email@contoh.com">
+        <input class="input" name="email" value="{{ old('email') }}" placeholder="Masukan Email">
         @error('email')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
       </div>
 
-      {{-- PASSWORD (WAJIB untuk user login) --}}
+      {{-- PASSWORD --}}
       <div>
         <label class="label">Password</label>
         <input class="input" type="password" name="password" placeholder="Minimal 6 karakter">
@@ -37,36 +37,42 @@
 
       {{-- CLASS --}}
       <div>
-        <label class="label">Class</label>
+        <label class="label">Kelas</label>
         <select class="input" name="class_id">
-          <option value="">-- Pilih Class --</option>
-          @foreach($classes as $c)
-            <option value="{{ $c->id }}">{{ $c->nama_kelas }}</option>
-          @endforeach
+          <option value="">-- Pilih Kelas --</option>
+
+          @forelse($classes as $c)
+            <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
+              {{ $c->name }}
+            </option>
+          @empty
+            <option value="">Data kelas belum tersedia</option>
+          @endforelse
+
         </select>
         @error('class_id')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
       </div>
 
-      {{-- FIELD LAMA (BIAR TETAP ADA) --}}
+      {{-- FIELD LAMA --}}
       <div>
-        <label class="label">NIP (opsional)</label>
+        <label class="label">NIP</label>
         <input class="input" name="nip" value="{{ old('nip') }}">
       </div>
 
       <div>
-        <label class="label">Telepon (opsional)</label>
+        <label class="label">Telepon</label>
         <input class="input" name="phone" value="{{ old('phone') }}">
       </div>
 
       <div class="full">
-        <label class="label">Alamat (opsional)</label>
+        <label class="label">Alamat</label>
         <textarea class="textarea" name="address">{{ old('address') }}</textarea>
       </div>
 
       <div class="full">
         <label class="label">Status</label>
         <div class="check">
-          <input type="checkbox" name="is_active" value="1" checked>
+          <input type="checkbox" name="is_active" value="1" {{ old('is_active', 1) ? 'checked' : '' }}>
           <span>Aktif</span>
         </div>
       </div>

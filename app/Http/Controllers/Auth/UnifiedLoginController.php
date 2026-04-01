@@ -18,37 +18,34 @@ class UnifiedLoginController extends Controller
 
     // proses login
     public function store(Request $request)
-    {
-        $request->validate([
-            'npsn' => 'required',
-            'password' => 'required'
-        ]);
+{
+    $request->validate([
+        'login' => 'required',
+        'password' => 'required'
+    ]);
 
-        $npsn = $request->npsn;
-        $password = $request->password;
+    $login = $request->login;
+    $password = $request->password;
 
-        // cari admin berdasarkan NPSN
-        $admin = User::where('npsn', $npsn)->first();
+    $admin = User::where('npsn', $login)->first();
 
-        if ($admin && Hash::check($password, $admin->password)) {
+    if ($admin && Hash::check($password, $admin->password)) {
 
-            // cek role admin
-            if ($admin->role !== 'admin') {
-                return back()->withErrors([
-                    'npsn' => 'Akses hanya untuk admin'
-                ]);
-            }
-
-            Auth::login($admin);
-
-            return redirect()->route('admin.dashboard');
+        if ($admin->role !== 'admin') {
+            return back()->withErrors([
+                'login' => 'Akses hanya untuk admin'
+            ]);
         }
 
-        // kalau gagal login
-        return back()->withErrors([
-            'npsn' => 'NPSN atau password salah'
-        ])->onlyInput('npsn');
+        Auth::login($admin);
+
+        return redirect()->route('admin.dashboard');
     }
+
+    return back()->withErrors([
+        'login' => 'NPSN atau password salah'
+    ])->onlyInput('login');
+}
 
     // logout
     public function logout(Request $request)

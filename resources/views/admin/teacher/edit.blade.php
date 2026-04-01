@@ -47,7 +47,7 @@
 
       {{-- CLASS --}}
       <div>
-        <label class="label">Class</label>
+        <label class="label">Kelas</label>
         <select class="input" name="class_id">
           @foreach($classes as $c)
             <option value="{{ $c->id }}" {{ $teacher->class_id == $c->id ? 'selected' : '' }}>

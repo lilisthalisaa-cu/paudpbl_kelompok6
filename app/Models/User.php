@@ -9,9 +9,7 @@ use App\Models\Teacher;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-
-    protected $table = 'user'; 
+    use HasFactory, Notifiable; 
 
     protected $fillable = [
         'name',

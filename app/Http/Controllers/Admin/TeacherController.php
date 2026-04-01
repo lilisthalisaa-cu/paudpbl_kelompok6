@@ -14,7 +14,7 @@ class TeacherController extends Controller
     {
         $q = $request->input('q');
 
-        $teachers = Teacher::with('user', 'class')
+        $teachers = Teacher::with('user', 'schoolClass')
             ->when($q, function ($query) use ($q) {
                 return $query->whereHas('user', function ($subQuery) use ($q) {
                     $subQuery->where('name', 'like', "%{$q}%")
@@ -37,24 +37,26 @@ class TeacherController extends Controller
     {
         $data = $request->validate([
             'nama' => ['required','string','max:255'],
-            'email' => ['required','email','unique:user,email'],
+            'email' => ['required','email','unique:users,email'], 
             'password' => ['required','string','min:6'],
-            'class_id' => ['required']
+            'class_id' => ['nullable']
         ]);
 
         $user = User::create([
             'name' => $data['nama'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role' => 'guru'
+            'role' => 'teacher' 
         ]);
 
-        Teacher::create([
+        $teacher = Teacher::create([
             'user_id' => $user->id,
-            'class_id' => $data['class_id']
+            'school_class_id' => $data['class_id'] ?? null
         ]);
 
-        return redirect()->route('admin.teacher.index') 
+        dd($teacher); 
+
+        return redirect()->route('admin.teachers.index') 
             ->with('success', 'Guru berhasil ditambahkan');
     }
 
@@ -68,8 +70,8 @@ class TeacherController extends Controller
     {
         $data = $request->validate([
             'nama' => ['required','string','max:255'],
-            'email' => ['required','email','unique:user,email,' . $teacher->user->id],
-            'class_id' => ['required']
+            'email' => ['required','email','unique:users,email,' . $teacher->user->id],
+            'class_id' => ['nullable']
         ]);
 
         $teacher->user->update([
@@ -78,10 +80,10 @@ class TeacherController extends Controller
         ]);
 
         $teacher->update([
-            'class_id' => $data['class_id']
+            'school_class_id' => $data['class_id'] ?? null
         ]);
 
-        return redirect()->route('admin.teacher.index') 
+        return redirect()->route('admin.teachers.index') 
             ->with('success', 'Guru berhasil diperbarui');
     }
 
@@ -89,7 +91,7 @@ class TeacherController extends Controller
     {
         $teacher->user->delete();
 
-        return redirect()->route('admin.teacher.index') 
+        return redirect()->route('admin.teachers.index') 
             ->with('success', 'Guru berhasil dihapus');
     }
 }

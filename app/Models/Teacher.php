@@ -9,8 +9,11 @@ use App\Models\SchoolClass;
 
 class Teacher extends Model
 {
-    protected $table = 'guru';
-    protected $fillable = ['user_id', 'class_id'];
+    
+    protected $fillable = [
+        'user_id', 
+        'school_class_id'
+    ];
 
     // relasi ke user
     public function user()
@@ -19,9 +22,9 @@ class Teacher extends Model
     }
 
     // relasi ke schoolclass 
-    public function class()
+    public function schoolClass()
     {
-        return $this->belongsTo(SchoolClass::class);
+        return $this->belongsTo(SchoolClass::class, 'school_class_id');
     }
 
     // public function attendances()

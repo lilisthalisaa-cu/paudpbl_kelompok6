@@ -123,7 +123,7 @@
                 @csrf
 
                <label>NPSN</label>
-               <input type="text" name="npsn" value="{{ old('npsn') }}" required placeholder="Masukkan npsn">
+               <input type="text" name="login" value="{{ old('login') }}" required placeholder="Masukkan NPSN">
 
                 <label>Password</label>
                 <input type="password" name="password" required placeholder="Masukkan password">

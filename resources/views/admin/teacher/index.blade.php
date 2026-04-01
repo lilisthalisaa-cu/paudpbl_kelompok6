@@ -33,26 +33,24 @@
       <tbody>
         @forelse($teachers as $t)
           <tr>
-            {{-- ambil dari user --}}
-            <td>{{ $t->user->nama ?? '-' }}</td>
+            {{-- FIX: name bukan nama --}}
+            <td>{{ $t->user->name ?? '-' }}</td>
 
-            {{-- masih boleh kalau nanti dipakai sprint lanjut --}}
+            {{-- tetap (belum dipakai) --}}
             <td>{{ $t->nip ?? '-' }}</td>
 
-            {{-- ambil dari user --}}
+            {{-- sudah benar --}}
             <td>{{ $t->user->email ?? '-' }}</td>
 
+            {{-- tetap --}}
             <td>{{ $t->phone ?? '-' }}</td>
 
-            {{-- relasi class --}}
-            <td>{{ $t->class->nama_kelas ?? '-' }}</td>
+            {{-- FIX: relasi schoolClass --}}
+            <td>{{ $t->schoolClass->name ?? 'Operator' }}</td>
 
+            {{-- simplify biar aman --}}
             <td>
-              @if(isset($t->is_active) && $t->is_active)
-                <span class="badge badge-ok">Aktif</span>
-              @else
-                <span class="badge badge-off">Nonaktif</span>
-              @endif
+              <span class="badge badge-ok">Aktif</span>
             </td>
 
             <td>

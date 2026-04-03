@@ -14,46 +14,45 @@
     @csrf
 
     <div class="form">
-      {{-- NAME -> jadi nama --}}
+
       <div>
         <label class="label">Nama</label>
-        <input class="input" name="nama" value="{{ old('nama') }}" placeholder="Nama lengkap guru">
-        @error('nama')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
+        <input class="input" name="nama" value="{{ old('nama') }}">
       </div>
 
-      {{-- EMAIL --}}
       <div>
         <label class="label">Email</label>
-        <input class="input" name="email" value="{{ old('email') }}" placeholder="Masukan Email">
-        @error('email')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
+        <input class="input" name="email" value="{{ old('email') }}">
       </div>
 
-      {{-- PASSWORD --}}
       <div>
         <label class="label">Password</label>
-        <input class="input" type="password" name="password" placeholder="Minimal 6 karakter">
-        @error('password')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
+        <input class="input" type="password" name="password">
       </div>
 
-      {{-- CLASS --}}
+      
+      <div>
+        <label class="label">Role</label>
+        <select class="input" name="role" id="role">
+          <option value="teacher">Guru</option>
+          <option value="operator">Operator</option>
+        </select>
+      </div>
+
+      
       <div>
         <label class="label">Kelas</label>
-        <select class="input" name="class_id">
+        <select class="input" name="class_id" id="class_id">
           <option value="">-- Pilih Kelas --</option>
 
-          @forelse($classes as $c)
-            <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
+          @foreach($classes as $c)
+            <option value="{{ $c->id }}">
               {{ $c->name }}
             </option>
-          @empty
-            <option value="">Data kelas belum tersedia</option>
-          @endforelse
-
+          @endforeach
         </select>
-        @error('class_id')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
       </div>
 
-      {{-- FIELD LAMA --}}
       <div>
         <label class="label">NIP</label>
         <input class="input" name="nip" value="{{ old('nip') }}">
@@ -72,10 +71,11 @@
       <div class="full">
         <label class="label">Status</label>
         <div class="check">
-          <input type="checkbox" name="is_active" value="1" {{ old('is_active', 1) ? 'checked' : '' }}>
+          <input type="checkbox" name="is_active" value="1" checked>
           <span>Aktif</span>
         </div>
       </div>
+
     </div>
 
     <div class="actions">
@@ -84,4 +84,19 @@
     </div>
   </form>
 </div>
+
+
+<script>
+document.getElementById('role').addEventListener('change', function() {
+    let kelas = document.getElementById('class_id');
+
+    if (this.value === 'operator') {
+        kelas.value = '';
+        kelas.disabled = true;
+    } else {
+        kelas.disabled = false;
+    }
+});
+</script>
+
 @endsection

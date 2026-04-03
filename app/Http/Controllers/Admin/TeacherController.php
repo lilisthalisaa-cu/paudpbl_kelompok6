@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\User;
-use App\Models\SchoolClass; 
+use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -16,7 +16,7 @@ class TeacherController extends Controller
 
         $teachers = Teacher::with('user', 'schoolClass')
             ->when($q, function ($query) use ($q) {
-                return $query->whereHas('user', function ($subQuery) use ($q) {
+                $query->whereHas('user', function ($subQuery) use ($q) {
                     $subQuery->where('name', 'like', "%{$q}%")
                              ->orWhere('email', 'like', "%{$q}%");
                 });
@@ -37,33 +37,40 @@ class TeacherController extends Controller
     {
         $data = $request->validate([
             'nama' => ['required','string','max:255'],
-            'email' => ['required','email','unique:users,email'], 
+            'email' => ['required','email','unique:users,email'],
             'password' => ['required','string','min:6'],
-            'class_id' => ['nullable']
+            'role' => ['required','in:teacher,operator'],
+            'class_id' => ['nullable'],
+            'phone' => ['nullable','string'],
+            'address' => ['nullable','string'],
+            'nip' => ['nullable','string'],
         ]);
 
         $user = User::create([
             'name' => $data['nama'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role' => 'teacher' 
+            'role' => $data['role']
         ]);
 
-        $teacher = Teacher::create([
+        Teacher::create([
             'user_id' => $user->id,
-            'school_class_id' => $data['class_id'] ?? null
+            'school_class_id' => $data['role'] === 'operator'
+                ? null
+                : ($data['class_id'] ?? null),
+            'phone' => $data['phone'] ?? null,
+            'address' => $data['address'] ?? null,
+            'nip' => $data['nip'] ?? null,
         ]);
 
-        dd($teacher); 
-
-        return redirect()->route('admin.teachers.index') 
+        return redirect()->route('admin.teachers.index')
             ->with('success', 'Guru berhasil ditambahkan');
     }
 
     public function edit(Teacher $teacher)
     {
         $classes = SchoolClass::all();
-        return view('admin.teacher.edit', compact('teacher', 'classes')); 
+        return view('admin.teacher.edit', compact('teacher', 'classes'));
     }
 
     public function update(Request $request, Teacher $teacher)
@@ -71,19 +78,31 @@ class TeacherController extends Controller
         $data = $request->validate([
             'nama' => ['required','string','max:255'],
             'email' => ['required','email','unique:users,email,' . $teacher->user->id],
-            'class_id' => ['nullable']
+            'role' => ['required','in:teacher,operator'],
+            'class_id' => ['nullable'],
+            'phone' => ['nullable','string'],
+            'address' => ['nullable','string'],
+            'nip' => ['nullable','string'],
         ]);
 
+        // update user
         $teacher->user->update([
             'name' => $data['nama'],
             'email' => $data['email'],
+            'role' => $data['role']
         ]);
 
+        // update teacher
         $teacher->update([
-            'school_class_id' => $data['class_id'] ?? null
+            'school_class_id' => $data['role'] === 'operator'
+                ? null
+                : ($data['class_id'] ?? null),
+            'phone' => $data['phone'] ?? null,
+            'address' => $data['address'] ?? null,
+            'nip' => $data['nip'] ?? null,
         ]);
 
-        return redirect()->route('admin.teachers.index') 
+        return redirect()->route('admin.teachers.index')
             ->with('success', 'Guru berhasil diperbarui');
     }
 
@@ -91,7 +110,7 @@ class TeacherController extends Controller
     {
         $teacher->user->delete();
 
-        return redirect()->route('admin.teachers.index') 
+        return redirect()->route('admin.teachers.index')
             ->with('success', 'Guru berhasil dihapus');
     }
 }

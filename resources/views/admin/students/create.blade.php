@@ -17,38 +17,42 @@
       <div>
         <label class="label">Nama</label>
         <input class="input" name="name" value="{{ old('name') }}" placeholder="Nama lengkap siswa">
-        @error('name')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
       </div>
 
       <div>
         <label class="label">NISN (opsional)</label>
         <input class="input" name="nisn" value="{{ old('nisn') }}" placeholder="NISN siswa">
-        @error('nisn')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
       </div>
 
+      
       <div class="full">
         <label class="label">Kelas (opsional)</label>
-        <select class="select" name="school_class_id">
+        <select class="input" name="class_id">
           <option value="">- Pilih Kelas -</option>
-          @foreach(\App\Models\SchoolClass::orderBy('name')->get() as $c)
-            <option value="{{ $c->id }}" @selected(old('school_class_id')==$c->id)>{{ $c->name }}</option>
+
+          @foreach($classes as $c)
+            <option value="{{ $c->id }}"
+              {{ old('class_id') == $c->id ? 'selected' : '' }}>
+              {{ $c->name }}
+            </option>
           @endforeach
+
         </select>
       </div>
 
       <div>
         <label class="label">Nama Orang Tua (opsional)</label>
-        <input class="input" name="parent_name" value="{{ old('parent_name') }}" placeholder="Nama orang tua/wali">
+        <input class="input" name="parent_name" value="{{ old('parent_name') }}">
       </div>
 
       <div>
         <label class="label">Telepon Orang Tua (opsional)</label>
-        <input class="input" name="parent_phone" value="{{ old('parent_phone') }}" placeholder="08xxxxxxxxxx">
+        <input class="input" name="parent_phone" value="{{ old('parent_phone') }}">
       </div>
 
       <div class="full">
         <label class="label">Alamat (opsional)</label>
-        <textarea class="textarea" name="address" placeholder="Alamat lengkap">{{ old('address') }}</textarea>
+        <textarea class="textarea" name="address">{{ old('address') }}</textarea>
       </div>
 
       <div class="full">

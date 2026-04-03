@@ -1,51 +1,178 @@
-/* =========================================
-   auth-custom-final.css - Kotak input & tombol rapi
-   ========================================= */
-
-/* Kotak Input NPSN & Password */
-input[type="text"],
-input[type="password"] {
-    width: 95%;                     /* ada space kiri-kanan */
-    padding: 8px 12px;              /* lebih sempit vertikal */
-    margin: 5px auto 12px auto;     /* jarak antar input lebih rapat */
-    border-radius: 12px;
-    border: none;
-    background: #e0e4e8;            /* abu lembut */
-    outline: none;
-    display: block;
-    transition: 0.2s;
+:root{
+  --teal:#0f766e;
+  --orange:#f59e0b;
+  --gray-100:#f3f4f6;
+  --gray-200:#e5e7eb;
+  --gray-400:#9ca3af;
+  --dark:#111827;
 }
 
-input:focus {
-    background: #ffffff;             /* putih saat fokus */
-    box-shadow: 0 0 0 2px #0f766e;
+*{
+  box-sizing:border-box;
 }
 
-/* Tombol Login */
-button[type="submit"] {
-    background: #f59e0b;      /* warna tombol solid */
-    border: none;
-    padding: 8px 16px;        /* tinggi dan lebar tombol */
-    border-radius: 20px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;         /* tombol tetap di kanan */
-    margin-top: 0;             /* hapus jarak tambahan */
-    transform: translateY(-4px); /* naikkan tombol 4px ke atas */
-    font-size: 14px;
-    transition: 0.2s;
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--gray-100);
+  color:var(--dark);
 }
 
-button[type="submit"]:hover {
-    background: #f7931e;
-    transform: translateY(-4px) scale(1.05);
+/* ================= TOPBAR ================= */
+.topbar{
+  background:var(--teal);
+  color:#fff;
+  font-size:13px;
 }
 
-/* Error message */
-.auth-error {
-    margin-bottom: 12px !important;
-    text-align: center !important;
-    color: #dc2626 !important;
+.topbar .wrap{
+  max-width:1120px;
+  margin:0 auto;
+  padding:10px 16px;
+  display:flex;
+  gap:16px;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.topbar .left{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  background:#d1d5db;
+  border-bottom:1px solid var(--gray-200);
+}
+
+.navbar .wrap{
+  max-width:1120px;
+  margin:0 auto;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.brand{
+  font-weight:900;
+  color:var(--teal);
+  font-size:18px;
+}
+
+/* ================= AUTH (LOGIN / REGISTER) ================= */
+.auth-wrap{
+  min-height:calc(100vh - 102px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 16px;
+}
+
+.auth-card{
+  width:520px;
+  max-width:100%;
+  background:#fff;
+  border:1px solid var(--gray-200);
+  border-radius:18px;
+  box-shadow:0 18px 40px rgba(0,0,0,.12);
+  overflow:hidden;
+}
+
+.auth-head{
+  background:var(--teal);
+  padding:20px 22px;
+  color:#fff;
+}
+
+.auth-head h1{
+  margin:0;
+  font-size:22px;
+  font-weight:900;
+}
+
+.auth-head p{
+  margin:6px 0 0;
+  font-size:13px;
+  opacity:.9;
+}
+
+.auth-body{
+  padding:20px;
+}
+
+.auth-form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.label{
+  display:block;
+  font-size:13px;
+  font-weight:800;
+  color:#374151;
+  margin-bottom:6px;
+}
+
+.input{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--gray-200);
+  border-radius:12px;
+  outline:none;
+  font-size:14px;
+}
+
+.input:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(15,118,110,.14);
+}
+
+.auth-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+
+.btn{
+  padding:10px 16px;
+  border-radius:999px;
+  border:1px solid transparent;
+  font-weight:900;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.btn-primary{
+  background:var(--orange);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  opacity:.92;
+}
+
+.auth-link{
+  color:var(--teal);
+  font-weight:800;
+  text-decoration:none;
+}
+
+.auth-link:hover{
+  text-decoration:underline;
+}
+
+.auth-error{
+  font-size:12px;
+  color:#dc2626;
+  margin-top:4px;
 }

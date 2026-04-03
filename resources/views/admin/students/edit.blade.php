@@ -14,25 +14,30 @@
     @csrf @method('PUT')
 
     <div class="form">
+
       <div>
         <label class="label">Nama</label>
         <input class="input" name="name" value="{{ old('name',$student->name) }}">
-        @error('name')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
       </div>
 
       <div>
         <label class="label">NISN (opsional)</label>
         <input class="input" name="nisn" value="{{ old('nisn',$student->nisn) }}">
-        @error('nisn')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
       </div>
 
+      
       <div class="full">
         <label class="label">Kelas (opsional)</label>
-        <select class="select" name="school_class_id">
+        <select class="input" name="class_id">
           <option value="">- Pilih Kelas -</option>
-          @foreach(\App\Models\SchoolClass::orderBy('name')->get() as $c)
-            <option value="{{ $c->id }}" @selected(old('school_class_id',$student->school_class_id)==$c->id)>{{ $c->name }}</option>
+
+          @foreach($classes as $c)
+            <option value="{{ $c->id }}"
+              {{ old('class_id', $student->class_id) == $c->id ? 'selected' : '' }}>
+              {{ $c->name }}
+            </option>
           @endforeach
+
         </select>
       </div>
 
@@ -54,10 +59,12 @@
       <div class="full">
         <label class="label">Status</label>
         <div class="check">
-          <input type="checkbox" name="is_active" value="1" @checked(old('is_active',$student->is_active))>
+          <input type="checkbox" name="is_active" value="1"
+            {{ old('is_active', $student->is_active) ? 'checked' : '' }}>
           <span>Aktif</span>
         </div>
       </div>
+
     </div>
 
     <div class="actions">

@@ -7,6 +7,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; 
 
 class TeacherController extends Controller
 {
@@ -37,13 +38,13 @@ class TeacherController extends Controller
     {
         $data = $request->validate([
             'nama' => ['required','string','max:255'],
-            'email' => ['required','email','unique:users,email'],
+            'email' => ['required','email','max:255','unique:users,email'],
             'password' => ['required','string','min:6'],
             'role' => ['required','in:teacher,operator'],
-            'class_id' => ['nullable'],
-            'phone' => ['nullable','string'],
-            'address' => ['nullable','string'],
-            'nip' => ['nullable','string'],
+            'class_id' => ['nullable','exists:school_classes,id'], 
+            'phone' => ['nullable','string','max:20'], 
+            'address' => ['nullable','string','max:255'], 
+            'nip' => ['nullable','string','max:50'], 
         ]);
 
         $user = User::create([
@@ -77,12 +78,12 @@ class TeacherController extends Controller
     {
         $data = $request->validate([
             'nama' => ['required','string','max:255'],
-            'email' => ['required','email','unique:users,email,' . $teacher->user->id],
+            'email' => ['required','email','max:255','unique:users,email,' . $teacher->user->id],
             'role' => ['required','in:teacher,operator'],
-            'class_id' => ['nullable'],
-            'phone' => ['nullable','string'],
-            'address' => ['nullable','string'],
-            'nip' => ['nullable','string'],
+            'class_id' => ['nullable','exists:school_classes,id'], 
+            'phone' => ['nullable','string','max:20'],
+            'address' => ['nullable','string','max:255'],
+            'nip' => ['nullable','string','max:50'],
         ]);
 
         // update user
@@ -108,7 +109,11 @@ class TeacherController extends Controller
 
     public function destroy(Teacher $teacher)
     {
-        $teacher->user->delete();
+        
+        DB::transaction(function () use ($teacher) {
+            $teacher->user->delete();
+            $teacher->delete();
+        });
 
         return redirect()->route('admin.teachers.index')
             ->with('success', 'Guru berhasil dihapus');

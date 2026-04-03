@@ -7,6 +7,7 @@
   </div>
 
   <div class="auth-body">
+
     @if ($errors->any())
       <div class="auth-error">{{ $errors->first() }}</div>
     @endif
@@ -15,25 +16,27 @@
       @csrf
 
       <div class="field">
-        <label class="label" for="login">NPSN</label>
-        <input id="login"
-               class="input"
-               type="text"
-               name="login"
-               value="{{ old('login') }}"
-               required
-               autofocus
-               placeholder="Masukkan NPSN">
+        <label class="label" for="npsn">NPSN</label>
+        <input 
+          id="npsn"
+          class="input"
+          type="text"
+          name="npsn"
+          value="{{ old('npsn') }}"
+          required
+          autofocus
+          placeholder="Masukkan NPSN">
       </div>
 
       <div class="field">
         <label class="label" for="password">Password</label>
-        <input id="password"
-               class="input"
-               type="password"
-               name="password"
-               required
-               placeholder="Masukkan password">
+        <input 
+          id="password"
+          class="input"
+          type="password"
+          name="password"
+          required
+          placeholder="Masukkan password">
       </div>
 
       <div class="auth-footer">
@@ -43,6 +46,7 @@
         </button>
       </div>
     </form>
+
   </div>
 </div>
 

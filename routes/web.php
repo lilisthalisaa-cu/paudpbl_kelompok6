@@ -36,3 +36,29 @@ Route::middleware('parent')->prefix('parent')->name('parent.')->group(function (
 Route::get('/dashboard', function () {
     return redirect()->route('admin.dashboard');
 });
+
+Route::middleware(['auth', 'checkRole:admin'])->prefix('admin')->group(function () {
+
+    Route::get('/dashboard-secure', function () {
+        return view('admin.dashboard');
+    });
+
+});
+
+Route::middleware(['parent', 'checkRole:parent'])->prefix('parent')->group(function () {
+
+    Route::get('/dashboard-secure', [ParentDashboardController::class, 'index']);
+
+});
+
+Route::get('/teacher/daily-activity', function () {
+    return view('teacher.daily_activity');
+});
+
+Route::get('/teacher/monthly-report', function () {
+    return view('teacher.monthly_report');
+});
+
+Route::get('/teacher/teacher-attendance', function () {
+    return view('teacher.teacher_attendance');
+});

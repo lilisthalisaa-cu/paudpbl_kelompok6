@@ -33,44 +33,44 @@
       </thead>
       <tbody>
         @forelse($teachers as $t)
-          <tr>
-            <td>{{ $t->user->name ?? '-' }}</td>
-            <td>{{ $t->nip ?? '-' }}</td>
-            <td>{{ $t->user->email ?? '-' }}</td>
-            <td>{{ $t->phone ?? '-' }}</td>
+        <tr>
+          <td>{{ $t->user->name ?? '-' }}</td>
+          <td>{{ $t->nip ?? '-' }}</td>
+          <td>{{ $t->user->email ?? '-' }}</td>
+          <td>{{ $t->phone ?? '-' }}</td>
 
-            {{-- FIX KELAS --}}
-            <td>{{ $t->schoolClass->name ?? '-' }}</td>
+          {{-- FIX KELAS --}}
+          <td>{{ $t->schoolClass->name ?? '-' }}</td>
 
-            {{-- TAMBAH ROLE --}}
-            <td>
-              @if($t->user->role == 'operator')
-                <span style="color:#2563eb;">Operator</span>
-              @else
-                <span style="color:#16a34a;">Guru</span>
-              @endif
-            </td>
+          {{-- TAMBAH ROLE --}}
+          <td>
+            @if($t->user->role == 'admin')
+            Operator
+            @else
+            Guru
+            @endif
+          </td>
 
-            <td>
-              <span class="badge badge-ok">Aktif</span>
-            </td>
+          <td>
+            <span class="badge badge-ok">Aktif</span>
+          </td>
 
-            <td>
-              <a class="btn btn-outline" href="{{ route('admin.teachers.edit',$t) }}">Edit</a>
+          <td>
+            <a class="btn btn-outline" href="{{ route('admin.teachers.edit',$t) }}">Edit</a>
 
-              <form method="POST" action="{{ route('admin.teachers.destroy',$t) }}" style="display:inline" onsubmit="return confirm('Hapus data guru ini?')">
-                @csrf 
-                @method('DELETE')
-                <button class="btn btn-danger" type="submit">Hapus</button>
-              </form>
-            </td>
-          </tr>
+            <form method="POST" action="{{ route('admin.teachers.destroy',$t) }}" style="display:inline" onsubmit="return confirm('Hapus data guru ini?')">
+              @csrf
+              @method('DELETE')
+              <button class="btn btn-danger" type="submit">Hapus</button>
+            </form>
+          </td>
+        </tr>
         @empty
-          <tr>
-            <td colspan="8" class="muted" style="padding:16px;text-align:center">
-              Belum ada data guru.
-            </td>
-          </tr>
+        <tr>
+          <td colspan="8" class="muted" style="padding:16px;text-align:center">
+            Belum ada data guru.
+          </td>
+        </tr>
         @endforelse
       </tbody>
     </table>

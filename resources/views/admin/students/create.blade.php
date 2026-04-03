@@ -20,13 +20,13 @@
       </div>
 
       <div>
-        <label class="label">NISN (opsional)</label>
+        <label class="label">NISN</label>
         <input class="input" name="nisn" value="{{ old('nisn') }}" placeholder="NISN siswa">
       </div>
 
       
       <div class="full">
-        <label class="label">Kelas (opsional)</label>
+        <label class="label">Kelas</label>
         <select class="input" name="class_id">
           <option value="">- Pilih Kelas -</option>
 
@@ -41,17 +41,17 @@
       </div>
 
       <div>
-        <label class="label">Nama Orang Tua (opsional)</label>
+        <label class="label">Nama Orang Tua</label>
         <input class="input" name="parent_name" value="{{ old('parent_name') }}">
       </div>
 
       <div>
-        <label class="label">Telepon Orang Tua (opsional)</label>
+        <label class="label">Telepon Orang Tua</label>
         <input class="input" name="parent_phone" value="{{ old('parent_phone') }}">
       </div>
 
       <div class="full">
-        <label class="label">Alamat (opsional)</label>
+        <label class="label">Alamat</label>
         <textarea class="textarea" name="address">{{ old('address') }}</textarea>
       </div>
 

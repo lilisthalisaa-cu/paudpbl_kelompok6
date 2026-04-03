@@ -8,8 +8,14 @@
 
   <div class="auth-body">
 
+    {{-- Alert Error --}}
     @if ($errors->any())
-      <div class="auth-error">{{ $errors->first() }}</div>
+        <x-alert type="error" :message="$errors->first()" />
+    @endif
+
+    {{-- Alert Success (Opsional) --}}
+    @if(session('success'))
+        <x-alert type="success" :message="session('success')" />
     @endif
 
     <form method="POST" action="{{ route('login.post') }}" class="auth-form">

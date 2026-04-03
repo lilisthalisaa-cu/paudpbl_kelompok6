@@ -14,56 +14,59 @@
     @csrf @method('PUT')
 
     <div class="form">
-      {{-- NAME dari user --}}
+
       <div>
         <label class="label">Nama</label>
-        <input class="input" name="nama" value="{{ old('nama',$teacher->user->nama ?? '') }}">
-        @error('nama')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
+        <input class="input" name="nama" value="{{ old('nama',$teacher->user->name ?? '') }}">
       </div>
 
-      {{-- NIP tetap --}}
-      <div>
-        <label class="label">NIP (opsional)</label>
-        <input class="input" name="nip" value="{{ old('nip',$teacher->nip) }}">
-        @error('nip')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
-      </div>
-
-      {{-- EMAIL dari user --}}
       <div>
         <label class="label">Email</label>
         <input class="input" name="email" value="{{ old('email',$teacher->user->email ?? '') }}">
-        @error('email')<div class="muted" style="color:#dc2626">{{ $message }}</div>@enderror
       </div>
 
+      
       <div>
-        <label class="label">Telepon (opsional)</label>
-        <input class="input" name="phone" value="{{ old('phone',$teacher->phone) }}">
+        <label class="label">Role</label>
+        <select class="input" name="role" id="role">
+          <option value="teacher" {{ $teacher->user->role == 'teacher' ? 'selected' : '' }}>Guru</option>
+          <option value="operator" {{ $teacher->user->role == 'operator' ? 'selected' : '' }}>Operator</option>
+        </select>
       </div>
 
-      <div class="full">
-        <label class="label">Alamat (opsional)</label>
-        <textarea class="textarea" name="address">{{ old('address',$teacher->address) }}</textarea>
-      </div>
-
-      {{-- CLASS --}}
+      
       <div>
         <label class="label">Kelas</label>
-        <select class="input" name="class_id">
+        <select class="input" name="class_id" id="class_id">
+          <option value="">-- Pilih Kelas --</option>
+
           @foreach($classes as $c)
-            <option value="{{ $c->id }}" {{ $teacher->class_id == $c->id ? 'selected' : '' }}>
-              {{ $c->nama_kelas }}
+            <option value="{{ $c->id }}"
+              {{ old('class_id', $teacher->school_class_id) == $c->id ? 'selected' : '' }}>
+              {{ $c->name }}
             </option>
           @endforeach
         </select>
       </div>
 
+      <div>
+        <label class="label">Telepon</label>
+        <input class="input" name="phone" value="{{ old('phone',$teacher->phone) }}">
+      </div>
+
+      <div class="full">
+        <label class="label">Alamat</label>
+        <textarea class="textarea" name="address">{{ old('address',$teacher->address) }}</textarea>
+      </div>
+
       <div class="full">
         <label class="label">Status</label>
         <div class="check">
-          <input type="checkbox" name="is_active" value="1" @checked(old('is_active',$teacher->is_active ?? true))>
+          <input type="checkbox" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }}>
           <span>Aktif</span>
         </div>
       </div>
+
     </div>
 
     <div class="actions">
@@ -72,4 +75,25 @@
     </div>
   </form>
 </div>
+
+
+<script>
+function toggleClass() {
+    let role = document.getElementById('role').value;
+    let kelas = document.getElementById('class_id');
+
+    if (role === 'operator') {
+        kelas.value = '';
+        kelas.disabled = true;
+    } else {
+        kelas.disabled = false;
+    }
+}
+
+document.getElementById('role').addEventListener('change', toggleClass);
+
+// jalankan saat pertama load
+window.onload = toggleClass;
+</script>
+
 @endsection

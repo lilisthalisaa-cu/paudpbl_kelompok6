@@ -2,38 +2,32 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UnifiedLoginController;
-use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\RecapController;
 
-// Redirect awal
 Route::get('/', function () {
-    return redirect('/admin/students');
+    return redirect('/login');
 });
 
-// login
-Route::middleware('guest')->group(function () {
+Route::get('/login', [UnifiedLoginController::class, 'create'])->name('login');
+Route::post('/login', [UnifiedLoginController::class, 'store'])->name('login.post');
+Route::post('/logout', [UnifiedLoginController::class, 'logout'])->name('logout');
 
-    Route::get('/login', [UnifiedLoginController::class, 'create'])
-        ->name('login');
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
-    Route::post('/login', [UnifiedLoginController::class, 'store'])
-        ->name('login.post');
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    Route::resource('/teachers', TeacherController::class);
+    Route::resource('/students', StudentController::class);
+
+    // Route::get('/recap/teachers', [RecapController::class, 'teachers'])->name('recap.teachers');
+    // Route::get('/recap/students', [RecapController::class, 'students'])->name('recap.students');
+
 });
 
-// Admin area (auth)
-Route::middleware('auth')->group(function () {
-
-    Route::post('/logout', [UnifiedLoginController::class, 'logout'])
-        ->name('logout');
-
-    Route::prefix('admin')->name('admin.')->group(function () {
-
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
-
-        Route::resource('students', StudentController::class);
-
-        Route::resource('teachers', TeacherController::class);
-    });
+Route::get('/dashboard', function () {
+    return redirect()->route('admin.dashboard');
 });

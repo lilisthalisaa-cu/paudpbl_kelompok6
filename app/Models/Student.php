@@ -16,12 +16,12 @@ class Student extends Model
         'address',
         'parent_name',
         'parent_phone',
-        'class_id',
+        'school_class_id', 
         'is_active'
     ];
 
     public function schoolClass()
     {
-        return $this->belongsTo(SchoolClass::class, 'class_id');
+        return $this->belongsTo(SchoolClass::class, 'school_class_id');
     }
 }

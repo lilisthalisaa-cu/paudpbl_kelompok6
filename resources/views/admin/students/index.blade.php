@@ -22,19 +22,27 @@
         <tr>
           <th>Nama</th>
           <th>NISN</th>
+          <th>Kelas</th>
           <th>Orang Tua</th>
           <th>Telepon</th>
           <th>Status</th>
           <th style="width:180px">Aksi</th>
         </tr>
       </thead>
+
       <tbody>
         @forelse($students as $s)
           <tr>
             <td>{{ $s->name }}</td>
             <td>{{ $s->nisn ?? '-' }}</td>
+
+            <td>
+              {{ optional($s->schoolClass)->name ?? '-' }}
+            </td>
+
             <td>{{ $s->parent_name ?? '-' }}</td>
             <td>{{ $s->parent_phone ?? '-' }}</td>
+
             <td>
               @if($s->is_active)
                 <span class="badge badge-ok">Aktif</span>
@@ -42,8 +50,10 @@
                 <span class="badge badge-off">Nonaktif</span>
               @endif
             </td>
+
             <td>
               <a class="btn btn-outline" href="{{ route('admin.students.edit',$s) }}">Edit</a>
+
               <form method="POST" action="{{ route('admin.students.destroy',$s) }}" style="display:inline" onsubmit="return confirm('Hapus data siswa ini?')">
                 @csrf @method('DELETE')
                 <button class="btn btn-danger" type="submit">Hapus</button>
@@ -52,7 +62,9 @@
           </tr>
         @empty
           <tr>
-            <td colspan="6" class="muted" style="padding:16px;text-align:center;">Belum ada data siswa.</td>
+            <td colspan="7" class="muted" style="padding:16px;text-align:center;">
+              Belum ada data siswa.
+            </td>
           </tr>
         @endforelse
       </tbody>

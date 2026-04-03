@@ -42,7 +42,10 @@ class StudentController extends Controller
             'gender' => ['nullable','in:L,P'],
             'birth_place' => ['nullable','string'],
             'birth_date' => ['nullable','date'],
-            'class_id' => ['nullable', 'exists:school_classes,id'],
+
+            
+            'school_class_id' => ['nullable', 'exists:school_classes,id'],
+
             'parent_name' => ['nullable', 'string'],
             'parent_phone' => ['nullable', 'string'],
             'address' => ['nullable', 'string'],
@@ -71,7 +74,10 @@ class StudentController extends Controller
             'gender' => ['nullable','in:L,P'],
             'birth_place' => ['nullable','string'],
             'birth_date' => ['nullable','date'],
-            'class_id' => ['nullable', 'exists:school_classes,id'],
+
+            
+            'school_class_id' => ['nullable', 'exists:school_classes,id'],
+
             'parent_name' => ['nullable', 'string'],
             'parent_phone' => ['nullable', 'string'],
             'address' => ['nullable', 'string'],

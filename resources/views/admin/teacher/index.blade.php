@@ -26,6 +26,7 @@
           <th>Email</th>
           <th>Telepon</th>
           <th>Kelas</th>
+          <th>Role</th>
           <th>Status</th>
           <th style="width:180px">Aksi</th>
         </tr>
@@ -33,22 +34,23 @@
       <tbody>
         @forelse($teachers as $t)
           <tr>
-            {{-- FIX: name bukan nama --}}
             <td>{{ $t->user->name ?? '-' }}</td>
-
-            {{-- tetap (belum dipakai) --}}
             <td>{{ $t->nip ?? '-' }}</td>
-
-            {{-- sudah benar --}}
             <td>{{ $t->user->email ?? '-' }}</td>
-
-            {{-- tetap --}}
             <td>{{ $t->phone ?? '-' }}</td>
 
-            {{-- FIX: relasi schoolClass --}}
-            <td>{{ $t->schoolClass->name ?? 'Operator' }}</td>
+            {{-- FIX KELAS --}}
+            <td>{{ $t->schoolClass->name ?? '-' }}</td>
 
-            {{-- simplify biar aman --}}
+            {{-- TAMBAH ROLE --}}
+            <td>
+              @if($t->user->role == 'operator')
+                <span style="color:#2563eb;">Operator</span>
+              @else
+                <span style="color:#16a34a;">Guru</span>
+              @endif
+            </td>
+
             <td>
               <span class="badge badge-ok">Aktif</span>
             </td>
@@ -65,7 +67,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="7" class="muted" style="padding:16px;text-align:center">
+            <td colspan="8" class="muted" style="padding:16px;text-align:center">
               Belum ada data guru.
             </td>
           </tr>

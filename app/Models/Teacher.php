@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\SchoolClass;
 
-
 class Teacher extends Model
 {
-    
     protected $fillable = [
-        'user_id', 
-        'school_class_id'
+        'user_id',
+        'school_class_id',
+        'phone',
+        'address',
+        'nip'
     ];
 
     // relasi ke user
@@ -21,14 +22,9 @@ class Teacher extends Model
         return $this->belongsTo(User::class);
     }
 
-    // relasi ke schoolclass 
+    // relasi ke kelas
     public function schoolClass()
     {
         return $this->belongsTo(SchoolClass::class, 'school_class_id');
     }
-
-    // public function attendances()
-    // {
-    //     return $this->hasMany(TeacherAttendance::class);
-    // }
 }

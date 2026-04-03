@@ -26,49 +26,51 @@
           <th>Email</th>
           <th>Telepon</th>
           <th>Kelas</th>
+          <th>Role</th>
           <th>Status</th>
           <th style="width:180px">Aksi</th>
         </tr>
       </thead>
       <tbody>
         @forelse($teachers as $t)
-          <tr>
-            {{-- FIX: name bukan nama --}}
-            <td>{{ $t->user->name ?? '-' }}</td>
+        <tr>
+          <td>{{ $t->user->name ?? '-' }}</td>
+          <td>{{ $t->nip ?? '-' }}</td>
+          <td>{{ $t->user->email ?? '-' }}</td>
+          <td>{{ $t->phone ?? '-' }}</td>
 
-            {{-- tetap (belum dipakai) --}}
-            <td>{{ $t->nip ?? '-' }}</td>
+          {{-- FIX KELAS --}}
+          <td>{{ $t->schoolClass->name ?? '-' }}</td>
 
-            {{-- sudah benar --}}
-            <td>{{ $t->user->email ?? '-' }}</td>
+          {{-- TAMBAH ROLE --}}
+          <td>
+            @if($t->user->role == 'admin')
+            Operator
+            @else
+            Guru
+            @endif
+          </td>
 
-            {{-- tetap --}}
-            <td>{{ $t->phone ?? '-' }}</td>
+          <td>
+            <span class="badge badge-ok">Aktif</span>
+          </td>
 
-            {{-- FIX: relasi schoolClass --}}
-            <td>{{ $t->schoolClass->name ?? 'Operator' }}</td>
+          <td>
+            <a class="btn btn-outline" href="{{ route('admin.teachers.edit',$t) }}">Edit</a>
 
-            {{-- simplify biar aman --}}
-            <td>
-              <span class="badge badge-ok">Aktif</span>
-            </td>
-
-            <td>
-              <a class="btn btn-outline" href="{{ route('admin.teachers.edit',$t) }}">Edit</a>
-
-              <form method="POST" action="{{ route('admin.teachers.destroy',$t) }}" style="display:inline" onsubmit="return confirm('Hapus data guru ini?')">
-                @csrf 
-                @method('DELETE')
-                <button class="btn btn-danger" type="submit">Hapus</button>
-              </form>
-            </td>
-          </tr>
+            <form method="POST" action="{{ route('admin.teachers.destroy',$t) }}" style="display:inline" onsubmit="return confirm('Hapus data guru ini?')">
+              @csrf
+              @method('DELETE')
+              <button class="btn btn-danger" type="submit">Hapus</button>
+            </form>
+          </td>
+        </tr>
         @empty
-          <tr>
-            <td colspan="7" class="muted" style="padding:16px;text-align:center">
-              Belum ada data guru.
-            </td>
-          </tr>
+        <tr>
+          <td colspan="8" class="muted" style="padding:16px;text-align:center">
+            Belum ada data guru.
+          </td>
+        </tr>
         @endforelse
       </tbody>
     </table>

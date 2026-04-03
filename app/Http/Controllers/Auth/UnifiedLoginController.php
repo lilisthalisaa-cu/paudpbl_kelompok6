@@ -10,44 +10,38 @@ use Illuminate\Support\Facades\Auth;
 
 class UnifiedLoginController extends Controller
 {
-    // tampilkan login
     public function create()
     {
         return view('auth.login');
     }
 
-    // proses login
     public function store(Request $request)
-{
-    $request->validate([
-        'login' => 'required',
-        'password' => 'required'
-    ]);
+    {
+        $request->validate([
+            'npsn' => 'required',
+            'password' => 'required'
+        ]);
 
-    $login = $request->login;
-    $password = $request->password;
+        $user = User::where('npsn', $request->npsn)->first();
 
-    $admin = User::where('npsn', $login)->first();
+        if ($user && Hash::check($request->password, $user->password)) {
 
-    if ($admin && Hash::check($password, $admin->password)) {
+            if ($user->role !== 'admin') {
+                return back()->withErrors([
+                    'npsn' => 'Akses hanya untuk admin'
+                ]);
+            }
 
-        if ($admin->role !== 'admin') {
-            return back()->withErrors([
-                'login' => 'Akses hanya untuk admin'
-            ]);
+            Auth::login($user);
+
+            return redirect()->route('admin.dashboard');
         }
 
-        Auth::login($admin);
-
-        return redirect()->route('admin.dashboard');
+        return back()->withErrors([
+            'npsn' => 'NPSN atau password salah'
+        ])->onlyInput('npsn');
     }
 
-    return back()->withErrors([
-        'login' => 'NPSN atau password salah'
-    ])->onlyInput('login');
-}
-
-    // logout
     public function logout(Request $request)
     {
         Auth::logout();

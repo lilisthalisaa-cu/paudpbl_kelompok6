@@ -38,16 +38,16 @@
           <td>{{ $t->nip ?? '-' }}</td>
           <td>{{ $t->user->email ?? '-' }}</td>
           <td>{{ $t->phone ?? '-' }}</td>
-
-          {{-- FIX KELAS --}}
           <td>{{ $t->schoolClass->name ?? '-' }}</td>
-
-          {{-- TAMBAH ROLE --}}
           <td>
-            @if($t->user->role == 'admin')
-            Operator
+            @if($t->user->role == 'operator')
+              Operator
+            @elseif($t->user->role == 'teacher')
+              Guru
+            @elseif($t->user->role == 'admin')
+              Admin
             @else
-            Guru
+              -
             @endif
           </td>
 

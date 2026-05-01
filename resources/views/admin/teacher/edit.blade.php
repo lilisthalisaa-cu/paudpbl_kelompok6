@@ -76,24 +76,4 @@
   </form>
 </div>
 
-
-<script>
-function toggleClass() {
-    let role = document.getElementById('role').value;
-    let kelas = document.getElementById('class_id');
-
-    if (role === 'operator') {
-        kelas.value = '';
-        kelas.disabled = true;
-    } else {
-        kelas.disabled = false;
-    }
-}
-
-document.getElementById('role').addEventListener('change', toggleClass);
-
-// jalankan saat pertama load
-window.onload = toggleClass;
-</script>
-
 @endsection

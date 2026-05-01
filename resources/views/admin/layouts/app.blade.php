@@ -1,62 +1,65 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!doctype html>
+<html lang="id">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@yield('title','Admin PAUD')</title>
+<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 
-    <title>{{ config('app.name', 'PAUD App') }}</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="font-sans antialiased bg-gray-100">
+<body>
 
-    <div class="min-h-screen flex flex-col">
-
-        {{-- Navbar Global --}}
-        <x-navbar />
-
-        {{-- Page Header --}}
-        @isset($header)
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
-
-        {{-- Main Content --}}
-        <main class="flex-1 py-6">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-                {{-- Alert Global --}}
-                @if(session('success'))
-                    <x-alert type="success" :message="session('success')" />
-                @endif
-
-                @if(session('error'))
-                    <x-alert type="error" :message="session('error')" />
-                @endif
-
-                {{-- Page Content --}}
-                @yield('content')
-
-            </div>
-        </main>
-
-        {{-- Footer --}}
-        <footer class="bg-white border-t text-center py-3 text-sm text-gray-500">
-            © {{ date('Y') }} PAUD App. All rights reserved.
-        </footer>
-
+  <div class="topbar">
+    <div class="wrap">
+      <div class="left">
+        <span>Dusun Pasinan Timur, Singojuruh, Banyuwangi</span>
+        <span>kbroudlotulilmisngojuruh@gmail.com</span>
+      </div>
+      <div>+62 821 4518 2975</div>
     </div>
+  </div>
+
+  <div class="navbar">
+    <div class="wrap">
+      <div class="brand">PAUD Raudhatul Ilmi</div>
+
+      <div class="menu">
+        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+        <a href="{{ route('admin.teachers.index') }}">Guru</a>
+        <a href="{{ route('admin.students.index') }}">Siswa</a>
+        <a href="{{ route('admin.payment.index') }}">Pembayaran</a>
+
+        <!-- 🔥 TAMBAHAN CMS -->
+        <a href="{{ route('admin.profile.index') }}"
+          class="{{ request()->routeIs('admin.profile.*') ? 'menu-profil active-profil' : '' }}">
+          Profil
+        </a>
+        <a href="{{ route('admin.gallery.index') }}">Galeri</a>
+
+        <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+          @csrf
+          <button class="btn-orange" type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  @yield('hero')
+  <div class="main-container">
+    @if(session('success'))
+    <div style="background:#ecfdf5;border:1px solid #bbf7d0;color:#065f46;padding:12px;border-radius:12px;margin-bottom:12px;">
+      {{ session('success') }}
+    </div>
+    @endif
+
+    @yield('content')
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

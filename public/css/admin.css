@@ -15,13 +15,80 @@ body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-ser
 .topbar .wrap{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .topbar .left{display:flex;gap:18px;flex-wrap:wrap}
 
-/* NAVBAR */
-.navbar{background:#d1d5db;border-bottom:1px solid var(--gray-200);}
-.navbar .wrap{max-width:1120px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.brand{font-weight:800;color:var(--teal);font-size:18px}
-.menu{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.menu a{color:#111827;text-decoration:none;padding:8px 12px;border-radius:10px}
-.menu a:hover{background:#cbd5e1}
+/* ===== NAVBAR FINAL CLEAN ===== */
+
+.navbar {
+  background: #f3f4f6 !important; /* ⬅️ ini yang lebih mirip gambar kedua */
+  border-bottom: 1px solid #e5e7eb
+}
+
+.navbar .wrap {
+ padding: 6px 24px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+
+ width: 100%;              /* 🔥 penting */
+ max-width: 1200px;       /* 🔥 diperlebar (tadi 1120) */
+ margin: 0 auto;
+ padding-left: 56px;
+ padding-right: 16px;
+}
+
+/* BRAND */
+.brand {
+  font-weight: 800;
+  font-size: 16px;
+  color: #0f766e; /* 🔥 samain sama topbar */
+}
+
+.navbar .brand {
+  color: #0f766e !important;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  gap: 32px !important
+}
+
+/* 🔥 UKURAN FONT */
+.menu a {
+  font-weight: 500 !important;   /* ⬅️ lebih tipis dari bold */
+  color: #6b7280 !important;     /* ⬅️ abu soft */
+  font-size: 15px;
+}
+
+.menu a:hover {
+  color: #0f766e !important; 
+}
+
+/* LOGOUT */
+.btn-orange {
+  background: #f59e0b;
+  color: white;
+  border: none;
+
+  padding: 10px 20px;
+  border-radius: 999px;
+
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.menu a {
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 15px;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.menu a:hover {
+  color: #0f766e;
+  background: #e0f2f1;
+}
 .btn-orange{background:var(--orange);border:none;color:#fff;padding:10px 16px;border-radius:999px;font-weight:800;cursor:pointer}
 .btn-orange:hover{opacity:.9}
 
@@ -80,14 +147,19 @@ body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-ser
 
 /* TABLE */
 .table-wrap{overflow:auto;border-radius:14px;border:1px solid var(--gray-200);background:#fff}
-.table{width:100%;min-width:980px;border-collapse:separate;border-spacing:0;background:#fff}
+.table{
+  width: 100%;
+  min-width: unset; /* 🔥 ini kunci */
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+}
 .table th{background:#eef2f7;text-align:left;font-size:13px;padding:12px;border-bottom:1px solid var(--gray-200)}
 .table td{padding:12px;border-bottom:1px solid var(--gray-200);font-size:14px}
 .table tr:last-child td{border-bottom:none}
 .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid}
 .badge-ok{background:#ecfdf5;color:#065f46;border-color:#bbf7d0}
 .badge-off{background:#f3f4f6;color:#4b5563;border-color:#e5e7eb}
-
 .th-center,.td-center{text-align:center}
 .th-right,.td-right{text-align:right}
 .nowrap{white-space:nowrap}
@@ -110,4 +182,549 @@ body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-ser
   .stats-grid{grid-template-columns:1fr}
   .form{grid-template-columns:1fr;}
   .table{min-width:820px}
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-lunas {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-belum {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
+button {
+  border: none;
+}
+
+.parent-card {
+  border-radius: 16px;
+}
+
+.border-end {
+  border-right: 2px solid #e5e7eb !important;
+}
+
+.payment-header {
+  background: linear-gradient(135deg, #0f766e, #0284c7);
+  color: white;
+  padding: 20px;
+  border-radius: 16px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.payment-box {
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background: white;
+}
+
+/* TABLE */
+.custom-table th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+.custom-table td {
+  vertical-align: middle;
+}
+
+/* BADGE */
+.badge-success {
+  background: #dcfce7;
+  color: #166534;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.badge-danger {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* EMPTY */
+.empty-state {
+  padding: 30px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+
+
+/* =========================
+   PARENT DASHBOARD ENHANCEMENT
+   ========================= */
+
+.parent-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* HERO */
+.parent-hero {
+  background: linear-gradient(135deg, #0f766e, #0ea5e9);
+  color: white;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.parent-hero h2 {
+  margin: 0;
+}
+
+.parent-hero p {
+  margin-top: 6px;
+  opacity: 0.9;
+}
+
+/* CARD UPGRADE */
+.parent-card {
+  transition: all 0.3s ease;
+}
+
+.parent-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.08);
+}
+
+/* GRID */
+.parent-grid {
+  gap: 16px;
+}
+
+/* STAT */
+.parent-stat {
+  background: #f9fafb;
+  transition: 0.3s;
+}
+
+.parent-stat:hover {
+  background: #eef6ff;
+  transform: scale(1.02);
+}
+
+/* HIGHLIGHT */
+.parent-stat.highlight {
+  background: linear-gradient(135deg, #ecfeff, #dbeafe);
+}
+
+/* EMPTY STATE */
+.parent-empty {
+  padding: 16px;
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+}
+/* TEACHER DASHBOARD ENHANCEMENT */
+
+.teacher-grid {
+  gap: 18px;
+}
+
+.teacher-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: 0.3s;
+}
+
+.teacher-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+}
+
+.teacher-stat .icon {
+  font-size: 28px;
+}
+.parent-grid a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.parent-stat {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.parent-stat:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+/* MENU PARENT YANG LEBIH ELEGAN */
+.parent-menu {
+  display: block;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f9fafb;
+  text-decoration: none;
+  transition: 0.25s;
+  border: 1px solid #eee;
+}
+
+.parent-menu:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  background: #f1f5ff;
+}
+
+/* JUDUL KECIL */
+.parent-menu small {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+/* LINK UTAMA */
+.parent-menu p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2563eb; /* 🔵 BIRU */
+  margin: 0;
+}
+
+/* HOVER LINK */
+.parent-menu:hover p {
+  text-decoration: underline;
+}
+/* CARD INFO LEBIH SOFT */
+.parent-info {
+  padding: 18px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #eee;
+  transition: 0.25s;
+}
+
+.parent-info:hover {
+  background: #f1f5ff;
+}
+
+/* LABEL */
+.parent-info small {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+/* VALUE (DIKECILKAN!) */
+.parent-info h3 {
+  margin: 0;
+  font-size: 18px; /* 🔥 ini yang bikin gak berat */
+  font-weight: 600;
+  color: #111827;
+}
+
+/* =========================
+   TEACHER DASHBOARD MENU (SAMAKAN DENGAN PARENT)
+   ========================= */
+
+.card-menu {
+  display: block;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #eee;
+  transition: 0.25s;
+}
+
+.card-menu:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  background: #f1f5ff;
+}
+
+/* 🔥 JUDUL KECIL (Absensi Guru dll) */
+.menu-title {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+
+/* 🔥 LINK (Buka Form) */
+.card-action {
+   font-size: 16px;
+  font-weight: 600;
+  color: #2563eb; /* 🔵 BIRU */
+  margin: 0;
+}
+
+/* hover sama parent */
+.card-menu:hover .card-action {
+  text-decoration: underline;
+}
+
+/* 🔥 FIX ZEBRA TABLE (LEBIH KUAT) */
+.table tbody tr:nth-child(odd) td {
+  background-color: #f9fafb !important;
+}
+
+.table tbody tr:nth-child(even) td {
+  background-color: #ffffff !important;
+}
+
+/* 🔥 HOVER */
+.table tbody tr:hover td {
+  background-color: #e0f2fe !important;
+}
+/* LOCK BRAND AGAR TIDAK KETARIK STYLE LAIN */
+.navbar .brand {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0;
+  color: #065f46;
+}
+/* ================= WEBSITE ================= */
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 500px;
+  background: url('/images/LogoPaud.jpeg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.hero-content {
+  position: relative;
+  color: white;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: 800;
+}
+
+.hero h1 span {
+  color: #f59e0b;
+}
+
+/* BUTTON */
+.btn-primary {
+  background: #f59e0b;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.btn-outline {
+  border: 1px solid white;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+/* FOOTER */
+footer {
+  background: #1f2937;
+  color: white;
+  padding: 40px 20px;
+  margin-top: 50px;
+}
+.hero h1 {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.hero p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.hero-buttons {
+  margin-top: 20px;
+}
+
+.hero-buttons a {
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #d97706;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: black;
+}
+
+
+/* HEADER */
+.card-table {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  border: 2px solid #e5e7eb;
+
+  padding: 24px; /* 🔥 INI KUNCINYA */
+}
+
+/* BUTTON BIRU */
+.btn-add {
+  background: #2563eb;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-add:hover {
+  background: #1d4ed8;
+}
+
+.card-table {
+  background: #ffffff;
+  border-radius: 16px;
+
+  /* 🔥 PERKUAT SHADOW */
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+
+  /* 🔥 TAMBAH BORDER BIAR KELIATAN */
+  border: 1px solid #e5e7eb;
+
+  overflow: hidden;
+  margin-top: 20px;
+}
+/* TABLE */
+.table-custom {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-custom th {
+  background: #f3f4f6;
+  padding: 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.table-custom td {
+  padding: 18px;
+  border-top: 1px solid #eee;
+  vertical-align: middle;
+  margin-top: 25px;
+}
+
+/* HOVER */
+.table-custom tr:hover {
+  background: #f9fafb;
+}
+
+/* IMAGE */
+.img-table {
+  width: 130px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ACTION */
+.action-btn {
+  display: flex;
+  gap: 10px;
+}
+
+/* BUTTON EDIT */
+.btn-edit {
+  background: #0f766e;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* BUTTON DELETE */
+.btn-delete {
+  background: #ef4444;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* EMPTY */
+.table-empty {
+  text-align: center;
+  padding: 30px;
+  color: #6b7280;
+}
+
+/* FOOTER */
+.table-footer {
+  margin-top: 12px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.main-container {
+  max-width: 1120px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.main-container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.card-table {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+
+  border: 2px solid #e5e7eb; /* 🔥 ganti ini saja */
+}
+
+.btn-add-profile {
+  margin-bottom: 20px;  
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #000;
+  text-transform: capitalize;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 15px;
 }

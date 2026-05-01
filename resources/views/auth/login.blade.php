@@ -2,47 +2,38 @@
 
 <div class="auth-card">
   <div class="auth-head">
-    <h1>Login Admin</h1>
-    <p>Masuk untuk mengelola data guru, siswa, dan rekap absensi.</p>
+    <h1>Login Sistem</h1>
+    <p>Masuk sebagai admin, guru, atau orang tua.</p>
   </div>
 
   <div class="auth-body">
-
-    {{-- Alert Error --}}
     @if ($errors->any())
-        <x-alert type="error" :message="$errors->first()" />
+      <div class="auth-error">{{ $errors->first() }}</div>
     @endif
 
-    {{-- Alert Success (Opsional) --}}
-    @if(session('success'))
-        <x-alert type="success" :message="session('success')" />
-    @endif
-
-    <form method="POST" action="{{ route('login.post') }}" class="auth-form">
+    <form method="POST" action="{{ route('login') }}" class="auth-form">
       @csrf
 
       <div class="field">
-        <label class="label" for="npsn">NPSN</label>
-        <input 
-          id="npsn"
-          class="input"
-          type="text"
-          name="npsn"
-          value="{{ old('npsn') }}"
-          required
-          autofocus
-          placeholder="Masukkan NPSN">
+        <label class="label" for="username">Username</label>
+        <input id="username"
+               class="input"
+               type="text"
+               name="username"
+               value="{{ old('username') }}"
+               required
+               autofocus
+               placeholder="NPSN / Email / NISN">
       </div>
 
       <div class="field">
         <label class="label" for="password">Password</label>
-        <input 
-          id="password"
-          class="input"
-          type="password"
-          name="password"
-          required
-          placeholder="Masukkan password">
+        <input id="password"
+               class="input"
+               type="password"
+               name="password"
+               required
+               placeholder="Masukkan password">
       </div>
 
       <div class="auth-footer">
@@ -52,7 +43,6 @@
         </button>
       </div>
     </form>
-
   </div>
 </div>
 

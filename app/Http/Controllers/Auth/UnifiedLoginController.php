@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-
-// ⬇️ TAMBAHAN SPRINT 2
 use App\Models\Teacher;
 use App\Models\ParentAccount;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UnifiedLoginController extends Controller
 {
@@ -22,65 +20,62 @@ class UnifiedLoginController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'npsn' => 'required',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
-        
-        $user = User::where('npsn', $request->npsn)->first();
+        $username = $request->username;
+        $password = $request->password;
 
-        if ($user && Hash::check($request->password, $user->password)) {
+        $admin = User::where('npsn', $username)->first();
+        if ($admin && Hash::check($password, $admin->password)) {
 
-            if ($user->role !== 'admin') {
-                return back()->withErrors([
-                    'npsn' => 'Akses hanya untuk admin'
-                ]);
-            }
-
-            Auth::login($user);
-
+            Auth::login($admin);
             return redirect()->route('admin.dashboard');
         }
 
-        // ======================
-        // SPRINT 2 (TAMBAHAN)
-        // ======================
+        $teacher = Teacher::whereHas('user', function ($q) use ($username) {
+            $q->where('email', $username);
+        })->first();
 
-        // LOGIN TEACHER
-        $teacher = Teacher::where('npsn', $request->npsn)->first();
+        if ($teacher && Hash::check($password, $teacher->user->password)) {
 
-        if ($teacher && Hash::check($request->password, $teacher->password)) {
-
-            Auth::guard('teacher')->login($teacher);
-
+            Auth::login($teacher->user);
             return redirect()->route('teacher.dashboard');
         }
 
-        // LOGIN PARENT
-        $parent = ParentAccount::where('npsn', $request->npsn)->first();
+        $parent = ParentAccount::where('nisn', $username)->first();
 
-        if ($parent && Hash::check($request->password, $parent->password)) {
+        if ($parent && Hash::check($password, $parent->password)) {
 
-            Auth::guard('parent')->login($parent);
+            session([
+                'parent_id' => $parent->id,
+                'parent_name' => $parent->parent_name
+            ]);
 
             return redirect()->route('parent.dashboard');
         }
 
         return back()->withErrors([
-            'npsn' => 'NPSN atau password salah'
-        ])->onlyInput('npsn');
+            'username' => 'Username atau password salah'
+        ]);
     }
 
-    public function logout(Request $request)
+    public function destroy(Request $request)
     {
         Auth::logout();
 
-        Auth::guard('teacher')->logout();
-        Auth::guard('parent')->logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        session()->forget([
+            'parent_id',
+            'parent_name'
+        ]);
 
         return redirect()->route('login');
+    }
+
+    
+    public function logout(Request $request)
+    {
+        return $this->destroy($request);
     }
 }

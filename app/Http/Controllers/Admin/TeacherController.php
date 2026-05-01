@@ -7,7 +7,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -41,10 +41,10 @@ class TeacherController extends Controller
             'email' => ['required','email','max:255','unique:users,email'],
             'password' => ['required','string','min:6'],
             'role' => ['required','in:teacher,operator'],
-            'class_id' => ['nullable','exists:school_classes,id'], 
-            'phone' => ['nullable','string','max:20'], 
-            'address' => ['nullable','string','max:255'], 
-            'nip' => ['nullable','string','max:50'], 
+            'class_id' => ['nullable','exists:school_classes,id'],
+            'phone' => ['nullable','string','max:20'],
+            'address' => ['nullable','string','max:255'],
+            'nip' => ['nullable','string','max:50'],
         ]);
 
         $user = User::create([
@@ -56,9 +56,7 @@ class TeacherController extends Controller
 
         Teacher::create([
             'user_id' => $user->id,
-            'school_class_id' => $data['role'] === 'operator'
-                ? null
-                : ($data['class_id'] ?? null),
+            'school_class_id' => $data['class_id'] ?? null, 
             'phone' => $data['phone'] ?? null,
             'address' => $data['address'] ?? null,
             'nip' => $data['nip'] ?? null,
@@ -80,7 +78,7 @@ class TeacherController extends Controller
             'nama' => ['required','string','max:255'],
             'email' => ['required','email','max:255','unique:users,email,' . $teacher->user->id],
             'role' => ['required','in:teacher,operator'],
-            'class_id' => ['nullable','exists:school_classes,id'], 
+            'class_id' => ['nullable','exists:school_classes,id'],
             'phone' => ['nullable','string','max:20'],
             'address' => ['nullable','string','max:255'],
             'nip' => ['nullable','string','max:50'],
@@ -95,9 +93,7 @@ class TeacherController extends Controller
 
         // update teacher
         $teacher->update([
-            'school_class_id' => $data['role'] === 'operator'
-                ? null
-                : ($data['class_id'] ?? null),
+            'school_class_id' => $data['class_id'] ?? null,
             'phone' => $data['phone'] ?? null,
             'address' => $data['address'] ?? null,
             'nip' => $data['nip'] ?? null,
@@ -109,7 +105,6 @@ class TeacherController extends Controller
 
     public function destroy(Teacher $teacher)
     {
-        
         DB::transaction(function () use ($teacher) {
             $teacher->user->delete();
             $teacher->delete();

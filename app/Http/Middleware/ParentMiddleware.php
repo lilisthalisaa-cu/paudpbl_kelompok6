@@ -10,10 +10,10 @@ class ParentMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // cek session login parent
+        // Cek apakah parent sudah login (pakai session)
         if (!session()->has('parent_id')) {
-            return redirect()->route('parent.login')
-                ->with('error', 'Silakan login terlebih dahulu');
+            return redirect()->route('login') // arahkan ke login utama
+                ->with('error', 'Silakan login sebagai orang tua terlebih dahulu');
         }
 
         return $next($request);

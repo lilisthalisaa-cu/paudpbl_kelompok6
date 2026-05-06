@@ -1,31 +1,55 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 
-<div class="container mt-4">
-    <h3>Tambah Profile</h3>
+<div class="container">
 
-    <form method="POST" action="{{ route('admin.profile.store') }}" enctype="multipart/form-data">
-        @csrf
+    <div class="card">
 
-        <div class="mb-3">
-            <label>Judul</label>
-            <input type="text" name="title" class="form-control" required>
+        <!-- HEADER -->
+        <div class="card-head">
+            <div>
+                <h3 class="card-title">Tambah Profile</h3>
+                <p class="muted">Isi data profile untuk ditampilkan.</p>
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label>Deskripsi</label>
-            <textarea name="description" class="form-control"></textarea>
-        </div>
+        <!-- FORM -->
+        <form method="POST" action="{{ route('admin.profile.store') }}" enctype="multipart/form-data">
+            @csrf
 
-        <div class="mb-3">
-            <label>Gambar (Opsional)</label>
-            <input type="file" name="image" class="form-control">
-        </div>
+            <div class="form">
 
-        <button class="btn btn-success">Simpan</button>
-        <a href="{{ route('admin.profile.index') }}" class="btn btn-secondary">Kembali</a>
-    </form>
+                <!-- JUDUL -->
+                <div class="full">
+                    <label class="label">Judul</label>
+                    <input type="text" name="title" class="input" required>
+                </div>
+
+                <!-- DESKRIPSI -->
+                <div class="full">
+                    <label class="label">Deskripsi</label>
+                    <textarea name="description" class="textarea"></textarea>
+                </div>
+
+                <!-- GAMBAR -->
+                <div class="full">
+                    <label class="label">Gambar (Opsional)</label>
+                    <input type="file" name="image" class="input">
+                </div>
+
+            </div>
+
+            <!-- BUTTON -->
+            <div class="actions">
+                  <button class="btn-update-fix">Simpan</button>
+                <a href="{{ route('admin.profile.index') }}" class="btn btn-outline">Kembali</a>
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
 
 @endsection

@@ -3,69 +3,92 @@
 @section('content')
 
 <div class="card-table">
-    <div class="card-header">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-start mb-3">
+
         <div>
-            <h3 class="title">Data Profile</h3>
+            <h2 class="title">Data Profile</h2>
             <p class="subtitle">Kelola data profile PAUD.</p>
+        </div>
 
-            <a href="{{ route('admin.profile.create') }}" class="btn-orange btn-add-profile">
-                + Tambah Profile
-            </a>
+        <a href="{{ route('admin.profile.create') }}" class="btn-add">
+            + Tambah Profile
+        </a>
 
-            <div class="card-table">
+    </div>
 
-                <table class="table-custom">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Judul</th>
-                            <th>Deskripsi</th>
-                            <th>Gambar</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
+    <!-- SEARCH -->
+    <form method="GET" class="mb-3">
+        <div class="d-flex gap-2">
+            <input 
+                type="text" 
+                name="q" 
+                value="{{ request('q') }}"
+                class="form-control" 
+                placeholder="Cari judul / deskripsi..."
+                style="max-width:300px;"
+            >
+            <button class="btn btn-secondary">Cari</button>
+        </div>
+    </form>
 
-                    <tbody>
-                        @forelse($profiles as $key => $profile)
-                        <tr>
-                            <td>{{ $key + 1 }}</td>
-                            <td>{{ $profile->title }}</td>
-                            <td>{{ Str::limit($profile->description, 50) }}</td>
+    <!-- TABLE -->
+    <div class="table-wrap">
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Deskripsi</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
 
-                            <td>
-                                @if($profile->image)
-                                <img src="{{ asset('storage/' . $profile->image) }}" class="img-table">
-                                @else
-                                -
-                                @endif
-                            </td>
+            <tbody>
+                @forelse($profiles as $key => $profile)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $profile->title }}</td>
+                    <td>{{ Str::limit($profile->description, 50) }}</td>
 
-                            <td>
-                                <div class="action-btn">
-                                    <a href="{{ route('admin.profile.edit', $profile->id) }}" class="btn-edit">
-                                        Edit
-                                    </a>
+                    <td>
+                        @if($profile->image)
+                            <img src="{{ asset('storage/' . $profile->image) }}" class="img-table">
+                        @else
+                            -
+                        @endif
+                    </td>
 
-                                    <form action="{{ route('admin.profile.destroy', $profile->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn-delete">Hapus</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                    <td>
+                        <div class="action-btn">
+                            <a href="{{ route('admin.profile.edit', $profile->id) }}" class="btn-edit">
+                                Edit
+                            </a>
 
-                        @empty
-                        <tr>
-                            <td colspan="5" class="table-empty">
-                                Belum ada data profile
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                            <form action="{{ route('admin.profile.destroy', $profile->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button onclick="return confirm('Yakin hapus?')" class="btn-delete">
+                                    Hapus
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
 
+                @empty
+                <tr>
+                    <td colspan="5" class="table-empty">
+                        Belum ada data profile
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
-            </div>
+</div>
 
-            @endsection
+@endsection

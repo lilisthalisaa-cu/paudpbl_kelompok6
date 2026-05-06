@@ -30,13 +30,21 @@
         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
         <a href="{{ route('admin.teachers.index') }}">Guru</a>
         <a href="{{ route('admin.students.index') }}">Siswa</a>
+
+        <!-- 🔥 TAMBAHAN REKAP (TANPA MENGUBAH YANG LAIN) -->
+        <a href="{{ route('admin.rekap.index') }}"
+          class="{{ request()->routeIs('admin.rekap.*') ? 'active' : '' }}">
+          Rekap
+        </a>
+
         <a href="{{ route('admin.payment.index') }}">Pembayaran</a>
 
-        <!-- 🔥 TAMBAHAN CMS -->
+        <!-- 🔥 CMS -->
         <a href="{{ route('admin.profile.index') }}"
           class="{{ request()->routeIs('admin.profile.*') ? 'menu-profil active-profil' : '' }}">
           Profil
         </a>
+
         <a href="{{ route('admin.gallery.index') }}">Galeri</a>
 
         <form method="POST" action="{{ route('logout') }}" style="margin:0;">
@@ -48,6 +56,7 @@
   </div>
 
   @yield('hero')
+
   <div class="main-container">
     @if(session('success'))
     <div style="background:#ecfdf5;border:1px solid #bbf7d0;color:#065f46;padding:12px;border-radius:12px;margin-bottom:12px;">

@@ -1,37 +1,65 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 
-<div class="container mt-4">
-    <h3>Edit Profile</h3>
+<div class="container">
 
-    <form method="POST" action="{{ route('admin.profile.update', $data->id) }}" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
+    <div class="card">
 
-        <div class="mb-3">
-            <label>Judul</label>
-            <input type="text" name="title" class="form-control"
-                   value="{{ $data->title }}" required>
+        <!-- HEADER -->
+        <div class="card-head">
+            <div>
+                <h3 class="card-title">Edit Profile</h3>
+                <p class="muted">Perbarui data profile yang sudah ada.</p>
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label>Deskripsi</label>
-            <textarea name="description" class="form-control">{{ $data->description }}</textarea>
-        </div>
+        <!-- FORM -->
+        <form method="POST" action="{{ route('admin.profile.update', $profile->id) }}" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-        <div class="mb-3">
-            <label>Gambar (Opsional)</label>
-            <input type="file" name="image" class="form-control">
-        </div>
+            <div class="form">
 
-        @if($data->image)
-            <img src="{{ asset('storage/'.$data->image) }}" width="120" class="mb-3">
-        @endif
+                <!-- JUDUL -->
+                <div class="full">
+                    <label class="label">Judul</label>
+                    <input type="text" name="title" class="input"
+                           value="{{ $profile->title }}" required>
+                </div>
 
-        <button class="btn btn-success">Update</button>
-        <a href="{{ route('admin.profile.index') }}" class="btn btn-secondary">Kembali</a>
-    </form>
+                <!-- DESKRIPSI -->
+                <div class="full">
+                    <label class="label">Deskripsi</label>
+                    <textarea name="description" class="textarea">{{ $profile->description }}</textarea>
+                </div>
+
+                <!-- GAMBAR -->
+                <div class="full">
+                    <label class="label">Gambar (Opsional)</label>
+                    <input type="file" name="image" class="input">
+                </div>
+
+                <!-- PREVIEW GAMBAR -->
+                @if($profile->image)
+                <div class="full">
+                    <label class="label">Gambar Saat Ini</label>
+                    <img src="{{ asset('storage/'.$profile->image) }}" class="img-table">
+                </div>
+                @endif
+
+            </div>
+
+            <!-- BUTTON -->
+            <div class="actions">
+                <button class="btn-update-fix">Update</button>
+                <a href="{{ route('admin.profile.index') }}" class="btn btn-outline">Kembali</a>
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
 
 @endsection

@@ -34,8 +34,7 @@ class RekapAbsensiController extends Controller
         'total' => $data->count()
     ];
 
-        // sementara pakai JSON dulu buat test
-        return response()->json($rekap);
+       return view('admin.rekap.siswa', compact('rekap'));
     }
 
     // ========================
@@ -56,8 +55,7 @@ class RekapAbsensiController extends Controller
         'total' => $data->count()
     ];
 
-        // sementara pakai JSON dulu buat test
-        return response()->json($rekap);
+       return view('admin.rekap.guru', compact('rekap'));
     }
 
     // ========================

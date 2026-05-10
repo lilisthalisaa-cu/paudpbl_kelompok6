@@ -4,43 +4,98 @@
 
 @section('content')
 
-<div class="container dashboard-page"> <!-- 🔥 INI KUNCI -->
+<div class="card parent-dashboard-card">
 
-  <div class="card parent-card">
+  <div class="card-head">
 
-    <div class="card-head">
-      <div>
-        <h2 class="card-title">Dashboard Orang Tua 👋</h2>
+    <div>
 
-         <div class="muted">
-        Selamat datang, <strong>{{ $parent->name ?? 'Orang Tua' }}</strong>
-        </div>
+      <h2 class="card-title">
+        Dashboard Orang Tua 👋
+      </h2>
+
+      <div class="muted">
+        Selamat datang,
+        <strong>{{ $parent->name ?? 'Orang Tua' }}</strong>
       </div>
-    </div>
-
-    <div class="stats-grid parent-grid">
-
-      <a href="{{ route('parent.student') }}" class="parent-menu">
-        <small>Informasi Anak</small>
-        <p>Lihat Data →</p>
-      </a>
-
-      <a href="{{ route('parent.development') }}" class="parent-menu">
-        <small>Perkembangan Anak</small>
-        <p>Lihat Perkembangan →</p>
-      </a>
-
-      <a href="{{ route('parent.activity') }}" class="parent-menu">
-        <small>Kegiatan Harian</small>
-        <p>Lihat Kegiatan →</p>
-      </a>
-
-      <a href="{{ route('parent.payment') }}" class="parent-menu">
-        <small>Pembayaran SPP</small>
-        <p>Lihat Pembayaran →</p>
-      </a>
 
     </div>
+
+  </div>
+
+  <div class="grid teacher-grid">
+
+    {{-- INFORMASI ANAK --}}
+    <a href="{{ route('parent.student') }}"
+       class="card-menu">
+
+      <div style="font-size:30px;">
+        👦
+      </div>
+
+      <span class="menu-title">
+        Informasi Anak
+      </span>
+
+      <div class="card-action">
+        Lihat Data →
+      </div>
+
+    </a>
+
+    {{-- PERKEMBANGAN --}}
+    <a href="{{ route('parent.development') }}"
+       class="card-menu">
+
+      <div style="font-size:30px;">
+        📈
+      </div>
+
+      <span class="menu-title">
+        Perkembangan Anak
+      </span>
+
+      <div class="card-action">
+        Lihat Perkembangan →
+      </div>
+
+    </a>
+
+    {{-- KEGIATAN --}}
+    <a href="{{ route('parent.activity') }}"
+       class="card-menu">
+
+      <div style="font-size:30px;">
+        📘
+      </div>
+
+      <span class="menu-title">
+        Kegiatan Harian
+      </span>
+
+      <div class="card-action">
+        Lihat Kegiatan →
+      </div>
+
+    </a>
+
+    {{-- PEMBAYARAN --}}
+    <a href="{{ route('parent.payment') }}"
+       class="card-menu">
+
+      <div style="font-size:30px;">
+        💳
+      </div>
+
+      <span class="menu-title">
+        Pembayaran SPP
+      </span>
+
+      <div class="card-action">
+        Lihat Pembayaran →
+      </div>
+
+    </a>
 
   </div>
 

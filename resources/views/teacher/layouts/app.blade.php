@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title', 'Teacher Dashboard')</title>
 
-  {{-- CSS UTAMA --}}
-  <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/teacher.css?v=50') }}">
 </head>
 <body>
 
@@ -16,22 +15,31 @@
         <span>Dusun Pasinan Timur, Singojuruh, Banyuwangi</span>
         <span>kbroudlotulilmisngojuruh@gmail.com</span>
       </div>
-      <div>+62 821 4518 2975</div>
+
+      <div>
+        +62 821 4518 2975
+      </div>
     </div>
   </div>
 
   <div class="navbar">
-    <div class="wrap">
+    <div class="wrap navbar-wrap">
 
-      {{-- BRAND (PAKAI CSS ASLI) --}}
-      <div class="brand">PAUD Raudhatul Ilmi</div>
+      <div class="brand">
+       KB Roudlotul Ilmi
+      </div>
 
       <div class="menu">
-        <a href="{{ route('teacher.dashboard') }}">Dashboard</a>
+        <a href="{{ route('teacher.dashboard') }}">
+          Dashboard
+        </a>
 
         <form method="POST" action="{{ route('logout') }}" style="display:inline;">
           @csrf
-          <button type="submit" class="btn-orange">Logout</button>
+
+          <button type="submit" class="btn-orange">
+            Logout
+          </button>
         </form>
       </div>
 

@@ -2,27 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Student;
+use App\Models\Teacher;
 
 class TeacherStudentController extends Controller
 {
     public function index()
     {
-    $classId = Auth::user()->teacher->school_class_id;
+        $user = Auth::user();
 
-    $students = Student::with('schoolClass')
-        ->where('school_class_id', $classId)
-        ->get();
+        $teacher = Teacher::where('user_id', $user->id)->first();
 
-    return view('teacher.students.index', compact('students'));
+        if (!$teacher) {
+
+            return view(
+                'teacher.students.index',
+                [
+                    'students' => collect()
+                ]
+            );
+        }
+
+        $students = Student::with('schoolClass')
+
+            ->where(
+                'school_class_id',
+                $teacher->school_class_id
+            )
+
+            ->orderBy('name')
+
+            ->get();
+
+        return view(
+            'teacher.students.index',
+            compact('students')
+        );
     }
 
     public function show($id)
     {
-        // 🔥 juga pakai with
-        $student = Student::with('schoolClass')->findOrFail($id);
+        $user = Auth::user();
 
-        return view('teacher.students.show', compact('student'));
+        $teacher = Teacher::where(
+            'user_id',
+            $user->id
+        )->first();
+
+        if (!$teacher) {
+            abort(403);
+        }
+
+        $student = Student::with('schoolClass')
+
+            ->where(
+                'school_class_id',
+                $teacher->school_class_id
+            )
+
+            ->findOrFail($id);
+
+        return view(
+            'teacher.students.show',
+            compact('student')
+        );
     }
 }

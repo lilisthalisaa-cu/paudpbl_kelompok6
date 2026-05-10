@@ -1,95 +1,175 @@
 @extends('teacher.layouts.app')
 
-@section('title', 'Input Kegiatan Siswa')
+@section('title','Input Kegiatan Siswa')
 
 @section('content')
 
-<style>
-input, textarea, select {
-  font-family: inherit;
-}
+<div class="card activity-card">
 
-input[type="date"] {
-  font-family: inherit;
-  font-size: 14px;
-}
+    <div class="card-head top-head">
 
-::placeholder {
-  font-family: inherit;
-  font-size: 14px;
-  color: #9ca3af;
-}
+        <div>
+            <h2 class="card-title">
+                Input Kegiatan Harian
+            </h2>
 
-.card-title {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
-  font-weight: 800 !important; /* 🔥 lebih gemuk */
-  font-size: 18px !important;  /* 🔥 sedikit lebih kecil */
-  letter-spacing: 0px !important;
-  color: #000000 !important;
-}
-</style>
+            <div class="muted">
+                Input kegiatan seluruh siswa dalam 1 hari.
+            </div>
+        </div>
 
-<div class="card">
-  <div class="card-head">
-    <div>
-      <h2 class="card-title">Input Kegiatan Siswa</h2>
-      <div class="muted">Isi kegiatan harian siswa.</div>
+        <a href="{{ route('teacher.activity.index') }}"
+           class="btn-outline-activity">
+
+            Lihat Data Kegiatan
+
+        </a>
+
     </div>
 
-    {{-- 🔥 TAMBAHAN (TIDAK MENGUBAH YANG LAIN) --}}
-    <a href="{{ route('teacher.activity.index') }}" class="btn btn-outline" style="
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-weight:600;
-    ">
-      Lihat Data Kegiatan
-    </a>
+    @if(session('success'))
 
-  </div>
+        <div class="success-box">
+            {{ session('success') }}
+        </div>
 
-  @if(session('success'))
-    <div class="auth-error" style="color:green;">{{ session('success') }}</div>
-  @endif
+    @endif
 
-  <form method="POST" action="{{ route('teacher.activity.store') }}" class="auth-form" enctype="multipart/form-data">
-    @csrf
+    <form method="POST"
+          action="{{ route('teacher.activity.store') }}"
+          enctype="multipart/form-data">
 
-    <div class="field">
-      <label class="label">Tanggal</label>
-      <input type="date" name="date" class="input" value="{{ date('Y-m-d') }}" required>
-    </div>
+        @csrf
 
-    <div class="field">
-      <label class="label">Siswa</label>
-      <select name="student_id" class="input" required>
-        <option value="">Pilih Siswa</option>
-        @foreach($students as $student)
-          <option value="{{ $student->id }}">{{ $student->name }} - {{ $student->nisn }}</option>
-        @endforeach
-      </select>
-    </div>
+        <div class="activity-top-form">
 
-    <div class="field">
-      <label class="label">Judul Kegiatan</label>
-      <input type="text" name="title" class="input" required placeholder="Contoh: Belajar mewarnai">
-    </div>
+            <div>
+                <label class="label">
+                    Tanggal
+                </label>
 
-    <div class="field">
-      <label class="label">Deskripsi</label>
-      <textarea name="description" class="input" placeholder="Keterangan kegiatan"></textarea>
-    </div>
+                <input type="date"
+                       name="date"
+                       class="input"
+                       value="{{ date('Y-m-d') }}">
+            </div>
 
-    <div class="field">
-      <label class="label">Foto Kegiatan</label>
-      <input type="file" name="photo" class="input" accept="image/*">
-    </div>
+            <div>
+                <label class="label">
+                    Pelajaran 1
+                </label>
 
-    <div class="auth-footer">
-      <div></div>
-      <button type="submit" class="btn btn-primary">Simpan</button>
-    </div>
-  </form>
+                <input type="text"
+                       name="title_1"
+                       class="input"
+                       placeholder="Contoh: Mewarnai">
+            </div>
+
+            <div>
+                <label class="label">
+                    Pelajaran 2
+                </label>
+
+                <input type="text"
+                       name="title_2"
+                       class="input"
+                       placeholder="Contoh: Bernyanyi">
+            </div>
+
+            <div>
+                <label class="label">
+                    Pelajaran 3
+                </label>
+
+                <input type="text"
+                       name="title_3"
+                       class="input"
+                       placeholder="Contoh: Senam">
+            </div>
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table class="activity-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Nama Siswa</th>
+                        <th>Kegiatan 1</th>
+                        <th>Kegiatan 2</th>
+                        <th>Kegiatan 3</th>
+                        <th>Foto Hasil Karya</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach($students as $student)
+
+                    <tr>
+
+                        <td class="student-name">
+                            {{ $student->name }}
+                        </td>
+
+                        <td>
+                            <textarea
+                                name="activities[{{ $student->id }}][desc_1]"
+                                class="input activity-textarea"
+                                placeholder="Keterangan kegiatan"></textarea>
+                        </td>
+
+                        <td>
+                            <textarea
+                                name="activities[{{ $student->id }}][desc_2]"
+                                class="input activity-textarea"
+                                placeholder="Keterangan kegiatan"></textarea>
+                        </td>
+
+                        <td>
+                            <textarea
+                                name="activities[{{ $student->id }}][desc_3]"
+                                class="input activity-textarea"
+                                placeholder="Keterangan kegiatan"></textarea>
+                        </td>
+
+                        <td>
+
+                            <input type="file"
+                                   name="activities[{{ $student->id }}][photo]"
+                                   class="input"
+                                   accept="image/*">
+
+                        </td>
+
+                    </tr>
+
+                    @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="activity-action">
+
+            <button type="submit"
+                    class="btn-save-activity">
+
+                Simpan Kegiatan
+
+            </button>
+
+        </div>
+
+    </form>
+
 </div>
 
 @endsection

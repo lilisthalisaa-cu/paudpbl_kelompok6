@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class ParentDashboardController extends Controller
-{   
+{
     public function __construct()
     {
         Carbon::setLocale('id');
@@ -78,7 +78,6 @@ class ParentDashboardController extends Controller
             'month' => $month
         ]);
     }
-
     public function development(Request $request)
     {
         $data = $this->getData();
@@ -93,9 +92,28 @@ class ParentDashboardController extends Controller
 
         [$year, $monthOnly] = explode('-', $month);
 
+        // =========================
+        // DATA GRAFIK (SEMUA TAHUN)
+        // =========================
+
+        $chartDevelopments = collect();
+
+        if ($student) {
+
+            $chartDevelopments = DevelopmentNote::where('student_id', $student->id)
+                ->where('year', (int)$year)
+                ->orderBy('month', 'asc')
+                ->get();
+        }
+
+        // =========================
+        // DATA TABEL (FILTER BULAN)
+        // =========================
+
         $developments = collect();
 
         if ($student) {
+
             $developments = DevelopmentNote::where('student_id', $student->id)
                 ->where('month', (int)$monthOnly)
                 ->where('year', (int)$year)
@@ -104,12 +122,12 @@ class ParentDashboardController extends Controller
         }
 
         return view('parent.development.index', [
-            'student' => $student,
-            'developments' => $developments,
-            'month' => $month
-        ]);
+    'student' => $student,
+    'developments' => $developments,
+    'chartDevelopments' => $chartDevelopments,
+    'month' => $month
+]);
     }
-
     public function activity(Request $request)
     {
         $data = $this->getData();
@@ -121,20 +139,20 @@ class ParentDashboardController extends Controller
         $student = $data['student'];
 
         if (!$student) {
-        return back()->with('error', 'Data siswa tidak ditemukan');
-    }
+            return back()->with('error', 'Data siswa tidak ditemukan');
+        }
 
         $query = StudentActivity::where('student_id', $student->id);
 
         if ($request->date) {
-        $query->whereDate('date', $request->date);
+            $query->whereDate('date', $request->date);
         }
 
         $activities = $query->orderBy('date', 'desc')->get();
 
         return view('parent.activity.index', [
-        'student' => $student,
-        'activities' => $activities,
+            'student' => $student,
+            'activities' => $activities,
         ]);
     }
 

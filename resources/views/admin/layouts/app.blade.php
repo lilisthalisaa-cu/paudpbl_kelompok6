@@ -24,7 +24,7 @@
 
   <div class="navbar">
     <div class="wrap">
-      <div class="brand">PAUD Raudhatul Ilmi</div>
+      <div class="brand">KB Roudlotul Ilmi</div>
 
       <div class="menu">
         <a href="{{ route('admin.dashboard') }}">Dashboard</a>

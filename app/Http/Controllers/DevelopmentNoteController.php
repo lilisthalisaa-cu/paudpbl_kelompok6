@@ -6,120 +6,253 @@ use App\Models\DevelopmentNote;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DevelopmentNoteController extends Controller
 {
-    public function index(Request $request)
+    private function teacherClassId()
     {
-        $student_id = $request->student_id;
-        $month = $request->month;
-
-        $data = DevelopmentNote::with('student')
-            ->when($student_id, function ($q) use ($student_id) {
-                $q->where('student_id', $student_id);
-            })
-            ->when($month, function ($q) use ($month) {
-                $q->where('month', $month);
-            })
-            ->latest()
-            ->get();
-
-        $students = Student::orderBy('name')->get();
-
-        return view('teacher.development.index', compact('data', 'students'));
+        return Teacher::where(
+            'user_id',
+            Auth::id()
+        )->value('school_class_id');
     }
 
-    public function create()
+    public function index(Request $request)
     {
-        $students = Student::orderBy('name')->get();
+        $classId = $this->teacherClassId();
 
-        return view('teacher.development.create', compact('students'));
+        $student_id = $request->student_id;
+
+        $year = $request->year ?? date('Y');
+
+        $data = DevelopmentNote::with('student')
+
+            ->whereHas('student', function ($q) use ($classId) {
+
+                $q->where(
+                    'school_class_id',
+                    $classId
+                );
+
+            })
+
+            ->when($student_id, function ($q) use ($student_id) {
+
+                $q->where('student_id', $student_id);
+
+            })
+
+            ->where('year', $year)
+
+            ->orderByRaw('CAST(month as UNSIGNED) ASC')
+
+            ->get();
+
+        $students = Student::where(
+                'school_class_id',
+                $classId
+            )
+            ->orderBy('name')
+            ->get();
+
+        return view(
+            'teacher.development.index',
+            compact(
+                'data',
+                'students',
+                'year'
+            )
+        );
+    }
+
+    public function create(Request $request)
+    {
+        $classId = $this->teacherClassId();
+
+        $month = $request->month ?? date('n');
+
+        $year = $request->year ?? date('Y');
+
+        $students = Student::where(
+                'school_class_id',
+                $classId
+            )
+            ->orderBy('name')
+            ->get();
+
+        $existing = DevelopmentNote::where('month', $month)
+
+            ->where('year', $year)
+
+            ->whereHas('student', function ($q) use ($classId) {
+
+                $q->where(
+                    'school_class_id',
+                    $classId
+                );
+
+            })
+
+            ->get()
+
+            ->keyBy('student_id');
+
+        return view(
+            'teacher.development.create',
+            compact(
+                'students',
+                'month',
+                'year',
+                'existing'
+            )
+        );
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'student_id' => ['required', 'exists:students,id'],
+
             'month' => ['required'],
+
             'year' => ['required'],
-            'description' => ['required'],
-            'tb' => ['nullable', 'numeric'],
-            'bb' => ['nullable', 'numeric'],
+
+            'developments' => ['required', 'array'],
+
         ]);
 
-        $teacher = Teacher::where('user_id', auth()->id())->first();
+        $classId = $this->teacherClassId();
 
-        if (!$teacher) {
-            return back()->withErrors('Data guru tidak ditemukan.');
+        $teacher = Teacher::where(
+            'user_id',
+            Auth::id()
+        )->first();
+
+        foreach ($request->developments as $studentId => $item) {
+
+            $student = Student::where(
+                    'school_class_id',
+                    $classId
+                )
+                ->find($studentId);
+
+            if (!$student) {
+                continue;
+            }
+
+            DevelopmentNote::updateOrCreate(
+
+                [
+                    'student_id' => $studentId,
+                    'month' => $request->month,
+                    'year' => $request->year,
+                ],
+
+                [
+                    'teacher_id' => optional($teacher)->id,
+                    'tb' => $item['tb'] ?? null,
+                    'bb' => $item['bb'] ?? null,
+                    'description' => $item['description'] ?? '-',
+                ]
+            );
         }
-  
-        $exists = DevelopmentNote::where('student_id', $request->student_id)
-            ->where('month', $request->month)
-            ->where('year', $request->year)
-            ->exists();
 
-        if ($exists) {
-            return back()
-                ->withErrors('Laporan bulan ini untuk siswa tersebut sudah ada!')
-                ->withInput();
-        }
-
-        DevelopmentNote::create([
-            'student_id' => $request->student_id,
-            'teacher_id' => $teacher->id,
-            'month' => $request->month,
-            'year' => $request->year,
-            'description' => $request->description,
-            'tb' => $request->tb,
-            'bb' => $request->bb,
-        ]);
-
-        return redirect()->route('teacher.development.index')
-            ->with('success', 'Catatan perkembangan berhasil disimpan.');
+        return back()->with(
+            'success',
+            'Perkembangan anak berhasil disimpan.'
+        );
     }
 
     public function edit(DevelopmentNote $development)
     {
-        $data = $development; 
+        $classId = $this->teacherClassId();
 
-        $students = Student::orderBy('name')->get();
+        abort_if(
+            $development->student->school_class_id != $classId,
+            403
+        );
 
-        return view('teacher.development.edit', compact('data', 'students'));
+        $students = Student::where(
+                'school_class_id',
+                $classId
+            )
+            ->orderBy('name')
+            ->get();
+
+        return view(
+            'teacher.development.edit',
+            [
+                'data' => $development,
+                'students' => $students
+            ]
+        );
     }
 
     public function update(Request $request, DevelopmentNote $development)
     {
-        $request->validate([
-            'student_id' => ['required', 'exists:students,id'],
-            'month' => ['required'],
-            'year' => ['required'],
-            'description' => ['required'],
-            'tb' => ['nullable', 'numeric'],
-            'bb' => ['nullable', 'numeric'],
-        ]);
-        
-        $exists = DevelopmentNote::where('student_id', $request->student_id)
-            ->where('month', $request->month)
-            ->where('year', $request->year)
-            ->where('id', '!=', $development->id)
-            ->exists();
+        $classId = $this->teacherClassId();
 
-        if ($exists) {
-            return back()
-                ->withErrors('Data bulan ini sudah ada!')
-                ->withInput();
-        }
+        abort_if(
+            $development->student->school_class_id != $classId,
+            403
+        );
+
+        $request->validate([
+
+            'student_id' => ['required', 'exists:students,id'],
+
+            'month' => ['required'],
+
+            'year' => ['required'],
+
+            'description' => ['required'],
+
+            'tb' => ['nullable', 'numeric'],
+
+            'bb' => ['nullable', 'numeric'],
+
+        ]);
 
         $development->update([
+
             'student_id' => $request->student_id,
+
             'month' => $request->month,
+
             'year' => $request->year,
-            'description' => $request->description,
+
             'tb' => $request->tb,
+
             'bb' => $request->bb,
+
+            'description' => $request->description,
+
         ]);
 
-        return redirect()->route('teacher.development.index')
-            ->with('success', 'Data berhasil diperbarui');
+        return redirect()
+
+            ->route('teacher.development.index')
+
+            ->with(
+                'success',
+                'Data perkembangan berhasil diperbarui.'
+            );
+    }
+
+    public function destroy(DevelopmentNote $development)
+    {
+        $classId = $this->teacherClassId();
+
+        abort_if(
+            $development->student->school_class_id != $classId,
+            403
+        );
+
+        $development->delete();
+
+        return back()->with(
+            'success',
+            'Data perkembangan berhasil dihapus.'
+        );
     }
 }

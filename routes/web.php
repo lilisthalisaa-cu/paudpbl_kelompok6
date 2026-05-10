@@ -17,7 +17,7 @@ use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\ProfileController;
 use App\Http\Controllers\Website\GalleryController;
 
-// ✅ TAMBAHAN CMS
+
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 
@@ -49,11 +49,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('teachers', TeacherController::class);
     Route::resource('students', StudentController::class);
 
-    // ✅ CMS PROFILE & GALLERY
+    
     Route::resource('profile', AdminProfileController::class);
     Route::resource('gallery', AdminGalleryController::class);
 
-    // 🔥 TAMBAHAN CMS KONTEN (TANPA MERUBAH YANG LAIN)
+  
     Route::get('/konten', function () {
         return view('admin.konten.index');
     })->name('konten');
@@ -74,6 +74,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [RekapAbsensiController::class, 'index'])->name('index');
         Route::get('/siswa', [RekapAbsensiController::class, 'rekapSiswa'])->name('siswa');
         Route::get('/guru', [RekapAbsensiController::class, 'rekapGuru'])->name('guru');
+        Route::get('/guru/export', [RekapAbsensiController::class, 'exportGuru'])->name('guru.export');
     });
 });
 
@@ -86,10 +87,12 @@ Route::middleware('auth')->prefix('teacher')->name('teacher.')->group(function (
         Route::get('/attendance', 'index')->name('attendance.index');
         Route::get('/attendance/create', 'create')->name('attendance.create');
         Route::post('/attendance/store', 'store')->name('attendance.store');
+        Route::post('/attendance/hadir', 'hadir')->name('attendance.hadir');
+        Route::post('/attendance/pulang', 'pulang')->name('attendance.pulang');
+        Route::post('/attendance/izin', 'izin')->name('attendance.izin');
     });
 
     Route::controller(StudentAttendanceController::class)->group(function () {
-        Route::get('/student-attendance', 'index')->name('student_attendance.index');
         Route::get('/student-attendance/bulk-create', 'bulkCreate')->name('student_attendance.bulk_create');
         Route::post('/student-attendance/bulk-store', 'bulkStore')->name('student_attendance.bulk_store');
     });

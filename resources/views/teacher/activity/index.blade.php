@@ -4,114 +4,102 @@
 
 @section('content')
 
-<div class="card">
+<div class="card activity-card">
 
-  <h2>Data Kegiatan Siswa</h2>
+    <div class="card-head top-head">
 
-  @if(session('success'))
-    <div style="background:#d1fae5;padding:10px;border-radius:8px;margin-bottom:12px;">
-      {{ session('success') }}
+        <div>
+            <h2 class="card-title">
+                Data Kegiatan Siswa
+            </h2>
+
+            <div class="muted">
+                Riwayat kegiatan harian siswa.
+            </div>
+        </div>
+
     </div>
-  @endif
 
-  {{-- 🔥 STYLE --}}
-  <style>
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    @if(session('success'))
 
-    .table th {
-      background: #e5e7eb;
-      padding: 10px;
-      text-align: left;
-      font-weight: 700;
-    }
+        <div class="success-box">
+            {{ session('success') }}
+        </div>
 
-    .table td {
-      padding: 10px;
-      border-bottom: 1px solid #e5e7eb;
-    }
+    @endif
 
-    /* 🔥 ZEBRA */
-    .table tbody tr:nth-child(odd) td {
-      background-color: #f9fafb;
-    }
+    <div class="table-wrap">
 
-    .table tbody tr:nth-child(even) td {
-      background-color: #ffffff;
-    }
+        <table class="activity-table">
 
-    /* 🔥 HOVER */
-    .table tbody tr:hover td {
-      background-color: #e0f2fe;
-      transition: 0.2s;
-    }
+            <thead>
 
-    .check {
-      font-size: 18px;
-      font-weight: bold;
-    }
+                <tr>
 
-    .yes {
-      color: green;
-    }
+                    <th>Tanggal</th>
+                    <th>Nama</th>
+                    <th>Kegiatan</th>
+                    <th>Foto</th>
 
-    .no {
-      color: red;
-    }
+                </tr>
 
-    .desc-text {
-      font-size: inherit;
-      color: inherit;
-      font-family: inherit;
-    }
-  </style>
+            </thead>
 
-  {{-- 🔥 TABLE FIX --}}
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Tanggal</th>
-        <th>Siswa</th>
-        <th>Kegiatan</th>
-        <th>Keterangan</th>
-        <th>Foto</th>
-      </tr>
-    </thead>
+            <tbody>
 
-    <tbody>
-      @foreach($activities as $a)
-      <tr>
-        <td>{{ \Carbon\Carbon::parse($a->date)->translatedFormat('d M Y') }}</td>
-        <td>{{ $a->student->name }}</td>
+                @forelse($activities as $a)
 
-        <td>{{ $a->title }}</td>
+                <tr>
 
-        <td style="text-align:center;">
-          
-          @if($a->status == 'SM')
-            <div class="check yes">✔ SM</div>
-          @elseif($a->status == 'BM')
-            <div class="check no">✔ BM</div>
-          @endif
+                    <td>
+                        {{ \Carbon\Carbon::parse($a->date)->translatedFormat('d M Y') }}
+                    </td>
 
-          <div class="desc-text" style="margin-top:4px;">
-            {{ $a->description ?? '-' }}
-          </div>
+                    <td>
+                        {{ $a->student->name }}
+                    </td>
 
-        </td>
+                    <td class="activity-desc">
+                        {!! nl2br(e($a->description)) !!}
+                    </td>
 
-        <td style="text-align:center;">
-          @if($a->photo)
-            <img src="{{ asset('storage/'.$a->photo) }}" style="width:220px; border-radius:10px;">
-          @endif
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
+                    <td>
 
-  </table>
+                        @if($a->photo)
+
+                        <img src="{{ asset('storage/'.$a->photo) }}"
+                             class="activity-photo">
+
+                        @else
+
+                        -
+
+                        @endif
+
+                    </td>
+
+                </tr>
+
+                @empty
+
+                <tr>
+
+                    <td colspan="4"
+                        class="empty-table">
+
+                        Belum ada data kegiatan.
+
+                    </td>
+
+                </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 

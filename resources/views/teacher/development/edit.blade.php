@@ -4,119 +4,166 @@
 
 @section('content')
 
-<div class="card">
+<div class="card development-card">
 
-  <h2>Edit Perkembangan Anak</h2>
+    <div class="card-head top-head">
 
-{{-- ERROR MESSAGE --}}
-@if ($errors->any())
-  <div style="color:red; margin-bottom:10px;">
-    {{ $errors->first() }}
-  </div>
-@endif
+        <div>
+            <h2 class="card-title">
+                Edit Perkembangan Anak
+            </h2>
 
-<!-- <form action="{{ route('teacher.development.update', $data->id) }}" method="POST"> -->
+            <div class="muted">
+                Perbarui data perkembangan siswa.
+            </div>
+        </div>
 
-  <style>
-    .form-group {
-      margin-bottom: 16px;
-    }
+        <a href="{{ route('teacher.development.index') }}"
+           class="btn-rekap">
+            Kembali
+        </a>
 
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-      color: #374151;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-
-    textarea.form-control {
-      resize: none;
-    }
-
-    .btn-primary {
-      background: #10b981;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background: #059669;
-    }
-
-    .btn-secondary {
-      margin-left: 10px;
-      color: #6b7280;
-      text-decoration: none;
-    }
-  </style>
-
-  <form action="{{ route('teacher.development.update', $data->id) }}" method="POST">
-    @csrf
-    @method('PUT')
-
-    {{-- Nama Siswa --}}
-    <div class="form-group">
-      <label>Nama Siswa</label>
-      <select name="student_id" class="form-control">
-        @foreach($students as $s)
-          <option value="{{ $s->id }}" {{ $data->student_id == $s->id ? 'selected' : '' }}>
-            {{ $s->name }}
-          </option>
-        @endforeach
-      </select>
     </div>
 
-    {{-- Bulan --}}
-    <div class="form-group">
-      <label>Bulan</label>
-      <input type="month" name="month" value="{{ $data->month }}" class="form-control" required>
-    </div>
+    @if ($errors->any())
 
-    {{-- Tahun --}}
-    <div class="form-group">
-      <label>Tahun</label>
-      <input type="number" name="year" value="{{ $data->year }}" class="form-control" required>
-    </div>
+        <div class="auth-error">
+            {{ $errors->first() }}
+        </div>
 
-    {{-- 🔥 TAMBAHAN TB --}}
-    <div class="form-group">
-      <label>Tinggi Badan (cm)</label>
-      <input type="number" name="tb" class="form-control" value="{{ $data->tb ?? '' }}">
-    </div>
+    @endif
 
-    {{-- 🔥 TAMBAHAN BB --}}
-    <div class="form-group">
-      <label>Berat Badan (kg)</label>
-      <input type="number" name="bb" class="form-control" value="{{ $data->bb ?? '' }}">
-    </div>
+    <form action="{{ route('teacher.development.update', $data->id) }}"
+          method="POST">
 
-    {{-- Catatan --}}
-    <div class="form-group">
-      <label>Catatan</label>
-      <textarea name="description" rows="4" class="form-control" required>{{ $data->description }}</textarea>
-    </div>
+        @csrf
+        @method('PUT')
 
-    {{-- Tombol --}}
-    <button type="submit" class="btn-primary">
-      Update
-    </button>
+        <div class="form-grid">
 
-    <a href="{{ route('teacher.development.index') }}" class="btn-secondary">
-      Batal
-    </a>
+            {{-- SISWA --}}
+            <div class="full">
 
-  </form>
+                <label class="label">
+                    Nama Siswa
+                </label>
+
+                <select name="student_id"
+                        class="input"
+                        required>
+
+                    @foreach($students as $s)
+
+                        <option value="{{ $s->id }}"
+                            {{ $data->student_id == $s->id ? 'selected' : '' }}>
+
+                            {{ $s->name }}
+
+                        </option>
+
+                    @endforeach
+
+                </select>
+
+            </div>
+
+            {{-- BULAN --}}
+            <div>
+
+                <label class="label">
+                    Bulan
+                </label>
+
+                <select name="month"
+                        class="input"
+                        required>
+
+                    @for($m = 1; $m <= 12; $m++)
+
+                        <option value="{{ $m }}"
+                            {{ $data->month == $m ? 'selected' : '' }}>
+
+                            {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
+
+                        </option>
+
+                    @endfor
+
+                </select>
+
+            </div>
+
+            {{-- TAHUN --}}
+            <div>
+
+                <label class="label">
+                    Tahun
+                </label>
+
+                <input type="number"
+                       name="year"
+                       class="input"
+                       value="{{ $data->year }}"
+                       required>
+
+            </div>
+
+            {{-- TB --}}
+            <div>
+
+                <label class="label">
+                    Tinggi Badan (cm)
+                </label>
+
+                <input type="number"
+                       name="tb"
+                       class="input"
+                       value="{{ $data->tb }}">
+
+            </div>
+
+            {{-- BB --}}
+            <div>
+
+                <label class="label">
+                    Berat Badan (kg)
+                </label>
+
+                <input type="number"
+                       name="bb"
+                       class="input"
+                       value="{{ $data->bb }}">
+
+            </div>
+
+            {{-- CATATAN --}}
+            <div class="full">
+
+                <label class="label">
+                    Catatan
+                </label>
+
+                <textarea name="description"
+                          rows="4"
+                          class="input"
+                          required>{{ $data->description }}</textarea>
+
+            </div>
+
+        </div>
+
+        <div class="development-action">
+
+            <button type="submit"
+                    class="btn-orange">
+
+                Update
+
+            </button>
+
+        </div>
+
+    </form>
 
 </div>
 

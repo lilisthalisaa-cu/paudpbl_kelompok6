@@ -4,162 +4,192 @@
 
 @section('content')
 
-<style>
-
-input, select, textarea {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  color: #111827;
-}
-
-input, select, textarea {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.card-title {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
-  font-weight: 800 !important; /* 🔥 lebih gemuk */
-  font-size: 18px !important;  /* 🔥 sedikit lebih kecil */
-  letter-spacing: 0px !important;
-  color: #000000 !important;
-}
-
-.muted {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 16px;
-}
-
-.field {
-  margin-bottom: 16px;
-}
-
-.label {
-  font-weight: 600;
-  margin-bottom: 6px;
-  display: block;
-  color: #374151;
-}
-
-.input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  transition: 0.2s;
-}
-
-.input:focus {
-  border-color: #2563eb;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
-}
-
-select.input {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='%236b7280' d='M5 7l5 5 5-5z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 14px;
-  padding-right: 36px;
-}
-
-textarea.input {
-  resize: none;
-  line-height: 1.5;
-}
-
-input[type="date"] {
-  font-family: inherit;
-}
-
-.btn-primary {
-  padding: 10px 18px;
-  border-radius: 999px;
-  font-weight: 600;
-}
-
-.auth-error {
-  background: #dcfce7;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  color: #166534;
-}
-
-.top-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.btn-outline:hover {
-  background: #f9fafb;
-}
-</style>
-
 <div class="card">
 
   <div class="card-head top-head">
+
     <div>
-      <h2 class="card-title">Input Absensi Guru</h2>
-      <div class="muted">Isi kehadiran guru untuk hari ini.</div>
+      <h2 class="card-title">Input Presensi Guru</h2>
+      <div class="muted">
+        Lakukan absensi kehadiran hari ini.
+      </div>
     </div>
 
-    <a href="{{ route('teacher.attendance.index') }}" class="btn btn-outline" style="
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-weight:700;
-    ">
-      Lihat Data Absensi
+    <a href="{{ route('teacher.attendance.index') }}" class="btn-rekap">
+      Lihat Rekap
     </a>
+
   </div>
 
+  {{-- SUCCESS --}}
   @if(session('success'))
-    <div class="auth-error">
-      {{ session('success') }}
-    </div>
+  <div class="auth-error">
+    {{ session('success') }}
+  </div>
   @endif
 
+  {{-- ERROR --}}
   @if ($errors->any())
-    <div style="background:#fee2e2;padding:10px;border-radius:8px;margin-bottom:12px;color:#991b1b;">
-      {{ $errors->first() }}
-    </div>
+  <div style="background:#fee2e2;padding:10px;border-radius:8px;margin-bottom:16px;color:#991b1b;">
+    {{ $errors->first() }}
+  </div>
   @endif
 
-  <form method="POST" action="{{ route('teacher.attendance.store') }}" class="auth-form">
+  {{-- INFO --}}
+  <div class="attendance-box">
+
+    <div class="attendance-detail-box">
+
+      <div class="info-item">
+        Tanggal :
+        <span>{{ now()->format('d M Y') }}</span>
+      </div>
+
+      @if($attendance)
+
+      <div class="info-item">
+        Status :
+        <span>{{ $attendance->status }}</span>
+      </div>
+
+      <div class="info-item">
+        Jam Masuk :
+        <span>{{ $attendance->jam_masuk ?? '-' }}</span>
+      </div>
+
+      <div class="info-item">
+        Jam Pulang :
+        <span>{{ $attendance->jam_pulang ?? '-' }}</span>
+      </div>
+
+      @endif
+
+    </div>
+
+    @if($attendance && $attendance->jam_pulang)
+
+    <div class="attendance-success">
+      Absensi hari ini selesai ✅
+    </div>
+
+    @endif
+
+  </div>
+
+  {{-- BELUM ABSEN --}}
+  @if(!$attendance)
+
+  <div class="action-group">
+
+    {{-- HADIR --}}
+    <form method="POST"
+      action="{{ route('teacher.attendance.hadir') }}">
+      @csrf
+
+      <button type="submit"
+        class="btn-action btn-hadir">
+        Hadir
+      </button>
+    </form>
+
+    {{-- TOMBOL IZIN --}}
+    <button onclick="toggleIzinForm()"
+      type="button"
+      class="btn-action btn-izin">
+      Izin / Cuti
+    </button>
+
+  </div>
+
+  {{-- FORM IZIN --}}
+  <div id="izinForm"
+    class="form-box"
+    style="display:none;">
+
+    <form method="POST"
+      action="{{ route('teacher.attendance.izin') }}"
+      enctype="multipart/form-data">
+
+      @csrf
+
+      <div class="field">
+        <label class="label">Jenis</label>
+
+        <div class="status-group">
+
+  <label class="status-option">
+    <input type="radio" name="status" value="IZIN" required>
+    <span>Izin</span>
+  </label>
+
+  <label class="status-option">
+    <input type="radio" name="status" value="SAKIT">
+    <span>Sakit</span>
+  </label>
+
+  <label class="status-option">
+    <input type="radio" name="status" value="CUTI">
+    <span>Cuti</span>
+  </label>
+
+</div>
+      </div>
+
+      <div class="field">
+        <label class="label">Catatan</label>
+
+        <textarea name="note"
+          class="input"
+          rows="4"
+          placeholder="Masukkan alasan"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label">Upload Surat</label>
+
+        <input type="file"
+          name="surat"
+          class="input">
+      </div>
+
+      <button type="submit"
+        class="btn-action btn-izin">
+        Kirim Izin
+      </button>
+
+    </form>
+
+  </div>
+
+  {{-- SUDAH HADIR --}}
+  @elseif($attendance->status == 'HADIR' && !$attendance->jam_pulang)
+
+  <form method="POST"
+    action="{{ route('teacher.attendance.pulang') }}">
     @csrf
 
-    {{-- TANGGAL --}}
-    <div class="field">
-      <label class="label">Tanggal</label>
-      <input type="date" name="date" class="input" value="{{ old('date', date('Y-m-d')) }}" required>
-    </div>
-
-    {{-- STATUS --}}
-    <div class="field">
-      <label class="label">Status</label>
-      <select name="status" class="input" required>
-        <option value="">Pilih Status</option>
-        <option value="HADIR">Hadir</option>
-        <option value="TIDAK_HADIR">Tidak Hadir</option>
-      </select>
-    </div>
-
-    {{-- CATATAN --}}
-    <div class="field">
-      <label class="label">Catatan</label>
-      <textarea name="note" class="input" placeholder="Catatan tambahan">{{ old('note') }}</textarea>
-    </div>
-
-    <div class="auth-footer">
-      <div></div>
-      <button type="submit" class="btn btn-primary">Simpan</button>
-    </div>
+    <button type="submit"
+      class="btn-action btn-pulang">
+      Pulang
+    </button>
   </form>
+
+  {{-- SELESAI --}}
+  @else
+  @endif
+
 </div>
+
+<script>
+  function toggleIzinForm() {
+    const form = document.getElementById('izinForm');
+
+    if (form.style.display === 'none') {
+      form.style.display = 'block';
+    } else {
+      form.style.display = 'none';
+    }
+  }
+</script>
 
 @endsection

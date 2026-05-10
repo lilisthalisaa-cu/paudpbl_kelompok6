@@ -5,7 +5,6 @@
 @section('content')
 
 <style>
-/* ✅ TETAP PAKAI (INI UNTUK LAYOUT) */
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -68,7 +67,7 @@
 
     <div class="card-menu">
       <div class="icon">🧑‍🏫</div>
-      <div class="menu-title">Absensi Guru</div>
+      <div class="menu-title">Presensi Guru</div>
       <a href="{{ route('teacher.attendance.create') }}" class="card-action">
         Buka Form →
       </a>
@@ -76,7 +75,7 @@
 
     <div class="card-menu">
       <div class="icon">👦</div>
-      <div class="menu-title">Absensi Siswa</div>
+      <div class="menu-title">Presensi Siswa</div>
       <a href="{{ route('teacher.student_attendance.bulk_create') }}" class="card-action">
         Buka Form →
       </a>

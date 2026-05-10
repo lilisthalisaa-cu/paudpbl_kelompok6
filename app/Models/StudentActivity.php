@@ -9,13 +9,16 @@ class StudentActivity extends Model
 {
     use HasFactory;
 
+    protected $table = 'student_activities';
+
     protected $fillable = [
         'student_id',
         'teacher_id',
         'date',
         'title',
         'description',
-        'photo', 
+        'photo',
+        'status',
     ];
 
     protected $casts = [

@@ -1,92 +1,259 @@
 @extends('teacher.layouts.app')
 
-@section('title', 'Absensi Siswa (Bulk)')
+@section('title', 'Absensi Siswa Bulanan')
 
 @section('content')
 
 <div class="card">
 
-  {{-- 🔥 HEADER + TOMBOL --}}
-  <div class="card-head" style="display:flex; justify-content:space-between; align-items:center;">
+  <div class="card-head top-head">
+
     <div>
-      <h2 class="card-title">Absensi Siswa</h2>
-      <div class="muted">Input kehadiran semua siswa</div>
+
+      <h2 class="card-title">
+        Presensi Siswa Bulanan
+      </h2>
+
+      <div class="muted">
+        Input absensi siswa selama 1 bulan.
+      </div>
+
     </div>
 
-    {{-- 🔥 TAMBAHAN (TIDAK MENGUBAH LOGIC) --}}
-    <a href="{{ route('teacher.student_attendance.index') }}" 
-       class="btn btn-outline"
-       style="display:flex; align-items:center; gap:6px; font-weight:600;">
-      Lihat Data Absensi
-    </a>
   </div>
 
   @if(session('success'))
+
     <div class="auth-error">
       {{ session('success') }}
     </div>
+
   @endif
 
-  {{-- 🔥 FORM BULK --}}
-  <form method="POST" action="{{ route('teacher.student_attendance.bulk_store') }}">
-    @csrf
 
-    {{-- TANGGAL --}}
+  {{-- FILTER BULAN --}}
+  <form method="GET">
+
     <div class="field">
-      <label class="label">Tanggal</label>
-      <input type="date" name="date" class="input" value="{{ date('Y-m-d') }}" required>
+
+      <label class="label">
+        Pilih Bulan
+      </label>
+
+      <input
+        type="month"
+        name="month"
+        class="input"
+        value="{{ request('month', now()->format('Y-m')) }}"
+        onchange="this.form.submit()">
+
     </div>
 
-    {{-- TABLE --}}
-    <table style="width:100%; border-collapse: collapse;">
-      <thead>
-        <tr style="background:#f3f4f6;">
-          <th style="padding:10px;">No</th>
-          <th>Nama Siswa</th>
-          <th>Status</th>
-          <th>Catatan</th>
-        </tr>
-      </thead>
+  </form>
 
-      <tbody>
-        @foreach($students as $index => $student)
-        <tr style="border-bottom:1px solid #e5e7eb;">
-          
-          <td style="padding:10px;">{{ $index+1 }}</td>
 
-          <td>
-            {{ $student->name }}
-          </td>
+  @php
 
-          <td>
-            <select name="attendances[{{ $student->id }}][status]" class="input">
-              <option value="">-</option>
-              <option value="HADIR">Hadir</option>
-              <option value="IZIN">Izin</option>
-              <option value="SAKIT">Sakit</option>
-              <option value="ALPA">Alpa</option>
-            </select>
-          </td>
+    $selectedMonth =
+      request('month', now()->format('Y-m'));
 
-          <td>
-            <input type="text" 
-                   name="attendances[{{ $student->id }}][note]" 
-                   class="input" 
-                   placeholder="Catatan">
-          </td>
+    $days = [];
 
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+    $start =
+      \Carbon\Carbon::parse($selectedMonth)
+      ->startOfMonth();
 
-    {{-- BUTTON --}}
+    $end =
+      \Carbon\Carbon::parse($selectedMonth)
+      ->endOfMonth();
+
+    while ($start <= $end) {
+
+      if ($start->dayOfWeek != 0) {
+
+        $days[] = $start->copy();
+
+      }
+
+      $start->addDay();
+    }
+
+  @endphp
+
+
+  {{-- FORM SIMPAN ABSENSI --}}
+  <form method="POST"
+        action="{{ route('teacher.student_attendance.bulk_store') }}">
+
+    @csrf
+
+    <input
+      type="hidden"
+      name="month"
+      value="{{ $selectedMonth }}">
+
+    <div class="attendance-month-wrapper">
+
+      <table class="attendance-month-table">
+
+        <thead>
+
+          <tr>
+
+            <th class="sticky-name">
+              Nama Siswa
+            </th>
+
+            @foreach($days as $day)
+
+              @php
+                $dayClass =
+                  'day-' .
+                  str_replace('-', '_', $day->format('Y-m-d'));
+              @endphp
+
+              <th>
+
+                <div class="day-name">
+                  {{ $day->translatedFormat('D') }}
+                </div>
+
+                <div class="day-date">
+                  {{ $day->format('d') }}
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-h-all"
+                  onclick="setAllDay('{{ $dayClass }}')">
+
+                  H
+
+                </button>
+
+              </th>
+
+            @endforeach
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          @foreach($students as $student)
+
+            <tr>
+
+              <td class="sticky-name student-name">
+                {{ $student->name }}
+              </td>
+
+              @foreach($days as $day)
+
+                @php
+
+                  $dayClass =
+                    'day-' .
+                    str_replace('-', '_', $day->format('Y-m-d'));
+
+                  $savedAttendance =
+                    \App\Models\StudentAttendance::where(
+                      'student_id',
+                      $student->id
+                    )
+
+                    ->whereDate(
+                      'date',
+                      $day->format('Y-m-d')
+                    )
+
+                    ->first();
+
+                @endphp
+
+                <td>
+
+                  <select
+                    name="attendances[{{ $student->id }}][{{ $day->format('Y-m-d') }}][status]"
+                    class="status-select {{ $dayClass }}">
+
+                    <option
+                      value=""
+                      {{ !$savedAttendance ? 'selected' : '' }}>
+                      -
+                    </option>
+
+                    <option
+                      value="HADIR"
+                      {{ $savedAttendance && $savedAttendance->status == 'HADIR' ? 'selected' : '' }}>
+                      H
+                    </option>
+
+                    <option
+                      value="IZIN"
+                      {{ $savedAttendance && $savedAttendance->status == 'IZIN' ? 'selected' : '' }}>
+                      I
+                    </option>
+
+                    <option
+                      value="SAKIT"
+                      {{ $savedAttendance && $savedAttendance->status == 'SAKIT' ? 'selected' : '' }}>
+                      S
+                    </option>
+
+                    <option
+                      value="ALPA"
+                      {{ $savedAttendance && $savedAttendance->status == 'ALPA' ? 'selected' : '' }}>
+                      A
+                    </option>
+
+                  </select>
+
+                </td>
+
+              @endforeach
+
+            </tr>
+
+          @endforeach
+
+        </tbody>
+
+      </table>
+
+    </div>
+
     <div style="margin-top:20px;">
-      <button type="submit" class="btn btn-primary">Simpan Semua</button>
+
+      <button
+        type="submit"
+        class="btn-orange">
+
+        Simpan
+
+      </button>
+
     </div>
 
   </form>
 
 </div>
+
+<script>
+
+  function setAllDay(dayClass)
+  {
+    const selects =
+      document.querySelectorAll('.' + dayClass);
+
+    selects.forEach(function(select) {
+
+      select.value = 'HADIR';
+
+    });
+  }
+
+</script>
 
 @endsection

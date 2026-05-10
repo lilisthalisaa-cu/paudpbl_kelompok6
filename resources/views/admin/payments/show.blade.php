@@ -1,79 +1,143 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Pembayaran Siswa')
+@section('title', 'Detail Pembayaran')
 
 @section('content')
 
-<div class="container mt-4">
+<div class="payment-page">
 
-  <h3>Pembayaran Siswa</h3>
+  <div class="payment-card">
 
-  <div class="card p-4 mt-3">
+    <div class="card-head">
 
-    <div class="row">
+      <div>
 
-      <div class="col-md-4">
-        <div class="p-3 h-100">
-          <h5>Informasi Siswa</h5>
-          <hr>
-          <p><strong>Nama:</strong> {{ $student->name }}</p>
-          <p><strong>NISN:</strong> {{ $student->nisn }}</p>
-          <p><strong>Kelas:</strong> {{ $student->schoolClass->name ?? '-' }}</p>
+        <h2 class="payment-title">
+          Detail Pembayaran
+        </h2>
+
+        <div class="payment-muted">
+          Informasi pembayaran siswa.
         </div>
+
       </div>
 
-      <div class="col-md-8">
+    </div>
 
-        <div class="card payment-box p-3">
+    <div class="payment-layout">
 
-          <h5>Pembayaran Bulanan</h5>
-          <hr>
+      {{-- INFO --}}
+      <div class="info-card">
 
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Bulan</th>
-                <th>Nominal</th>
-                <th>Status</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              @foreach($payments as $p)
-              <tr>
-                <td>{{ $p->bulan }}</td>
-                <td>Rp {{ number_format($p->jumlah, 0, ',', '.') }}</td>
-
-                <td>
-                  @if($p->status == 'lunas')
-                    <span class="status-badge status-lunas">Lunas</span>
-                  @else
-                    <span class="status-badge status-belum">Belum Bayar</span>
-                  @endif
-                </td>
-
-                <td>
-                  @if($p->status != 'lunas')
-                    <button 
-                      class="btn-orange btn-sm btn-bayar"
-                      data-student="{{ $student->id }}"
-                      data-bulan="{{ $p->bulan }}"
-                      data-jumlah="{{ $p->jumlah }}"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalBayar">
-                      Bayar
-                    </button>
-                  @else
-                    -
-                  @endif
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-
+        <div class="info-title">
+          Informasi Siswa
         </div>
+
+        <div class="info-item">
+          <strong>Nama:</strong>
+          {{ $student->name }}
+        </div>
+
+        <div class="info-item">
+          <strong>NISN:</strong>
+          {{ $student->nisn }}
+        </div>
+
+        <div class="info-item">
+          <strong>Kelas:</strong>
+          {{ $student->schoolClass->name ?? '-' }}
+        </div>
+
+      </div>
+
+      {{-- TABLE --}}
+      <div class="payment-table-card">
+
+        <div class="table-title">
+          Pembayaran Bulanan
+        </div>
+
+        <table class="payment-table">
+
+          <thead>
+
+            <tr>
+
+              <th>Bulan</th>
+
+              <th>Nominal</th>
+
+              <th>Status</th>
+
+              <th>Aksi</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            @foreach($payments as $p)
+
+            <tr>
+
+              <td>
+                {{ $p->bulan }}
+              </td>
+
+              <td>
+                Rp {{ number_format($p->jumlah,0,',','.') }}
+              </td>
+
+              <td>
+
+                @if($p->status == 'lunas')
+
+                  <span class="status-badge status-lunas">
+                    Lunas
+                  </span>
+
+                @else
+
+                  <span class="status-badge status-belum">
+                    Belum Bayar
+                  </span>
+
+                @endif
+
+              </td>
+
+              <td>
+
+                @if($p->status != 'lunas')
+
+                <button
+                  class="btn-bayar btn-open-modal"
+                  data-student="{{ $student->id }}"
+                  data-bulan="{{ $p->bulan }}"
+                  data-jumlah="{{ $p->jumlah }}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalBayar">
+
+                  Bayar
+
+                </button>
+
+                @else
+
+                -
+
+                @endif
+
+              </td>
+
+            </tr>
+
+            @endforeach
+
+          </tbody>
+
+        </table>
 
       </div>
 
@@ -83,40 +147,78 @@
 
 </div>
 
-<!-- MODAL -->
-<div class="modal fade" id="modalBayar" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content p-3">
+{{-- MODAL --}}
+<div class="modal fade"
+     id="modalBayar"
+     tabindex="-1">
 
-      <h5>Konfirmasi Pembayaran</h5>
+  <div class="modal-dialog">
+
+    <div class="modal-content p-4">
+
+      <h5 class="modal-title-payment">
+        Konfirmasi Pembayaran
+      </h5>
+
       <p id="modalText"></p>
 
-      <form id="formBayar" method="POST" action="{{ route('admin.payment.store') }}">
-        @csrf
-        <input type="hidden" name="student_id" id="student_id">
-        <input type="hidden" name="bulan" id="bulan">
-        <input type="hidden" name="jumlah" id="jumlah">
+      <form id="formBayar"
+            method="POST"
+            action="{{ route('admin.payment.store') }}">
 
-        <button type="submit" class="btn btn-success">
+        @csrf
+
+        <input type="hidden"
+               name="student_id"
+               id="student_id">
+
+        <input type="hidden"
+               name="bulan"
+               id="bulan">
+
+        <input type="hidden"
+               name="jumlah"
+               id="jumlah">
+
+        <button type="submit"
+                class="modal-btn">
+
           Ya, Bayar
+
         </button>
+
       </form>
 
     </div>
+
   </div>
+
 </div>
 
 <script>
-document.querySelectorAll('.btn-bayar').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('student_id').value = this.dataset.student;
-        document.getElementById('bulan').value = this.dataset.bulan;
-        document.getElementById('jumlah').value = this.dataset.jumlah;
+
+document.querySelectorAll('.btn-open-modal')
+
+.forEach(btn => {
+
+    btn.addEventListener('click', function(){
+
+        document.getElementById('student_id').value =
+            this.dataset.student;
+
+        document.getElementById('bulan').value =
+            this.dataset.bulan;
+
+        document.getElementById('jumlah').value =
+            this.dataset.jumlah;
 
         document.getElementById('modalText').innerText =
             'Bayar SPP bulan ' + this.dataset.bulan + '?';
+
     });
+
 });
+
 </script>
 
 @endsection

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('nisn')->nullable()->unique();
             $table->foreignId('school_class_id')->nullable()
                 ->constrained('school_classes')->nullOnDelete();

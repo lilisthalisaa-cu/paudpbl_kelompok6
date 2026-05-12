@@ -15,11 +15,11 @@
             </a>
 
             <h2 class="title">
-                Rekap Absensi Kelas A
+                Rekap Absensi Kelas B
             </h2>
 
             <p class="subtitle">
-                Ringkasan kehadiran siswa kelas A berdasarkan periode.
+                Ringkasan kehadiran siswa kelas B berdasarkan periode.
             </p>
 
         </div>
@@ -106,7 +106,7 @@
 
     <!-- TABLE -->
     <h4 class="mb-3">
-        Detail Rekap Siswa Kelas A
+        Detail Rekap Siswa Kelas B
     </h4>
 
     <div class="table-wrap">
@@ -144,7 +144,7 @@
 
                     <tr>
                         <td colspan="4" class="table-empty">
-                            Belum ada data absensi kelas A
+                            Belum ada data absensi kelas B
                         </td>
                     </tr>
 

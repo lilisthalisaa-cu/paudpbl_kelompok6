@@ -77,18 +77,32 @@ class RekapAbsensiController extends Controller
             'total' => $data->count()
         ];
 
-        // 🔥 AMBIL DATA KELAS
+                // 🔥 AMBIL DATA KELAS
+        
         $kelasData = SchoolClass::find($kelas);
 
-        return view('admin.rekap.siswa-detail', compact(
-            'rekap',
-            'kelasData',
-            'bulan',
-            'tahun',
-            'data'
-        ));
-    }
+        if ($kelasData && $kelasData->name == 'A') {
 
+            return view('admin.rekap.siswa-detail', compact(
+                'data',
+                'rekap',
+                'bulan',
+                'tahun',
+                'kelasData'
+            ));
+        }
+
+        if ($kelasData && $kelasData->name == 'B') {
+
+            return view('admin.rekap.siswa-kelas-b', compact(
+                'data',
+                'rekap',
+                'bulan',
+                'tahun',
+                'kelasData'
+            ));
+        }
+    }
     // ========================
     // REKAP GURU
     // ========================

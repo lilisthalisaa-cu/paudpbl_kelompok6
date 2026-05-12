@@ -73,6 +73,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::prefix('rekap-absensi')->name('rekap.')->group(function () {
         Route::get('/', [RekapAbsensiController::class, 'index'])->name('index');
         Route::get('/siswa', [RekapAbsensiController::class, 'rekapSiswa'])->name('siswa');
+        Route::get('/siswa/detail', [RekapAbsensiController::class, 'detailSiswa'])->name('siswa.detail');
         Route::get('/guru', [RekapAbsensiController::class, 'rekapGuru'])->name('guru');
         Route::get('/guru/export', [RekapAbsensiController::class, 'exportGuru'])->name('guru.export');
     });

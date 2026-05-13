@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\StudentAttendance;
 use App\Models\TeacherAttendance;
+use App\Models\SchoolClass;
 use Illuminate\Support\Facades\DB;
 use App\Exports\RekapGuruExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -35,10 +36,75 @@ class RekapAbsensiController extends Controller
             'total' => $data->count()
         ];
 
-        return view('admin.rekap.siswa', compact('rekap'));
+        // 🔥 FILTER KELAS
+        $classes = SchoolClass::all();
+
+        return view('admin.rekap.siswa', compact(
+            'rekap',
+            'classes'
+        ));
     }
 
     
+    // ========================
+    // DETAIL REKAP SISWA
+    // ========================
+    public function detailSiswa(Request $request)
+    {
+        $bulan = $request->bulan ?? date('m');
+        $tahun = $request->tahun ?? date('Y');
+        $kelas = $request->kelas;
+
+        $query = StudentAttendance::with('student.schoolClass')
+            ->whereMonth('date', $bulan)
+            ->whereYear('date', $tahun);
+
+        // 🔥 FILTER KELAS
+        if ($kelas) {
+            $query->whereHas('student', function ($q) use ($kelas) {
+                $q->where('school_class_id', $kelas);
+            });
+        }
+
+        $data = $query->get();
+
+        $rekap = [
+            'hadir' => $data->where('status', 'HADIR')->count(),
+            'izin'  => $data->where('status', 'IZIN')->count(),
+            'sakit' => $data->where('status', 'SAKIT')->count(),
+            'alpha' => $data->where('status', 'ALPA')->count(),
+            'total' => $data->count()
+        ];
+
+                // 🔥 AMBIL DATA KELAS
+        
+        $kelasData = SchoolClass::find($kelas);
+
+        if ($kelasData && $kelasData->name == 'A') {
+
+            return view('admin.rekap.siswa-detail', compact(
+                'data',
+                'rekap',
+                'bulan',
+                'tahun',
+                'kelasData'
+            ));
+        }
+
+        if ($kelasData && $kelasData->name == 'B') {
+
+            return view('admin.rekap.siswa-kelas-b', compact(
+                'data',
+                'rekap',
+                'bulan',
+                'tahun',
+                'kelasData'
+            ));
+        }
+    }
+    // ========================
+    // REKAP GURU
+    // ========================
     // public function rekapGuru(Request $request)
     // {
     //     $bulan = $request->bulan ?? date('m');
@@ -110,6 +176,10 @@ class RekapAbsensiController extends Controller
         );
     }
     
+
+    // ========================
+    // FORMAT REKAP
+    // ========================
     private function formatRekap($data)
     {
         return [

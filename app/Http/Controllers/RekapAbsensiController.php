@@ -17,9 +17,7 @@ class RekapAbsensiController extends Controller
         return view('admin.rekap.index');
     }
 
-    // ========================
-    // REKAP SISWA
-    // ========================
+    
     public function rekapSiswa(Request $request)
     {
         $bulan = $request->bulan ?? date('m');
@@ -40,9 +38,7 @@ class RekapAbsensiController extends Controller
         return view('admin.rekap.siswa', compact('rekap'));
     }
 
-    // ========================
-    // REKAP GURU
-    // ========================
+    
     // public function rekapGuru(Request $request)
     // {
     //     $bulan = $request->bulan ?? date('m');
@@ -66,9 +62,7 @@ class RekapAbsensiController extends Controller
         $bulan = $request->bulan ?? date('m');
         $tahun = $request->tahun ?? date('Y');
 
-        // =========================
-        // SUMMARY CARD
-        // =========================
+        
         $summary = TeacherAttendance::whereMonth('date', $bulan)
             ->whereYear('date', $tahun)
             ->selectRaw("
@@ -80,9 +74,7 @@ class RekapAbsensiController extends Controller
         ")
             ->first();
 
-        // =========================
-        // DETAIL PER GURU
-        // =========================
+        
         $detailGuru = TeacherAttendance::select(
             'teacher_id',
             DB::raw("SUM(status = 'HADIR') as hadir"),
@@ -117,9 +109,7 @@ class RekapAbsensiController extends Controller
             $fileName
         );
     }
-    // ========================
-    // FORMAT REKAP
-    // ========================
+    
     private function formatRekap($data)
     {
         return [

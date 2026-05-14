@@ -102,7 +102,7 @@
     </div>
 
     <!-- TABLE -->
-    <h5 class="mb-3">Detail Rekap Guru</h5>
+   <h5 class="card-title">Detail Rekap Guru</h5>
 
     <div class="table-wrap">
         <table class="table-custom">

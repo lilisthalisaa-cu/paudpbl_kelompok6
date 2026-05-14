@@ -105,9 +105,7 @@
     </div>
 
     <!-- TABLE -->
-    <h4 class="mb-3">
-        Detail Rekap Siswa Kelas A
-    </h4>
+   <h5 class="card-title">Detail Rekap Siswa Kelas A</h5>
 
     <div class="table-wrap">
 

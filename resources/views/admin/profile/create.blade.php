@@ -2,48 +2,105 @@
 
 @section('content')
 
-<div class="container">
+<div class="school-profile-wrapper">
 
-    <div class="card">
+    <div class="school-profile-section">
 
         <!-- HEADER -->
-        <div class="card-head">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+
             <div>
-                <h3 class="card-title">Tambah Profile</h3>
-                <p class="muted">Isi data profile untuk ditampilkan.</p>
+
+                <h2 class="title">
+                    Tambah Profil Sekolah
+                </h2>
+
+                <p class="subtitle">
+                    Tambahkan informasi profil sekolah.
+                </p>
+
             </div>
+
+            <a href="{{ route('admin.profile.index') }}"
+               class="btn btn-outline">
+                ← Kembali
+            </a>
+
         </div>
 
-        <!-- FORM -->
-        <form method="POST" action="{{ route('admin.profile.store') }}" enctype="multipart/form-data">
+        <form method="POST"
+              action="{{ route('admin.profile.store') }}"
+              enctype="multipart/form-data">
+
             @csrf
 
-            <div class="form">
+            <div class="school-profile-grid">
 
-                <!-- JUDUL -->
-                <div class="full">
-                    <label class="label">Judul</label>
-                    <input type="text" name="title" class="input" required>
+                <!-- FOTO -->
+                <div>
+
+                    <div class="school-profile-image-preview">
+
+                        <img src="{{ asset('images/sekolah.jpg') }}">
+
+                    </div>
+
+                    <div class="mt-3">
+
+                        <label class="label">
+                            Upload Foto
+                        </label>
+
+                        <input type="file"
+                               name="image"
+                               class="input">
+
+                    </div>
+
                 </div>
 
-                <!-- DESKRIPSI -->
-                <div class="full">
-                    <label class="label">Deskripsi</label>
-                    <textarea name="description" class="textarea"></textarea>
+                <div class="school-profile-form">
+
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Nama / Judul Sekolah
+                        </label>
+
+                        <input type="text"
+                               name="title"
+                               class="input"
+                               required>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Deskripsi Sekolah
+                        </label>
+
+                        <textarea name="description"
+                                  class="textarea"
+                                  rows="10"></textarea>
+
+                    </div>
+
+                    <div class="actions">
+
+                        <button class="btn-save">
+                            Simpan Profil
+                        </button>
+
+                        <a href="{{ route('admin.profile.index') }}"
+                           class="btn-cancel">
+                            Batal
+                        </a>
+
+                    </div>
+
                 </div>
 
-                <!-- GAMBAR -->
-                <div class="full">
-                    <label class="label">Gambar (Opsional)</label>
-                    <input type="file" name="image" class="input">
-                </div>
-
-            </div>
-
-            <!-- BUTTON -->
-            <div class="actions">
-                  <button class="btn-update-fix">Simpan</button>
-                <a href="{{ route('admin.profile.index') }}" class="btn btn-outline">Kembali</a>
             </div>
 
         </form>

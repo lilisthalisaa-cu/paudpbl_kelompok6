@@ -837,11 +837,11 @@ button.btn-update-fix {
 }
 
 .table-total {
-  background: #e5e7eb; /* sama persis dengan header */
+  background: #e5e7eb; 
   font-weight: 600;
 }
 
-/* CUSTOM ARROW DROPDOWN */
+
 .custom-select {
   appearance: none;
   -webkit-appearance: none;
@@ -858,13 +858,13 @@ button.btn-update-fix {
   padding-right: 50px !important; /* 🔥 biar ga nabrak teks */
 }
 
-/* OPTIONAL biar lebih mirip desain */
+
 .filter-select-fix {
   min-width: 160px;
   height: 46px;
   border-radius: 12px;
 }
-/* ================= BUTTON TAMBAH GURU ================= */
+
 
 .btn-add{
   background:#f59e0b;
@@ -891,7 +891,6 @@ button.btn-update-fix {
 }
 
 
-/* ================= STATUS AKTIF ================= */
 
 .badge-active{
   background:#dcfce7;
@@ -912,7 +911,6 @@ button.btn-update-fix {
 }
 
 
-/* ================= BUTTON EDIT ================= */
 
 .btn-edit{
   background:#fff;
@@ -939,7 +937,6 @@ button.btn-update-fix {
 }
 
 
-/* ================= BUTTON HAPUS ================= */
 
 .btn-delete{
   background:#ef4444;
@@ -987,7 +984,6 @@ button.btn-update-fix {
   padding:6px 14px;
 }
 
-/* ================= DATA SISWA ================= */
 
 .student-table thead th{
   padding:16px 12px;
@@ -1026,7 +1022,6 @@ button.btn-update-fix {
   gap:10px;
 }
 
-/* ================= BUTTON TAMBAH ================= */
 
 .btn-add{
   background:#f59e0b !important;
@@ -1049,7 +1044,6 @@ button.btn-update-fix {
   opacity:.92;
 }
 
-/* ================= BUTTON SEARCH ================= */
 
 .btn-search{
   background:#111827 !important;
@@ -1066,7 +1060,6 @@ button.btn-update-fix {
   cursor:pointer;
 }
 
-/* ================= BUTTON EDIT ================= */
 
 .btn-edit{
   background:#fff !important;
@@ -1089,7 +1082,6 @@ button.btn-update-fix {
   background:#f9fafb !important;
 }
 
-/* ================= BUTTON DELETE ================= */
 
 .btn-delete{
   background:#ef4444 !important;
@@ -1112,7 +1104,6 @@ button.btn-update-fix {
   background:#dc2626 !important;
 }
 
-/* ================= BADGE ================= */
 
 .badge-ok{
   display:inline-flex;
@@ -1150,7 +1141,6 @@ button.btn-update-fix {
   border:1px solid #fecaca;
 }
 
-/* ================= EMPTY ================= */
 
 .empty-table{
   text-align:center;
@@ -1158,7 +1148,6 @@ button.btn-update-fix {
   color:#6b7280;
 }
 
-/* ================= SEARCH ================= */
 
 .search{
   display:flex;
@@ -1172,13 +1161,11 @@ button.btn-update-fix {
   max-width:360px;
 }
 
-/* ================= PAGINATION ================= */
 
 .pagination-wrap{
   margin-top:18px;
 }
 
-/* ================= CARD DATA SISWA ================= */
 
 .card{
   border-radius:28px !important;
@@ -1189,7 +1176,7 @@ button.btn-update-fix {
   padding:24px !important;
 }
 
-/* ================= WRAP TABLE ================= */
+
 
 .table-wrap{
   margin-top:18px;
@@ -1200,7 +1187,7 @@ button.btn-update-fix {
   overflow:hidden;
 }
 
-/* ================= TABLE ================= */
+
 
 .student-table{
   width:100%;
@@ -1229,7 +1216,6 @@ button.btn-update-fix {
   border-bottom:1px solid #f3f4f6;
 }
 
-/* ================= STATUS SISWA ================= */
 
 .badge{
   display:inline-flex !important;
@@ -1267,9 +1253,6 @@ button.btn-update-fix {
   border:1px solid #fecaca !important;
 }
 
-/* ===============================
-   FIX BUTTON SIMPAN
-=============================== */
 
 .actions .btn-save{
   display:inline-flex !important;
@@ -1746,3 +1729,373 @@ button.btn-update-fix {
   letter-spacing:0 !important;
 }
 
+
+.school-profile-wrapper{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+/* CARD */
+.school-profile-card{
+  background:#ffffff;
+
+  border:1px solid #e5e7eb;
+  border-radius:28px;
+
+  padding:28px;
+
+  display:grid;
+  grid-template-columns:420px 1fr;
+
+  gap:32px;
+
+  box-shadow:0 2px 10px rgba(0,0,0,0.03);
+}
+
+
+.school-profile-image img{
+  width:100%;
+  height:300px;
+
+  object-fit:cover;
+
+  border-radius:22px;
+}
+
+.school-profile-btn-photo{
+  margin-top:14px;
+
+  border:none;
+  border-radius:12px;
+
+  background:#f3f4f6;
+
+  padding:10px 18px;
+
+  font-size:14px;
+  font-weight:700;
+
+  color:#111827;
+
+  transition:0.2s;
+}
+
+.school-profile-btn-photo:hover{
+  background:#e5e7eb;
+}
+
+/* INFO */
+.school-profile-info{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.school-profile-title{
+  font-size:42px;
+  font-weight:800;
+
+  color:#111827;
+
+  margin-bottom:14px;
+}
+
+.school-profile-badge{
+  display:inline-flex;
+  align-items:center;
+
+  background:#dcfce7;
+  color:#166534;
+
+  padding:7px 16px;
+
+  border-radius:999px;
+
+  font-size:13px;
+  font-weight:700;
+}
+
+.school-profile-edit{
+  border:1px solid #10b981;
+
+  background:#ffffff;
+  color:#10b981;
+
+  padding:12px 18px;
+
+  border-radius:14px;
+
+  font-size:14px;
+  font-weight:700;
+
+  transition:0.2s;
+}
+
+.school-profile-edit:hover{
+  background:#10b981;
+  color:#ffffff;
+}
+
+.school-profile-list{
+  margin-top:28px;
+
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.school-profile-item{
+  font-size:15px;
+  color:#374151;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+
+.school-profile-section{
+  background:#ffffff;
+
+  border:1px solid #e5e7eb;
+  border-radius:28px;
+
+  padding:30px;
+
+  box-shadow:0 2px 10px rgba(0,0,0,0.03);
+}
+
+.school-profile-section-title{
+  font-size:26px;
+  font-weight:800;
+
+  color:#111827;
+
+  margin-bottom:28px;
+}
+
+/* GRID */
+.school-profile-grid{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:36px;
+}
+
+.school-profile-column{
+  display:flex;
+  flex-direction:column;
+}
+
+
+.school-profile-box{
+  padding:22px 0;
+
+  border-bottom:1px solid #eef2f7;
+}
+
+.school-profile-box strong{
+  display:block;
+
+  margin-bottom:10px;
+
+  font-size:16px;
+  font-weight:700;
+
+  color:#111827;
+}
+
+.school-profile-box p,
+.school-profile-box li{
+  font-size:15px;
+  line-height:1.8;
+
+  color:#4b5563;
+}
+
+.school-profile-box ul{
+  margin:0;
+  padding-left:18px;
+}
+
+.school-profile-facilities{
+  display:flex;
+
+  justify-content:center;
+
+  gap:28px;
+
+  flex-wrap:wrap;
+}
+
+.school-profile-facility{
+  width:240px;
+
+  background:#f9fafb;
+
+  border:1px solid #eef2f7;
+  border-radius:20px;
+
+  padding:28px 20px;
+
+  text-align:center;
+
+  transition:0.2s;
+}
+
+.school-profile-facility:hover{
+  transform:translateY(-3px);
+}
+
+.school-profile-facility-icon{
+  font-size:30px;
+
+  margin-bottom:14px;
+}
+
+.school-profile-facility h5{
+  margin-bottom:6px;
+
+  font-size:15px;
+  font-weight:700;
+
+  color:#111827;
+}
+
+.school-profile-facility p{
+  font-size:14px;
+  color:#6b7280;
+}
+
+
+@media(max-width:900px){
+
+  .school-profile-card{
+    grid-template-columns:1fr;
+  }
+
+  .school-profile-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .school-profile-facilities{
+    justify-content:center;
+  }
+
+  .school-profile-title{
+    font-size:32px;
+  }
+
+}
+
+
+
+.school-profile-form{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+
+.school-profile-image-preview img{
+  width:100%;
+  height:420px;
+
+  object-fit:cover;
+
+  border-radius:22px;
+
+  border:1px solid #e5e7eb;
+}
+
+.label{
+  display:block;
+
+  margin-bottom:10px;
+
+  font-size:14px;
+  font-weight:700;
+
+  color:#111827;
+}
+
+.input,
+.textarea{
+  width:100%;
+
+  border:1px solid #d1d5db;
+  border-radius:14px;
+
+  padding:14px 16px;
+
+  font-size:14px;
+
+  outline:none;
+
+  transition:0.2s;
+}
+
+.input:focus,
+.textarea:focus{
+  border-color:#10b981;
+  box-shadow:0 0 0 3px rgba(16,185,129,0.12);
+}
+
+.textarea{
+  resize:none;
+}
+
+.actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  margin-top:10px;
+}
+
+.btn-save{
+  border:none;
+
+  background:#f59e0b;
+  color:#ffffff;
+
+  padding:14px 24px;
+
+  border-radius:14px;
+
+  font-size:14px;
+  font-weight:700;
+
+  transition:0.2s;
+}
+
+.btn-save:hover{
+  background:#d97706;
+}
+
+.btn-cancel{
+  border:1px solid #d1d5db;
+
+  background:#ffffff;
+  color:#374151;
+
+  padding:14px 22px;
+
+  border-radius:14px;
+
+  font-size:14px;
+  font-weight:700;
+
+  text-decoration:none;
+
+  transition:0.2s;
+}
+
+.btn-cancel:hover{
+  background:#f3f4f6;
+}

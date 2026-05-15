@@ -2099,3 +2099,672 @@ button.btn-update-fix {
 .btn-cancel:hover{
   background:#f3f4f6;
 }
+
+
+/* =====================================
+   REKAP GURU PAGE
+===================================== */
+
+.rekap-guru-page .top-section{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+
+/* FILTER */
+.rekap-guru-page .filter-form{
+  display:flex;
+  align-items:end;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.rekap-guru-page .filter-group label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#374151;
+}
+
+/* SEARCH */
+.rekap-guru-page .search-guru{
+  width:260px;
+
+  border:1px solid #d1d5db;
+  border-radius:12px;
+
+  padding:10px 14px;
+
+  font-size:14px;
+
+  outline:none;
+
+  transition:0.2s;
+}
+
+.rekap-guru-page .search-guru:focus{
+  border-color:#0f766e;
+  box-shadow:0 0 0 3px rgba(15,118,110,0.12);
+}
+
+/* TABLE WRAP */
+.rekap-guru-page .table-wrap{
+  border-radius:18px;
+  overflow:hidden;
+
+  border:1px solid #e5e7eb;
+
+  margin-top:12px;
+}
+
+/* TABLE */
+.rekap-guru-page .table-custom thead th{
+  background:#f9fafb;
+
+  font-size:14px;
+  font-weight:700;
+
+  color:#111827;
+
+  padding:18px 16px;
+
+  border-bottom:1px solid #e5e7eb;
+}
+
+.rekap-guru-page .table-custom tbody td{
+  padding:18px 16px;
+
+  font-size:14px;
+  color:#374151;
+
+  border-bottom:1px solid #f1f5f9;
+
+  vertical-align:middle;
+}
+
+/* HOVER */
+.rekap-guru-page .table-custom tbody tr:hover{
+  background:#f9fafb;
+}
+
+/* ZEBRA */
+.rekap-guru-page .table-custom tbody tr:nth-child(even){
+  background:#fcfcfc;
+}
+
+/* BUTTON DETAIL */
+.rekap-guru-page .btn-detail-rekap{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:90px;
+  height:40px;
+
+  padding:0 18px;
+
+  border-radius:999px;
+
+  border:1px solid #0f766e;
+
+  background:#ffffff;
+  color:#0f766e;
+
+  font-size:13px;
+  font-weight:700;
+
+  text-decoration:none;
+
+  transition:0.2s;
+}
+
+.rekap-guru-page .btn-detail-rekap:hover{
+  background:#0f766e;
+  color:#ffffff;
+}
+
+/* EMPTY */
+.rekap-guru-page .empty-rekap{
+  padding:36px !important;
+
+  text-align:center;
+
+  color:#6b7280;
+  font-style:italic;
+}
+/* =====================================
+   BUTTON TERAPKAN REKAP
+===================================== */
+
+.rekap-guru-page .btn-filter-rekap{
+
+  height:46px;
+
+  padding:0 24px;
+
+  border:none;
+  border-radius:14px;
+
+  background:#0f766e;
+  color:#ffffff;
+
+  font-size:14px;
+  font-weight:700;
+
+  transition:0.2s ease;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.rekap-guru-page .btn-filter-rekap:hover{
+  background:#0f766e;
+}
+/* =====================================
+   BUTTON EXPORT REKAP
+===================================== */
+
+.rekap-guru-page .btn-export-rekap{
+
+  height:46px;
+
+  padding:0 22px;
+
+  border:1px solid #d1d5db;
+  border-radius:14px;
+
+  background:#ffffff;
+  color:#0f766e;
+
+  font-size:14px;
+  font-weight:700;
+
+  text-decoration:none;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:0.2s ease;
+}
+
+.rekap-guru-page .btn-export-rekap:hover{
+  background:#0f766e;
+  color:#ffffff;
+  border-color:#0f766e;
+}
+/* =====================================
+   BUTTON BACK REKAP
+===================================== */
+
+.rekap-guru-page .btn-back-rekap{
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  height:46px;
+
+  padding:0 20px;
+
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+
+  background:#f3f4f6;
+  color:#374151;
+
+  font-size:14px;
+  font-weight:700;
+
+  text-decoration:none;
+
+  transition:0.2s ease;
+}
+
+.rekap-guru-page .btn-back-rekap:hover{
+  background:#e5e7eb;
+  color:#111827;
+}
+
+/* ======================================
+   BADGE STATUS PRESENSI GURU
+====================================== */
+
+.rekap-guru-page .badge-status{
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:90px;
+    height:34px;
+
+    padding:0 14px;
+
+    border-radius:999px;
+
+    font-size:13px;
+    font-weight:700;
+
+    letter-spacing:0.2px;
+}
+
+/* HADIR */
+.rekap-guru-page .badge-hadir{
+
+    background:#DCFCE7;
+    color:#166534;
+}
+
+/* IZIN */
+.rekap-guru-page .badge-izin{
+
+    background:#FEF3C7;
+    color:#92400E;
+}
+
+/* SAKIT */
+.rekap-guru-page .badge-sakit{
+
+    background:#FEE2E2;
+    color:#991B1B;
+}
+
+/* CUTI */
+.rekap-guru-page .badge-cuti{
+
+    background:#EDE9FE;
+    color:#6B21A8;
+}
+
+.rekap-guru-page .link-surat{
+
+    color:#0F766E;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+    transition:0.2s ease;
+}
+
+.rekap-guru-page .link-surat:hover{
+
+    color:#115E59;
+
+    text-decoration:underline;
+}
+
+
+/* =====================================
+   REKAP SISWA PAGE
+===================================== */
+
+.rekap-siswa-page .top-section{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+
+/* FILTER */
+.rekap-siswa-page .filter-form{
+  display:flex;
+  align-items:end;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.rekap-siswa-page .filter-group label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#374151;
+}
+
+/* SEARCH */
+.rekap-siswa-page .search-guru{
+  width:260px;
+
+  border:1px solid #d1d5db;
+  border-radius:12px;
+
+  padding:10px 14px;
+
+  font-size:14px;
+
+  outline:none;
+
+  transition:0.2s;
+}
+
+.rekap-siswa-page .search-guru:focus{
+  border-color:#0f766e;
+  box-shadow:0 0 0 3px rgba(15,118,110,0.12);
+}
+
+/* TABLE WRAP */
+.rekap-siswa-page .table-wrap{
+  border-radius:18px;
+  overflow:hidden;
+
+  border:1px solid #e5e7eb;
+
+  margin-top:12px;
+}
+
+/* TABLE */
+.rekap-siswa-page .table-custom thead th{
+  background:#f9fafb;
+
+  font-size:14px;
+  font-weight:700;
+
+  color:#111827;
+
+  padding:18px 16px;
+
+  border-bottom:1px solid #e5e7eb;
+}
+
+.rekap-siswa-page .table-custom tbody td{
+  padding:18px 16px;
+
+  font-size:14px;
+  color:#374151;
+
+  border-bottom:1px solid #f1f5f9;
+
+  vertical-align:middle;
+}
+
+/* HOVER */
+.rekap-siswa-page .table-custom tbody tr:hover{
+  background:#f9fafb;
+}
+
+/* ZEBRA */
+.rekap-siswa-page .table-custom tbody tr:nth-child(even){
+  background:#fcfcfc;
+}
+
+/* BUTTON DETAIL */
+.rekap-siswa-page .btn-detail-rekap{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:90px;
+  height:40px;
+
+  padding:0 18px;
+
+  border-radius:999px;
+
+  border:1px solid #0f766e;
+
+  background:#ffffff;
+  color:#0f766e;
+
+  font-size:13px;
+  font-weight:700;
+
+  text-decoration:none;
+
+  transition:0.2s;
+}
+
+.rekap-siswa-page .btn-detail-rekap:hover{
+  background:#0f766e;
+  color:#ffffff;
+}
+
+/* EMPTY */
+.rekap-siswa-page .empty-rekap{
+  padding:36px !important;
+
+  text-align:center;
+
+  color:#6b7280;
+  font-style:italic;
+}
+
+/* BUTTON FILTER */
+.rekap-siswa-page .btn-filter-rekap{
+
+  height:46px;
+
+  padding:0 24px;
+
+  border:none;
+  border-radius:14px;
+
+  background:#0f766e;
+  color:#ffffff;
+
+  font-size:14px;
+  font-weight:700;
+
+  transition:0.2s ease;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.rekap-siswa-page .btn-filter-rekap:hover{
+  background:#0f766e;
+}
+
+/* BUTTON BACK */
+.rekap-siswa-page .btn-back-rekap{
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  height:46px;
+
+  padding:0 20px;
+
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+
+  background:#f3f4f6;
+  color:#374151;
+
+  font-size:14px;
+  font-weight:700;
+
+  text-decoration:none;
+
+  transition:0.2s ease;
+}
+
+.rekap-siswa-page .btn-back-rekap:hover{
+  background:#e5e7eb;
+  color:#111827;
+}
+.rekap-siswa-page .search-siswa{
+  width:260px;
+
+  border:1px solid #d1d5db;
+  border-radius:12px;
+
+  padding:10px 14px;
+
+  font-size:14px;
+
+  outline:none;
+
+  transition:0.2s;
+}
+
+.rekap-siswa-page .search-siswa:focus{
+  border-color:#0f766e;
+  box-shadow:0 0 0 3px rgba(15,118,110,0.12);
+}
+/* =====================================
+   DETAIL REKAP SISWA
+===================================== */
+
+.rekap-siswa-detail-page .top-section{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+
+/* FILTER */
+.rekap-siswa-detail-page .filter-form{
+  display:flex;
+  align-items:end;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.rekap-siswa-detail-page .filter-group label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#374151;
+}
+
+/* TABLE WRAP */
+.rekap-siswa-detail-page .table-wrap{
+  border-radius:18px;
+  overflow:hidden;
+
+  border:1px solid #e5e7eb;
+
+  margin-top:12px;
+}
+
+/* TABLE */
+.rekap-siswa-detail-page .table-custom thead th{
+  background:#f9fafb;
+
+  font-size:14px;
+  font-weight:700;
+
+  color:#111827;
+
+  padding:18px 16px;
+
+  border-bottom:1px solid #e5e7eb;
+}
+
+.rekap-siswa-detail-page .table-custom tbody td{
+  padding:18px 16px;
+
+  font-size:14px;
+  color:#374151;
+
+  border-bottom:1px solid #f1f5f9;
+
+  vertical-align:middle;
+}
+
+/* HOVER */
+.rekap-siswa-detail-page .table-custom tbody tr:hover{
+  background:#f9fafb;
+}
+
+/* ZEBRA */
+.rekap-siswa-detail-page .table-custom tbody tr:nth-child(even){
+  background:#fcfcfc;
+}
+
+/* BUTTON BACK */
+.rekap-siswa-detail-page .btn-back-rekap{
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  height:46px;
+
+  padding:0 20px;
+
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+
+  background:#f3f4f6;
+  color:#374151;
+
+  font-size:14px;
+  font-weight:700;
+
+  text-decoration:none;
+
+  transition:0.2s ease;
+}
+
+.rekap-siswa-detail-page .btn-back-rekap:hover{
+  background:#e5e7eb;
+  color:#111827;
+}
+
+/* BADGE STATUS */
+
+.rekap-siswa-detail-page .badge-status{
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:90px;
+    height:34px;
+
+    padding:0 14px;
+
+    border-radius:999px;
+
+    font-size:13px;
+    font-weight:700;
+}
+
+/* HADIR */
+.rekap-siswa-detail-page .badge-hadir{
+    background:#DCFCE7;
+    color:#166534;
+}
+
+/* IZIN */
+.rekap-siswa-detail-page .badge-izin{
+    background:#FEF3C7;
+    color:#92400E;
+}
+
+/* SAKIT */
+.rekap-siswa-detail-page .badge-sakit{
+    background:#FEE2E2;
+    color:#991B1B;
+}
+
+/* ALPHA */
+.rekap-siswa-detail-page .badge-alpha{
+    background:#EDE9FE;
+    color:#6B21A8;
+}
+
+/* EMPTY */
+.rekap-siswa-detail-page .empty-rekap{
+  padding:36px !important;
+
+  text-align:center;
+
+  color:#6b7280;
+  font-style:italic;
+}

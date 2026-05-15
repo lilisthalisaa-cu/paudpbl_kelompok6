@@ -23,106 +23,109 @@ class RekapAbsensiController extends Controller
     {
         $bulan = $request->bulan ?? date('m');
         $tahun = $request->tahun ?? date('Y');
+        $kelas = $request->kelas;
 
-        $data = StudentAttendance::whereMonth('date', $bulan)
-            ->whereYear('date', $tahun)
-            ->get();
-
-        $rekap = [
-            'hadir' => $data->where('status', 'HADIR')->count(),
-            'izin'  => $data->where('status', 'IZIN')->count(),
-            'sakit' => $data->where('status', 'SAKIT')->count(),
-            'alpha' => $data->where('status', 'ALPA')->count(),
-            'total' => $data->count()
-        ];
-
-        // 🔥 FILTER KELAS
         $classes = SchoolClass::all();
 
+        $query = StudentAttendance::query()
+
+            ->select(
+                'student_id',
+
+                DB::raw("SUM(status = 'HADIR') as hadir"),
+                DB::raw("SUM(status = 'IZIN') as izin"),
+                DB::raw("SUM(status = 'SAKIT') as sakit"),
+                DB::raw("SUM(status = 'ALPA') as alpha"),
+                DB::raw("COUNT(*) as total")
+            )
+
+            ->whereMonth('date', $bulan)
+            ->whereYear('date', $tahun)
+
+            ->with('student.schoolClass');
+
+        // FILTER KELAS
+        if ($kelas) {
+
+            $query->whereHas('student', function ($q) use ($kelas) {
+
+                $q->where('school_class_id', $kelas);
+
+            });
+
+        }
+
+        $detailSiswa = $query
+            ->groupBy('student_id')
+            ->get();
+
         return view('admin.rekap.siswa', compact(
-            'rekap',
-            'classes'
+            'detailSiswa',
+            'classes',
+            'bulan',
+            'tahun',
+            'kelas'
         ));
     }
 
-    
+
     // ========================
     // DETAIL REKAP SISWA
     // ========================
-    public function detailSiswa(Request $request)
+    public function detailSiswa(Request $request, $id)
     {
         $bulan = $request->bulan ?? date('m');
         $tahun = $request->tahun ?? date('Y');
         $kelas = $request->kelas;
 
         $query = StudentAttendance::with('student.schoolClass')
+            ->where('student_id', $id)
             ->whereMonth('date', $bulan)
             ->whereYear('date', $tahun);
 
-        // 🔥 FILTER KELAS
+        // FILTER KELAS
         if ($kelas) {
+
             $query->whereHas('student', function ($q) use ($kelas) {
+
                 $q->where('school_class_id', $kelas);
+
             });
+
         }
 
-        $data = $query->get();
+        $data = $query
+            ->orderBy('date', 'desc')
+            ->get();
+
+        $kelasData = optional(
+            optional($data->first())->student
+        )->schoolClass;
 
         $rekap = [
+
             'hadir' => $data->where('status', 'HADIR')->count(),
+
             'izin'  => $data->where('status', 'IZIN')->count(),
+
             'sakit' => $data->where('status', 'SAKIT')->count(),
+
             'alpha' => $data->where('status', 'ALPA')->count(),
+
             'total' => $data->count()
+
         ];
 
-                // 🔥 AMBIL DATA KELAS
-        
-        $kelasData = SchoolClass::find($kelas);
-
-        if ($kelasData && $kelasData->name == 'A') {
-
-            return view('admin.rekap.siswa-detail', compact(
-                'data',
-                'rekap',
-                'bulan',
-                'tahun',
-                'kelasData'
-            ));
-        }
-
-        if ($kelasData && $kelasData->name == 'B') {
-
-            return view('admin.rekap.siswa-kelas-b', compact(
-                'data',
-                'rekap',
-                'bulan',
-                'tahun',
-                'kelasData'
-            ));
-        }
+        return view('admin.rekap.siswa-detail', compact(
+            'data',
+            'rekap',
+            'bulan',
+            'tahun',
+            'kelas',
+            'kelasData'
+        ));
     }
-    // ========================
-    // REKAP GURU
-    // ========================
-    // public function rekapGuru(Request $request)
-    // {
-    //     $bulan = $request->bulan ?? date('m');
-    //     $tahun = $request->tahun ?? date('Y');
-
-    //     $data = TeacherAttendance::whereMonth('date', $bulan)
-    //         ->whereYear('date', $tahun)
-    //         ->get();
-
-    //     $rekap = [
-    //     'hadir' => $data->where('status', 'HADIR')->count(),
-    //     'tidak_hadir' => $data->where('status', 'TIDAK_HADIR')->count(),
-    //     'total' => $data->count()
-    // ];
-
-    //    return view('admin.rekap.guru', compact('rekap'));
-    // }
-
+    
     public function rekapGuru(Request $request)
     {
         $bulan = $request->bulan ?? date('m');
@@ -176,6 +179,59 @@ class RekapAbsensiController extends Controller
         );
     }
     
+    public function detailGuru(Request $request, $id)
+    {
+        $bulan = $request->bulan ?? date('m');
+        $tahun = $request->tahun ?? date('Y');
+
+        $status = $request->status;
+
+        // ambil data presensi guru
+        $query = TeacherAttendance::with('teacher.user')
+            ->where('teacher_id', $id)
+            ->whereMonth('date', $bulan)
+            ->whereYear('date', $tahun);
+
+        // filter status
+        if ($status) {
+            $query->where('status', strtoupper($status));
+        }
+
+        // urut berdasarkan tanggal
+        $presensi = $query
+            ->orderBy('date', 'desc')
+            ->get();
+
+        // ambil data guru
+        $guru = TeacherAttendance::with('teacher.user')
+            ->where('teacher_id', $id)
+            ->first();
+
+        return view('admin.rekap.guru-detail', compact(
+            'presensi',
+            'guru',
+            'bulan',
+            'tahun',
+            'status'
+        ));
+    }
+
+    public function viewSuratGuru($id)
+    {
+        $presensi = TeacherAttendance::findOrFail($id);
+
+        if (!$presensi->surat) {
+            abort(404);
+        }
+
+        $path = storage_path('app/private/' . $presensi->surat);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    }
 
     // ========================
     // FORMAT REKAP
@@ -191,3 +247,4 @@ class RekapAbsensiController extends Controller
         ];
     }
 }
+

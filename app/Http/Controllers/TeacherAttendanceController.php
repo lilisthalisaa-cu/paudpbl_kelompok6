@@ -133,7 +133,7 @@ class TeacherAttendanceController extends Controller
         $surat = null;
 
         if ($request->hasFile('surat')) {
-            $surat = $request->file('surat')->store('surat', 'public');
+            $surat = $request->file('surat')->store('surat', 'private');
         }
 
         TeacherAttendance::create([

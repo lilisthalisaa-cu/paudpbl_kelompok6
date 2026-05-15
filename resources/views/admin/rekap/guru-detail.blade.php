@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="card-table rekap-siswa-detail-page">
+<div class="card-table rekap-guru-page">
 
     <!-- TOP -->
     <div class="top-section">
@@ -10,7 +10,7 @@
         <!-- LEFT -->
         <div>
 
-            <a href="{{ route('admin.rekap.siswa') }}"
+            <a href="{{ route('admin.rekap.guru') }}"
                class="btn-back-rekap mb-3">
 
                 ← Kembali
@@ -18,22 +18,18 @@
             </a>
 
             <h2 class="title">
-                Detail Presensi Siswa
+                Detail Presensi Guru
             </h2>
 
             <p class="subtitle mb-1">
-                Riwayat presensi siswa berdasarkan periode.
+                Riwayat presensi guru berdasarkan periode.
             </p>
 
             <p class="text-muted mb-0">
 
                 <strong>
-                    {{ $data->first()->student->name ?? '-' }}
+                    {{ $guru->teacher->user->name ?? '-' }}
                 </strong>
-
-                •
-
-                {{ $kelasData->name ?? '-' }}
 
                 •
 
@@ -47,10 +43,6 @@
 
         <!-- FILTER -->
         <form method="GET" class="filter-form">
-
-            <input type="hidden" name="bulan" value="{{ $bulan }}">
-            <input type="hidden" name="tahun" value="{{ $tahun }}">
-            <input type="hidden" name="kelas" value="{{ $kelas }}">
 
             <div class="filter-group">
 
@@ -78,14 +70,15 @@
                         Sakit
                     </option>
 
-                    <option value="alpha"
-                        {{ request('status') == 'alpha' ? 'selected' : '' }}>
-                        Alpha
+                    <option value="cuti"
+                        {{ request('status') == 'cuti' ? 'selected' : '' }}>
+                        Cuti
                     </option>
 
                 </select>
 
             </div>
+
 
         </form>
 
@@ -97,25 +90,23 @@
         <table class="table-custom">
 
             <thead>
-
                 <tr>
-
                     <th>Tanggal</th>
                     <th>Hari</th>
                     <th>Status</th>
-
+                    <th>Catatan</th>
+                    <th>Surat</th>
                 </tr>
-
             </thead>
 
             <tbody>
 
-                @forelse($data as $item)
+                @forelse($presensi as $item)
 
                 <tr>
 
                     <td>
-                        {{ \Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}
+                        {{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}
                     </td>
 
                     <td>
@@ -124,21 +115,33 @@
 
                     <td>
 
-                        <span class="badge-status
-                            @if(strtolower($item->status) == 'hadir')
-                                badge-hadir
-                            @elseif(strtolower($item->status) == 'izin')
-                                badge-izin
-                            @elseif(strtolower($item->status) == 'sakit')
-                                badge-sakit
-                            @else
-                                badge-alpha
-                            @endif
-                        ">
+                        <span class="badge-status badge-{{ strtolower($item->status) }}">
 
                             {{ ucfirst(strtolower($item->status)) }}
 
                         </span>
+
+                    </td>
+
+                    <td>
+                        {{ $item->note ?? '-' }}
+                    </td>
+
+                    <td>
+
+                        @if($item->surat)
+
+                            <a href="{{ route('admin.rekap.guru.surat', $item->id) }}"
+                               target="_blank"
+                               class="link-surat">
+
+                                📄 Lihat Surat
+
+                            </a>
+
+                        @else
+                            -
+                        @endif
 
                     </td>
 
@@ -148,7 +151,7 @@
 
                 <tr>
 
-                    <td colspan="3" class="empty-rekap">
+                    <td colspan="5" class="empty-rekap">
 
                         Belum ada data presensi pada periode ini.
 
@@ -167,3 +170,4 @@
 </div>
 
 @endsection
+

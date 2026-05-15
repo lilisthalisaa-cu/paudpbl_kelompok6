@@ -2,14 +2,16 @@
 
 @section('content')
 
-<div class="card-table">
+<div class="card-table rekap-guru-page">
 
     <!-- TOP -->
-    <div class="d-flex justify-content-between align-items-start mb-4">
+    <div class="top-section">
 
         <!-- LEFT -->
         <div>
-            <a href="{{ route('admin.rekap.index') }}" class="btn btn-secondary mb-2">
+            <a href="{{ route('admin.rekap.index') }}"
+                class="btn-back-rekap mb-2">
+
                 ← Kembali
             </a>
 
@@ -18,13 +20,14 @@
             <p class="text-muted mb-0">
                 Periode Rekap:
                 <strong>
-                    {{ date('F', mktime(0,0,0,$bulan,1)) }} {{ $tahun }}
+                    {{ \Carbon\Carbon::create()->month((int)$bulan)->translatedFormat('F') }}
+                    {{ $tahun }}
                 </strong>
             </p>
         </div>
 
         <!-- RIGHT FILTER -->
-        <form method="GET" class="d-flex gap-3 align-items-end">
+        <form method="GET" class="filter-form">
 
             <div class="filter-group">
                 <label>Bulan</label>
@@ -32,7 +35,7 @@
                     @for($i=1;$i<=12;$i++)
                         <option value="{{ $i }}"
                         {{ request('bulan', date('m')) == $i ? 'selected' : '' }}>
-                        {{ date('F', mktime(0,0,0,$i,1)) }}
+                        {{ \Carbon\Carbon::create()->month((int)$i)->translatedFormat('F') }}
                         </option>
                         @endfor
                 </select>
@@ -50,13 +53,15 @@
                 </select>
             </div>
 
-            <button class="btn btn-success">Terapkan</button>
+            <button class="btn-filter-rekap">
+                Terapkan
+            </button>
 
             <a href="{{ route('admin.rekap.guru.export', [
                 'bulan' => request('bulan', date('m')),
                 'tahun' => request('tahun', date('Y'))
             ]) }}"
-            class="btn btn-primary">
+            class="btn-export-rekap">
                 Export Excel
             </a>
 
@@ -64,47 +69,23 @@
 
     </div>
 
-    <!-- CARD -->
-    <div class="row mb-4">
 
-        <div class="col-md-3">
-            <div class="rekap-stat">
-                <div class="rekap-stat-icon icon-hadir">✔</div>
-                <h6>Hadir</h6>
-                <h3>{{ $summary->hadir ?? 0 }}</h3>
-            </div>
-        </div>
+    <!-- TABLE -->
+   <div class="d-flex justify-content-between align-items-center mb-3">
 
-        <div class="col-md-3">
-            <div class="rekap-stat">
-                <div class="rekap-stat-icon icon-izin">📝</div>
-                <h6>Izin</h6>
-                <h3>{{ $summary->izin ?? 0 }}</h3>
-            </div>
-        </div>
+        <h5 class="card-title mb-0">
+            Rekap Presensi Guru
+        </h5>
 
-        <div class="col-md-3">
-            <div class="rekap-stat">
-                <div class="rekap-stat-icon icon-cuti">📅</div>
-                <h6>Cuti</h6>
-                <h3>{{ $summary->cuti ?? 0 }}</h3>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="rekap-stat">
-                <div class="rekap-stat-icon icon-sakit">🤒</div>
-                <h6>Sakit</h6>
-                <h3>{{ $summary->sakit ?? 0 }}</h3>
-            </div>
-        </div>
+        <input
+            type="text"
+            class="form-control search-guru"
+            placeholder="Cari nama guru..."
+        >
 
     </div>
 
-    <!-- TABLE -->
-   <h5 class="card-title">Detail Rekap Guru</h5>
-
-    <div class="table-wrap">
+    <div class="table-wrap modern-table">
         <table class="table-custom">
             <thead>
                 <tr>
@@ -115,6 +96,7 @@
                     <th>Cuti</th>
                     <th>Sakit</th>
                     <th>Total</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
 
@@ -129,10 +111,17 @@
                     <td>{{ $guru->cuti }}</td>
                     <td>{{ $guru->sakit }}</td>
                     <td>{{ $guru->total }}</td>
+
+                    <td>
+                        <a href="{{ route('admin.rekap.guru.detail', $guru->teacher_id) }}"
+                        class="btn-detail-rekap">
+                            Detail
+                        </a>
+                    </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center">
+                    <td colspan="8" class="empty-rekap">
                         Data rekap guru belum tersedia
                     </td>
                 </tr>

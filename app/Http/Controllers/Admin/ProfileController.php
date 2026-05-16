@@ -20,21 +20,45 @@ class ProfileController extends Controller
         return view('admin.profile.create');
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
+
             'title'       => 'required',
             'description' => 'required',
+
+            'npsn'        => 'nullable',
+            'address'     => 'nullable',
+            'email'       => 'nullable',
+            'phone'       => 'nullable',
+            'principal'   => 'nullable',
+            'established' => 'nullable',
+
+            'vision'      => 'nullable',
+            'mission'     => 'nullable',
+
             'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+
         ]);
 
         $data = $request->only([
+
             'title',
-            'description'
+            'description',
+
+            'npsn',
+            'address',
+            'email',
+            'phone',
+            'principal',
+            'established',
+
+            'vision',
+            'mission',
+
         ]);
 
-    
+        // upload gambar
         if ($request->hasFile('image')) {
 
             $data['image'] = $request
@@ -49,7 +73,6 @@ class ProfileController extends Controller
             ->with('success', 'Data berhasil ditambahkan');
     }
 
-
     public function edit($id)
     {
         $profile = Profile::findOrFail($id);
@@ -62,14 +85,39 @@ class ProfileController extends Controller
         $profile = Profile::findOrFail($id);
 
         $request->validate([
+
             'title'       => 'required',
             'description' => 'required',
+
+            'npsn'        => 'nullable',
+            'address'     => 'nullable',
+            'email'       => 'nullable',
+            'phone'       => 'nullable',
+            'principal'   => 'nullable',
+            'established' => 'nullable',
+
+            'vision'      => 'nullable',
+            'mission'     => 'nullable',
+
             'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+
         ]);
 
         $data = $request->only([
+
             'title',
-            'description'
+            'description',
+
+            'npsn',
+            'address',
+            'email',
+            'phone',
+            'principal',
+            'established',
+
+            'vision',
+            'mission',
+
         ]);
 
         // upload gambar baru
@@ -86,7 +134,6 @@ class ProfileController extends Controller
             ->route('admin.profile.index')
             ->with('success', 'Data berhasil diupdate');
     }
-
 
     public function destroy($id)
     {

@@ -9,10 +9,35 @@ use Illuminate\Http\Request;
 class GalleryController extends Controller
 {
     // 📌 tampilkan semua data
-    public function index()
+    public function index(Request $request)
     {
-        $galleries = Gallery::latest()->get();
-        return view('admin.gallery.index', compact('galleries'));
+        $query = Gallery::latest();
+
+        // FILTER CATEGORY
+        if (
+            $request->category &&
+            $request->category != 'Semua Kategori'
+        ) {
+
+            $query->where('category', $request->category);
+        }
+
+        // SEARCH
+        if ($request->search) {
+
+            $query->where(
+                'title',
+                'like',
+                '%' . $request->search . '%'
+            );
+        }
+
+        $galleries = $query->get();
+
+        return view(
+            'admin.gallery.index',
+            compact('galleries')
+        );
     }
 
     // 📌 form tambah
@@ -25,12 +50,14 @@ class GalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|unique:galleries,title',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        $data = $request->only(['title']);
-
+        $data = $request->only([
+            'title',
+            'category'
+        ]);
         // upload gambar
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('galleries', 'public');
@@ -54,11 +81,14 @@ class GalleryController extends Controller
         $gallery = Gallery::findOrFail($id);
 
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|unique:galleries,title,' . $gallery->id,
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        $data = $request->only(['title']);
+        $data = $request->only([
+            'title',
+            'category'
+        ]);
 
         // upload gambar baru
         if ($request->hasFile('image')) {

@@ -2,44 +2,141 @@
 
 @section('content')
 
-<div class="main-container">
+<div class="gallery-wrapper">
 
-    <div class="card-table">
+    <div class="gallery-card">
 
         <!-- HEADER -->
-        <h2 class="title">Tambah Galeri</h2>
-        <p class="subtitle">Isi data galeri untuk ditampilkan.</p>
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+            <div>
+
+                <h2 class="gallery-title">
+                    Tambah Galeri
+                </h2>
+
+                <p class="gallery-subtitle">
+                    Tambahkan galeri kegiatan sekolah.
+                </p>
+
             </div>
+
+            <a href="{{ route('admin.gallery.index') }}"
+                class="btn-cancel">
+                ← Kembali
+            </a>
+
+        </div>
+
+        <!-- ERROR -->
+        @if ($errors->any())
+
+        <div class="alert alert-danger mb-4">
+
+            <ul class="mb-0">
+
+                @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+                @endforeach
+
+            </ul>
+
+        </div>
+
         @endif
 
         <!-- FORM -->
-        <form action="{{ route('admin.gallery.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.gallery.store') }}"
+            method="POST"
+            enctype="multipart/form-data">
+
             @csrf
 
-            <!-- JUDUL -->
-            <div class="mb-3">
-                <label class="label">Judul</label>
-                <input type="text" name="title" class="input" required>
+            <div class="school-profile-grid">
+
+                <div class="mt-3">
+
+                    <label class="label">
+                        Upload Foto
+                    </label>
+
+                    <input type="file"
+                        name="image"
+                        class="input"
+                        required>
+
+                </div>
+
             </div>
 
-            <!-- GAMBAR -->
-            <div class="mb-3">
-                <label class="label">Gambar</label>
-                <input type="file" name="image" class="input" required>
-            </div>
+            <!-- FORM INPUT -->
+            <div class="school-profile-form">
 
-            <!-- BUTTON -->
-            <div class="actions">
-                <button class="btn-update-fix">Simpan</button>
-                <a href="{{ route('admin.gallery.index') }}" class="btn btn-outline">Kembali</a>
+                <!-- JUDUL -->
+                <div class="mb-4 mt-4">
+
+                    <label class="label">
+                        Judul Galeri
+                    </label>
+
+                    <input type="text"
+                        name="title"
+                        class="input"
+                        placeholder="Masukkan judul galeri"
+                        required>
+
+                </div>
+
+                <!-- KATEGORI -->
+                <div class="mb-4">
+
+                    <label class="label">
+                        Kategori
+                    </label>
+
+                    <select name="category"
+                        class="input">
+
+                        <option value="Kegiatan Belajar">
+                            Kegiatan Belajar
+                        </option>
+
+                        <option value="Outdoor">
+                            Outdoor
+                        </option>
+
+                        <option value="Keagamaan">
+                            Keagamaan
+                        </option>
+
+                        <option value="Acara">
+                            Acara
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- BUTTON -->
+                <div class="actions">
+
+                    <button type="submit"
+                        class="btn-save"
+                        onclick="this.disabled=true; this.innerText='Menyimpan...'; this.form.submit();">
+
+                        Simpan Galeri
+
+                    </button>
+
+                    <a href="{{ route('admin.gallery.index') }}"
+                        class="btn-cancel">
+                        Batal
+                    </a>
+
+                </div>
+
             </div>
 
         </form>

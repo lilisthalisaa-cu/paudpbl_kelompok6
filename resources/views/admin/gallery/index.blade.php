@@ -2,88 +2,146 @@
 
 @section('content')
 
-<div class="card-table">
+<div class="gallery-wrapper">
 
     <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-start mb-3">
+    <div class="gallery-card">
 
-        <div>
-            <h2 class="title">Data Galeri</h2>
-            <p class="subtitle">Kelola data galeri PAUD.</p>
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+
+            <div>
+
+                <h2 class="gallery-title">
+                    Galeri Kegiatan
+                </h2>
+
+                <p class="gallery-subtitle">
+                    Dokumentasi kegiatan dan aktivitas di KB Roudlotul Ilmi.
+                </p>
+
+            </div>
+
         </div>
 
-        <a href="{{ route('admin.gallery.create') }}" class="btn-add">
-            + Tambah Galeri
-        </a>
+        <!-- FILTER -->
+        <form method="GET"
+              action="{{ route('admin.gallery.index') }}"
+              class="gallery-topbar">
 
-    </div>
+            <select name="category"
+                    class="gallery-select"
+                    onchange="this.form.submit()">
 
-    <!-- SEARCH (BIAR SAMA KAYAK PROFILE) -->
-    <form method="GET" class="mb-3">
-        <div class="d-flex gap-2">
-            <input 
-                type="text" 
-                name="q"
-                class="form-control"
-                placeholder="Cari judul..."
-                style="max-width:300px;"
-            >
-            <button class="btn btn-secondary">Cari</button>
+                <option value="Semua Kategori">
+                    Semua Kategori
+                </option>
+
+                <option value="Kegiatan Belajar"
+                    {{ request('category') == 'Kegiatan Belajar' ? 'selected' : '' }}>
+                    Kegiatan Belajar
+                </option>
+
+                <option value="Outdoor"
+                    {{ request('category') == 'Outdoor' ? 'selected' : '' }}>
+                    Outdoor
+                </option>
+
+                <option value="Keagamaan"
+                    {{ request('category') == 'Keagamaan' ? 'selected' : '' }}>
+                    Keagamaan
+                </option>
+
+                <option value="Acara"
+                    {{ request('category') == 'Acara' ? 'selected' : '' }}>
+                    Acara
+                </option>
+
+            </select>
+
+            <div class="gallery-actions-top">
+
+                <div class="gallery-search">
+
+                    <input type="text"
+                           name="search"
+                           value="{{ request('search') }}"
+                           placeholder="Cari galeri kegiatan..">
+
+                    <span>🔍</span>
+
+                </div>
+
+                <!-- BUTTON TAMBAH -->
+                <a href="{{ route('admin.gallery.create') }}"
+                   class="gallery-btn-add">
+                    + Tambah Galeri
+                </a>
+
+            </div>
+
+        </form>
+
+        <!-- LIST GALERI -->
+        <div class="gallery-grid">
+
+            @foreach($galleries as $gallery)
+
+            <div class="gallery-item">
+
+                <div class="gallery-image">
+
+                    <img src="{{ asset('storage/' . $gallery->image) }}"
+                         alt="Gallery">
+
+                    <span class="gallery-badge">
+                        {{ $gallery->category }}
+                    </span>
+
+                </div>
+
+                <div class="gallery-content">
+
+                    <h5>
+                        {{ $gallery->title }}
+                    </h5>
+
+                    <p>
+                        📅 {{ $gallery->created_at->format('d F Y') }}
+                    </p>
+
+                    <!-- ACTION -->
+                    <div class="gallery-actions">
+
+                        <!-- EDIT -->
+                        <a href="{{ route('admin.gallery.edit', $gallery->id) }}"
+                           class="gallery-btn-edit">
+                            Edit
+                        </a>
+
+                        <!-- HAPUS -->
+                        <form action="{{ route('admin.gallery.destroy', $gallery->id) }}"
+                              method="POST">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit"
+                                    class="gallery-btn-delete">
+                                Hapus
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            @endforeach
+
         </div>
-    </form>
 
-    <!-- TABLE -->
-    <div class="table-wrap">
-        <table class="table-custom">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Judul</th>
-                    <th>Gambar</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @forelse($galleries as $key => $gallery)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $gallery->title }}</td>
-
-                    <td>
-                        @if($gallery->image)
-                            <img src="{{ asset('storage/' . $gallery->image) }}" class="img-table">
-                        @else
-                            -
-                        @endif
-                    </td>
-
-                    <td>
-                        <div class="action-btn">
-                            <a href="{{ route('admin.gallery.edit', $gallery->id) }}" class="btn-edit">
-                                Edit
-                            </a>
-
-                            <form action="{{ route('admin.gallery.destroy', $gallery->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button onclick="return confirm('Yakin hapus?')" class="btn-delete">
-                                    Hapus
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-
-                @empty
-                <tr>
-                    <td colspan="4" class="table-empty">
-                        Belum ada data galeri
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
     </div>
 
 </div>

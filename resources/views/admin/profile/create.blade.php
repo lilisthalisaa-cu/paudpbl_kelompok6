@@ -59,8 +59,10 @@
 
                 </div>
 
+                <!-- FORM -->
                 <div class="school-profile-form">
 
+                    <!-- NAMA -->
                     <div class="mb-4">
 
                         <label class="label">
@@ -74,6 +76,7 @@
 
                     </div>
 
+                    <!-- DESKRIPSI -->
                     <div class="mb-4">
 
                         <label class="label">
@@ -82,10 +85,115 @@
 
                         <textarea name="description"
                                   class="textarea"
-                                  rows="10"></textarea>
+                                  rows="5"></textarea>
 
                     </div>
 
+                    <!-- NPSN -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            NPSN
+                        </label>
+
+                        <input type="text"
+                               name="npsn"
+                               class="input">
+
+                    </div>
+
+                    <!-- ALAMAT -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Alamat
+                        </label>
+
+                        <textarea name="address"
+                                  class="textarea"
+                                  rows="3"></textarea>
+
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Email
+                        </label>
+
+                        <input type="email"
+                               name="email"
+                               class="input">
+
+                    </div>
+
+                    <!-- TELEPON -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Telepon
+                        </label>
+
+                        <input type="text"
+                               name="phone"
+                               class="input">
+
+                    </div>
+
+                    <!-- KEPALA SEKOLAH -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Kepala Sekolah
+                        </label>
+
+                        <input type="text"
+                               name="principal"
+                               class="input">
+
+                    </div>
+
+                    <!-- TANGGAL BERDIRI -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Tanggal Berdiri
+                        </label>
+
+                        <input type="text"
+                               name="established"
+                               class="input">
+
+                    </div>
+
+                    <!-- VISI -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Visi
+                        </label>
+
+                        <textarea name="vision"
+                                  class="textarea"
+                                  rows="4"></textarea>
+
+                    </div>
+
+                    <!-- MISI -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Misi
+                        </label>
+
+                        <textarea name="mission"
+                                  class="textarea"
+                                  rows="5"></textarea>
+
+                    </div>
+
+                    <!-- BUTTON -->
                     <div class="actions">
 
                         <button class="btn-save">

@@ -27,7 +27,6 @@
 
         </div>
 
-  
         <form method="POST"
               action="{{ route('admin.profile.update', $profile->id) }}"
               enctype="multipart/form-data">
@@ -62,9 +61,10 @@
 
                 </div>
 
-        
+                <!-- FORM -->
                 <div class="school-profile-form">
 
+                    <!-- NAMA -->
                     <div class="mb-4">
 
                         <label class="label">
@@ -79,6 +79,7 @@
 
                     </div>
 
+                    <!-- DESKRIPSI -->
                     <div class="mb-4">
 
                         <label class="label">
@@ -87,10 +88,120 @@
 
                         <textarea name="description"
                                   class="textarea"
-                                  rows="10">{{ $profile->description }}</textarea>
+                                  rows="5">{{ $profile->description }}</textarea>
 
                     </div>
 
+                    <!-- NPSN -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            NPSN
+                        </label>
+
+                        <input type="text"
+                               name="npsn"
+                               class="input"
+                               value="{{ $profile->npsn }}">
+
+                    </div>
+
+                    <!-- ALAMAT -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Alamat
+                        </label>
+
+                        <textarea name="address"
+                                  class="textarea"
+                                  rows="3">{{ $profile->address }}</textarea>
+
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Email
+                        </label>
+
+                        <input type="email"
+                               name="email"
+                               class="input"
+                               value="{{ $profile->email }}">
+
+                    </div>
+
+                    <!-- TELEPON -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Telepon
+                        </label>
+
+                        <input type="text"
+                               name="phone"
+                               class="input"
+                               value="{{ $profile->phone }}">
+
+                    </div>
+
+                    <!-- KEPALA SEKOLAH -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Kepala Sekolah
+                        </label>
+
+                        <input type="text"
+                               name="principal"
+                               class="input"
+                               value="{{ $profile->principal }}">
+
+                    </div>
+
+                    <!-- TANGGAL BERDIRI -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Tanggal Berdiri
+                        </label>
+
+                        <input type="text"
+                               name="established"
+                               class="input"
+                               value="{{ $profile->established }}">
+
+                    </div>
+
+                    <!-- VISI -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Visi
+                        </label>
+
+                        <textarea name="vision"
+                                  class="textarea"
+                                  rows="4">{{ $profile->vision }}</textarea>
+
+                    </div>
+
+                    <!-- MISI -->
+                    <div class="mb-4">
+
+                        <label class="label">
+                            Misi
+                        </label>
+
+                        <textarea name="mission"
+                                  class="textarea"
+                                  rows="5">{{ $profile->mission }}</textarea>
+
+                    </div>
+
+                    <!-- BUTTON -->
                     <div class="actions">
 
                         <button class="btn-save">

@@ -64,27 +64,31 @@
 
             </div>
 
+            <!-- DESKRIPSI -->
             <div class="school-profile-list">
 
                 <div class="school-profile-item">
-                    📍 Dusun Pasinan Timur, Singojuruh, Banyuwangi
+                    {{ $profile->description }}
                 </div>
 
                 <div class="school-profile-item">
-                    ✉ kbroudlotulilmisngojuruh@gmail.com
+                    📍 {{ $profile->address }}
                 </div>
 
                 <div class="school-profile-item">
-                    ☎️ +62 821 4518 2975
-                </div>
-
-
-                <div class="school-profile-item">
-                    📅 Berdiri sejak 2008
+                    ✉ {{ $profile->email }}
                 </div>
 
                 <div class="school-profile-item">
-                    👤 Kepala Sekolah : Widyawati
+                    ☎️ {{ $profile->phone }}
+                </div>
+
+                <div class="school-profile-item">
+                    📅 Berdiri sejak {{ $profile->established }}
+                </div>
+
+                <div class="school-profile-item">
+                    👤 Kepala Sekolah : {{ $profile->principal }}
                 </div>
 
             </div>
@@ -93,6 +97,7 @@
 
     </div>
 
+    <!-- INFORMASI -->
     <div class="school-profile-section">
 
         <h4 class="school-profile-section-title">
@@ -111,7 +116,7 @@
 
                 <div class="school-profile-box">
                     <strong>NPSN</strong>
-                    <p>69818309</p>
+                    <p>{{ $profile->npsn }}</p>
                 </div>
 
                 <div class="school-profile-box">
@@ -121,46 +126,47 @@
 
                 <div class="school-profile-box">
                     <strong>Alamat</strong>
-                    <p>Dusun Pasinan Timur, Singojuruh, Banyuwangi</p>
+                    <p>{{ $profile->address }}</p>
                 </div>
 
                 <div class="school-profile-box">
                     <strong>Email</strong>
-                    <p>kbroudlotulilmisingojuruh@gmail.com</p>
+                    <p>{{ $profile->email }}</p>
                 </div>
 
             </div>
 
-    
+            <!-- RIGHT -->
             <div class="school-profile-column">
 
+                <div class="school-profile-box">
+                    <strong>Telepon</strong>
+                    <p>{{ $profile->phone }}</p>
+                </div>
 
                 <div class="school-profile-box">
                     <strong>Tanggal Berdiri</strong>
-                    <p>17 Juli 2008</p>
+                    <p>{{ $profile->established }}</p>
                 </div>
 
                 <div class="school-profile-box">
                     <strong>Kepala Sekolah</strong>
-                    <p>WIDYAWATI</p>
+                    <p>{{ $profile->principal }}</p>
                 </div>
 
                 <div class="school-profile-box">
                     <strong>Visi</strong>
                     <p>
-                    “Terciptanya Anak Mandiri, Cerdas dan Berbudi Pekerti”
-
+                        {{ $profile->vision }}
                     </p>
                 </div>
 
                 <div class="school-profile-box">
                     <strong>Misi</strong>
 
-                    <ul>
-                        <li>Melatih Anak mandiri melalui kegiatan Pembiasaan sehari hari</li>
-                        <li>Melaksanakan Pembelajaran yang menyenangkan untuk menumbuhkan Ide dan Bernyanyi sesuai kemampuan anak</li>
-                        <li>Melatih Untuk bersikap sopan santun</li>
-                    </ul>
+                    <p>
+                        {!! nl2br(e($profile->mission)) !!}
+                    </p>
 
                 </div>
 
@@ -170,6 +176,7 @@
 
     </div>
 
+    <!-- FASILITAS -->
     <div class="school-profile-section">
 
         <h4 class="school-profile-section-title">
@@ -204,7 +211,7 @@
 
             </div>
 
-        
+            <!-- HALAMAN BERMAIN -->
             <div class="school-profile-facility">
 
                 <div class="school-profile-facility-icon">

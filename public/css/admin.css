@@ -1349,7 +1349,7 @@ button.btn-update-fix {
 }
 
 .actions .btn-save:hover{
-  background:#ea580c !important;
+  opacity:.92;
 }
 
 /* ===============================
@@ -1415,7 +1415,7 @@ button.btn-update-fix {
 }
 
 .payment-table .btn-detail:hover{
-  background:#ea580c;
+  opacity:.92;
 }
 
 /* JARAK ANTAR ROW */
@@ -1509,7 +1509,7 @@ button.btn-update-fix {
 .btn-detail:hover,
 .btn-bayar:hover,
 .modal-btn:hover{
-  background:#ea580c;
+  opacity:.92;
   color:#fff;
 }
 
@@ -1749,7 +1749,7 @@ button.btn-update-fix {
 }
 
 .btn-save:hover{
-  background:#ea580c;
+  opacity:.92;
 }
 
 .btn-cancel{
@@ -2143,7 +2143,7 @@ button.btn-update-fix {
 }
 
 .btn-save:hover{
-  background:#d97706;
+  opacity:.92;
 }
 
 .btn-cancel{

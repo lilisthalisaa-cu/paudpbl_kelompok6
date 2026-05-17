@@ -15,7 +15,7 @@
       </h2>
 
       <div class="muted">
-        Input absensi siswa selama 1 bulan.
+        Input presensi siswa selama 1 bulan.
       </div>
 
     </div>

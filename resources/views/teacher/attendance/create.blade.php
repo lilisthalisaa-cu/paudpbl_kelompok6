@@ -11,7 +11,7 @@
     <div>
       <h2 class="card-title">Input Presensi Guru</h2>
       <div class="muted">
-        Lakukan absensi kehadiran hari ini.
+        Lakukan presensi kehadiran hari ini.
       </div>
     </div>
 
@@ -69,7 +69,7 @@
     @if($attendance && $attendance->jam_pulang)
 
     <div class="attendance-success">
-      Absensi hari ini selesai ✅
+      Presensi hari ini selesai ✅
     </div>
 
     @endif

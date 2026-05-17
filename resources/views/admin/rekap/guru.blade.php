@@ -74,7 +74,7 @@
    <div class="d-flex justify-content-between align-items-center mb-3">
 
         <h5 class="card-title mb-0">
-            Rekap Presensi Guru
+            Detail Rekap Presensi Guru
         </h5>
 
         <input

@@ -16,7 +16,7 @@
            </div>
 
             <h4>Rekap Guru</h4>
-            <p>Lihat rekap absensi data guru</p>
+            <p>Lihat rekap presensi data guru</p>
         </a>
 
         <!-- REKAP SISWA -->
@@ -25,7 +25,7 @@
               👨‍🎓
             </div>
             <h4>Rekap Siswa</h4>
-            <p>Lihat rekap absensi data siswa</p>
+            <p>Lihat rekap presensi data siswa</p>
         </a>
 
     </div>

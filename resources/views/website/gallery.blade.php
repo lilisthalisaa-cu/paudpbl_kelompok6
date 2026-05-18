@@ -59,15 +59,15 @@
             <!-- 1 -->
             <div class="gallery-card">
 
-                <img src="/images/g1.jpeg" alt="Senam Pagi">
+                <img src="/images/berbagi takjil.jpeg" alt="Berbagi Takjil" loading="lazy">
 
                 <div class="gallery-content">
 
-                    <h3>Senam Pagi</h3>
+                    <h3>Berbagi Takjil</h3>
 
                     <p>
-                        Kegiatan olahraga dan
-                        menjaga kesehatan anak.
+                        Kegiatan berbagi dan
+                        belajar peduli sesama.
                     </p>
 
                 </div>
@@ -77,15 +77,15 @@
             <!-- 2 -->
             <div class="gallery-card">
 
-                <img src="/images/g2.jpeg" alt="Belajar Bersama">
+                <img src="/images/edukasi ke margo utomo.jpg" alt="Edukasi Margot Utomo" loading="lazy">
 
                 <div class="gallery-content">
 
-                    <h3>Belajar Bersama</h3>
+                    <h3>Edukasi ke Margot Utomo</h3>
 
                     <p>
-                        Suasana belajar aktif
-                        dan menyenangkan.
+                        Anak mengenal hewan
+                        dan lingkungan alam.
                     </p>
 
                 </div>
@@ -95,15 +95,15 @@
             <!-- 3 -->
             <div class="gallery-card">
 
-                <img src="/images/g3.jpeg" alt="Kegiatan Agama">
+                <img src="/images/gebyar paud tema buah.jpeg" alt="Gebyar Tema Buah" loading="lazy">
 
                 <div class="gallery-content">
 
-                    <h3>Kegiatan Agama</h3>
+                    <h3>Gebyar Tema Buah</h3>
 
                     <p>
-                        Pembiasaan doa dan
-                        pendidikan karakter.
+                        Belajar mengenal buah
+                        dengan kegiatan kreatif.
                     </p>
 
                 </div>
@@ -113,15 +113,15 @@
             <!-- 4 -->
             <div class="gallery-card">
 
-                <img src="/images/g4.jpeg" alt="Mewarnai">
+                <img src="/images/hasil karya anak membuat topi dari kardus.jpeg" alt="Karya Anak" loading="lazy">
 
                 <div class="gallery-content">
 
-                    <h3>Kegiatan Mewarnai</h3>
+                    <h3>Karya Topi Kardus</h3>
 
                     <p>
-                        Melatih kreativitas
-                        dan motorik anak.
+                        Melatih kreativitas dan
+                        motorik anak sejak dini.
                     </p>
 
                 </div>
@@ -131,15 +131,15 @@
             <!-- 5 -->
             <div class="gallery-card">
 
-                <img src="/images/g5.jpeg" alt="Outdoor">
+                <img src="/images/juara lomba mom and kids.jpg" alt="Juara Lomba" loading="lazy">
 
                 <div class="gallery-content">
 
-                    <h3>Kegiatan Outdoor</h3>
+                    <h3>Juara Mom & Kids</h3>
 
                     <p>
-                        Belajar sambil bermain
-                        di luar kelas.
+                        Prestasi anak dalam
+                        kegiatan perlombaan.
                     </p>
 
                 </div>
@@ -149,15 +149,15 @@
             <!-- 6 -->
             <div class="gallery-card">
 
-                <img src="/images/g6.jpeg" alt="Belajar Huruf">
+                <img src="/images/kunjungan dari puskesmas untuk kesehatan gigi.jpeg" alt="Kesehatan Gigi" loading="lazy">
 
                 <div class="gallery-content">
 
-                    <h3>Belajar Huruf</h3>
+                    <h3>Kesehatan Gigi</h3>
 
                     <p>
-                        Mengenal huruf dan angka
-                        dengan metode interaktif.
+                        Edukasi kesehatan gigi
+                        bersama puskesmas.
                     </p>
 
                 </div>
@@ -167,15 +167,15 @@
             <!-- 7 -->
             <div class="gallery-card">
 
-                <img src="/images/g7.jpeg" alt="Foto Bersama">
+                <img src="/images/menanam.jpg" alt="Menanam" loading="lazy">
 
                 <div class="gallery-content">
 
-                    <h3>Foto Bersama</h3>
+                    <h3>Kegiatan Menanam</h3>
 
                     <p>
-                        Momen kebersamaan
-                        anak dan guru.
+                        Belajar mencintai alam
+                        dan lingkungan sekitar.
                     </p>
 
                 </div>
@@ -185,15 +185,15 @@
             <!-- 8 -->
             <div class="gallery-card">
 
-                <img src="/images/g8.jpeg" alt="Pentas Anak">
+                <img src="/images/outing class pengenalan kereta api.jpeg" alt="Outing Class" loading="lazy">
 
                 <div class="gallery-content">
 
-                    <h3>Pentas Anak</h3>
+                    <h3>Outing Class</h3>
 
                     <p>
-                        Penampilan dan
-                        keberanian anak tampil.
+                        Pengenalan kereta api
+                        melalui kegiatan edukatif.
                     </p>
 
                 </div>

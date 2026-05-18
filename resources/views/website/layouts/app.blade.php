@@ -2,56 +2,57 @@
 <html lang="id">
 
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <!-- FIX UTAMA BIAR RESPONSIVE (WAJIB) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PAUD Raudhatul Ilmi</title>
+    <title>KB Roudlotul Ilmi</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="{{ asset('css/website.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/website.css') }}">
 </head>
 
 <body>
 
-  @include('website.components.navbar')
+    @include('website.components.navbar')
 
-  @yield('content')
+    @yield('content')
 
-  @include('website.components.footer')
+    @include('website.components.footer')
 
-  <!-- JS -->
-  <script>
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("active");
-    }
+    <script>
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
 
-    // 🔥 FIX DROPDOWN MOBILE (PASTI KENA)
-    document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
 
-      const dropdowns = document.querySelectorAll(".dropdown");
+            const dropdowns = document.querySelectorAll(".dropdown");
 
-      dropdowns.forEach(function(drop) {
-        const trigger = drop.querySelector("a");
+            dropdowns.forEach(function(drop) {
 
-        trigger.addEventListener("click", function(e) {
-          if (window.innerWidth <= 768) {
-            e.preventDefault();
+                const trigger = drop.querySelector(".dropdown-toggle");
 
-            // tutup dropdown lain
-            dropdowns.forEach(d => {
-              if (d !== drop) d.classList.remove("active");
+                trigger.addEventListener("click", function(e) {
+
+                    if (window.innerWidth <= 992) {
+
+                        e.preventDefault();
+
+                        dropdowns.forEach(d => {
+                            if (d !== drop) {
+                                d.classList.remove("active");
+                            }
+                        });
+
+                        drop.classList.toggle("active");
+                    }
+                });
+
             });
 
-            // toggle dropdown ini
-            drop.classList.toggle("active");
-          }
         });
-      });
-
-    });
-  </script>
+    </script>
 
 </body>
 

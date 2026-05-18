@@ -3,80 +3,87 @@
 @section('content')
 
 <!-- HERO -->
+<section class="modern-hero">
 
-<section class="hero">
-  <div class="overlay"></div>
+    <img src="/images/home2.png" class="hero-bg" alt="Hero">
 
-  <div class="container hero-content fade-in">
-    <h1>PAUD Raudhatul Ilmi</h1>
-    <h2>Wujudkan Masa Depan Gemilang</h2>
-    <p>Membentuk generasi anak yang cerdas, kreatif, dan berakhlak mulia</p>
+    <div class="hero-overlay"></div>
 
-<div class="hero-btn">
-  <a href="/gallery" class="btn">Lihat Kegiatan</a>
-  <a href="#" class="btn-outline">Selengkapnya</a>
-</div>
+    <div class="container hero-inner">
 
-  </div>
+        <div class="hero-text">
+
+            <div class="hero-badge">
+                <span></span>
+                Pendidikan Anak Usia Dini
+            </div>
+
+            <h1>
+                KB Roudlotul Ilmi
+            </h1>
+
+            <h2>
+                Wujudkan Masa Depan Gemilang
+            </h2>
+
+            <p>
+                Membentuk generasi anak yang cerdas,
+                kreatif, dan berakhlak mulia.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/gallery" class="hero-btn-primary">
+                    Lihat Kegiatan →
+                </a>
+
+                <a href="/profile" class="hero-btn-secondary">
+                    Selengkapnya →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
 <!-- FEATURES -->
+<section class="features container">
 
-<section class="features container fade-in">
+    <div class="card">
+        <div class="icon">🎓</div>
 
-  <div class="card">
-    <div class="icon">🎓</div>
-    <h3>Akreditasi A</h3>
-    <p>Standar pendidikan terbaik</p>
-  </div>
+        <h3>Akreditasi A</h3>
 
-  <div class="card">
-    <div class="icon">👩‍🏫</div>
-    <h3>Guru Profesional</h3>
-    <p>Tenaga pendidik berpengalaman</p>
-  </div>
+        <p>Standar pendidikan terbaik</p>
+    </div>
 
-  <div class="card">
-    <div class="icon">🏫</div>
-    <h3>Fasilitas Nyaman</h3>
-    <p>Lingkungan belajar nyaman</p>
-  </div>
+    <div class="card">
+        <div class="icon">👩‍🏫</div>
 
-  <div class="card">
-    <div class="icon">❤️</div>
-    <h3>Pendidikan Karakter</h3>
-    <p>Pembentukan akhlak anak</p>
-  </div>
+        <h3>Guru Profesional</h3>
 
-</section>
+        <p>Tenaga pendidik berpengalaman</p>
+    </div>
 
-<!-- ABOUT -->
+    <div class="card">
+        <div class="icon">🏫</div>
 
-<section class="about container fade-in">
-  <div>
-    <img src="/images/LogoPaud.jpeg" alt="Sekolah">
-  </div>
+        <h3>Fasilitas Nyaman</h3>
 
-  <div>
-    <h2>Sekolah Terbaik Untuk Masa Depan Anak</h2>
-    <p>
-      PAUD Raudhatul Ilmi memberikan pendidikan terbaik untuk anak usia dini
-      dengan pendekatan modern, menyenangkan, dan berbasis karakter.
-    </p>
-  </div>
-</section>
+        <p>Lingkungan belajar nyaman</p>
+    </div>
 
-<!-- GALLERY -->
+    <div class="card">
+        <div class="icon">❤️</div>
 
-<section class="gallery container fade-in">
-  <h2 class="section-title">Kegiatan Anak</h2>
+        <h3>Pendidikan Karakter</h3>
 
-  <div class="gallery-grid">
-    <img src="/images/LogoPaud.jpeg" alt="">
-    <img src="/images/LogoPaud.jpeg" alt="">
-    <img src="/images/LogoPaud.jpeg" alt="">
-    <img src="/images/LogoPaud.jpeg" alt="">
-  </div>
+        <p>Pembentukan akhlak anak</p>
+    </div>
+
 </section>
 
 @endsection

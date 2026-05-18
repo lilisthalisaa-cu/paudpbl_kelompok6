@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UnifiedLoginController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\StudentController;
-use App\Http\Controllers\Admin\PaymentController; 
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\TeacherAttendanceController;
 use App\Http\Controllers\StudentAttendanceController;
 use App\Http\Controllers\StudentActivityController;
@@ -12,7 +12,7 @@ use App\Http\Controllers\DevelopmentNoteController;
 use App\Http\Controllers\TeacherStudentController;
 use App\Http\Controllers\RekapAbsensiController;
 use App\Http\Controllers\Parent\ParentDashboardController;
-use App\Http\Controllers\Parent\PaymentController as ParentPaymentController; 
+use App\Http\Controllers\Parent\PaymentController as ParentPaymentController;
 use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\ProfileController;
 use App\Http\Controllers\Website\GalleryController;
@@ -34,6 +34,14 @@ Route::name('website.')->group(function () {
     Route::get('/struktur', function () {
         return view('website.struktur');
     })->name('struktur');
+
+    Route::get('/program', function () {
+        return view('website.program');
+    })->name('program');
+
+    Route::get('/contact', function () {
+        return view('website.contact');
+    })->name('contact');
 });
 
 
@@ -49,11 +57,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('teachers', TeacherController::class);
     Route::resource('students', StudentController::class);
 
-    
+
     Route::resource('profile', AdminProfileController::class);
     Route::resource('gallery', AdminGalleryController::class);
 
-  
+
     Route::get('/konten', function () {
         return view('admin.konten.index');
     })->name('konten');
@@ -73,11 +81,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::prefix('rekap-absensi')->name('rekap.')->group(function () {
         Route::get('/', [RekapAbsensiController::class, 'index'])->name('index');
         Route::get('/siswa', [RekapAbsensiController::class, 'rekapSiswa'])->name('siswa');
-        Route::get('/siswa/{id}/detail', [RekapAbsensiController::class, 'detailSiswa']) ->name('siswa.detail');
+        Route::get('/siswa/{id}/detail', [RekapAbsensiController::class, 'detailSiswa'])->name('siswa.detail');
         Route::get('/guru', [RekapAbsensiController::class, 'rekapGuru'])->name('guru');
         Route::get('/guru/export', [RekapAbsensiController::class, 'exportGuru'])->name('guru.export');
         Route::get('/guru/{id}/detail', [RekapAbsensiController::class, 'detailGuru'])->name('guru.detail');
-        Route::get('/guru/surat/{id}', [RekapAbsensiController::class, 'viewSuratGuru']) ->name('guru.surat');
+        Route::get('/guru/surat/{id}', [RekapAbsensiController::class, 'viewSuratGuru'])->name('guru.surat');
     });
 });
 

@@ -1,47 +1,76 @@
 <!-- TOPBAR -->
 <div class="topbar">
-  <div class="container flex between">
-    <div>📍 Dusun Pasinan Timur, Banyuwangi</div>
-    <div>📞 0821-4518-2975</div>
-  </div>
+    <div class="container topbar-wrap">
+
+        <div>
+            📍 Dusun Pasinan Timur, Banyuwangi
+        </div>
+
+        <div>
+            📞 0821-4518-2975
+        </div>
+
+    </div>
 </div>
 
 <!-- NAVBAR -->
-<div class="navbar">
-  <div class="container flex between align-center">
+<header class="navbar">
 
-    <!-- LOGO -->
-    <h2 class="logo">PAUD Raudhatul Ilmi</h2>
+    <div class="container navbar-wrap">
 
-    <!-- HAMBURGER -->
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
+        <!-- LOGO -->
+        <a href="/" class="logo">
+            KB Roudlotul Ilmi
+        </a>
+
+        <!-- HAMBURGER -->
+        <button class="menu-toggle" onclick="toggleMenu()">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+        <!-- MENU -->
+        <nav id="menu">
+
+            <a href="/">Home</a>
+
+            <div class="dropdown">
+
+                <a href="#" class="dropdown-toggle">
+                    Tentang
+                </a>
+
+                <div class="dropdown-menu">
+
+                    <a href="/profile">
+                        Profil Sekolah
+                    </a>
+
+                    <a href="/visi-misi">
+                        Visi Misi
+                    </a>
+
+                    <a href="/struktur">
+                        Struktur
+                    </a>
+
+                </div>
+
+            </div>
+
+            <a href="{{ route('website.program') }}">
+                Program
+            </a>
+
+            <a href="/gallery">Gallery</a>
+
+            <a href="/contact">Contact</a>
+
+        </nav>
+
     </div>
 
-    <!-- MENU -->
-    <nav id="menu">
-
-      <a href="/">Home</a>
-
-      <div class="dropdown">
-        <a href="#">Tentang ▾</a>
-
-        <div class="dropdown-menu">
-          <a href="/profile">Profil Sekolah</a>
-          <a href="/visi-misi" class="{{ request()->is('visi-misi') ? 'active' : '' }}">
-            Visi Misi
-          </a>
-          <a href="/struktur">Struktur</a>
-        </div>
-      </div>
-
-      <a href="#">Program</a>
-      <a href="/gallery">Gallery</a>
-      <a href="#">Contact</a>
-
-    </nav>
-
-  </div>
-</div>
+</header>

@@ -3,12 +3,37 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Profile;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function profile()
     {
-        return view('website.profile');
+        $profile = Profile::latest()->first();
+
+        return view(
+            'website.profile',
+            compact('profile')
+        );
+    }
+
+    public function visimisi()
+    {
+        $profile = Profile::latest()->first();
+
+        return view(
+            'website.visimisi',
+            compact('profile')
+        );
+    }
+
+    public function contact()
+    {
+        $profile = Profile::latest()->first();
+
+        return view(
+            'website.contact',
+            compact('profile')
+        );
     }
 }

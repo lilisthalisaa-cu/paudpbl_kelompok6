@@ -4,7 +4,6 @@
 
 @section('content')
 
-<!-- HERO -->
 <section class="profile-hero">
 
     <div class="overlay"></div>
@@ -15,11 +14,9 @@
 
         <div class="breadcrumb">
 
-            <a href="/" class="crumb crumb-home">
-                Beranda
-            </a>
+            <a href="/">Beranda</a>
 
-            <a href="/profile" class="crumb crumb-active">
+            <a href="/profile">
                 Profil Sekolah
             </a>
 
@@ -29,7 +26,6 @@
 
 </section>
 
-<!-- CONTENT -->
 <section class="profile-section container">
 
     <div class="profile-card">
@@ -39,8 +35,13 @@
             <span class="heading-badge"></span>
 
             <div>
-                <h2>Tentang Kami</h2>
+
+                <h2>
+                    {{ $profile->title }}
+                </h2>
+
                 <div class="heading-line"></div>
+
             </div>
 
         </div>
@@ -48,21 +49,7 @@
         <div class="profile-description">
 
             <p>
-                KB Roudlotul Ilmi adalah lembaga pendidikan anak usia dini
-                yang berfokus pada pembentukan karakter, kreativitas,
-                dan kecerdasan anak.
-            </p>
-
-            <p>
-                Kami menghadirkan lingkungan belajar yang nyaman,
-                menyenangkan, dan modern untuk mendukung tumbuh
-                kembang anak secara optimal.
-            </p>
-
-            <p>
-                Dengan tenaga pendidik profesional dan metode pembelajaran
-                interaktif, kami berkomitmen memberikan pengalaman belajar
-                terbaik bagi seluruh peserta didik.
+                {{ $profile->description }}
             </p>
 
         </div>

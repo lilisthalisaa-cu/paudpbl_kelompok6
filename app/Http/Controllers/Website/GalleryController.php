@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\StudentActivity;
+use App\Models\Gallery;
 
 class GalleryController extends Controller
 {
-   public function index()
+    public function index()
     {
-        $activities = StudentActivity::latest()->get();
-        return view('website.gallery', compact('activities'));
+        $galleries = Gallery::latest()->get();
+
+        return view(
+            'website.gallery',
+            compact('galleries')
+        );
     }
 }

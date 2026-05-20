@@ -8,17 +8,22 @@ class Profile extends Model
 {
     protected $fillable = [
 
+        // PROFILE
         'title',
         'description',
         'image',
 
-        'npsn',
+        // CONTACT
         'address',
         'email',
         'phone',
+
+        // SCHOOL INFO
+        'npsn',
         'principal',
         'established',
 
+        // VISI MISI
         'vision',
         'mission',
     ];

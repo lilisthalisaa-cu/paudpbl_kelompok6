@@ -16,34 +16,37 @@ use App\Http\Controllers\Parent\PaymentController as ParentPaymentController;
 use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\ProfileController;
 use App\Http\Controllers\Website\GalleryController;
-
-
+use App\Http\Controllers\Admin\ProgramController as AdminProgramController;
+use App\Http\Controllers\Admin\StructureController as AdminStructureController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Website\ProgramController;
+use App\Http\Controllers\Website\StructureController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 
-
 Route::name('website.')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
-    Route::get('/visi-misi', function () {
-        return view('website.visimisi');
-    })->name('visimisi');
+    Route::get('/', [HomeController::class, 'index'])
+        ->name('home');
 
-    Route::get('/struktur', function () {
-        return view('website.struktur');
-    })->name('struktur');
+    Route::get('/profile', [ProfileController::class, 'profile'])
+        ->name('profile');
 
-    Route::get('/program', function () {
-        return view('website.program');
-    })->name('program');
+    Route::get('/visi-misi', [ProfileController::class, 'visimisi'])
+        ->name('visimisi');
 
-    Route::get('/contact', function () {
-        return view('website.contact');
-    })->name('contact');
+    Route::get('/contact', [ProfileController::class, 'contact'])
+        ->name('contact');
+
+    Route::get('/gallery', [GalleryController::class, 'index'])
+        ->name('gallery');
+
+    Route::get('/program', [ProgramController::class, 'index'])
+        ->name('program');
+
+    Route::get('/struktur', [StructureController::class, 'index'])
+        ->name('struktur');
 });
-
 
 Route::controller(UnifiedLoginController::class)->group(function () {
     Route::get('/login', 'create')->name('login');
@@ -60,7 +63,20 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('profile', AdminProfileController::class);
     Route::resource('gallery', AdminGalleryController::class);
+    Route::resource(
+    'program',
+    AdminProgramController::class
+);
 
+Route::resource(
+    'structure',
+    AdminStructureController::class
+);
+
+Route::resource(
+    'contact',
+    AdminContactController::class
+);
 
     Route::get('/konten', function () {
         return view('admin.konten.index');

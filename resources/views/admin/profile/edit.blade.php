@@ -6,7 +6,7 @@
 
     <div class="school-profile-section">
 
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
             <div>
 
@@ -15,7 +15,7 @@
                 </h2>
 
                 <p class="subtitle">
-                    Perbarui informasi profil sekolah.
+                    Perbarui informasi sekolah.
                 </p>
 
             </div>
@@ -50,7 +50,7 @@
                     <div class="mt-3">
 
                         <label class="label">
-                            Upload Foto
+                            Foto Sekolah
                         </label>
 
                         <input type="file"
@@ -64,11 +64,10 @@
                 <!-- FORM -->
                 <div class="school-profile-form">
 
-                    <!-- NAMA -->
                     <div class="mb-4">
 
                         <label class="label">
-                            Nama / Judul Sekolah
+                            Nama Sekolah
                         </label>
 
                         <input type="text"
@@ -79,11 +78,10 @@
 
                     </div>
 
-                    <!-- DESKRIPSI -->
                     <div class="mb-4">
 
                         <label class="label">
-                            Deskripsi Sekolah
+                            Deskripsi
                         </label>
 
                         <textarea name="description"
@@ -92,21 +90,6 @@
 
                     </div>
 
-                    <!-- NPSN -->
-                    <div class="mb-4">
-
-                        <label class="label">
-                            NPSN
-                        </label>
-
-                        <input type="text"
-                               name="npsn"
-                               class="input"
-                               value="{{ $profile->npsn }}">
-
-                    </div>
-
-                    <!-- ALAMAT -->
                     <div class="mb-4">
 
                         <label class="label">
@@ -119,7 +102,6 @@
 
                     </div>
 
-                    <!-- EMAIL -->
                     <div class="mb-4">
 
                         <label class="label">
@@ -133,11 +115,10 @@
 
                     </div>
 
-                    <!-- TELEPON -->
                     <div class="mb-4">
 
                         <label class="label">
-                            Telepon
+                            Nomor Telepon
                         </label>
 
                         <input type="text"
@@ -147,35 +128,6 @@
 
                     </div>
 
-                    <!-- KEPALA SEKOLAH -->
-                    <div class="mb-4">
-
-                        <label class="label">
-                            Kepala Sekolah
-                        </label>
-
-                        <input type="text"
-                               name="principal"
-                               class="input"
-                               value="{{ $profile->principal }}">
-
-                    </div>
-
-                    <!-- TANGGAL BERDIRI -->
-                    <div class="mb-4">
-
-                        <label class="label">
-                            Tanggal Berdiri
-                        </label>
-
-                        <input type="text"
-                               name="established"
-                               class="input"
-                               value="{{ $profile->established }}">
-
-                    </div>
-
-                    <!-- VISI -->
                     <div class="mb-4">
 
                         <label class="label">
@@ -188,7 +140,6 @@
 
                     </div>
 
-                    <!-- MISI -->
                     <div class="mb-4">
 
                         <label class="label">
@@ -201,17 +152,11 @@
 
                     </div>
 
-                    <!-- BUTTON -->
                     <div class="actions">
 
                         <button class="btn-save">
                             Update Profil
                         </button>
-
-                        <a href="{{ route('admin.profile.index') }}"
-                           class="btn-cancel">
-                            Batal
-                        </a>
 
                     </div>
 

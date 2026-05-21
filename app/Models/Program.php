@@ -10,7 +10,8 @@ class Program extends Model
 
         'title',
         'description',
-        'image'
+        'image',
+        'type'
 
     ];
 }

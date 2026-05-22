@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+        rel="stylesheet">
 
 </head>
 
@@ -59,7 +59,7 @@
 
                 <!-- DASHBOARD -->
                 <a href="{{ route('admin.dashboard') }}"
-                   class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
                     Dashboard
 
@@ -67,7 +67,7 @@
 
                 <!-- GURU -->
                 <a href="{{ route('admin.teachers.index') }}"
-                   class="{{ request()->routeIs('admin.teachers.*') ? 'active' : '' }}">
+                    class="{{ request()->routeIs('admin.teachers.*') ? 'active' : '' }}">
 
                     Guru
 
@@ -75,7 +75,7 @@
 
                 <!-- SISWA -->
                 <a href="{{ route('admin.students.index') }}"
-                   class="{{ request()->routeIs('admin.students.*') ? 'active' : '' }}">
+                    class="{{ request()->routeIs('admin.students.*') ? 'active' : '' }}">
 
                     Siswa
 
@@ -83,7 +83,7 @@
 
                 <!-- REKAP -->
                 <a href="{{ route('admin.rekap.index') }}"
-                   class="{{ request()->routeIs('admin.rekap.*') ? 'active' : '' }}">
+                    class="{{ request()->routeIs('admin.rekap.*') ? 'active' : '' }}">
 
                     Rekap
 
@@ -91,7 +91,7 @@
 
                 <!-- PEMBAYARAN -->
                 <a href="{{ route('admin.payment.index') }}"
-                   class="{{ request()->routeIs('admin.payment.*') ? 'active' : '' }}">
+                    class="{{ request()->routeIs('admin.payment.*') ? 'active' : '' }}">
 
                     Pembayaran
 
@@ -110,7 +110,7 @@
 
                         <!-- PROFILE -->
                         <a href="{{ route('admin.profile.index') }}"
-                           class="{{ request()->routeIs('admin.profile.*') ? 'active-dropdown' : '' }}">
+                            class="{{ request()->routeIs('admin.profile.*') ? 'active-dropdown' : '' }}">
 
                             Profil
 
@@ -118,7 +118,7 @@
 
                         <!-- PROGRAM -->
                         <a href="{{ route('admin.program.index') }}"
-                           class="{{ request()->routeIs('admin.program.*') ? 'active-dropdown' : '' }}">
+                            class="{{ request()->routeIs('admin.program.*') ? 'active-dropdown' : '' }}">
 
                             Program
 
@@ -126,7 +126,7 @@
 
                         <!-- STRUKTUR -->
                         <a href="{{ route('admin.structure.index') }}"
-                           class="{{ request()->routeIs('admin.structure.*') ? 'active-dropdown' : '' }}">
+                            class="{{ request()->routeIs('admin.structure.*') ? 'active-dropdown' : '' }}">
 
                             Struktur
 
@@ -134,17 +134,9 @@
 
                         <!-- GALLERY -->
                         <a href="{{ route('admin.gallery.index') }}"
-                           class="{{ request()->routeIs('admin.gallery.*') ? 'active-dropdown' : '' }}">
+                            class="{{ request()->routeIs('admin.gallery.*') ? 'active-dropdown' : '' }}">
 
                             Galeri
-
-                        </a>
-
-                        <!-- CONTACT -->
-                        <a href="{{ route('admin.contact.index') }}"
-                           class="{{ request()->routeIs('admin.contact.*') ? 'active-dropdown' : '' }}">
-
-                            Kontak
 
                         </a>
 
@@ -154,13 +146,13 @@
 
                 <!-- LOGOUT -->
                 <form method="POST"
-                      action="{{ route('logout') }}"
-                      style="margin:0;">
+                    action="{{ route('logout') }}"
+                    style="margin:0;">
 
                     @csrf
 
                     <button class="btn-logout"
-                            type="submit">
+                        type="submit">
 
                         Logout
 
@@ -183,11 +175,11 @@
         <!-- ALERT -->
         @if(session('success'))
 
-            <div class="alert-success-custom">
+        <div class="alert-success-custom">
 
-                {{ session('success') }}
+            {{ session('success') }}
 
-            </div>
+        </div>
 
         @endif
 

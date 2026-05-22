@@ -6,7 +6,7 @@
 
     <div class="school-profile-section">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="profile-header">
 
             <div>
 
@@ -20,145 +20,144 @@
 
             </div>
 
-            <a href="{{ route('admin.profile.index') }}"
-               class="btn btn-outline">
+            <a
+                href="{{ route('admin.profile.index') }}"
+                class="btn-outline"
+            >
+
                 ← Kembali
+
             </a>
 
         </div>
 
-        <form method="POST"
-              action="{{ route('admin.profile.update', $profile->id) }}"
-              enctype="multipart/form-data">
+        <form
+            method="POST"
+            action="{{ route('admin.profile.update', $profile->id) }}"
+        >
 
             @csrf
             @method('PUT')
 
-            <div class="school-profile-grid">
+            <div class="school-profile-form">
 
-                <!-- FOTO -->
-                <div>
+                <div class="form-group">
 
-                    <div class="school-profile-image-preview">
+                    <label>
+                        Nama Sekolah
+                    </label>
 
-                        <img src="{{ $profile->image
-                            ? asset('storage/' . $profile->image)
-                            : asset('images/sekolah.jpg') }}">
+                    <input
+                        type="text"
+                        name="title"
+                        class="input"
+                        value="{{ $profile->title }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Deskripsi
+                    </label>
+
+                    <textarea
+                        name="description"
+                        class="textarea"
+                        rows="5"
+                    >{{ $profile->description }}</textarea>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="input"
+                            value="{{ $profile->email }}"
+                        >
 
                     </div>
 
-                    <div class="mt-3">
+                    <div class="form-group">
 
-                        <label class="label">
-                            Foto Sekolah
+                        <label>
+                            Nomor Telepon
                         </label>
 
-                        <input type="file"
-                               name="image"
-                               class="input">
+                        <input
+                            type="text"
+                            name="phone"
+                            class="input"
+                            value="{{ $profile->phone }}"
+                        >
 
                     </div>
 
                 </div>
 
-                <!-- FORM -->
-                <div class="school-profile-form">
+                <div class="form-group">
 
-                    <div class="mb-4">
+                    <label>
+                        Alamat
+                    </label>
 
-                        <label class="label">
-                            Nama Sekolah
-                        </label>
+                    <textarea
+                        name="address"
+                        class="textarea"
+                        rows="3"
+                    >{{ $profile->address }}</textarea>
 
-                        <input type="text"
-                               name="title"
-                               class="input"
-                               value="{{ $profile->title }}"
-                               required>
+                </div>
 
-                    </div>
+                <div class="form-grid">
 
-                    <div class="mb-4">
+                    <div class="form-group">
 
-                        <label class="label">
-                            Deskripsi
-                        </label>
-
-                        <textarea name="description"
-                                  class="textarea"
-                                  rows="5">{{ $profile->description }}</textarea>
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="label">
-                            Alamat
-                        </label>
-
-                        <textarea name="address"
-                                  class="textarea"
-                                  rows="3">{{ $profile->address }}</textarea>
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="label">
-                            Email
-                        </label>
-
-                        <input type="email"
-                               name="email"
-                               class="input"
-                               value="{{ $profile->email }}">
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="label">
-                            Nomor Telepon
-                        </label>
-
-                        <input type="text"
-                               name="phone"
-                               class="input"
-                               value="{{ $profile->phone }}">
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="label">
+                        <label>
                             Visi
                         </label>
 
-                        <textarea name="vision"
-                                  class="textarea"
-                                  rows="4">{{ $profile->vision }}</textarea>
+                        <textarea
+                            name="vision"
+                            class="textarea"
+                            rows="5"
+                        >{{ $profile->vision }}</textarea>
 
                     </div>
 
-                    <div class="mb-4">
+                    <div class="form-group">
 
-                        <label class="label">
+                        <label>
                             Misi
                         </label>
 
-                        <textarea name="mission"
-                                  class="textarea"
-                                  rows="5">{{ $profile->mission }}</textarea>
+                        <textarea
+                            name="mission"
+                            class="textarea"
+                            rows="5"
+                        >{{ $profile->mission }}</textarea>
 
                     </div>
 
-                    <div class="actions">
+                </div>
 
-                        <button class="btn-save">
-                            Update Profil
-                        </button>
+                <div class="actions">
 
-                    </div>
+                    <button class="btn-save">
+
+                        Update Profil
+
+                    </button>
 
                 </div>
 

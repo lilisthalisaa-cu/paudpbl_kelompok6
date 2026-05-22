@@ -6,7 +6,7 @@
 
     <div class="school-profile-section">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="profile-header">
 
             <div>
 
@@ -20,140 +20,141 @@
 
             </div>
 
-            <a href="{{ route('admin.profile.index') }}"
-               class="btn btn-outline">
+            <a
+                href="{{ route('admin.profile.index') }}"
+                class="btn-outline"
+            >
+
                 ← Kembali
+
             </a>
 
         </div>
 
-        <form method="POST"
-              action="{{ route('admin.profile.store') }}"
-              enctype="multipart/form-data">
+        <form
+            method="POST"
+            action="{{ route('admin.profile.store') }}"
+        >
 
             @csrf
 
-            <div class="school-profile-grid">
+            <div class="school-profile-form">
 
-                <!-- FOTO -->
-                <div>
+                <div class="form-group">
 
-                    <div class="school-profile-image-preview">
+                    <label>
+                        Nama Sekolah
+                    </label>
 
-                        <img src="{{ asset('images/sekolah.jpg') }}">
+                    <input
+                        type="text"
+                        name="title"
+                        class="input"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Deskripsi
+                    </label>
+
+                    <textarea
+                        name="description"
+                        class="textarea"
+                        rows="5"
+                        required
+                    ></textarea>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="input"
+                        >
 
                     </div>
 
-                    <div class="mt-3">
+                    <div class="form-group">
 
-                        <label class="label">
-                            Foto Sekolah
+                        <label>
+                            Nomor Telepon
                         </label>
 
-                        <input type="file"
-                               name="image"
-                               class="input">
+                        <input
+                            type="text"
+                            name="phone"
+                            class="input"
+                        >
 
                     </div>
 
                 </div>
 
-                <!-- FORM -->
-                <div class="school-profile-form">
+                <div class="form-group">
 
-                    <div class="mb-4">
+                    <label>
+                        Alamat
+                    </label>
 
-                        <label class="label">
-                            Nama Sekolah
-                        </label>
+                    <textarea
+                        name="address"
+                        class="textarea"
+                        rows="3"
+                    ></textarea>
 
-                        <input type="text"
-                               name="title"
-                               class="input"
-                               required>
+                </div>
 
-                    </div>
+                <div class="form-grid">
 
-                    <div class="mb-4">
+                    <div class="form-group">
 
-                        <label class="label">
-                            Deskripsi
-                        </label>
-
-                        <textarea name="description"
-                                  class="textarea"
-                                  rows="5"
-                                  required></textarea>
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="label">
-                            Alamat
-                        </label>
-
-                        <textarea name="address"
-                                  class="textarea"
-                                  rows="3"></textarea>
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="label">
-                            Email
-                        </label>
-
-                        <input type="email"
-                               name="email"
-                               class="input">
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="label">
-                            Nomor Telepon
-                        </label>
-
-                        <input type="text"
-                               name="phone"
-                               class="input">
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="label">
+                        <label>
                             Visi
                         </label>
 
-                        <textarea name="vision"
-                                  class="textarea"
-                                  rows="4"></textarea>
+                        <textarea
+                            name="vision"
+                            class="textarea"
+                            rows="5"
+                        ></textarea>
 
                     </div>
 
-                    <div class="mb-4">
+                    <div class="form-group">
 
-                        <label class="label">
+                        <label>
                             Misi
                         </label>
 
-                        <textarea name="mission"
-                                  class="textarea"
-                                  rows="5"></textarea>
+                        <textarea
+                            name="mission"
+                            class="textarea"
+                            rows="5"
+                        ></textarea>
 
                     </div>
 
-                    <div class="actions">
+                </div>
 
-                        <button class="btn-save">
-                            Simpan Profil
-                        </button>
+                <div class="actions">
 
-                    </div>
+                    <button class="btn-save">
+
+                        Simpan Profil
+
+                    </button>
 
                 </div>
 

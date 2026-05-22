@@ -22,7 +22,9 @@
 
             <a href="{{ route('admin.profile.create') }}"
                class="btn-add">
+
                 + Tambah Profil
+
             </a>
 
         @endif
@@ -33,69 +35,55 @@
 
     <div class="school-profile-card">
 
-        <div class="school-profile-image">
+        {{-- TOP --}}
+        <div class="profile-top">
 
-            <img src="{{ $profile->image
-                ? asset('storage/' . $profile->image)
-                : asset('images/sekolah.jpg') }}">
+            <div>
 
-        </div>
+                <h3 class="school-profile-title">
+                    {{ $profile->title }}
+                </h3>
 
-        <div class="school-profile-info">
-
-            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
-
-                <div>
-
-                    <h3 class="school-profile-title">
-                        {{ $profile->title }}
-                    </h3>
-
-                </div>
-
-                <a href="{{ route('admin.profile.edit', $profile->id) }}"
-                   class="school-profile-edit">
-
-                    ✏ Edit
-
-                </a>
-
-            </div>
-
-            <div class="school-profile-list">
-
-                <div class="school-profile-item">
+                <p class="school-profile-description">
                     {{ $profile->description }}
-                </div>
+                </p>
 
-                <div class="school-profile-item">
-                    📍 {{ $profile->address }}
-                </div>
+            </div>
 
-                <div class="school-profile-item">
-                    ✉ {{ $profile->email }}
-                </div>
+            <a href="{{ route('admin.profile.edit', $profile->id) }}"
+               class="school-profile-edit">
 
-                <div class="school-profile-item">
-                    ☎️ {{ $profile->phone }}
-                </div>
+                ✏ Edit
 
+            </a>
+
+        </div>
+
+        {{-- INFO --}}
+        <div class="school-profile-list">
+
+            <div class="school-profile-item">
+                📍 {{ $profile->address }}
+            </div>
+
+            <div class="school-profile-item">
+                ✉ {{ $profile->email }}
+            </div>
+
+            <div class="school-profile-item">
+                ☎ {{ $profile->phone }}
             </div>
 
         </div>
 
-    </div>
+        {{-- VISI MISI --}}
+        <div class="vm-wrapper">
 
-    <!-- VISI MISI -->
-    <div class="school-profile-section mt-4">
+            <div class="vm-card">
 
-        <div class="school-profile-grid">
-
-            <div class="school-profile-box">
-
-                <strong>
+                <h4>
                     Visi
-                </strong>
+                </h4>
 
                 <p>
                     {{ $profile->vision }}
@@ -103,11 +91,11 @@
 
             </div>
 
-            <div class="school-profile-box">
+            <div class="vm-card">
 
-                <strong>
+                <h4>
                     Misi
-                </strong>
+                </h4>
 
                 <p>
                     {!! nl2br(e($profile->mission)) !!}

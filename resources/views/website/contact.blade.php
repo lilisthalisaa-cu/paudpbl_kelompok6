@@ -4,25 +4,15 @@
 
 @section('content')
 
-<section class="contact-hero">
+<section class="page-hero gallery-hero">
 
-    <div class="container">
+    <div class="overlay"></div>
 
-        <div class="contact-hero-box">
+    <div class="container hero-center">
 
-            <div class="contact-hero-left">
-
-                <span class="contact-badge">
-                    Hubungi Kami
-                </span>
-
-                <h1>
-                    Kami Siap Membantu Anda
-                </h1>
-
-            </div>
-
-        </div>
+        <h1>
+            Hubungi Kami
+        </h1>
 
     </div>
 
@@ -34,13 +24,18 @@
 
         <div class="contact-grid">
 
+            {{-- INFORMASI --}}
             <div class="contact-info">
 
-                <h2>Informasi Kontak</h2>
+                <h2>
+                    Informasi Kontak
+                </h2>
 
                 <div class="contact-card">
 
-                    <h4>Alamat</h4>
+                    <h4>
+                        📍 Alamat
+                    </h4>
 
                     <p>
                         {{ $profile->address }}
@@ -50,7 +45,9 @@
 
                 <div class="contact-card">
 
-                    <h4>Telepon</h4>
+                    <h4>
+                        ☎ Telepon
+                    </h4>
 
                     <p>
                         {{ $profile->phone }}
@@ -60,13 +57,25 @@
 
                 <div class="contact-card">
 
-                    <h4>Email</h4>
+                    <h4>
+                        ✉ Email
+                    </h4>
 
                     <p>
                         {{ $profile->email }}
                     </p>
 
                 </div>
+
+            </div>
+
+            {{-- FOTO --}}
+            <div class="contact-image">
+
+                <img
+                    src="{{ asset('images/paud.jpeg') }}"
+                    alt="PAUD"
+                >
 
             </div>
 

@@ -2,54 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
+use App\Models\ActivityStudent;
 use App\Models\Student;
-use App\Models\StudentActivity;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class StudentActivityController extends Controller
+class ActivityController extends Controller
 {
-    private function teacherClassId()
+    private function teacherData()
     {
         return Teacher::where(
             'user_id',
             Auth::id()
-        )->value('school_class_id');
+        )->firstOrFail();
     }
 
     public function create()
     {
-        $classId = $this->teacherClassId();
+        $teacher = $this->teacherData();
 
         $students = Student::where(
                 'school_class_id',
-                $classId
+                $teacher->school_class_id
             )
             ->orderBy('name')
             ->get();
 
         return view(
             'teacher.activity.create',
-            compact('students')
+            compact(
+                'teacher',
+                'students'
+            )
         );
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'date' => ['required', 'date'],
+
+            'activity_date' => ['required', 'date'],
+
             'title_1' => ['required'],
-            'title_2' => ['required'],
-            'title_3' => ['required'],
+            'title_2' => ['nullable'],
+            'title_3' => ['nullable'],
+
             'activities' => ['required', 'array'],
+
         ]);
 
-        $teacher = Teacher::where(
-            'user_id',
-            Auth::id()
-        )->firstOrFail();
+        $teacher = $this->teacherData();
 
+        // simpan kegiatan utama kelas
+        $activity = Activity::create([
+
+            'teacher_id' => $teacher->id,
+
+            'school_class_id' => $teacher->school_class_id,
+
+            'date' => $request->activity_date,
+
+            'theme' => 'Kegiatan Harian',
+
+            'activity_1' => $request->title_1,
+
+            'activity_2' => $request->title_2,
+
+            'activity_3' => $request->title_3,
+
+            'notes' => null,
+
+        ]);
+
+        // simpan hasil kegiatan masing-masing siswa
         foreach ($request->activities as $studentId => $item) {
 
             $student = Student::where(
@@ -73,25 +100,19 @@ class StudentActivityController extends Controller
                     ->store('activities', 'public');
             }
 
-            $description = 
-                ($request->title_1 ?? '-') . ': ' . ($item['desc_1'] ?? '-') . "\n\n" .
-                ($request->title_2 ?? '-') . ': ' . ($item['desc_2'] ?? '-') . "\n\n" .
-                ($request->title_3 ?? '-') . ': ' . ($item['desc_3'] ?? '-');
+            ActivityStudent::create([
 
-            StudentActivity::create([
+                'activity_id' => $activity->id,
 
                 'student_id' => $student->id,
 
-                'teacher_id' => $teacher->id,
+                'desc_1' => $item['desc_1'] ?? null,
 
-                'date' => $request->date,
+                'desc_2' => $item['desc_2'] ?? null,
 
-                'title' => 'Kegiatan Harian',
-
-                'description' => $description,
+                'desc_3' => $item['desc_3'] ?? null,
 
                 'photo' => $photoPath,
-
 
             ]);
         }
@@ -108,21 +129,18 @@ class StudentActivityController extends Controller
 
     public function index()
     {
-        $classId = $this->teacherClassId();
+        $teacher = $this->teacherData();
 
-        $activities = StudentActivity::with('student')
+        $activities = Activity::with('activityStudents')
 
-            ->whereHas('student', function ($q) use ($classId) {
-
-                $q->where(
-                    'school_class_id',
-                    $classId
-                );
-            })
+            ->where(
+                'school_class_id',
+                $teacher->school_class_id
+            )
 
             ->latest()
 
-            ->get();
+            ->paginate(10);
 
         return view(
             'teacher.activity.index',

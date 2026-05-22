@@ -10,7 +10,27 @@
 
     <div class="container hero-center">
 
-        <h1>Visi & Misi</h1>
+        <h1>
+            Visi & Misi
+        </h1>
+
+        <div class="breadcrumb">
+
+            <a
+                href="/"
+                class="crumb crumb-home"
+            >
+                Beranda
+            </a>
+
+            <a
+                href="/visimisi"
+                class="crumb crumb-active"
+            >
+                Visi & Misi
+            </a>
+
+        </div>
 
     </div>
 
@@ -22,7 +42,9 @@
 
         <div class="vm-card visi">
 
-            <h3>VISI</h3>
+            <h3>
+                VISI
+            </h3>
 
             <p>
                 {{ $profile->vision }}
@@ -32,7 +54,9 @@
 
         <div class="vm-card misi">
 
-            <h3>MISI</h3>
+            <h3>
+                MISI
+            </h3>
 
             <p>
                 {{ $profile->mission }}

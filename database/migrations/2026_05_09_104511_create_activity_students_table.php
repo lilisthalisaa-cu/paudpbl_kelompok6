@@ -23,10 +23,13 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->text('artwork')
+            $table->text('desc_1')
                 ->nullable();
 
-            $table->text('note')
+            $table->text('desc_2')
+                ->nullable();
+
+            $table->text('desc_3')
                 ->nullable();
 
             $table->string('photo')

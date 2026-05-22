@@ -4,6 +4,38 @@
 
 @section('content')
 
+<section class="struktur-hero">
+
+    <div class="overlay"></div>
+
+    <div class="container hero-center">
+
+        <h1>
+            Struktur Organisasi
+        </h1>
+
+        <div class="breadcrumb">
+
+            <a
+                href="/"
+                class="crumb crumb-home"
+            >
+                Beranda
+            </a>
+
+            <a
+                href="/structure"
+                class="crumb crumb-active"
+            >
+                Struktur Organisasi
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
 <section class="struktur-section">
 
     <div class="container">

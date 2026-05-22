@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\TeacherAttendanceController;
 use App\Http\Controllers\StudentAttendanceController;
-use App\Http\Controllers\StudentActivityController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DevelopmentNoteController;
 use App\Http\Controllers\TeacherStudentController;
 use App\Http\Controllers\RekapAbsensiController;
@@ -129,7 +129,7 @@ Route::middleware('auth')->prefix('teacher')->name('teacher.')->group(function (
         Route::get('/students/{student}', 'show')->name('students.show');
     });
 
-    Route::controller(StudentActivityController::class)->group(function () {
+    Route::controller(ActivityController::class)->group(function () {
         Route::get('/activity', 'index')->name('activity.index');
         Route::get('/activity/create', 'create')->name('activity.create');
         Route::post('/activity/store', 'store')->name('activity.store');

@@ -10,13 +10,23 @@
 
     <div class="container hero-center">
 
-        <h1>Profil Sekolah</h1>
+        <h1>
+            Profil Sekolah
+        </h1>
 
         <div class="breadcrumb">
 
-            <a href="/">Beranda</a>
+            <a
+                href="/"
+                class="crumb crumb-home"
+            >
+                Beranda
+            </a>
 
-            <a href="/profile">
+            <a
+                href="/profile"
+                class="crumb crumb-active"
+            >
                 Profil Sekolah
             </a>
 

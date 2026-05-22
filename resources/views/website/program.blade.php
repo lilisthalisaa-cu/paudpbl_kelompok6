@@ -4,6 +4,22 @@
 
 @section('content')
 
+{{-- HERO --}}
+<section class="program-hero">
+
+    <div class="overlay"></div>
+
+    <div class="hero-center">
+
+        <h1>
+            Program Sekolah
+        </h1>
+
+    </div>
+
+</section>
+
+{{-- PROGRAM --}}
 <section class="program-section">
 
     <div class="container">

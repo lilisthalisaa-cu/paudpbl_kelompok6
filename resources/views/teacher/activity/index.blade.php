@@ -9,6 +9,7 @@
     <div class="card-head top-head">
 
         <div>
+
             <h2 class="card-title">
                 Data Kegiatan Siswa
             </h2>
@@ -16,7 +17,15 @@
             <div class="muted">
                 Riwayat kegiatan harian siswa.
             </div>
+
         </div>
+
+        <a href="{{ route('teacher.dashboard') }}"
+           class="btn-outline-activity">
+
+            ← Kembali
+
+        </a>
 
     </div>
 
@@ -37,7 +46,7 @@
                 <tr>
 
                     <th>Tanggal</th>
-                    <th>Nama</th>
+                    <th>Nama Siswa</th>
                     <th>Kegiatan</th>
                     <th>Foto</th>
 
@@ -47,38 +56,79 @@
 
             <tbody>
 
-                @forelse($activities as $a)
+                @forelse($activities as $activity)
 
-                <tr>
+                    @foreach($activity->activityStudents as $item)
 
-                    <td>
-                        {{ \Carbon\Carbon::parse($a->date)->translatedFormat('d M Y') }}
-                    </td>
+                    <tr>
 
-                    <td>
-                        {{ $a->student->name }}
-                    </td>
+                        <td>
+                            {{ \Carbon\Carbon::parse($activity->date)->translatedFormat('d M Y') }}
+                        </td>
 
-                    <td class="activity-desc">
-                        {!! nl2br(e($a->description)) !!}
-                    </td>
+                        <td>
+                            {{ $item->student->name ?? '-' }}
+                        </td>
 
-                    <td>
+                        <td class="activity-desc">
 
-                        @if($a->photo)
+                            <strong>
+                                {{ $activity->activity_1 }}
+                            </strong>
 
-                        <img src="{{ asset('storage/'.$a->photo) }}"
-                             class="activity-photo">
+                            <br>
 
-                        @else
+                            {{ $item->desc_1 }}
 
-                        -
+                            @if($activity->activity_2)
 
-                        @endif
+                                <br><br>
 
-                    </td>
+                                <strong>
+                                    {{ $activity->activity_2 }}
+                                </strong>
 
-                </tr>
+                                <br>
+
+                                {{ $item->desc_2 }}
+
+                            @endif
+
+                            @if($activity->activity_3)
+
+                                <br><br>
+
+                                <strong>
+                                    {{ $activity->activity_3 }}
+                                </strong>
+
+                                <br>
+
+                                {{ $item->desc_3 }}
+
+                            @endif
+
+                        </td>
+
+                        <td>
+
+                            @if($item->photo)
+
+                                <img
+                                    src="{{ asset('storage/'.$item->photo) }}"
+                                    class="activity-photo">
+
+                            @else
+
+                                -
+
+                            @endif
+
+                        </td>
+
+                    </tr>
+
+                    @endforeach
 
                 @empty
 

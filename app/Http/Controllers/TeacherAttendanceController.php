@@ -46,9 +46,8 @@ class TeacherAttendanceController extends Controller
         return view('teacher.attendance.index', compact('attendances'));
     }
 
-    // =========================
+    
     // HADIR
-    // =========================
     public function hadir()
     {
         $teacher = Teacher::where('user_id', Auth::id())->first();
@@ -75,9 +74,8 @@ class TeacherAttendanceController extends Controller
         return back()->with('success', 'Berhasil absen hadir.');
     }
 
-    // =========================
+    
     // PULANG
-    // =========================
     public function pulang()
     {
         $teacher = Teacher::where('user_id', Auth::id())->first();
@@ -105,9 +103,8 @@ class TeacherAttendanceController extends Controller
         return back()->with('success', 'Berhasil absen pulang.');
     }
 
-    // =========================
+   
     // IZIN / CUTI / SAKIT
-    // =========================
     public function izin(Request $request)
     {
         $request->validate([

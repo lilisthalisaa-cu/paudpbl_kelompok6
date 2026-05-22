@@ -8,21 +8,21 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    // 🔹 Menampilkan semua data pembayaran
+    // Menampilkan semua data pembayaran
     public function index()
     {
         $payments = Payment::with('student')->get();
         return view('admin.payments.index', compact('payments'));
     }
 
-    // 🔹 Form tambah pembayaran
+    // Form tambah pembayaran
     public function create()
     {
         $students = Student::all();
         return view('admin.payments.create', compact('students'));
     }
 
-    // 🔹 Simpan pembayaran (admin input)
+    // Simpan pembayaran (admin input)
     public function store(Request $request)
     {
         $request->validate([
@@ -42,14 +42,14 @@ class PaymentController extends Controller
         return redirect()->route('payments.index')->with('success', 'Pembayaran berhasil ditambahkan');
     }
 
-    // 🔹 Detail pembayaran
+    // Detail pembayaran
     public function show($id)
     {
         $payment = Payment::with('student')->findOrFail($id);
         return view('admin.payments.show', compact('payment'));
     }
 
-    // 🔹 Edit pembayaran
+    // Edit pembayaran
     public function edit($id)
     {
         $payment = Payment::findOrFail($id);
@@ -57,7 +57,7 @@ class PaymentController extends Controller
         return view('admin.payments.edit', compact('payment', 'students'));
     }
 
-    // 🔹 Update pembayaran
+    // Update pembayaran
     public function update(Request $request, $id)
     {
         $payment = Payment::findOrFail($id);
@@ -72,14 +72,14 @@ class PaymentController extends Controller
         return redirect()->route('payments.index')->with('success', 'Data berhasil diupdate');
     }
 
-    // 🔹 Hapus pembayaran
+    // Hapus pembayaran
     public function destroy($id)
     {
         Payment::destroy($id);
         return redirect()->route('payments.index')->with('success', 'Data berhasil dihapus');
     }
 
-    // 🔥 KHUSUS: untuk dashboard parent
+    // untuk dashboard parent
     public function getByStudent($student_id)
     {
         $payments = Payment::where('student_id', $student_id)->get();

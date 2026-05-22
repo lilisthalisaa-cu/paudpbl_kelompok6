@@ -39,7 +39,7 @@ class StudentController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'nisn' => ['nullable', 'string', 'max:50', 'unique:students,nisn'],
-            'gender' => ['nullable','in:L,P'],
+            'gender' => ['nullable','in:Laki-laki,Perempuan'],
             'birth_place' => ['nullable','string'],
             'birth_date' => ['nullable','date'],
 

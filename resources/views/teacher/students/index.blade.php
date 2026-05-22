@@ -58,13 +58,9 @@
     }
 
     .gender-badge{
-      display:inline-block;
-      padding:6px 14px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      background:#e0f2fe;
-      color:#0369a1;
+      font-size:15px;
+      font-weight:400;
+      color:#111827;
     }
 
     .empty-row{
@@ -108,41 +104,40 @@
         </td>
 
         <td>
-          {{ $s->nisn ?? '-' }}
+          {{ $s->nisn ?: 'Belum diisi' }}
         </td>
 
         <td>
 
-          @if($s->gender == 'L')
+          @if($s->gender)
 
             <span class="gender-badge">
-              Laki-laki
-            </span>
-
-          @elseif($s->gender == 'P')
-
-            <span class="gender-badge">
-              Perempuan
+              {{ $s->gender }}
             </span>
 
           @else
 
-            -
+            <span style="
+              color:#9ca3af;
+              font-style:italic;
+            ">
+              Belum diisi
+            </span>
 
           @endif
 
         </td>
 
         <td>
-          {{ $s->schoolClass->name ?? '-' }}
+          {{ $s->schoolClass->name ?? 'Belum diisi' }}
         </td>
 
         <td>
-          {{ $s->parent_name ?? '-' }}
+          {{ $s->parent_name ?: 'Belum diisi' }}
         </td>
 
         <td>
-          {{ $s->parent_phone ?? '-' }}
+          {{ $s->parent_phone ?: 'Belum diisi' }}
         </td>
 
       </tr>

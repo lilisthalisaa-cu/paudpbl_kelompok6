@@ -115,7 +115,7 @@
                             @if($item->photo)
 
                                 <img
-                                    src="{{ asset('storage/'.$item->photo) }}"
+                                    src="{{ route('teacher.activity.photo', $item->id) }}"
                                     class="activity-photo">
 
                             @else

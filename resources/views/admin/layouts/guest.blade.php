@@ -13,7 +13,7 @@
     <div class="w-full max-w-md">
 
         <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold text-green-600">PAUD Raudhatul Ilmi</h1>
+            <h1 class="text-2xl font-bold text-green-600">KB Roudlotul Ilmi</h1>
             <p class="text-gray-500 text-sm">Sistem Informasi Sekolah</p>
         </div>
 

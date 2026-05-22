@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ActivityController extends Controller
 {
@@ -97,7 +98,7 @@ class ActivityController extends Controller
             ) {
 
                 $photoPath = $item['photo']
-                    ->store('activities', 'public');
+                    ->store('activities');
             }
 
             ActivityStudent::create([
@@ -147,4 +148,28 @@ class ActivityController extends Controller
             compact('activities')
         );
     }
+
+    public function viewPhoto($id)
+{
+  
+    $activity = \App\Models\ActivityStudent::find($id);
+
+    if (!$activity) {
+        $activity = \App\Models\StudentActivity::findOrFail($id);
+    }
+
+    if (!$activity->photo) {
+        abort(404);
+    }
+
+    if (!Storage::exists($activity->photo)) {
+        abort(404);
+    }
+
+    $file = Storage::path($activity->photo);
+
+    return response()->file($file, [
+        'Content-Type' => mime_content_type($file)
+    ]);
+}
 }

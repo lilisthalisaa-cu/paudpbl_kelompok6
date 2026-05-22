@@ -17,22 +17,45 @@ class ParentAuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
+
             'nisn' => 'required',
+
             'password' => 'required'
+
         ]);
 
-        $parent = ParentAccount::where('nisn', $request->nisn)->first();
+        $parent = ParentAccount::where(
+            'nisn',
+            $request->nisn
+        )->first();
 
-        if (!$parent || !Hash::check($request->password, $parent->password)) {
+        if (!$parent) {
+
+            return back()->withErrors([
+                'nisn' => 'NISN atau password salah'
+            ])->withInput();
+        }
+
+        if (
+            !Hash::check(
+                $request->password,
+                $parent->password
+            )
+        ) {
+
             return back()->withErrors([
                 'nisn' => 'NISN atau password salah'
             ])->withInput();
         }
 
         session([
+
             'parent_id' => $parent->id,
+
             'parent_name' => $parent->name,
+
             'parent_nisn' => $parent->nisn,
+
         ]);
 
         return redirect()->route('parent.dashboard');
@@ -41,29 +64,44 @@ class ParentAuthController extends Controller
     public function dashboard()
     {
         $student = Student::with('schoolClass')
-            ->where('nisn', session('parent_nisn'))
+
+            ->where(
+                'nisn',
+                session('parent_nisn')
+            )
+
             ->first();
 
         $activities = [];
+
         $paymentStatus = 'Belum Lunas';
+
         $paymentAmount = 150000;
+
         $paymentHistories = [];
 
-        return view('parent.dashboard', compact(
-            'student',
-            'activities',
-            'paymentStatus',
-            'paymentAmount',
-            'paymentHistories'
-        ));
+        return view(
+            'parent.dashboard',
+            compact(
+                'student',
+                'activities',
+                'paymentStatus',
+                'paymentAmount',
+                'paymentHistories'
+            )
+        );
     }
 
     public function logout()
     {
         session()->forget([
+
             'parent_id',
+
             'parent_name',
+
             'parent_nisn'
+
         ]);
 
         return redirect()->route('parent.login');

@@ -13,10 +13,10 @@
         <div class="hero-content">
           <div class="hero-title">
             Dashboard Admin<br>
-            <span style="color:#f59e0b;">PAUD Raudhatul Ilmi</span>
+            <span style="color:#f59e0b;">KB Roudlotul Ilmi</span>
           </div>
           <div class="hero-sub">
-            Kelola data guru, siswa, dan pantau rekap absensi dengan cepat.
+            Kelola data guru, siswa, dan pantau rekap presensi dengan cepat.
           </div>
           <div class="hero-actions">
             <a class="btn-orange" style="text-decoration:none;display:inline-block;" href="{{ route('admin.teachers.index') }}">Kelola Guru</a>
@@ -36,9 +36,9 @@
             <strong>{{ \App\Models\Student::count() }}</strong>
           </div>
           <div class="stat">
-            <small>Absensi Hari Ini</small>
+            <small>Presensi Hari Ini</small>
             <div style="margin-top:6px;color:#6b7280;font-size:12px;">
-              Akan terisi saat fitur input absensi aktif.
+              Akan terisi saat fitur input presensi aktif.
             </div>
           </div>
         </div>

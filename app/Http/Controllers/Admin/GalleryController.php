@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
-    // 📌 tampilkan semua data
+    // tampilkan semua data
     public function index(Request $request)
     {
         $query = Gallery::latest();
@@ -40,13 +40,13 @@ class GalleryController extends Controller
         );
     }
 
-    // 📌 form tambah
+    // form tambah
     public function create()
     {
         return view('admin.gallery.create');
     }
 
-    // 📌 simpan data
+    // simpan data
     public function store(Request $request)
     {
         $request->validate([
@@ -68,14 +68,14 @@ class GalleryController extends Controller
         return redirect()->route('admin.gallery.index')->with('success', 'Data berhasil ditambahkan');
     }
 
-    // 📌 form edit
+    // form edit
     public function edit($id)
     {
         $gallery = Gallery::findOrFail($id);
         return view('admin.gallery.edit', compact('gallery'));
     }
 
-    // 📌 update data
+    // update data
     public function update(Request $request, $id)
     {
         $gallery = Gallery::findOrFail($id);
@@ -100,7 +100,7 @@ class GalleryController extends Controller
         return redirect()->route('admin.gallery.index')->with('success', 'Data berhasil diupdate');
     }
 
-    // 📌 hapus data
+    // hapus data
     public function destroy($id)
     {
         $gallery = Gallery::findOrFail($id);

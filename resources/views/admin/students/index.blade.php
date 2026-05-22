@@ -6,9 +6,66 @@
 
 <div class="card">
 
+  <style>
+
+    .card{
+      overflow-x:auto;
+    }
+
+    .table-wrap{
+      width:100%;
+      overflow-x:auto;
+    }
+
+    .student-table{
+      width:100%;
+      min-width:1200px;
+      border-collapse:collapse;
+    }
+
+    .student-table th{
+      background:#f3f4f6;
+      text-align:left;
+      padding:18px 20px;
+      font-size:15px;
+      font-weight:700;
+      color:#111827;
+      white-space:nowrap;
+    }
+
+    .student-table td{
+      padding:20px;
+      border-top:1px solid #e5e7eb;
+      font-size:15px;
+      color:#111827;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
+
+    .student-table tbody tr:hover{
+      background:#f9fafb;
+    }
+
+    .aksi-group{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:nowrap;
+    }
+
+    .btn-edit,
+    .btn-delete{
+      min-width:90px;
+      text-align:center;
+      white-space:nowrap;
+    }
+
+  </style>
+
   <div class="toolbar">
 
     <div>
+
       <h2 class="card-title">
         Data Siswa
       </h2>
@@ -16,6 +73,7 @@
       <div class="muted">
         Kelola data siswa PAUD.
       </div>
+
     </div>
 
     <a href="{{ route('admin.students.create') }}"
@@ -60,6 +118,8 @@
 
           <th>NISN</th>
 
+          <th>Jenis Kelamin</th>
+
           <th>Kelas</th>
 
           <th>Orang Tua</th>
@@ -68,9 +128,7 @@
 
           <th>Status</th>
 
-          <th class="aksi-col">
-            Aksi
-          </th>
+          <th>Aksi</th>
 
         </tr>
 
@@ -88,6 +146,10 @@
 
           <td>
             {{ $s->nisn ?? '-' }}
+          </td>
+
+          <td>
+            {{ $s->gender ?? '-' }}
           </td>
 
           <td>
@@ -120,32 +182,35 @@
 
           </td>
 
-          <td class="aksi-group">
+          <td>
 
-            <a href="{{ route('admin.students.edit',$s) }}"
-               class="btn btn-outline btn-edit">
+            <div class="aksi-group">
 
-              Edit
+              <a href="{{ route('admin.students.edit',$s) }}"
+                 class="btn btn-outline btn-edit">
 
-            </a>
+                Edit
 
-            <form method="POST"
-                  action="{{ route('admin.students.destroy',$s) }}"
-                  style="display:inline-block"
-                  onsubmit="return confirm('Hapus data siswa ini?')">
+              </a>
 
-              @csrf
-              @method('DELETE')
+              <form method="POST"
+                    action="{{ route('admin.students.destroy',$s) }}"
+                    onsubmit="return confirm('Hapus data siswa ini?')">
 
-              <button
-                type="submit"
-                class="btn btn-danger btn-delete">
+                @csrf
+                @method('DELETE')
 
-                Hapus
+                <button
+                  type="submit"
+                  class="btn btn-danger btn-delete">
 
-              </button>
+                  Hapus
 
-            </form>
+                </button>
+
+              </form>
+
+            </div>
 
           </td>
 
@@ -155,7 +220,7 @@
 
         <tr>
 
-          <td colspan="7"
+          <td colspan="8"
               class="empty-table">
 
             Belum ada data siswa.

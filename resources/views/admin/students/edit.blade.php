@@ -9,6 +9,7 @@
   <div class="card-head">
 
     <div>
+
       <h2 class="card-title">
         Edit Siswa
       </h2>
@@ -16,6 +17,7 @@
       <div class="muted">
         Perbarui data siswa.
       </div>
+
     </div>
 
   </div>
@@ -55,6 +57,47 @@
           name="nisn"
           value="{{ old('nisn',$student->nisn) }}"
           placeholder="NISN siswa">
+
+      </div>
+
+      {{-- JENIS KELAMIN --}}
+      <div class="full">
+
+        <label class="label">
+          Jenis Kelamin
+        </label>
+
+        <div class="class-button-group">
+
+          <label class="class-button">
+
+            <input
+              type="radio"
+              name="gender"
+              value="Laki-laki"
+              {{ old('gender', $student->gender) == 'Laki-laki' ? 'checked' : '' }}>
+
+            <span>
+              Laki-laki
+            </span>
+
+          </label>
+
+          <label class="class-button">
+
+            <input
+              type="radio"
+              name="gender"
+              value="Perempuan"
+              {{ old('gender', $student->gender) == 'Perempuan' ? 'checked' : '' }}>
+
+            <span>
+              Perempuan
+            </span>
+
+          </label>
+
+        </div>
 
       </div>
 
@@ -147,7 +190,9 @@
                  value="1"
                  {{ old('is_active', $student->is_active) ? 'checked' : '' }}>
 
-          <span>Aktif</span>
+          <span>
+            Aktif
+          </span>
 
         </label>
 

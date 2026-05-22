@@ -12,8 +12,6 @@ class DevelopmentNote extends Model
         'month',
         'year',
         'description',
-
-        // TAMBAHAN (JANGAN DIHAPUS YANG LAMA)
         'tb',
         'bb',
     ];

@@ -1,14 +1,4 @@
-/* =========================
-   PARENT CSS (FINAL FIXED)
-   ========================= */
-
-
-/* =========================
-   🔵 GLOBAL (SEMUA HALAMAN)
-   ========================= */
-
 /* ===== GLOBAL ===== */
-/* ===== GLOBAL TEXT SYSTEM ===== */
 
 .page-subtitle {
   font-size: 14px;
@@ -32,47 +22,42 @@ body {
 }
 
 
-/* =========================
-   🟢 DASHBOARD PAGE (KHUSUS)
-   ========================= */
+/* DASHBOARD PAGE (KHUSUS) */
 
 .dashboard-page .card {
   padding: 24px;
 }
 
 .dashboard-page .card-head {
-  margin-bottom: 16px; /* sebelumnya terlalu jauh */
+  margin-bottom: 16px; 
 }
 
 .dashboard-page .card-head > div {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* 🔥 jarak title & subtitle */
+  gap: 4px; 
 }
 
 .dashboard-page .card-title {
-  font-size: 20px;      /* SAMAIN DENGAN TEACHER */
+  font-size: 20px;      
   font-weight: 600;
   color: #111827;
   line-height: 1.2;
-  margin-bottom: 2px;   /* RAPET */
+  margin-bottom: 2px;   
 }
 
 .dashboard-page .muted {
   font-size: 14px;
   font-weight: 400;
   color: #6b7280;
-  line-height: 1.2; /* 🔥 rapetin */
-  margin-top: 0; /* 🔥 nempel ke title */
+  line-height: 1.2; 
+  margin-top: 0; 
 }
 
 .dashboard-page .muted strong {
   font-weight: 600;
   color: #374151;
 }
-/* Judul dashboard */
-
-/* teks welcome */
 
 /* link menu */
 .dashboard-page a {
@@ -88,7 +73,7 @@ body {
   text-decoration: underline;
 }
 
-/* kasih jarak antar section menu */
+/* jarak antar section menu */
 .dashboard-page a + a {
   margin-top: 4px;
 }
@@ -144,9 +129,7 @@ body {
 
 
 
-/* =========================
-   🔵 GLOBAL NAVBAR & TOPBAR
-   ========================= */
+/* GLOBAL NAVBAR & TOPBAR */
 
 /* ===== TOPBAR ===== */
 .topbar {
@@ -269,9 +252,7 @@ body {
 }
 
 
-/* =========================
-   🟡 DATA SISWA (INFORMASI ANAK)
-   ========================= */
+/* DATA SISWA (INFORMASI ANAK) */
 
 /* ===== BIODATA CLEAN ===== */
 .biodata {
@@ -333,9 +314,7 @@ body {
   border-bottom: none;
 }
 
-/* =========================
-   🟣 PERKEMBANGAN ANAK (DEVELOPMENT)
-   ========================= */
+/* PERKEMBANGAN ANAK (DEVELOPMENT) */
 
 /* ===== BADGE TB / BB ===== */
 .badge {
@@ -348,7 +327,7 @@ body {
   font-weight: 600;
 }
 
-/* 🔥 RATATENGAH KHUSUS KOLOM TB & BB */
+/* RATATENGAH KOLOM TB & BB */
 .table th:nth-child(3),
 .table th:nth-child(4),
 .table td:nth-child(3),
@@ -384,13 +363,13 @@ body {
   font-weight: 600;
 }
 
-/* =========================
-   KEGIATAN HARIAN (KHUSUS)
-   ========================= */
+/* KEGIATAN HARIAN */
 
 /* card kegiatan */
 .activity-card {
   transition: 0.2s;
+
+  padding: 18px 6px;
 }
 
 /* hover biar lebih hidup */
@@ -402,27 +381,28 @@ body {
 /* layout isi kegiatan */
 .activity-row {
   display: flex;
-  gap: 16px;
+  gap: 28px;
   align-items: flex-start;
 }
 
 /* foto kegiatan */
 .activity-img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 18px;
   flex-shrink: 0;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
 }
 
 /* isi text */
 .activity-content {
   flex: 1;
+  padding-top: 8px;
 }
 
-/* =========================
-   PEMBAYARAN (KHUSUS)
-   ========================= */
+/* PEMBAYARAN */
 
 .status-badge {
   padding: 4px 12px;

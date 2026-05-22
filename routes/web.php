@@ -133,6 +133,7 @@ Route::middleware('auth')->prefix('teacher')->name('teacher.')->group(function (
         Route::get('/activity', 'index')->name('activity.index');
         Route::get('/activity/create', 'create')->name('activity.create');
         Route::post('/activity/store', 'store')->name('activity.store');
+        Route::get('/activity/photo/{id}', 'viewPhoto')->name('activity.photo');
     });
 
     Route::controller(DevelopmentNoteController::class)->group(function () {
@@ -154,7 +155,8 @@ Route::middleware('parent')->prefix('parent')->name('parent.')->group(function (
         Route::get('/development', 'development')->name('development');
         Route::get('/activity', 'activity')->name('activity');
     });
-
+    
+    Route::get('/activity/photo/{id}', [ActivityController::class, 'viewPhoto'])->name('activity.photo');
     Route::get('/payment', [ParentPaymentController::class, 'index'])->name('payment');
 });
 

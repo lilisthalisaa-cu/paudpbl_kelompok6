@@ -41,7 +41,7 @@ body {
   flex-wrap: wrap
 }
 
-/* ===== NAVBAR FINAL CLEAN ===== */
+/* NAVBAR FINAL */
 
 .navbar {
   background: #d1d5db !important;
@@ -56,9 +56,9 @@ body {
   align-items: center;
 
   width: 100%;
-  /* 🔥 penting */
+  /* penting */
   max-width: 1200px;
-  /* 🔥 diperlebar (tadi 1120) */
+  /* diperlebar (tadi 1120) */
   margin: 0 auto;
   padding-left: 56px;
   padding-right: 16px;
@@ -69,7 +69,7 @@ body {
   font-weight: 800;
   font-size: 16px;
   color: #0f766e;
-  /* 🔥 samain sama topbar */
+  /* samain sama topbar */
 }
 
 .navbar .brand {
@@ -82,12 +82,12 @@ body {
   gap: 32px !important
 }
 
-/* 🔥 UKURAN FONT */
+/* UKURAN FONT */
 .menu a {
   font-weight: 500 !important;
-  /* ⬅️ lebih tipis dari bold */
+  /* lebih tipis dari bold */
   color: #6b7280 !important;
-  /* ⬅️ abu soft */
+  /* abu soft */
   font-size: 15px;
 }
 
@@ -130,7 +130,8 @@ body {
   height: 48px;
   min-width: 170px;
 
-  padding: 15px;
+  padding: 0 24px;
+  line-height: 48px;
 
   border-radius: 999px;
 
@@ -144,7 +145,6 @@ body {
   text-decoration: none;
 
   text-align: center;
-  line-height: 1;
 
   box-sizing: border-box;
 
@@ -426,7 +426,7 @@ body {
 .table {
   width: 100%;
   min-width: unset;
-  /* 🔥 ini kunci */
+  /* ini kunci */
   border-collapse: separate;
   border-spacing: 0;
   background: #fff;
@@ -640,9 +640,7 @@ button {
 
 
 
-/* =========================
-   PARENT DASHBOARD ENHANCEMENT
-   ========================= */
+/* PARENT DASHBOARD ENHANCEMENT*/
 
 .parent-dashboard {
   display: flex;
@@ -776,7 +774,7 @@ button {
   font-size: 16px;
   font-weight: 600;
   color: #2563eb;
-  /* 🔵 BIRU */
+  /* BIRU */
   margin: 0;
 }
 
@@ -810,14 +808,11 @@ button {
 .parent-info h3 {
   margin: 0;
   font-size: 18px;
-  /* 🔥 ini yang bikin gak berat */
   font-weight: 600;
   color: #111827;
 }
 
-/* =========================
-   TEACHER DASHBOARD MENU (SAMAKAN DENGAN PARENT)
-   ========================= */
+/* TEACHER DASHBOARD MENU (SAMAKAN DENGAN PARENT)*/
 
 .card-menu {
   display: block;
@@ -834,7 +829,7 @@ button {
   background: #f1f5ff;
 }
 
-/* 🔥 JUDUL KECIL (Absensi Guru dll) */
+/* JUDUL KECIL (Absensi Guru dll) */
 .menu-title {
   display: block;
   font-size: 13px;
@@ -843,12 +838,11 @@ button {
 }
 
 
-/* 🔥 LINK (Buka Form) */
+/* LINK (Buka Form) */
 .card-action {
   font-size: 16px;
   font-weight: 600;
   color: #2563eb;
-  /* 🔵 BIRU */
   margin: 0;
 }
 
@@ -857,7 +851,6 @@ button {
   text-decoration: underline;
 }
 
-/* 🔥 FIX ZEBRA TABLE (LEBIH KUAT) */
 .table tbody tr:nth-child(odd) td {
   background-color: #f9fafb !important;
 }
@@ -866,12 +859,12 @@ button {
   background-color: #ffffff !important;
 }
 
-/* 🔥 HOVER */
+/* HOVER */
 .table tbody tr:hover td {
   background-color: #e0f2fe !important;
 }
 
-/* LOCK BRAND AGAR TIDAK KETARIK STYLE LAIN */
+/* LOCK BRAND */
 .navbar .brand {
   font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
   font-weight: 800;
@@ -980,7 +973,6 @@ footer {
 /* BUTTON BIRU */
 .btn-add {
   background: #f59e0b;
-  /* 🔥 warna yang kamu mau */
   color: white;
   padding: 10px 18px;
   border-radius: 8px;
@@ -1108,7 +1100,6 @@ button.btn-update-fix {
   padding: 10px 20px !important;
 
   border-radius: 6px !important;
-  /* 🔥 jadi kotak */
   font-weight: 800 !important;
 
   border: none !important;
@@ -1251,7 +1242,6 @@ button.btn-update-fix {
   background-size: 16px;
 
   padding-right: 50px !important;
-  /* 🔥 biar ga nabrak teks */
 }
 
 
@@ -1578,8 +1568,6 @@ button.btn-update-fix {
   overflow: hidden;
 }
 
-
-
 .student-table {
   width: 100%;
   border-collapse: collapse;
@@ -1606,7 +1594,6 @@ button.btn-update-fix {
 
   border-bottom: 1px solid #f3f4f6;
 }
-
 
 .badge {
   display: inline-flex !important;
@@ -1675,9 +1662,7 @@ button.btn-update-fix {
   opacity: .92;
 }
 
-/* ===============================
-   BUTTON KEMBALI
-=============================== */
+/* BUTTON KEMBALI */
 
 .actions .btn-cancel {
   display: inline-flex !important;
@@ -1709,9 +1694,7 @@ button.btn-update-fix {
   background: #f9fafb !important;
 }
 
-/* ===============================
-   BUTTON LIHAT PEMBAYARAN
-=============================== */
+/* BUTTON LIHAT PEMBAYARAN */
 
 .payment-table .btn-detail {
   display: inline-flex;
@@ -2492,9 +2475,7 @@ button.btn-update-fix {
 }
 
 
-/* =====================================
-   REKAP GURU PAGE
-===================================== */
+/* REKAP GURU PAGE */
 
 .rekap-guru-page .top-section {
   display: flex;
@@ -2628,9 +2609,7 @@ button.btn-update-fix {
   font-style: italic;
 }
 
-/* =====================================
-   BUTTON TERAPKAN REKAP
-===================================== */
+/* BUTTON TERAPKAN REKAP */
 
 .rekap-guru-page .btn-filter-rekap {
 
@@ -2658,9 +2637,7 @@ button.btn-update-fix {
   background: #0f766e;
 }
 
-/* =====================================
-   BUTTON EXPORT REKAP
-===================================== */
+/* BUTTON EXPORT REKAP */
 
 .rekap-guru-page .btn-export-rekap {
 
@@ -2692,9 +2669,7 @@ button.btn-update-fix {
   border-color: #0f766e;
 }
 
-/* =====================================
-   BUTTON BACK REKAP
-===================================== */
+/* BUTTON BACK REKAP */
 
 .rekap-guru-page .btn-back-rekap {
 
@@ -2725,9 +2700,7 @@ button.btn-update-fix {
   color: #111827;
 }
 
-/* ======================================
-   BADGE STATUS PRESENSI GURU
-====================================== */
+/* BADGE STATUS PRESENSI GURU */
 
 .rekap-guru-page .badge-status {
 
@@ -2795,9 +2768,7 @@ button.btn-update-fix {
 }
 
 
-/* =====================================
-   REKAP SISWA PAGE
-===================================== */
+/* REKAP SISWA PAGE */
 
 .rekap-siswa-page .top-section {
   display: flex;
@@ -3008,9 +2979,7 @@ button.btn-update-fix {
   box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
 }
 
-/* =====================================
-   DETAIL REKAP SISWA
-===================================== */
+/* DETAIL REKAP SISWA */
 
 .rekap-siswa-detail-page .top-section {
   display: flex;
@@ -3165,9 +3134,7 @@ button.btn-update-fix {
   font-style: italic;
 }
 
-/* ===============================
-   GALLERY
-=============================== */
+/* GALLERY */
 
 .gallery-wrapper {
   display: flex;
@@ -3721,9 +3688,7 @@ button.btn-update-fix {
   width: 100%;
 }
 
-/* ===============================
-   PROGRAM FORM
-=============================== */
+/* PROGRAM FORM */
 
 .program-form-page {
   padding: 30px;
@@ -3843,9 +3808,7 @@ button.btn-update-fix {
   text-decoration: none;
 }
 
-/* ===============================
-   STRUCTURE PAGE
-=============================== */
+/* STRUCTURE PAGE */
 
 .structure-page {
   padding:0;

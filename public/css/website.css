@@ -1,6 +1,4 @@
-/* =========================
-   RESET
-========================= */
+/* RESET */
 
 *{
     margin:0;
@@ -21,9 +19,7 @@ body{
     margin:auto;
 }
 
-/* =========================
-   TOPBAR
-========================= */
+/* TOPBAR */
 
 .topbar{
     background:#0f766e;
@@ -39,9 +35,7 @@ body{
     gap:20px;
 }
 
-/* =========================
-   NAVBAR
-========================= */
+/* NAVBAR */
 
 .navbar{
     background:white;
@@ -82,9 +76,7 @@ nav a:hover{
     color:#f59e0b;
 }
 
-/* =========================
-   DROPDOWN
-========================= */
+/* DROPDOWN */
 
 .dropdown{
     position:relative;
@@ -119,9 +111,7 @@ nav a:hover{
     padding:12px 18px;
 }
 
-/* =========================
-   HAMBURGER
-========================= */
+/* HAMBURGER */
 
 .menu-toggle{
     display:none;
@@ -141,9 +131,7 @@ nav a:hover{
     border-radius:10px;
 }
 
-/* =========================================
-   MODERN HERO HOME
-========================================= */
+/* MODERN HERO HOME */
 
 .modern-hero{
     position:relative;
@@ -281,9 +269,7 @@ nav a:hover{
     color:white;
 }
 
-/* =========================
-   FEATURES
-========================= */
+/* FEATURES */
 
 .features{
     display:grid;
@@ -323,9 +309,7 @@ nav a:hover{
     line-height:1.7;
 }
 
-/* =========================
-   ABOUT HOME
-========================= */
+/* ABOUT HOME */
 
 .about{
     display:grid;
@@ -354,9 +338,7 @@ nav a:hover{
     color:#475569;
 }
 
-/* =========================
-   GALLERY
-========================= */
+/* GALLERY */
 
 .gallery{
     margin-bottom:100px;
@@ -387,9 +369,7 @@ nav a:hover{
     transform:scale(1.03);
 }
 
-/* =========================
-   PROFILE HERO
-========================= */
+/* PROFILE HERO */
 
 .profile-hero{
     height:420px;
@@ -402,9 +382,7 @@ nav a:hover{
     justify-content:center;
 }
 
-/* =========================
-   VISI MISI HERO
-========================= */
+/* VISI MISI HERO */
 
 .visimisi-hero{
     height:420px;
@@ -417,9 +395,7 @@ nav a:hover{
     justify-content:center;
 }
 
-/* =========================
-   OVERLAY
-========================= */
+/* OVERLAY */
 
 .overlay{
     position:absolute;
@@ -427,9 +403,7 @@ nav a:hover{
     background:rgba(0,0,0,.45);
 }
 
-/* =========================
-   HERO CENTER
-========================= */
+/* HERO CENTER */
 
 .hero-center{
     position:relative;
@@ -446,9 +420,7 @@ nav a:hover{
     margin-bottom:20px;
 }
 
-/* =========================
-   BREADCRUMB
-========================= */
+/* BREADCRUMB */
 
 .breadcrumb{
     display:flex;
@@ -476,9 +448,7 @@ nav a:hover{
     color:white;
 }
 
-/* =========================
-   PROFILE PAGE
-========================= */
+/* PROFILE PAGE */
 
 .profile-section{
     padding:80px 0;
@@ -492,9 +462,7 @@ nav a:hover{
     box-shadow:0 10px 30px rgba(0,0,0,.05);
 }
 
-/* =========================
-   SECTION HEADING
-========================= */
+/* SECTION HEADING */
 
 .section-heading{
     margin-bottom:35px;
@@ -531,9 +499,7 @@ nav a:hover{
     margin-left:32px;
 }
 
-/* =========================
-   PROFILE DESCRIPTION
-========================= */
+/* PROFILE DESCRIPTION */
 
 .profile-description{
     margin-top:20px;
@@ -547,9 +513,7 @@ nav a:hover{
     margin-bottom:24px;
 }
 
-/* =========================
-   GALLERY PAGE
-========================= */
+/* GALLERY PAGE */
 
 .gallery-page{
     padding:90px 0;
@@ -577,9 +541,7 @@ nav a:hover{
     margin-bottom:10px;
 }
 
-/* =========================
-   VISI MISI
-========================= */
+/* VISI MISI */
 
 .visi-misi{
     padding:80px 0;
@@ -680,9 +642,7 @@ nav a:hover{
     color:#475569;
 }
 
-/* =========================
-   STRUKTUR
-========================= */
+/* STRUKTUR */
 
 .struktur-section{
     padding:80px 0;
@@ -763,9 +723,7 @@ nav a:hover{
     text-align:center;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer{
     background:#1e293b;
@@ -787,9 +745,7 @@ footer{
     font-size:14px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 
 @media(max-width:992px){
 
@@ -1020,9 +976,7 @@ footer{
     }
 }
 
-/* ========================================
-   STRUKTUR ORGANISASI
-======================================== */
+/* STRUKTUR ORGANISASI */
 
 .struktur-hero {
     position: relative;
@@ -1288,9 +1242,7 @@ footer{
     }
 }
 
-/* =========================
-   STRUKTUR ORGANISASI FIX
-========================= */
+/* STRUKTUR ORGANISASI FIX */
 
 .struktur-section{
     padding: 70px 0;
@@ -1363,9 +1315,7 @@ footer{
     color: #475569;
 }
 
-/* =========================
-   GARIS
-========================= */
+/* GARIS */
 
 .struktur-line-wrapper{
     position: relative;
@@ -1437,9 +1387,7 @@ footer{
     background: #0f766e;
 }
 
-/* =========================
-   GRID BAWAH
-========================= */
+/* GRID BAWAH */
 
 .struktur-grid-3{
     display: grid;
@@ -1500,9 +1448,7 @@ footer{
     color: #475569;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 
 @media(max-width:768px){
 
@@ -1539,9 +1485,7 @@ footer{
 }
 
 
-/* =========================
-   PROGRAM
-========================= */
+/* PROGRAM */
 
 .program-hero{
     position: relative;
@@ -1692,9 +1636,7 @@ footer{
     line-height: 1.8 !important;
 }
 
-/* =========================
-   GALLERY
-========================= */
+/* GALLERY */
 
 .gallery-hero{
     position: relative;
@@ -1821,13 +1763,9 @@ footer{
 
 }
 
-/* =========================
-   CONTACT
-========================= */
+/* CONTACT */
 
-/* =========================
-   CONTACT HERO
-========================= */
+/* CONTACT HERO */
 
 .contact-hero{
     background: #f8fafc;
@@ -1901,9 +1839,7 @@ footer{
     color: #334155;
 }
 
-/* =========================
-   CONTACT SECTION
-========================= */
+/* CONTACT SECTION */
 
 .contact-section{
     padding: 120px 0 90px;

@@ -69,9 +69,8 @@ class RekapAbsensiController extends Controller
     }
 
 
-    // ========================
+   
     // DETAIL REKAP SISWA
-    // ========================
     public function detailSiswa(Request $request, $id)
     {
         $bulan = $request->bulan ?? date('m');
@@ -233,9 +232,8 @@ class RekapAbsensiController extends Controller
         return response()->file($path);
     }
 
-    // ========================
+   
     // FORMAT REKAP
-    // ========================
     private function formatRekap($data)
     {
         return [

@@ -52,10 +52,6 @@ Route::controller(UnifiedLoginController::class)->group(function () {
     Route::get('/login', 'create')->name('login');
     Route::post('/login', 'store')->name('login.post');
     Route::post('/logout', 'logout')->name('logout');
-    Route::post('/api/login', [
-    UnifiedLoginController::class,
-    'apiLogin'
-]);
 });
 
 

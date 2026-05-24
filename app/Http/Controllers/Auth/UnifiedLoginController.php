@@ -61,6 +61,85 @@ class UnifiedLoginController extends Controller
         ]);
     }
 
+    public function apiLogin(Request $request)
+{
+    $request->validate([
+        'login' => 'required',
+        'password' => 'required'
+    ]);
+
+    $login = $request->login;
+    $password = $request->password;
+
+    // ADMIN
+    $admin = User::where('npsn', $login)->first();
+
+    if ($admin &&
+        Hash::check($password, $admin->password)) {
+
+        return response()->json([
+
+            'status' => true,
+            'role' => 'admin',
+            'name' => $admin->name,
+
+        ]);
+    }
+
+    // TEACHER
+    $teacher = Teacher::whereHas(
+        'user',
+        function ($q) use ($login) {
+
+            $q->where('email', $login);
+
+        }
+    )->first();
+
+    if ($teacher &&
+        Hash::check(
+            $password,
+            $teacher->user->password
+        )) {
+
+        return response()->json([
+
+            'status' => true,
+            'role' => 'teacher',
+            'name' => $teacher->user->name,
+
+        ]);
+    }
+
+    // PARENT
+    $parent = ParentAccount::where(
+        'nisn',
+        $login
+    )->first();
+
+    if ($parent &&
+        Hash::check(
+            $password,
+            $parent->password
+        )) {
+
+        return response()->json([
+
+            'status' => true,
+            'role' => 'parent',
+            'name' => $parent->parent_name,
+
+        ]);
+    }
+
+    return response()->json([
+
+        'status' => false,
+        'message' => 'Login gagal',
+
+    ]);
+}
+
     public function destroy(Request $request)
     {
         Auth::logout();

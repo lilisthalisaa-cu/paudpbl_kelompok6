@@ -26,10 +26,18 @@
 
   <style>
 
+    .student-table-wrap{
+      width:100%;
+      overflow-x:auto;
+      margin-top:20px;
+      border-radius:18px;
+    }
+
     .student-table{
       width:100%;
+      min-width:700px;
       border-collapse:collapse;
-      margin-top:20px;
+      background:#fff;
     }
 
     .student-table th{
@@ -39,6 +47,7 @@
       font-weight:700;
       font-size:15px;
       color:#111827;
+      white-space:nowrap;
     }
 
     .student-table td{
@@ -69,97 +78,125 @@
       padding:30px !important;
     }
 
+    /* ================= MOBILE ================= */
+
+    @media (max-width:768px){
+
+      .student-table-wrap{
+        overflow-x:auto;
+      }
+
+      .student-table{
+        min-width:760px;
+      }
+
+      .student-table th{
+        font-size:14px;
+        padding:14px 12px;
+      }
+
+      .student-table td{
+        font-size:14px;
+        padding:14px 12px;
+      }
+
+    }
+
   </style>
 
-  <table class="student-table">
+  <div class="student-table-wrap">
 
-    <thead>
+    <table class="student-table">
 
-      <tr>
+      <thead>
 
-        <th>Nama</th>
+        <tr>
 
-        <th>NISN</th>
+          <th>Nama</th>
 
-        <th>Jenis Kelamin</th>
+          <th>NISN</th>
 
-        <th>Kelas</th>
+          <th>Jenis Kelamin</th>
 
-        <th>Orang Tua</th>
+          <th>Kelas</th>
 
-        <th>No HP</th>
+          <th>Orang Tua</th>
 
-      </tr>
+          <th>No HP</th>
 
-    </thead>
+        </tr>
 
-    <tbody>
+      </thead>
 
-      @forelse($students as $s)
+      <tbody>
 
-      <tr>
+        @forelse($students as $s)
 
-        <td>
-          {{ $s->name }}
-        </td>
+        <tr>
 
-        <td>
-          {{ $s->nisn ?: 'Belum diisi' }}
-        </td>
+          <td>
+            {{ $s->name }}
+          </td>
 
-        <td>
+          <td>
+            {{ $s->nisn ?: 'Belum diisi' }}
+          </td>
 
-          @if($s->gender)
+          <td>
 
-            <span class="gender-badge">
-              {{ $s->gender }}
-            </span>
+            @if($s->gender)
 
-          @else
+              <span class="gender-badge">
+                {{ $s->gender }}
+              </span>
 
-            <span style="
-              color:#9ca3af;
-              font-style:italic;
-            ">
-              Belum diisi
-            </span>
+            @else
 
-          @endif
+              <span style="
+                color:#9ca3af;
+                font-style:italic;
+              ">
+                Belum diisi
+              </span>
 
-        </td>
+            @endif
 
-        <td>
-          {{ $s->schoolClass->name ?? 'Belum diisi' }}
-        </td>
+          </td>
 
-        <td>
-          {{ $s->parent_name ?: 'Belum diisi' }}
-        </td>
+          <td>
+            {{ $s->schoolClass->name ?? 'Belum diisi' }}
+          </td>
 
-        <td>
-          {{ $s->parent_phone ?: 'Belum diisi' }}
-        </td>
+          <td>
+            {{ $s->parent_name ?: 'Belum diisi' }}
+          </td>
 
-      </tr>
+          <td>
+            {{ $s->parent_phone ?: 'Belum diisi' }}
+          </td>
 
-      @empty
+        </tr>
 
-      <tr>
+        @empty
 
-        <td colspan="6"
-            class="empty-row">
+        <tr>
 
-          Tidak ada data siswa
+          <td colspan="6"
+              class="empty-row">
 
-        </td>
+            Tidak ada data siswa
 
-      </tr>
+          </td>
 
-      @endforelse
+        </tr>
 
-    </tbody>
+        @endforelse
 
-  </table>
+      </tbody>
+
+    </table>
+
+  </div>
 
 </div>
 

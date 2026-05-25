@@ -176,3 +176,234 @@ body{
   color:#dc2626;
   margin-top:4px;
 }
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+  body{
+    overflow-x:hidden;
+  }
+
+  /* ================= TOPBAR ================= */
+
+  .topbar{
+    padding:0;
+  }
+
+  .topbar .wrap{
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    gap:6px;
+
+    padding:8px 12px;
+
+    font-size:11px;
+
+  }
+
+  .topbar .left{
+
+    justify-content:center;
+
+    gap:6px;
+
+  }
+
+  /* ================= NAVBAR ================= */
+
+  .navbar .wrap{
+
+  display:flex;
+
+  flex-direction:row;
+
+  align-items:center;
+
+  justify-content:flex-start;
+
+  padding:10px 14px;
+  }
+
+  .brand{
+
+  width:auto;
+
+  text-align:left;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  color:#0f766e;
+
+  margin:0;
+  }
+
+  /* ================= LOGIN WRAP ================= */
+
+  .auth-wrap{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    padding-top:80px;
+
+    padding-left:16px;
+
+    padding-right:16px;
+
+  }
+
+  /* ================= CARD ================= */
+
+  .auth-card{
+
+    width:100%;
+
+    max-width:100%;
+
+    background:#fff;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    border:1px solid var(--gray-200);
+
+    box-shadow:
+      0 10px 28px rgba(0,0,0,.08);
+
+  }
+
+  /* ================= HEADER ================= */
+
+  .auth-head{
+
+    padding:22px 20px;
+
+  }
+
+  .auth-head h1{
+
+    font-size:24px;
+
+    line-height:1.2;
+
+    margin:0;
+
+  }
+
+  .auth-head p{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+  }
+
+  /* ================= BODY ================= */
+
+  .auth-body{
+
+    padding:22px 20px;
+
+  }
+
+  .auth-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+  }
+
+  .label{
+
+    font-size:13px;
+
+    margin-bottom:6px;
+
+  }
+
+  /* ================= INPUT ================= */
+
+  .input{
+
+    width:100%;
+
+    height:52px;
+
+    padding:0 16px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+  }
+
+  /* ================= BUTTON ================= */
+
+  .auth-footer{
+
+    margin-top:10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+  }
+
+  .btn{
+
+    width:100%;
+
+    height:52px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+  }
+
+  .auth-link{
+
+    text-align:center;
+
+    display:block;
+
+    font-size:14px;
+
+  }
+
+}

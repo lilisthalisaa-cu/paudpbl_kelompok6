@@ -11,7 +11,7 @@
     <div>
 
       <h2 class="card-title">
-        Presensi Siswa Bulanan
+        Presensi Siswa 
       </h2>
 
       <div class="muted">
@@ -175,8 +175,8 @@
                 <td>
 
                   <select
-                    name="attendances[{{ $student->id }}][{{ $day->format('Y-m-d') }}][status]"
-                    class="status-select {{ $dayClass }}">
+                      name="attendances[{{ $student->id }}][{{ $day->format('Y-m-d') }}][status]"
+                      class="status-select attendance-select {{ $dayClass }}">
 
                     <option
                       value=""

@@ -22,10 +22,11 @@ class UnifiedLoginController extends Controller
             'password' => 'required'
         ]);
 
-        $username = $request->username;
+        $username = trim($request->username);
         $password = $request->password;
 
-        $admin = User::where('npsn', $username)
+        // ADMIN
+        $admin = User::where('username', $username)
             ->where('role', 'admin')
             ->first();
 
@@ -36,7 +37,8 @@ class UnifiedLoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        $teacher = User::where('email', $username)
+        // TEACHER
+        $teacher = User::where('username', $username)
             ->where('role', 'teacher')
             ->first();
 
@@ -47,6 +49,7 @@ class UnifiedLoginController extends Controller
             return redirect()->route('teacher.dashboard');
         }
 
+        // PARENT
         $parent = User::where('username', $username)
             ->where('role', 'parent')
             ->first();
@@ -70,10 +73,11 @@ class UnifiedLoginController extends Controller
             'password' => 'required'
         ]);
 
-        $login = $request->login;
+        $login = trim($request->login);
         $password = $request->password;
 
-        $admin = User::where('npsn', $login)
+        // ADMIN
+        $admin = User::where('username', $login)
             ->where('role', 'admin')
             ->first();
 
@@ -86,7 +90,8 @@ class UnifiedLoginController extends Controller
             ]);
         }
 
-        $teacher = User::where('email', $login)
+        // TEACHER
+        $teacher = User::where('username', $login)
             ->where('role', 'teacher')
             ->first();
 
@@ -99,6 +104,7 @@ class UnifiedLoginController extends Controller
             ]);
         }
 
+        // PARENT
         $parent = User::where('username', $login)
             ->where('role', 'parent')
             ->first();
@@ -122,9 +128,9 @@ class UnifiedLoginController extends Controller
     {
         Auth::logout();
 
-        session()->invalidate();
+        $request->session()->invalidate();
 
-        session()->regenerateToken();
+        $request->session()->regenerateToken();
 
         return redirect()->route('login');
     }

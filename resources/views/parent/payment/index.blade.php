@@ -53,7 +53,7 @@
           font-size:16px;
         ">
 
-          Informasi Tagihan
+          Informasi Pembayaran
 
         </h5>
 
@@ -114,7 +114,7 @@
             margin-bottom:6px;
           ">
 
-            Total Tagihan
+            Total Sudah Dibayar
 
           </div>
 

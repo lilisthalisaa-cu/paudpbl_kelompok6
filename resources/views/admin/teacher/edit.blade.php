@@ -134,6 +134,21 @@
 
       </div>
 
+      {{-- NIP --}}
+      <div>
+
+        <label class="label">
+          NIP
+        </label>
+
+        <input
+          class="input"
+          name="nip"
+          value="{{ old('nip', $teacher->nip) }}"
+          placeholder="Nomor induk pegawai">
+
+      </div>
+
       {{-- TELEPON --}}
       <div>
 

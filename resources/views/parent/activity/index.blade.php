@@ -139,7 +139,7 @@
               flex-wrap:wrap;
             ">
 
-               {{ \Carbon\Carbon::parse($a->date)->translatedFormat('d F Y') }}
+               {{ \Carbon\Carbon::parse($a->activity->date)->translatedFormat('d F Y') }}
 
               <span style="
                 background:#e5e7eb;
@@ -150,7 +150,7 @@
                 font-weight:500;
               ">
 
-                {{ \Carbon\Carbon::parse($a->date)->translatedFormat('l') }}
+                {{ \Carbon\Carbon::parse($a->activity->date)->translatedFormat('l') }}
 
               </span>
 

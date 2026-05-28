@@ -10,23 +10,26 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     public function index(Request $request)
-    {
-        $q = $request->query('q');
+{
+    $q = $request->query('q');
 
-        $students = Student::with('schoolClass')
-            ->when($q, function ($query) use ($q) {
-                $query->where(function ($sub) use ($q) {
-                    $sub->where('name', 'like', "%{$q}%")
-                        ->orWhere('nisn', 'like', "%{$q}%")
-                        ->orWhere('parent_name', 'like', "%{$q}%");
-                });
-            })
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
+    $students = Student::with('schoolClass')
+        ->when($q, function ($query) use ($q) {
+            $query->where(function ($sub) use ($q) {
+                $sub->where('name', 'like', "%{$q}%")
+                    ->orWhere('nisn', 'like', "%{$q}%")
+                    ->orWhere('parent_name', 'like', "%{$q}%");
+            });
+        })
 
-        return view('admin.students.index', compact('students', 'q'));
-    }
+        ->orderBy('school_class_id')
+        ->orderBy('name')
+
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('admin.students.index', compact('students', 'q'));
+}
 
     public function create()
     {

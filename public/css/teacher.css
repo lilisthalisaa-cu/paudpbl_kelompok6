@@ -1228,3 +1228,614 @@ body{
 .hidden-file-input{
     display:none;
 }
+
+/* =========================================================
+   MOBILE DASHBOARD TEACHER FIX
+========================================================= */
+
+@media (max-width:768px){
+
+  body{
+    overflow-x:hidden;
+  }
+
+  /* ================= CONTAINER ================= */
+
+  .container{
+    width:100%;
+    padding:0 16px;
+    margin:20px auto;
+  }
+
+ /* ================= TOPBAR ================= */
+
+.topbar{
+  padding:0;
+  background:#0f766e;
+}
+
+.topbar .wrap{
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  text-align:center;
+  gap:6px;
+  padding:8px 12px;
+
+  font-size:11px;
+
+  color:#fff;
+}
+
+.topbar .left{
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:6px;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+
+  background:#d1d5db;
+
+  border:none;
+}
+
+.navbar .wrap{
+
+  display:flex;
+
+  flex-direction:row;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:10px 14px;
+}
+
+/* BRAND */
+
+.brand{
+
+  width:auto;
+
+  text-align:left;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  color:#0f766e;
+
+  margin:0;
+}
+
+/* MENU */
+
+.menu{
+
+  display:flex;
+
+  align-items:center;
+}
+
+.menu a{
+
+  display:none;
+}
+
+/* LOGOUT */
+
+.btn-logout{
+
+  height:28px;
+
+  padding:0 14px;
+
+  border-radius:10px;
+
+  font-size:12px;
+
+  font-weight:700;
+}
+  /* ================= CARD ================= */
+
+  .card{
+
+    padding:20px 16px;
+
+    border-radius:24px;
+  }
+
+  .card-title{
+
+    font-size:24px;
+
+    line-height:1.3;
+
+    margin-bottom:6px;
+  }
+
+  .muted{
+
+    font-size:14px;
+
+    line-height:1.6;
+  }
+
+  /* ================= DASHBOARD MENU ================= */
+
+  .teacher-grid{
+
+    display:flex !important;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    width:100%;
+
+    margin-top:24px;
+  }
+
+  .card-menu{
+
+    width:100% !important;
+
+    background:#fff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:20px;
+
+    padding:18px 16px;
+
+    display:flex;
+
+    flex-direction:row;
+
+    align-items:center;
+
+    gap:16px;
+
+    text-align:left;
+
+    overflow:hidden;
+
+    box-shadow:0 4px 10px rgba(0,0,0,.04);
+
+    text-decoration:none;
+  }
+
+  .card-menu img{
+
+    width:52px;
+
+    height:52px;
+
+    object-fit:contain;
+
+    flex-shrink:0;
+
+    margin:0;
+  }
+
+  .card-menu-content{
+
+    flex:1;
+  }
+
+  .menu-title{
+
+    font-size:16px;
+
+    font-weight:700;
+
+    line-height:1.5;
+
+    color:#111827;
+
+    margin-bottom:4px;
+  }
+
+  .card-action{
+
+    font-size:14px;
+
+    font-weight:700;
+
+    line-height:1.5;
+
+    color:#2563eb;
+
+    text-decoration:none;
+
+    word-break:normal;
+  }
+
+}
+/* ================= TABLE MOBILE LIHAT DATA SISWA ================= */
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
+
+.table{
+  min-width:700px;
+}
+/* ================= LIHAT REKAP PRESENSI GURU ================= */
+
+.attendance-table-wrap{
+  width:100%;
+  overflow-x:auto;
+  margin-top:20px;
+  border-radius:18px;
+}
+
+.attendance-table{
+  width:100%;
+  min-width:700px;
+  border-collapse:collapse;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width:768px){
+
+  .attendance-table{
+    min-width:760px;
+  }
+
+/* ================= MOBILE PRESENSI GURU ================= */
+
+.action-group{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+
+  margin-top:20px;
+}
+
+.btn-action,
+.btn-pulang,
+.btn-izin{
+
+  width:100%;
+
+  height:48px;
+
+  border-radius:14px;
+
+  font-size:14px;
+
+  font-weight:700;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+.form-box{
+
+  padding:20px 16px;
+
+  border-radius:22px;
+}
+
+.attendance-box{
+
+  padding:20px 16px;
+
+  border-radius:22px;
+}
+
+.attendance-detail-box{
+
+  gap:14px;
+}
+
+.info-item{
+
+  font-size:15px;
+
+  line-height:1.8;
+}
+
+.status-group{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+}
+
+.status-option span{
+
+  width:100%;
+
+  height:50px;
+
+  border-radius:16px;
+
+  font-size:14px;
+}
+
+.btn-rekap{
+
+  width:auto;
+
+  height:42px;
+
+  padding:0 16px;
+
+  border-radius:12px;
+
+  font-size:13px;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+/* ================= MOBILE PRESENSI SISWA ================= */
+
+.attendance-select{
+
+  width:68px;
+
+  height:40px;
+
+  font-size:13px;
+
+  border-radius:12px;
+
+  padding:0 8px;
+}
+
+.attendance-month-table th,
+.attendance-month-table td{
+
+  padding:10px 8px;
+}
+
+.day-name{
+
+  font-size:11px;
+}
+
+.day-date{
+
+  font-size:16px;
+
+  margin-bottom:8px;
+}
+
+.btn-h-all{
+
+  width:38px;
+
+  height:38px;
+
+  border-radius:12px;
+
+  font-size:14px;
+}
+
+.sticky-name{
+
+  min-width:170px;
+}
+
+.student-name{
+
+  font-size:14px;
+}
+
+input[type="month"]{
+  font-family:'Nunito', sans-serif;
+  font-size:14px;
+  font-weight:500;
+  color:#111827;
+}
+
+/* ================= MOBILE KEGIATAN HARIAN ================= */
+
+.activity-table-wrap{
+
+  width:100%;
+
+  overflow-x:auto;
+
+  -webkit-overflow-scrolling:touch;
+
+  scroll-behavior:smooth;
+}
+
+.activity-table{
+
+  min-width:900px;
+}
+
+.activity-table th,
+.activity-table td{
+
+  padding:12px 10px;
+}
+
+.activity-table textarea{
+
+  min-width:140px;
+
+  min-height:90px;
+
+  font-size:13px;
+
+  padding:10px;
+
+  border-radius:12px;
+
+  resize:none;
+}
+
+.btn-upload{
+
+  min-width:100px;
+
+  height:42px;
+
+  font-size:13px;
+
+  border-radius:12px;
+}
+
+.sticky-student{
+
+  position:sticky;
+
+  left:0;
+
+  background:#fff;
+
+  z-index:2;
+
+  min-width:170px;
+}
+
+/* HEADER KEGIATAN HARIAN */
+
+.activity-card .top-head{
+
+  width:100%;
+
+  display:flex;
+
+  flex-direction:row;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:12px;
+
+  flex-wrap:nowrap !important;
+}
+
+.activity-card .btn-outline-activity{
+
+  width:auto;
+
+  height:40px;
+
+  padding:0 14px;
+
+  border-radius:12px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  white-space:nowrap;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+/* ================= MOBILE PERKEMBANGAN ================= */
+
+/* HEADER PERKEMBANGAN */
+
+.development-card .top-head{
+
+  width:100%;
+
+  display:flex;
+
+  flex-direction:row;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:12px;
+
+  flex-wrap:nowrap !important;
+}
+
+.development-card .btn-rekap{
+
+  width:auto;
+
+  height:40px;
+
+  padding:0 14px;
+
+  border-radius:12px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  white-space:nowrap;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  flex-shrink:0;
+}
+
+.development-card .card-title{
+
+  font-size:20px;
+
+  line-height:1.25;
+}
+
+.chart-card canvas{
+
+  height:220px !important;
+}
+
+/* INPUT TB BB MOBILE */
+
+.development-table td .input{
+
+  min-width:60px;
+
+  height:42px;
+
+  padding:0 10px;
+
+  font-size:14px;
+
+  text-align:center;
+}
+
+}

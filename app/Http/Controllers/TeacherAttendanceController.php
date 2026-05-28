@@ -61,7 +61,7 @@ class TeacherAttendanceController extends Controller
             ->first();
 
         if ($todayAttendance) {
-            return back()->withErrors('Anda sudah melakukan absensi hari ini.');
+            return back()->withErrors('Anda sudah melakukan presensi hari ini.');
         }
 
         TeacherAttendance::create([
@@ -71,7 +71,7 @@ class TeacherAttendanceController extends Controller
             'jam_masuk' => now()->format('H:i:s'),
         ]);
 
-        return back()->with('success', 'Berhasil absen hadir.');
+        return back()->with('success', 'Berhasil presensi hadir.');
     }
 
     
@@ -89,18 +89,18 @@ class TeacherAttendanceController extends Controller
             ->first();
 
         if (!$attendance) {
-            return back()->withErrors('Absensi hari ini belum ditemukan.');
+            return back()->withErrors('Presensi hari ini belum ditemukan.');
         }
 
         if ($attendance->jam_pulang) {
-            return back()->withErrors('Anda sudah melakukan absen pulang.');
+            return back()->withErrors('Anda sudah melakukan presensi pulang.');
         }
 
         $attendance->update([
             'jam_pulang' => now()->format('H:i:s')
         ]);
 
-        return back()->with('success', 'Berhasil absen pulang.');
+        return back()->with('success', 'Berhasil presensi pulang.');
     }
 
    
@@ -124,7 +124,7 @@ class TeacherAttendanceController extends Controller
             ->first();
 
         if ($todayAttendance) {
-            return back()->withErrors('Absensi hari ini sudah tersedia.');
+            return back()->withErrors('Presensi hari ini sudah tersedia.');
         }
 
         $surat = null;

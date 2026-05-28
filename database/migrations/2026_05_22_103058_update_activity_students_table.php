@@ -6,45 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::table('activity_students', function (Blueprint $table) {
 
-            // hapus kolom lama
-            $table->dropColumn([
-                'artwork',
-                'note'
-            ]);
+            if (Schema::hasColumn('activity_students', 'artwork')) {
+                $table->dropColumn('artwork');
+            }
 
-            // tambah kolom baru
-            $table->text('desc_1')
-                ->nullable();
-
-            $table->text('desc_2')
-                ->nullable();
-
-            $table->text('desc_3')
-                ->nullable();
+            if (Schema::hasColumn('activity_students', 'note')) {
+                $table->dropColumn('note');
+            }
 
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::table('activity_students', function (Blueprint $table) {
-
-            $table->dropColumn([
-                'desc_1',
-                'desc_2',
-                'desc_3'
-            ]);
-
-            $table->text('artwork')
-                ->nullable();
-
-            $table->text('note')
-                ->nullable();
-
-        });
+        //
     }
 };

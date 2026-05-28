@@ -55,7 +55,7 @@
     <div class="card">
         <div class="icon">🎓</div>
 
-        <h3>Akreditasi A</h3>
+        <h3>Akreditasi B</h3>
 
         <p>Standar pendidikan terbaik</p>
     </div>

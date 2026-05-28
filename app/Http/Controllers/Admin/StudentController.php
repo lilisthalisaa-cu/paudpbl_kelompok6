@@ -42,11 +42,11 @@ class StudentController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'nisn' => ['nullable', 'string', 'max:50', 'unique:students,nisn'],
-            'gender' => ['nullable','in:Laki-laki,Perempuan'],
-            'birth_place' => ['nullable','string'],
-            'birth_date' => ['nullable','date'],
+            'gender' => ['nullable', 'in:Laki-laki,Perempuan'],
+            'birth_place' => ['nullable', 'string'],
+            'birth_date' => ['nullable', 'date'],
 
-            
+
             'school_class_id' => ['nullable', 'exists:school_classes,id'],
 
             'parent_name' => ['nullable', 'string'],
@@ -74,11 +74,11 @@ class StudentController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'nisn' => ['nullable', 'string', 'max:50', 'unique:students,nisn,' . $student->id],
-            'gender' => ['nullable','in:L,P'],
-            'birth_place' => ['nullable','string'],
-            'birth_date' => ['nullable','date'],
+            'gender' => ['nullable', 'in:L,P'],
+            'birth_place' => ['nullable', 'string'],
+            'birth_date' => ['nullable', 'date'],
 
-            
+
             'school_class_id' => ['nullable', 'exists:school_classes,id'],
 
             'parent_name' => ['nullable', 'string'],

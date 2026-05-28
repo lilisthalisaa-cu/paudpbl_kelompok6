@@ -146,19 +146,41 @@ Route::middleware('auth')->prefix('teacher')->name('teacher.')->group(function (
 });
 
 
-Route::middleware('parent')->prefix('parent')->name('parent.')->group(function () {
+Route::middleware(['auth', 'role:parent'])
+    ->prefix('parent')
+    ->name('parent.')
+    ->group(function () {
 
-    Route::controller(ParentDashboardController::class)->group(function () {
-        Route::get('/dashboard', 'index')->name('dashboard');
-        Route::get('/student', 'student')->name('student');
-        Route::get('/attendance', 'attendance')->name('attendance');
-        Route::get('/development', 'development')->name('development');
-        Route::get('/activity', 'activity')->name('activity');
+        Route::controller(ParentDashboardController::class)->group(function () {
+
+            Route::get('/dashboard', 'index')
+                ->name('dashboard');
+
+            Route::get('/student', 'student')
+                ->name('student');
+
+            Route::get('/attendance', 'attendance')
+                ->name('attendance');
+
+            Route::get('/development', 'development')
+                ->name('development');
+
+            Route::get('/activity', 'activity')
+                ->name('activity');
+
+        });
+
+        Route::get(
+            '/activity/photo/{id}',
+            [ActivityController::class, 'viewPhoto']
+        )->name('activity.photo');
+
+        Route::get(
+            '/payment',
+            [ParentPaymentController::class, 'index']
+        )->name('payment');
+
     });
-    
-    Route::get('/activity/photo/{id}', [ActivityController::class, 'viewPhoto'])->name('activity.photo');
-    Route::get('/payment', [ParentPaymentController::class, 'index'])->name('payment');
-});
 
 
 Route::get('/dashboard', function () {

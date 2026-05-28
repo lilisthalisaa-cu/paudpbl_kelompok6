@@ -1,16 +1,18 @@
 <!-- TOPBAR -->
 <div class="topbar">
+
     <div class="container topbar-wrap">
 
-        <div>
+        <div class="topbar-left">
             📍 Dusun Pasinan Timur, Banyuwangi
         </div>
 
-        <div>
+        <div class="topbar-right">
             📞 0821-4518-2975
         </div>
 
     </div>
+
 </div>
 
 <!-- NAVBAR -->
@@ -35,8 +37,11 @@
         <!-- MENU -->
         <nav id="menu">
 
-            <a href="/">Home</a>
+            <a href="/">
+                Home
+            </a>
 
+            <!-- DROPDOWN -->
             <div class="dropdown">
 
                 <a href="#" class="dropdown-toggle">
@@ -54,7 +59,7 @@
                     </a>
 
                     <a href="/struktur">
-                        Struktur
+                        Struktur Organisasi
                     </a>
 
                 </div>
@@ -65,9 +70,18 @@
                 Program
             </a>
 
-            <a href="/gallery">Gallery</a>
+            <a href="/gallery">
+                Gallery
+            </a>
 
-            <a href="/contact">Contact</a>
+            <a href="/contact">
+                Contact
+            </a>
+
+            <!-- LOGIN BUTTON -->
+            <a href="/login" class="login-btn">
+                Login
+            </a>
 
         </nav>
 

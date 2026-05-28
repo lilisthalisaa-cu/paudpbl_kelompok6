@@ -2032,3 +2032,176 @@ footer{
 .maps-box iframe{
     border-radius: 20px;
 }
+
+/* LOGIN BUTTON */
+.login-btn{
+    background: #f59e0b;
+    color: #fff !important;
+    padding: 12px 26px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 12px;
+    transition: 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-btn:hover{
+    background: #d97706;
+    transform: translateY(-2px);
+} 
+
+/* ========================================
+   MOBILE NAVBAR FINAL FIX
+======================================== */
+
+@media(max-width:768px){
+
+    /* TOPBAR */
+    .topbar{
+        padding: 10px 0;
+    }
+
+    .topbar-wrap{
+        gap: 6px;
+        font-size: 13px;
+    }
+
+    /* NAVBAR */
+    .navbar-wrap{
+        min-height: 78px;
+        padding: 0;
+    }
+
+    .logo{
+        font-size: 22px;
+    }
+
+    /* HAMBURGER */
+    .menu-toggle{
+        display: block;
+        z-index: 1001;
+    }
+
+    /* MENU MOBILE */
+    nav{
+        position: absolute;
+        top: 78px;
+        left: 0;
+
+        width: 100%;
+
+        background: #fff;
+
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 0;
+
+        padding: 20px 24px;
+
+        box-shadow: 0 12px 30px rgba(0,0,0,.08);
+
+        z-index: 999;
+    }
+
+    nav.active{
+        display: flex;
+    }
+
+    /* DROPDOWN */
+    .dropdown{
+        width: 100%;
+    }
+
+    .dropdown-menu{
+        position: static;
+
+        opacity: 1;
+        visibility: visible;
+
+        display: none;
+
+        background: #f8fafc;
+
+        box-shadow: none;
+
+        border-radius: 14px;
+
+        margin-top: 10px;
+        padding: 10px 16px;
+    }
+
+    .dropdown.active .dropdown-menu{
+        display: block;
+    }
+
+    .dropdown-menu a{
+        font-size: 16px;
+        border: none;
+        padding: 10px 0;
+    }
+
+    /* LOGIN BUTTON */
+    .login-btn{
+        width: 100%;
+
+        margin-left: 0;
+        margin-top: 18px;
+
+        padding: 15px;
+
+        justify-content: center;
+
+        font-size: 18px;
+        font-weight: 700;
+
+        border-radius: 18px;
+    }
+
+    /* HERO */
+    .modern-hero{
+        padding-top: 40px;
+    }
+
+    .hero-buttons{
+        margin-top: 30px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    #menu{
+        display: flex;
+        flex-direction: column;
+
+        gap: 0; /* penting */
+
+        padding: 20px 0;
+    }
+
+    #menu a{
+        display: block;
+
+        padding: 18px 20px;
+
+        margin: 0;
+
+        font-size: 18px;
+        font-weight: 600;
+
+        color: #374151;
+
+        line-height: 1.2;
+    }
+
+    #menu .login-btn{
+        margin-top: 20px;
+        text-align: center;
+    }
+
+}

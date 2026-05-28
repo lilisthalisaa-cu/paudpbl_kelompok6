@@ -4,16 +4,16 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ParentMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Cek apakah parent sudah login (pakai session)
-        if (!session()->has('parent_id')) {
-            return redirect()->route('login') // arahkan ke login utama
-                ->with('error', 'Silakan login sebagai orang tua terlebih dahulu');
+        if (!Auth::check() || Auth::user()->role !== 'parent') {
+
+            return redirect()->route('login');
         }
 
         return $next($request);

@@ -4089,3 +4089,269 @@ button.btn-update-fix {
   }
 
 }
+
+/* =========================================
+   MENU TOGGLE
+========================================= */
+
+.menu-toggle{
+
+    display: none !important;
+
+    width: 44px;
+    height: 44px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    padding: 0;
+}
+
+.menu-toggle span{
+
+    width: 24px;
+    height: 3px;
+
+    background: #111827;
+
+    border-radius: 10px;
+
+    margin: 3px 0;
+
+    display: block;
+}
+
+
+/* =========================================
+   WEBSITE DROPDOWN DESKTOP
+========================================= */
+
+.website-dropdown{
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+}
+
+.website-btn{
+
+    border: none;
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 0;
+
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+
+    color: inherit;
+
+    cursor: pointer;
+
+    line-height: normal;
+}
+
+.website-dropdown-content{
+
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+
+    background: #fff;
+
+    min-width: 180px;
+
+    border-radius: 16px;
+
+    padding: 10px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+
+    display: none;
+
+    flex-direction: column;
+
+    z-index: 999;
+}
+
+.website-dropdown:hover .website-dropdown-content{
+    display: flex;
+}
+
+
+/* =========================================
+   MOBILE ADMIN
+========================================= */
+
+@media (max-width: 900px){
+
+    /* SHOW BURGER */
+    .menu-toggle{
+
+        display: flex !important;
+    }
+
+    /* NAVBAR */
+    .navbar .wrap{
+
+        position: relative;
+    }
+
+    /* MENU MOBILE */
+    .menu{
+
+        display: none;
+
+        position: absolute;
+
+        top: 100%;
+        left: 0;
+
+        width: 100%;
+
+        background: #fff;
+
+        padding: 24px;
+
+        border-radius: 0 0 24px 24px;
+
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 28px;
+
+        z-index: 999;
+    }
+
+    .menu.show{
+        display: flex;
+    }
+
+    /* LINK */
+    .menu a{
+
+        font-size: 18px;
+
+        font-weight: 600;
+
+        color: #4b5563;
+
+        padding: 0;
+
+        border: none;
+
+        background: transparent;
+
+        text-decoration: none;
+    }
+
+    /* WEBSITE */
+    .website-dropdown{
+
+        width: 100%;
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .website-btn{
+
+        width: 100%;
+
+        background: transparent;
+
+        border: none;
+
+        border-radius: 0;
+
+        padding: 0;
+
+        justify-content: flex-start;
+
+        color: #4b5563;
+
+        font-size: 18px;
+
+        font-weight: 600;
+
+        font-family: inherit;
+
+        box-shadow: none;
+    }
+
+    /* DROPDOWN MOBILE */
+    .website-dropdown-content{
+
+        position: static !important;
+
+        display: none;
+
+        background: transparent;
+
+        box-shadow: none;
+
+        padding-top: 18px;
+
+        min-width: 100%;
+
+        border-radius: 0;
+    }
+
+    .website-dropdown.active .website-dropdown-content{
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+    .website-dropdown-content a{
+
+        padding: 0 0 0 12px;
+
+        border-radius: 0;
+
+        font-size: 17px;
+
+        font-weight: 500;
+
+        color: #4b5563;
+
+        background: transparent;
+    }
+
+    /* LOGOUT */
+    .btn-logout{
+
+        width: 100%;
+
+        justify-content: center;
+    }
+}
+
+.website-dropdown{
+    display: flex;
+    align-items: center;
+}

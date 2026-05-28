@@ -54,8 +54,19 @@
                 KB Roudlotul Ilmi
             </div>
 
+            <!-- BURGER -->
+            <button class="menu-toggle"
+                onclick="toggleAdminMenu()">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
             <!-- MENU -->
-            <div class="menu">
+            <div class="menu"
+                id="adminMenu">
 
                 <!-- DASHBOARD -->
                 <a href="{{ route('admin.dashboard') }}"
@@ -97,47 +108,33 @@
 
                 </a>
 
-                <!-- WEBSITE DROPDOWN -->
+                <!-- WEBSITE -->
                 <div class="website-dropdown">
 
-                    <button class="website-btn">
+                    <button class="website-btn"
+                        type="button"
+                        onclick="toggleWebsiteDropdown()">
 
-                        Website ▼
+                        Website
 
                     </button>
 
                     <div class="website-dropdown-content">
 
-                        <!-- PROFILE -->
-                        <a href="{{ route('admin.profile.index') }}"
-                            class="{{ request()->routeIs('admin.profile.*') ? 'active-dropdown' : '' }}">
-
+                        <a href="{{ route('admin.profile.index') }}">
                             Profil
-
                         </a>
 
-                        <!-- PROGRAM -->
-                        <a href="{{ route('admin.program.index') }}"
-                            class="{{ request()->routeIs('admin.program.*') ? 'active-dropdown' : '' }}">
-
+                        <a href="{{ route('admin.program.index') }}">
                             Program
-
                         </a>
 
-                        <!-- STRUKTUR -->
-                        <a href="{{ route('admin.structure.index') }}"
-                            class="{{ request()->routeIs('admin.structure.*') ? 'active-dropdown' : '' }}">
-
+                        <a href="{{ route('admin.structure.index') }}">
                             Struktur
-
                         </a>
 
-                        <!-- GALLERY -->
-                        <a href="{{ route('admin.gallery.index') }}"
-                            class="{{ request()->routeIs('admin.gallery.*') ? 'active-dropdown' : '' }}">
-
+                        <a href="{{ route('admin.gallery.index') }}">
                             Galeri
-
                         </a>
 
                     </div>
@@ -172,7 +169,6 @@
     <!-- CONTENT -->
     <div class="main-container">
 
-        <!-- ALERT -->
         @if(session('success'))
 
         <div class="alert-success-custom">
@@ -183,12 +179,29 @@
 
         @endif
 
-        <!-- CONTENT -->
         @yield('content')
 
     </div>
 
     <!-- SCRIPT -->
+    <script>
+        function toggleAdminMenu() {
+
+            document
+                .getElementById('adminMenu')
+                .classList
+                .toggle('show');
+        }
+
+        function toggleWebsiteDropdown() {
+
+            document
+                .querySelector('.website-dropdown')
+                .classList
+                .toggle('active');
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

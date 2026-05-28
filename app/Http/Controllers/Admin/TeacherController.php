@@ -19,7 +19,7 @@ class TeacherController extends Controller
             ->when($q, function ($query) use ($q) {
                 $query->whereHas('user', function ($subQuery) use ($q) {
                     $subQuery->where('name', 'like', "%{$q}%")
-                             ->orWhere('email', 'like', "%{$q}%");
+                        ->orWhere('email', 'like', "%{$q}%");
                 });
             })
             ->paginate(10)
@@ -37,14 +37,14 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nama' => ['required','string','max:255'],
-            'email' => ['required','email','max:255','unique:users,email'],
-            'password' => ['required','string','min:6'],
-            'role' => ['required','in:teacher,operator'],
-            'class_id' => ['nullable','exists:school_classes,id'],
-            'phone' => ['nullable','string','max:20'],
-            'address' => ['nullable','string','max:255'],
-            'nip' => ['nullable','string','max:50'],
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:6'],
+            'role' => ['required', 'in:teacher,operator'],
+            'class_id' => ['nullable', 'exists:school_classes,id'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'nip' => ['nullable', 'string', 'max:50'],
         ]);
 
         $user = User::create([
@@ -56,7 +56,7 @@ class TeacherController extends Controller
 
         Teacher::create([
             'user_id' => $user->id,
-            'school_class_id' => $data['class_id'] ?? null, 
+            'school_class_id' => $data['class_id'] ?? null,
             'phone' => $data['phone'] ?? null,
             'address' => $data['address'] ?? null,
             'nip' => $data['nip'] ?? null,
@@ -75,13 +75,13 @@ class TeacherController extends Controller
     public function update(Request $request, Teacher $teacher)
     {
         $data = $request->validate([
-            'nama' => ['required','string','max:255'],
-            'email' => ['required','email','max:255','unique:users,email,' . $teacher->user->id],
-            'role' => ['required','in:teacher,operator'],
-            'class_id' => ['nullable','exists:school_classes,id'],
-            'phone' => ['nullable','string','max:20'],
-            'address' => ['nullable','string','max:255'],
-            'nip' => ['nullable','string','max:50'],
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $teacher->user->id],
+            'role' => ['required', 'in:teacher,operator'],
+            'class_id' => ['nullable', 'exists:school_classes,id'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'nip' => ['nullable', 'string', 'max:50'],
         ]);
 
         // update user

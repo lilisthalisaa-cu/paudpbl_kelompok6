@@ -86,6 +86,7 @@ class UnifiedLoginController extends Controller
             return response()->json([
                 'status' => true,
                 'role' => 'admin',
+                'id' => $admin->id,
                 'name' => $admin->name,
             ]);
         }
@@ -100,6 +101,7 @@ class UnifiedLoginController extends Controller
             return response()->json([
                 'status' => true,
                 'role' => 'teacher',
+                'id' => $teacher->id,
                 'name' => $teacher->name,
             ]);
         }
@@ -114,6 +116,7 @@ class UnifiedLoginController extends Controller
             return response()->json([
                 'status' => true,
                 'role' => 'parent',
+                'id' => $parent->id,
                 'name' => $parent->name,
             ]);
         }

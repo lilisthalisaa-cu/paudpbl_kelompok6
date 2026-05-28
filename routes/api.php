@@ -13,6 +13,10 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProgramController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\StructureController;
+use App\Http\Controllers\Api\ParentProfileController;
+use App\Http\Controllers\Api\ParentActivityController;
+use App\Http\Controllers\Api\ParentGrowthController;
+use App\Http\Controllers\Api\ParentPaymentController;
 
 Route::post(
     '/login',
@@ -180,5 +184,37 @@ Route::delete(
     [
         StructureController::class,
         'destroy'
+    ]
+);
+
+    Route::get(
+    '/parent/payments',
+    [
+        ParentPaymentController::class,
+        'index'
+    ]
+);
+
+Route::get(
+    '/parent/profile',
+    [
+        ParentProfileController::class,
+        'index'
+    ]
+);
+
+Route::get(
+    '/parent/activities',
+    [
+        ParentActivityController::class,
+        'index'
+    ]
+);
+
+Route::get(
+    '/parent/growths',
+    [
+        ParentGrowthController::class,
+        'index'
     ]
 );

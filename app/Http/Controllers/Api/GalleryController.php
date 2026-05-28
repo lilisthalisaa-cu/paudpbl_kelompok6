@@ -87,8 +87,7 @@ class GalleryController extends Controller
     }
 
     public function update(
-        Request $request,
-        $id
+        Request $request,$id
     ) {
 
         $gallery =

@@ -73,8 +73,8 @@
             <input
               type="radio"
               name="gender"
-              value="Laki-laki"
-              {{ old('gender') == 'Laki-laki' ? 'checked' : '' }}>
+              value="L"
+              {{ old('gender') == 'L' ? 'checked' : '' }}>
 
             <span>
               Laki-laki
@@ -87,8 +87,8 @@
             <input
               type="radio"
               name="gender"
-              value="Perempuan"
-              {{ old('gender') == 'Perempuan' ? 'checked' : '' }}>
+              value="P"
+              {{ old('gender') == 'P' ? 'checked' : '' }}>
 
             <span>
               Perempuan

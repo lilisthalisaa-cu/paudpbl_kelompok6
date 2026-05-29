@@ -31,16 +31,28 @@
             <small>Total Guru</small>
             <strong>{{ \App\Models\Teacher::count() }}</strong>
           </div>
+
           <div class="stat">
             <small>Total Siswa</small>
             <strong>{{ \App\Models\Student::count() }}</strong>
           </div>
+
           <div class="stat">
             <small>Presensi Hari Ini</small>
+
+            <strong>
+              {{
+                \App\Models\StudentAttendance::whereDate('date', today())
+                ->where('status', 'HADIR')
+                ->count()
+              }}
+            </strong>
+
             <div style="margin-top:6px;color:#6b7280;font-size:12px;">
-              Akan terisi saat fitur input presensi aktif.
+              Siswa hadir hari ini
             </div>
           </div>
+
         </div>
       </div>
 

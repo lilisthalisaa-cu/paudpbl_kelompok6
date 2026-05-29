@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@yield('title', 'Teacher Dashboard')</title>
+
+  <link rel="stylesheet" href="{{ asset('css/teacher.css?v=50') }}">
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap">
+      <div class="left">
+        <span>Dusun Pasinan Timur, Singojuruh, Banyuwangi</span>
+        <span>kbroudlotulilmisngojuruh@gmail.com</span>
+      </div>
+
+      <div>
+        +62 821 4518 2975
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar">
+    <div class="wrap navbar-wrap">
+
+      <div class="brand">
+       KB Roudlotul Ilmi
+      </div>
+
+      <div class="menu">
+        <a href="{{ route('teacher.dashboard') }}">
+          Dashboard
+        </a>
+
+        <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+          @csrf
+
+          <button type="submit" class="btn-logout">
+            Logout
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+    @yield('content')
+  </div>
+
+</body>
+</html>

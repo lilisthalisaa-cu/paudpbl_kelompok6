@@ -3,42 +3,48 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Teacher;
 
-class TeacherController
-    extends Controller
+class TeacherController extends Controller
 {
     public function index()
     {
-        $teachers = Teacher::with(
-            [
-                'user',
-                'schoolClass'
-            ]
-        )->get();
+        $teachers = Teacher::with([
+            'user',
+            'schoolClass'
+        ])->get();
 
         return response()->json(
 
-            $teachers->map(function ($t) {
+            $teachers->map(
 
-                return [
+                function ($teacher) {
 
-                    'id' => $t->id,
+                    return [
 
-                    'name' =>
-                        $t->user->name ?? '-',
+                        'id' =>
+                            $teacher->id,
 
-                    'email' =>
-                        $t->user->email ?? '-',
+                        'name' =>
+                            $teacher->user?->name,
 
-                    'role' =>
-                        $t->user->role ?? '-',
+                        'username' =>
+                            $teacher->user?->username,
 
-                    'class' =>
-                        $t->schoolClass->name ?? '-',
-                ];
-            })
+                        'class' =>
+                            $teacher->schoolClass?->name,
+
+                        'phone' =>
+                            $teacher->phone,
+
+                        'address' =>
+                            $teacher->address,
+
+                        'nip' =>
+                            $teacher->nip,
+                    ];
+                }
+            )
         );
     }
 }

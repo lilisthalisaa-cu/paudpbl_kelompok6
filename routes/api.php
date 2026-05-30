@@ -17,6 +17,11 @@ use App\Http\Controllers\Api\ParentProfileController;
 use App\Http\Controllers\Api\ParentActivityController;
 use App\Http\Controllers\Api\ParentGrowthController;
 use App\Http\Controllers\Api\ParentPaymentController;
+use App\Http\Controllers\Api\TeacherActivityController;
+use App\Http\Controllers\Api\TeacherStudentController;
+//use App\Http\Controllers\Api\TeacherAttendanceController;
+use App\Http\Controllers\Api\StudentAttendanceController;
+use App\Http\Controllers\Api\TeacherDevelopmentNoteController;
 
 Route::post(
     '/login',
@@ -133,26 +138,34 @@ Route::delete(
 /// GALLERY
 Route::get(
     '/gallery',
-    [GalleryController::class,
-     'index']
+    [
+        GalleryController::class,
+        'index'
+    ]
 );
 
 Route::post(
     '/gallery/store',
-    [GalleryController::class,
-     'store']
+    [
+        GalleryController::class,
+        'store'
+    ]
 );
 
 Route::post(
     '/gallery/update/{id}',
-    [GalleryController::class,
-     'update']
+    [
+        GalleryController::class,
+        'update'
+    ]
 );
 
 Route::delete(
     '/gallery/delete/{id}',
-    [GalleryController::class,
-     'destroy']
+    [
+        GalleryController::class,
+        'destroy'
+    ]
 );
 
 Route::get(
@@ -187,7 +200,7 @@ Route::delete(
     ]
 );
 
-    Route::get(
+Route::get(
     '/parent/payments',
     [
         ParentPaymentController::class,
@@ -218,3 +231,55 @@ Route::get(
         'index'
     ]
 );
+
+Route::prefix('teacher')->group(function () {
+
+    Route::get(
+        '/activities',
+        [TeacherActivityController::class, 'index']
+    );
+
+    Route::post(
+        '/activities',
+        [TeacherActivityController::class, 'store']
+    );
+
+    Route::get(
+        '/students',
+        [TeacherStudentController::class, 'index']
+    );
+
+    // Route::get(
+    //     '/attendance',
+    //     [TeacherAttendanceController::class, 'index']
+    // );
+
+    // Route::post(
+    //     '/attendance',
+    //     [TeacherAttendanceController::class, 'store']
+    // );
+
+    Route::get(
+        '/development-notes',
+        [TeacherDevelopmentNoteController::class, 'index']
+    );
+
+    Route::post(
+        '/development-notes',
+        [TeacherDevelopmentNoteController::class, 'store']
+    );
+
+});
+
+Route::prefix('student')->group(function () {
+
+    Route::get(
+        '/attendance',
+        [StudentAttendanceController::class, 'index']
+    );
+
+    Route::post(
+        '/attendance',
+        [StudentAttendanceController::class, 'store']
+    );
+});

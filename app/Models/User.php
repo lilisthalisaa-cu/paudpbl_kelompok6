@@ -5,18 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Teacher; 
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable; 
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
+        'username',
         'email',
+        'nip',
         'npsn',
         'password',
         'role',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     protected function casts(): array
@@ -29,6 +35,8 @@ class User extends Authenticatable
 
     public function teacher()
     {
-        return $this->hasOne(Teacher::class);
+        return $this->hasOne(
+            Teacher::class
+        );
     }
 }

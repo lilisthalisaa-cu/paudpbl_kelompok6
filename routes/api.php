@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProgramController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\StructureController;
+use App\Http\Controllers\Api\RekapController;
 use App\Http\Controllers\Api\ParentProfileController;
 use App\Http\Controllers\Api\ParentActivityController;
 use App\Http\Controllers\Api\ParentGrowthController;
@@ -36,18 +37,42 @@ Route::get(
 
 Route::get(
     '/teachers',
-    [
-        TeacherController::class,
-        'index'
-    ]
+    [TeacherController::class, 'index']
+);
+
+Route::post(
+    '/teachers/store',
+    [TeacherController::class, 'store']
+);
+
+Route::post(
+    '/teachers/update/{id}',
+    [TeacherController::class, 'update']
+);
+
+Route::delete(
+    '/teachers/delete/{id}',
+    [TeacherController::class, 'destroy']
 );
 
 Route::get(
     '/students',
-    [
-        StudentController::class,
-        'index'
-    ]
+    [StudentController::class, 'index']
+);
+
+Route::post(
+    '/students/store',
+    [StudentController::class, 'store']
+);
+
+Route::post(
+    '/students/update/{id}',
+    [StudentController::class, 'update']
+);
+
+Route::delete(
+    '/students/delete/{id}',
+    [StudentController::class, 'destroy']
 );
 
 Route::get(
@@ -185,6 +210,16 @@ Route::delete(
         StructureController::class,
         'destroy'
     ]
+);
+
+Route::get(
+    '/rekap/guru',
+    [RekapController::class, 'guru']
+);
+
+Route::get(
+    '/rekap/guru/{id}',
+    [RekapController::class, 'detailGuru']
 );
 
     Route::get(

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\ActivityStudent;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 
 class ParentActivityController extends Controller
 {
@@ -35,7 +37,7 @@ class ParentActivityController extends Controller
                         $item->activity->date
                     )->translatedFormat('l'),
 
-                    'image' => 'http://10.0.2.2:8000/parent/activity/photo/' . $item->id,
+                    'image' => 'http://127.0.0.1:8000/api/parent/activity/photo/' . $item->id,
                     
                     'activities' => [
 
@@ -52,4 +54,17 @@ class ParentActivityController extends Controller
             'data' => $activities
         ]);
     }
+
+    public function photo($id)
+{
+    $activity = ActivityStudent::findOrFail($id);
+
+    if (!$activity->photo) {
+        abort(404);
+    }
+
+    $file = Storage::path($activity->photo);
+
+    return response()->file($file);
+}
 }

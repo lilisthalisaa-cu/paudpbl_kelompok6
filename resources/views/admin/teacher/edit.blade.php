@@ -6,286 +6,145 @@
 
 <div class="card teacher-form-card">
 
-  <div class="card-head">
+    <div class="card-head">
 
-    <div>
-      <h2 class="card-title">
-        Edit Guru
-      </h2>
+        <div>
 
-      <div class="muted">
-        Perbarui data guru.
-      </div>
+            <h2 class="card-title">
+                Edit Guru
+            </h2>
+
+            <div class="muted">
+                Perbarui data guru.
+            </div>
+
+        </div>
+
     </div>
 
-  </div>
-
-  <form method="POST"
+    <form
+        method="POST"
         action="{{ route('admin.teachers.update',$teacher) }}">
 
-    @csrf
-    @method('PUT')
+        @csrf
+        @method('PUT')
 
-    <div class="form-grid">
+        <div class="form-grid">
 
-      {{-- NAMA --}}
-      <div>
+            {{-- NAMA GURU --}}
+            <div class="full-width">
 
-        <label class="label">
-          Nama
-        </label>
+                <label class="label">
+                    Nama Guru
+                </label>
 
-        <input
-          class="input"
-          name="nama"
-          value="{{ old('nama',$teacher->user->name ?? '') }}"
-          placeholder="Nama lengkap guru">
+                <input
+                    type="text"
+                    class="input"
+                    value="{{ $teacher->user->name }}"
+                    readonly>
 
-      </div>
+            </div>
 
-      {{-- EMAIL --}}
-      <div>
+            {{-- KELAS --}}
+            <div class="full-width">
 
-        <label class="label">
-          Email
-        </label>
+                <label class="label">
+                    Kelas
+                </label>
 
-        <input
-          class="input"
-          type="email"
-          name="email"
-          value="{{ old('email',$teacher->user->email ?? '') }}"
-          placeholder="Email guru">
+                <div class="class-buttons">
 
-      </div>
+                    @foreach($classes as $c)
 
-      {{-- ROLE --}}
-      <div class="full-width">
+                    <label class="class-option">
 
-        <label class="label">
-          Role
-        </label>
+                        <input
+                            type="radio"
+                            name="class_id"
+                            value="{{ $c->id }}"
+                            {{ old('class_id',$teacher->school_class_id) == $c->id ? 'checked' : '' }}>
 
-        <div class="class-buttons role-buttons">
+                        <span>
+                            {{ $c->name }}
+                        </span>
 
-          <label class="class-option">
+                    </label>
 
-            <input
-              type="radio"
-              name="role"
-              value="teacher"
+                    @endforeach
 
-              {{ ($teacher->user->role ?? '') == 'teacher' ? 'checked' : '' }}>
+                </div>
 
-            <span>
-              Guru
-            </span>
+            </div>
 
-          </label>
+            {{-- NIP --}}
+            <div>
 
-          <label class="class-option">
+                <label class="label">
+                    NIP
+                </label>
 
-            <input
-              type="radio"
-              name="role"
-              value="operator"
+                <input
+                    class="input"
+                    name="nip"
+                    value="{{ old('nip',$teacher->nip) }}"
+                    placeholder="Nomor induk pegawai">
 
-              {{ ($teacher->user->role ?? '') == 'operator' ? 'checked' : '' }}>
+            </div>
 
-            <span>
-              Operator
-            </span>
+            {{-- TELEPON --}}
+            <div>
 
-          </label>
+                <label class="label">
+                    Telepon
+                </label>
 
-        </div>
+                <input
+                    class="input"
+                    name="phone"
+                    value="{{ old('phone',$teacher->phone) }}"
+                    placeholder="08xxxxxxxxxx">
 
-      </div>
+            </div>
 
-      {{-- KELAS --}}
-      <div class="full-width">
+            {{-- ALAMAT --}}
+            <div class="full-width">
 
-        <label class="label">
-          Kelas
-        </label>
+                <label class="label">
+                    Alamat
+                </label>
 
-        <div class="class-buttons">
+                <textarea
+                    class="textarea"
+                    name="address"
+                    placeholder="Alamat lengkap guru">{{ old('address',$teacher->address) }}</textarea>
 
-          @foreach($classes as $c)
-
-          <label class="class-option">
-
-            <input
-              type="radio"
-              name="class_id"
-              value="{{ $c->id }}"
-
-              {{ old('class_id', $teacher->school_class_id) == $c->id ? 'checked' : '' }}>
-
-            <span>
-              {{ $c->name }}
-            </span>
-
-          </label>
-
-          @endforeach
+            </div>
 
         </div>
 
-      </div>
+        <div class="form-actions">
 
-      {{-- NIP --}}
-      <div>
+            <button
+                class="btn-save"
+                type="submit">
 
-        <label class="label">
-          NIP
-        </label>
+                Update
 
-        <input
-          class="input"
-          name="nip"
-          value="{{ old('nip', $teacher->nip) }}"
-          placeholder="Nomor induk pegawai">
+            </button>
 
-      </div>
+            <a
+                class="btn-cancel"
+                href="{{ route('admin.teachers.index') }}">
 
-      {{-- TELEPON --}}
-      <div>
+                Kembali
 
-        <label class="label">
-          Telepon
-        </label>
+            </a>
 
-        <input
-          class="input"
-          name="phone"
-          value="{{ old('phone',$teacher->phone) }}"
-          placeholder="08xxxxxxxxxx">
+        </div>
 
-      </div>
-
-      {{-- ALAMAT --}}
-      <div class="full-width">
-
-        <label class="label">
-          Alamat
-        </label>
-
-        <textarea
-          class="textarea"
-          name="address"
-          placeholder="Alamat lengkap guru">{{ old('address',$teacher->address) }}</textarea>
-
-      </div>
-
-      {{-- STATUS --}}
-      <div class="full-width">
-
-        <label class="label">
-          Status
-        </label>
-
-        <label class="switch-wrap">
-
-          <input
-            type="checkbox"
-            name="is_active"
-            value="1"
-            {{ old('is_active', true) ? 'checked' : '' }}>
-
-          <span class="switch-text">
-            Aktif
-          </span>
-
-        </label>
-
-      </div>
-
-    </div>
-
-    {{-- ACTION --}}
-    <div class="form-actions">
-
-      <button
-        class="btn-save"
-        type="submit">
-
-        Update
-
-      </button>
-
-      <a
-        class="btn-cancel"
-        href="{{ route('admin.teachers.index') }}">
-
-        Kembali
-
-      </a>
-
-    </div>
-
-  </form>
+    </form>
 
 </div>
-
-<script>
-
-function toggleClassButtons(roleValue){
-
-  let kelasOptions =
-    document.querySelectorAll(
-      '.class-option input[name="class_id"]'
-    );
-
-  if(roleValue === 'operator'){
-
-    kelasOptions.forEach(function(item){
-
-      item.checked = false;
-      item.disabled = true;
-
-    });
-
-  }else{
-
-    kelasOptions.forEach(function(item){
-
-      item.disabled = false;
-
-    });
-
-  }
-
-}
-
-document
-  .querySelectorAll('input[name="role"]')
-
-  .forEach(function(roleRadio){
-
-    roleRadio.addEventListener('change', function(){
-
-      toggleClassButtons(this.value);
-
-    });
-
-});
-
-window.onload = function(){
-
-  let selectedRole =
-    document.querySelector(
-      'input[name="role"]:checked'
-    );
-
-  if(selectedRole){
-
-    toggleClassButtons(selectedRole.value);
-
-  }
-
-};
-
-</script>
 
 @endsection

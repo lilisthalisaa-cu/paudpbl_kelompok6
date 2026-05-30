@@ -107,19 +107,20 @@ class UnifiedLoginController extends Controller
         }
 
         // PARENT
-        $parent = User::where('username', $login)
-            ->where('role', 'parent')
-            ->first();
+$parent = User::where('username', $login)
+    ->where('role', 'parent')
+    ->first();
 
-        if ($parent && Hash::check($password, $parent->password)) {
+if ($parent && Hash::check($password, $parent->password)) {
 
-            return response()->json([
-                'status' => true,
-                'role' => 'parent',
-                'id' => $parent->id,
-                'name' => $parent->name,
-            ]);
-        }
+    return response()->json([
+        'status' => true,
+        'role' => 'parent',
+        'id' => $parent->id,
+        'name' => $parent->name,
+        'username' => $parent->username,
+    ]);
+}
 
         return response()->json([
             'status' => false,

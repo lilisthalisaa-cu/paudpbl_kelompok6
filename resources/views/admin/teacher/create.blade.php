@@ -15,7 +15,7 @@
             </h2>
 
             <div class="muted">
-                Pilih akun guru yang sudah terdaftar.
+                Tambahkan data guru dan akun login guru.
             </div>
 
         </div>
@@ -30,35 +30,51 @@
 
         <div class="form-grid">
 
-            {{-- PILIH USER --}}
+            {{-- NAMA GURU --}}
+            <div>
+
+                <label class="label">
+                    Nama Guru
+                </label>
+
+                <input
+                    class="input"
+                    name="name"
+                    value="{{ old('name') }}"
+                    placeholder="Nama guru"
+                    required>
+
+            </div>
+
+            {{-- USERNAME --}}
+            <div>
+
+                <label class="label">
+                    Username
+                </label>
+
+                <input
+                    class="input"
+                    name="username"
+                    value="{{ old('username') }}"
+                    placeholder="Username login"
+                    required>
+
+            </div>
+
+            {{-- PASSWORD --}}
             <div class="full-width">
 
                 <label class="label">
-                    Guru
+                    Password
                 </label>
 
-                <select
-                    name="user_id"
+                <input
+                    type="password"
                     class="input"
+                    name="password"
+                    placeholder="Minimal 6 karakter"
                     required>
-
-                    <option value="">
-                        Pilih Guru
-                    </option>
-
-                    @foreach($users as $user)
-
-                    <option
-                        value="{{ $user->id }}"
-                        {{ old('user_id') == $user->id ? 'selected' : '' }}>
-
-                        {{ $user->name }}
-
-                    </option>
-
-                    @endforeach
-
-                </select>
 
             </div>
 

@@ -19,22 +19,22 @@ class TeacherController extends Controller
             'schoolClass'
         ])
 
-        ->when($q, function ($query) use ($q) {
+            ->when($q, function ($query) use ($q) {
 
-            $query->whereHas(
-                'user',
-                function ($sub) use ($q) {
+                $query->whereHas(
+                    'user',
+                    function ($sub) use ($q) {
 
-                    $sub->where(
-                        'name',
-                        'like',
-                        "%$q%"
-                    );
-                }
-            );
-        })
+                        $sub->where(
+                            'name',
+                            'like',
+                            "%$q%"
+                        );
+                    }
+                );
+            })
 
-        ->paginate(10);
+            ->paginate(10);
 
         return view(
             'admin.teacher.index',
@@ -50,23 +50,10 @@ class TeacherController extends Controller
         $classes =
             SchoolClass::all();
 
-        $users =
-            User::where(
-                'role',
-                'teacher'
-            )
-
-            ->whereDoesntHave(
-                'teacher'
-            )
-
-            ->get();
-
         return view(
             'admin.teacher.create',
             compact(
-                'classes',
-                'users'
+                'classes'
             )
         );
     }
@@ -76,38 +63,59 @@ class TeacherController extends Controller
         $data =
             $request->validate([
 
-                'user_id' =>
-                    'required|exists:users,id',
+                'name' =>
+                'required|string|max:255',
+
+                'username' =>
+                'required|string|max:255|unique:users,username',
+
+                'password' =>
+                'required|string|min:6',
 
                 'class_id' =>
-                    'nullable|exists:school_classes,id',
+                'nullable|exists:school_classes,id',
 
                 'phone' =>
-                    'nullable|string|max:20',
+                'nullable|string|max:20',
 
                 'address' =>
-                    'nullable|string|max:255',
+                'nullable|string|max:255',
 
                 'nip' =>
-                    'nullable|string|max:50',
+                'nullable|string|max:50',
             ]);
 
+        $user = User::create([
+
+            'name' =>
+            $data['name'],
+
+            'username' =>
+            $data['username'],
+
+            'password' =>
+            $data['password'],
+
+            'role' =>
+            'teacher',
+        ]);
+        
         Teacher::create([
 
             'user_id' =>
-                $data['user_id'],
+            $user->id,
 
             'school_class_id' =>
-                $data['class_id'],
+            $data['class_id'],
 
             'phone' =>
-                $data['phone'],
+            $data['phone'],
 
             'address' =>
-                $data['address'],
+            $data['address'],
 
             'nip' =>
-                $data['nip'],
+            $data['nip'],
         ]);
 
         return redirect()
@@ -147,31 +155,31 @@ class TeacherController extends Controller
             $request->validate([
 
                 'class_id' =>
-                    'nullable|exists:school_classes,id',
+                'nullable|exists:school_classes,id',
 
                 'phone' =>
-                    'nullable|string|max:20',
+                'nullable|string|max:20',
 
                 'address' =>
-                    'nullable|string|max:255',
+                'nullable|string|max:255',
 
                 'nip' =>
-                    'nullable|string|max:50',
+                'nullable|string|max:50',
             ]);
 
         $teacher->update([
 
             'school_class_id' =>
-                $data['class_id'],
+            $data['class_id'],
 
             'phone' =>
-                $data['phone'],
+            $data['phone'],
 
             'address' =>
-                $data['address'],
+            $data['address'],
 
             'nip' =>
-                $data['nip'],
+            $data['nip'],
         ]);
 
         return redirect()

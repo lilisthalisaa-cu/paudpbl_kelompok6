@@ -263,6 +263,14 @@ Route::get(
 );
 
 Route::get(
+    '/parent/activity/photo/{id}',
+    [
+        ParentActivityController::class,
+        'photo'
+    ]
+);
+
+Route::get(
     '/parent/growths',
     [
         ParentGrowthController::class,

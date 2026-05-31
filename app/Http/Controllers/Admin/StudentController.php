@@ -44,11 +44,13 @@ class StudentController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'nisn' => ['required', 'string', 'max:50', 'unique:students,nisn'],
             'gender' => ['nullable', 'in:L,P'],
-            'birth_place' => ['nullable', 'string'],
-            'birth_date' => ['nullable', 'date'],
             'school_class_id' => ['nullable', 'exists:school_classes,id'],
             'parent_name' => ['required', 'string'],
             'parent_phone' => ['nullable', 'string'],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'password' => ['required', 'string', 'min:6'],
+
+
             'address' => ['nullable', 'string'],
             'is_active' => ['nullable'],
         ]);
@@ -57,13 +59,14 @@ class StudentController extends Controller
 
         $student = Student::create($data);
 
-        User::create([
+        $user = User::create([
             'name' => $student->parent_name,
-            'username' => $student->nisn,
-            'password' => Hash::make($student->nisn),
+            'username' => $data['username'],
+            'password' => Hash::make($data['password']),
             'role' => 'parent',
         ]);
 
+        dd($user);
         return redirect()
             ->route('admin.students.index')
             ->with('success', 'Siswa berhasil ditambahkan');
@@ -82,13 +85,21 @@ class StudentController extends Controller
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'nisn' => ['required', 'string', 'max:50', 'unique:students,nisn,' . $student->id],
+            'nisn' => [
+                'required',
+                'string',
+                'max:50',
+                'unique:students,nisn,' . $student->id
+            ],
             'gender' => ['nullable', 'in:L,P'],
-            'birth_place' => ['nullable', 'string'],
-            'birth_date' => ['nullable', 'date'],
             'school_class_id' => ['nullable', 'exists:school_classes,id'],
+
             'parent_name' => ['required', 'string'],
             'parent_phone' => ['nullable', 'string'],
+
+            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'password' => ['required', 'string', 'min:6'],
+
             'address' => ['nullable', 'string'],
             'is_active' => ['nullable'],
         ]);

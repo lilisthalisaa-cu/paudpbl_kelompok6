@@ -9,13 +9,16 @@ use Illuminate\Http\Request;
 class ParentProfileController extends Controller
 {
     public function index(Request $request)
-{
-    $student = Student::with('schoolClass')
-    ->where('nisn', '3221935788')
-    ->first();
+    {
+        $student = Student::with('schoolClass')
+            ->where(
+                'nisn',
+                $request->nisn
+            )
+            ->first();
 
-    return response()->json([
-        'data' => $student
-    ]);
-}
+        return response()->json([
+            'data' => $student
+        ]);
+    }
 }

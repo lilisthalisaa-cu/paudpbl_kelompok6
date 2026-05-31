@@ -21,7 +21,7 @@
   </div>
 
   <form method="POST"
-        action="{{ route('admin.students.store') }}">
+    action="{{ route('admin.students.store') }}">
 
     @csrf
 
@@ -111,19 +111,19 @@
 
           @foreach($classes as $c)
 
-            <label class="class-button">
+          <label class="class-button">
 
-              <input
-                type="radio"
-                name="school_class_id"
-                value="{{ $c->id }}"
-                {{ old('school_class_id') == $c->id ? 'checked' : '' }}>
+            <input
+              type="radio"
+              name="school_class_id"
+              value="{{ $c->id }}"
+              {{ old('school_class_id') == $c->id ? 'checked' : '' }}>
 
-              <span>
-                Kelas {{ $c->name }}
-              </span>
+            <span>
+              Kelas {{ $c->name }}
+            </span>
 
-            </label>
+          </label>
 
           @endforeach
 
@@ -163,6 +163,37 @@
 
       </div>
 
+      {{-- USERNAME PARENT --}}
+      <div>
+
+        <label class="label">
+          Username Parent
+        </label>
+
+        <input
+          type="text"
+          class="input"
+          name="username"
+          value="{{ old('username') }}"
+          placeholder="Username login parent">
+
+      </div>
+
+      {{-- PASSWORD PARENT --}}
+      <div>
+
+        <label class="label">
+          Password Parent
+        </label>
+
+        <input
+          type="password"
+          class="input"
+          name="password"
+          placeholder="Password login parent">
+
+      </div>
+
       {{-- ALAMAT --}}
       <div class="full">
 
@@ -187,9 +218,9 @@
         <label class="status-check">
 
           <input type="checkbox"
-                 name="is_active"
-                 value="1"
-                 checked>
+            name="is_active"
+            value="1"
+            checked>
 
           <span>
             Aktif
@@ -205,14 +236,14 @@
     <div class="actions">
 
       <button class="btn-save"
-              type="submit">
+        type="submit">
 
         Simpan
 
       </button>
 
       <a href="{{ route('admin.students.index') }}"
-         class="btn-cancel">
+        class="btn-cancel">
 
         Kembali
 

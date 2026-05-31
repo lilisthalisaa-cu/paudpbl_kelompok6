@@ -11,8 +11,6 @@ class Student extends Model
         'nisn',
         'name',
         'gender',
-        'birth_place',
-        'birth_date',
         'address',
         'parent_name',
         'parent_phone',

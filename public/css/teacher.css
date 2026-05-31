@@ -293,10 +293,11 @@ body{
 /* ================= FILTER ================= */
 
 .filter-bar{
-  display:flex;
-  gap:10px;
-  margin:18px 0;
-  flex-wrap:wrap;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:20px 0 24px;
+    flex-wrap:wrap;
 }
 
 .filter-btn{
@@ -333,7 +334,8 @@ body{
 }
 
 .filter-select-fix{
-  min-width:160px;
+  width:200px;
+  min-width:200px;
   height:46px;
   border-radius:12px;
 }

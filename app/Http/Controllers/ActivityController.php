@@ -128,26 +128,79 @@ class ActivityController extends Controller
             );
     }
 
-    public function index()
-    {
-        $teacher = $this->teacherData();
+    public function index(Request $request)
+{
+    $teacher = $this->teacherData();
 
-        $activities = Activity::with('activityStudents')
+    $studentId = $request->student_id;
+    $month = $request->month;
 
-            ->where(
-                'school_class_id',
-                $teacher->school_class_id
-            )
+    $activities = Activity::with([
+            'activityStudents.student'
+        ])
+        ->where(
+            'school_class_id',
+            $teacher->school_class_id
+        )
 
-            ->latest()
+        ->when($month, function ($query) use ($month) {
 
-            ->paginate(10);
+            $query->whereMonth(
+                'date',
+                date('m', strtotime($month))
+            );
 
-        return view(
-            'teacher.activity.index',
-            compact('activities')
+            $query->whereYear(
+                'date',
+                date('Y', strtotime($month))
+            );
+        })
+
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+    $activities->getCollection()->transform(function ($activity) use ($studentId) {
+
+        $students = $activity->activityStudents;
+
+        if ($studentId) {
+
+            $students = $students->where(
+                'student_id',
+                $studentId
+            );
+        }
+
+        $activity->setRelation(
+            'activityStudents',
+            $students
+                ->sortBy(function ($item) {
+                    return $item->student->name ?? '';
+                })
+                ->values()
         );
-    }
+
+        return $activity;
+    });
+
+    $students = Student::where(
+            'school_class_id',
+            $teacher->school_class_id
+        )
+        ->orderBy('name')
+        ->get();
+
+    return view(
+        'teacher.activity.index',
+        compact(
+            'activities',
+            'students',
+            'studentId',
+            'month'
+        )
+    );
+}
 
     public function viewPhoto($id)
 {

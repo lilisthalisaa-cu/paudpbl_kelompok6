@@ -18,17 +18,6 @@
 
         </div>
 
-        @if(!$profile)
-
-            <a href="{{ route('admin.profile.create') }}"
-               class="btn-add">
-
-                + Tambah Profil
-
-            </a>
-
-        @endif
-
     </div>
 
     @if($profile)

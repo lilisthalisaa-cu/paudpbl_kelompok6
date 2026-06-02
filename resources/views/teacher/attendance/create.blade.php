@@ -54,19 +54,19 @@
 
       <div class="info-item">
         Jam Masuk :
-        <span>{{ $attendance->jam_masuk ?? '-' }}</span>
+        <span>{{ $attendance->check_in ?? '-' }}</span>
       </div>
 
       <div class="info-item">
         Jam Pulang :
-        <span>{{ $attendance->jam_pulang ?? '-' }}</span>
+        <span>{{ $attendance->check_out ?? '-' }}</span>
       </div>
 
       @endif
 
     </div>
 
-    @if($attendance && $attendance->jam_pulang)
+    @if($attendance && $attendance->check_out)
 
     <div class="attendance-success">
       Presensi hari ini selesai ✅
@@ -117,22 +117,22 @@
 
         <div class="status-group">
 
-  <label class="status-option">
-    <input type="radio" name="status" value="IZIN" required>
-    <span>Izin</span>
-  </label>
+          <label class="status-option">
+            <input type="radio" name="status" value="IZIN" required>
+            <span>Izin</span>
+          </label>
 
-  <label class="status-option">
-    <input type="radio" name="status" value="SAKIT">
-    <span>Sakit</span>
-  </label>
+          <label class="status-option">
+            <input type="radio" name="status" value="SAKIT">
+            <span>Sakit</span>
+          </label>
 
-  <label class="status-option">
-    <input type="radio" name="status" value="CUTI">
-    <span>Cuti</span>
-  </label>
+          <label class="status-option">
+            <input type="radio" name="status" value="CUTI">
+            <span>Cuti</span>
+          </label>
 
-</div>
+        </div>
       </div>
 
       <div class="field">
@@ -162,7 +162,7 @@
   </div>
 
   {{-- SUDAH HADIR --}}
-  @elseif($attendance->status == 'HADIR' && !$attendance->jam_pulang)
+  @elseif($attendance->status == 'HADIR' && !$attendance->check_out)
 
   <form method="POST"
     action="{{ route('teacher.attendance.pulang') }}">

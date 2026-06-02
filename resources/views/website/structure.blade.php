@@ -24,7 +24,7 @@
             </a>
 
             <a
-                href="/structure"
+                href="{{ route('website.struktur') }}"
                 class="crumb crumb-active"
             >
                 Struktur Organisasi

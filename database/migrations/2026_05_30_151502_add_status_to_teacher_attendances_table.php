@@ -10,17 +10,20 @@ return new class extends Migration
     {
         Schema::table('teacher_attendances', function (Blueprint $table) {
 
-            $table->string('status')
-                  ->default('HADIR')
-                  ->after('date');
+            $table->enum('status', [
+                'HADIR',
+                'IZIN',
+                'CUTI',
+                'SAKIT'
+            ])->default('HADIR');
 
             $table->text('note')
-                  ->nullable()
-                  ->after('status');
+                ->nullable()
+                ->after('status');
 
             $table->string('surat')
-                  ->nullable()
-                  ->after('note');
+                ->nullable()
+                ->after('note');
         });
     }
 
@@ -33,7 +36,6 @@ return new class extends Migration
                 'note',
                 'surat'
             ]);
-
         });
     }
 };

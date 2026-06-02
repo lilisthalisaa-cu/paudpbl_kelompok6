@@ -54,19 +54,18 @@
 
       <div class="info-item">
         Jam Masuk :
-        <span>{{ $attendance->check_in ?? '-' }}</span>
+        <span>{{ $attendance->jam_masuk ?? '-' }}</span>
       </div>
 
       <div class="info-item">
         Jam Pulang :
-        <span>{{ $attendance->check_out ?? '-' }}</span>
+        <span>{{ $attendance->jam_pulang ?? '-' }}</span>
       </div>
 
       @endif
 
     </div>
-
-    @if($attendance && $attendance->check_out)
+    @if($attendance && $attendance->jam_pulang)
 
     <div class="attendance-success">
       Presensi hari ini selesai ✅
@@ -162,7 +161,7 @@
   </div>
 
   {{-- SUDAH HADIR --}}
-  @elseif($attendance->status == 'HADIR' && !$attendance->check_out)
+  @elseif($attendance->status == 'HADIR' && !$attendance->jam_pulang)
 
   <form method="POST"
     action="{{ route('teacher.attendance.pulang') }}">

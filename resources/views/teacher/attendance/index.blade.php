@@ -130,11 +130,11 @@
           </td>
 
           <td>
-            {{ $a->check_in ?? '-' }}
+            {{ $a->jam_masuk ?? '-' }}
           </td>
 
           <td>
-            {{ $a->check_out ?? '-' }}
+            {{ $a->jam_pulang ?? '-' }}
           </td>
 
         </tr>
@@ -143,14 +143,12 @@
 
         <tr>
 
-          <td colspan="5">
+          <td colspan="5"
             style="
-                  text-align:center;
-                  padding:20px;
-                ">
-
+        text-align:center;
+        padding:20px;
+    ">
             Belum ada data
-
           </td>
 
         </tr>

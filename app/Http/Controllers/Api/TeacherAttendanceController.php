@@ -35,12 +35,63 @@ class TeacherAttendanceController extends Controller
 
     public function store(Request $request)
     {
+
+        if ($request->filled('status')) {
+
+            $attendance = TeacherAttendance::create([
+                'teacher_id' => $request->teacher_id,
+                'date'       => $request->date,
+                'status'     => strtoupper($request->status),
+                'note'       => $request->note,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'type'    => 'permission',
+                'data'    => $attendance,
+            ]);
+        }
+
         $attendance = TeacherAttendance::where(
             'teacher_id',
             $request->teacher_id
         )
             ->whereDate('date', $request->date)
             ->first();
+
+        // IZIN / SAKIT / CUTI
+        if ($request->filled('status')) {
+
+            $attendance = TeacherAttendance::create([
+                'teacher_id' => $request->teacher_id,
+                'date'       => $request->date,
+                'status'     => strtoupper($request->status),
+                'note'       => $request->note,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'type'    => 'izin',
+                'data'    => $attendance,
+            ]);
+        }
+
+        // HADIR
+        if (!$attendance) {
+
+            $attendance = TeacherAttendance::create([
+                'teacher_id' => $request->teacher_id,
+                'date'       => $request->date,
+                'status'     => 'HADIR',
+                'check_in'   => now()->format('H:i:s'),
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'type'    => 'check_in',
+                'data'    => $attendance,
+            ]);
+        }
 
         // ABSEN MASUK
         if (!$attendance) {

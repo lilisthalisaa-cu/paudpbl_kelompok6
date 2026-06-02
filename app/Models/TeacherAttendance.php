@@ -8,23 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class TeacherAttendance extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'teacher_id',
         'date',
+        'jam_masuk',
+        'jam_pulang',
         'status',
         'note',
         'surat',
-        'check_in',
-        'check_out',
     ];
 
     protected $casts = [
         'date' => 'date',
-        'check_in' => 'string',
-        'check_out' => 'string',
+        'jam_masuk' => 'string',
+        'jam_pulang' => 'string',
     ];
-
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);

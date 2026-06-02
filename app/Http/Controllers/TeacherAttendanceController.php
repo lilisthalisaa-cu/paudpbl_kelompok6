@@ -11,7 +11,6 @@ class TeacherAttendanceController extends Controller
 {
     public function create()
     {
-
         $today = now()->toDateString();
 
         $teacher = Teacher::where('user_id', Auth::id())->first();
@@ -39,7 +38,7 @@ class TeacherAttendanceController extends Controller
 
         if ($request->month) {
             $query->whereMonth('date', date('m', strtotime($request->month)))
-                ->whereYear('date', date('Y', strtotime($request->month)));
+                  ->whereYear('date', date('Y', strtotime($request->month)));
         }
 
         $attendances = $query->latest()->get();
@@ -47,7 +46,7 @@ class TeacherAttendanceController extends Controller
         return view('teacher.attendance.index', compact('attendances'));
     }
 
-
+    
     // HADIR
     public function hadir()
     {
@@ -69,12 +68,13 @@ class TeacherAttendanceController extends Controller
             'teacher_id' => $teacher->id,
             'date' => now()->toDateString(),
             'status' => 'HADIR',
-            'check_in' => now()->format('H:i:s'),
+            'jam_masuk' => now()->format('H:i:s'),
         ]);
+
         return back()->with('success', 'Berhasil presensi hadir.');
     }
 
-
+    
     // PULANG
     public function pulang()
     {
@@ -92,18 +92,18 @@ class TeacherAttendanceController extends Controller
             return back()->withErrors('Presensi hari ini belum ditemukan.');
         }
 
-        if ($attendance->check_out) {
+        if ($attendance->jam_pulang) {
             return back()->withErrors('Anda sudah melakukan presensi pulang.');
         }
 
         $attendance->update([
-            'check_out' => now()->format('H:i:s')
+            'jam_pulang' => now()->format('H:i:s')
         ]);
 
         return back()->with('success', 'Berhasil presensi pulang.');
     }
 
-
+   
     // IZIN / CUTI / SAKIT
     public function izin(Request $request)
     {

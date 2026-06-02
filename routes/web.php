@@ -113,7 +113,6 @@ Route::middleware('auth')->prefix('teacher')->name('teacher.')->group(function (
     Route::controller(TeacherAttendanceController::class)->group(function () {
         Route::get('/attendance', 'index')->name('attendance.index');
         Route::get('/attendance/create', 'create')->name('attendance.create');
-        Route::post('/attendance/store', 'store')->name('attendance.store');
         Route::post('/attendance/hadir', 'hadir')->name('attendance.hadir');
         Route::post('/attendance/pulang', 'pulang')->name('attendance.pulang');
         Route::post('/attendance/izin', 'izin')->name('attendance.izin');

@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\ParentGrowthController;
 use App\Http\Controllers\Api\ParentPaymentController;
 use App\Http\Controllers\Api\TeacherActivityController;
 use App\Http\Controllers\Api\TeacherStudentController;
-//use App\Http\Controllers\Api\TeacherAttendanceController;
+use App\Http\Controllers\Api\TeacherAttendanceController;
 use App\Http\Controllers\Api\StudentAttendanceController;
 use App\Http\Controllers\Api\TeacherDevelopmentNoteController;
 
@@ -237,7 +237,7 @@ Route::get(
     [RekapController::class, 'detailGuru']
 );
 
-    Route::get(
+Route::get(
 
     '/parent/payments',
     [
@@ -295,15 +295,15 @@ Route::prefix('teacher')->group(function () {
         [TeacherStudentController::class, 'index']
     );
 
-    // Route::get(
-    //     '/attendance',
-    //     [TeacherAttendanceController::class, 'index']
-    // );
+    Route::get(
+        '/attendance',
+        [TeacherAttendanceController::class, 'index']
+    );
 
-    // Route::post(
-    //     '/attendance',
-    //     [TeacherAttendanceController::class, 'store']
-    // );
+    Route::post(
+        '/attendance',
+        [TeacherAttendanceController::class, 'store']
+    );
 
     Route::get(
         '/development-notes',
@@ -314,7 +314,6 @@ Route::prefix('teacher')->group(function () {
         '/development-notes',
         [TeacherDevelopmentNoteController::class, 'store']
     );
-
 });
 
 Route::prefix('student')->group(function () {

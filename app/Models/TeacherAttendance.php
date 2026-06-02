@@ -14,15 +14,15 @@ class TeacherAttendance extends Model
         'date',
         'status',
         'note',
-        'jam_masuk',
-        'jam_pulang',
         'surat',
+        'check_in',
+        'check_out',
     ];
 
     protected $casts = [
         'date' => 'date',
-        'jam_masuk' => 'string',
-        'jam_pulang' => 'string',
+        'check_in' => 'string',
+        'check_out' => 'string',
     ];
 
     public function teacher()

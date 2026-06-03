@@ -142,4 +142,119 @@ class RekapController extends Controller
             'rekap_guru.xlsx'
         );
     }
+
+    public function siswa()
+{
+    $students = \App\Models\Student::all();
+
+    $data = $students->map(function ($student) {
+
+        return [
+
+            'id' => $student->id,
+
+            'name' => $student->name,
+
+            'hadir' =>
+                \App\Models\StudentAttendance::where(
+                    'student_id',
+                    $student->id
+                )
+                ->where(
+                    'status',
+                    'HADIR'
+                )
+                ->count(),
+
+            'izin' =>
+                \App\Models\StudentAttendance::where(
+                    'student_id',
+                    $student->id
+                )
+                ->where(
+                    'status',
+                    'IZIN'
+                )
+                ->count(),
+
+            'sakit' =>
+                \App\Models\StudentAttendance::where(
+                    'student_id',
+                    $student->id
+                )
+                ->where(
+                    'status',
+                    'SAKIT'
+                )
+                ->count(),
+
+            'alpha' =>
+                \App\Models\StudentAttendance::where(
+                    'student_id',
+                    $student->id
+                )
+                ->where(
+                    'status',
+                    'ALPHA'
+                )
+                ->count(),
+        ];
+    });
+
+    return response()->json(
+        $data
+    );
+}
+
+    public function detailSiswa($id)
+{
+    $student =
+        \App\Models\Student::findOrFail(
+            $id
+        );
+
+    $attendances =
+        \App\Models\StudentAttendance::where(
+            'student_id',
+            $id
+        )
+        ->orderBy(
+            'date',
+            'desc'
+        )
+        ->get()
+        ->map(function ($item) {
+
+            return [
+
+                'tanggal' =>
+                    $item->date
+                        ? $item->date->format(
+                            'd-m-Y'
+                        )
+                        : '-',
+
+                'status' =>
+                    $item->status ?? '-',
+
+                'catatan' =>
+                    $item->note ?? '-',
+            ];
+        });
+
+    return response()->json([
+
+        'student' => [
+
+            'id' =>
+                $student->id,
+
+            'name' =>
+                $student->name,
+        ],
+
+        'attendances' =>
+            $attendances,
+    ]);
+}
 }

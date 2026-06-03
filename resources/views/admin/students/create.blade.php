@@ -210,64 +210,62 @@
 
     </div>
 
-    {{-- ALAMAT --}}
-    <div class="full">
+      {{-- ALAMAT --}}
+      <div class="full">
 
-      <label class="label">
-        Alamat
-      </label>
+        <label class="label">
+          Alamat
+        </label>
 
-      <textarea
-        class="textarea"
-        name="address"
-        placeholder="Alamat siswa">{{ old('address') }}</textarea>
+        <textarea
+          class="textarea"
+          name="address"
+          placeholder="Alamat siswa">{{ old('address') }}</textarea>
+
+      </div>
+
+      {{-- STATUS --}}
+      <div class="full">
+
+        <label class="label">
+          Status
+        </label>
+
+        <label class="status-check">
+
+          <input type="checkbox"
+            name="is_active"
+            value="1"
+            checked>
+
+          <span>
+            Aktif
+          </span>
+
+        </label>
+
+      </div>
+
+    {{-- ACTION --}}
+    <div class="actions">
+
+      <button class="btn-save"
+        type="submit">
+
+        Simpan
+
+      </button>
+
+      <a href="{{ route('admin.students.index') }}"
+        class="btn-cancel">
+
+        Kembali
+
+      </a>
 
     </div>
 
-    {{-- STATUS --}}
-    <div class="full">
-
-      <label class="label">
-        Status
-      </label>
-
-      <label class="status-check">
-
-        <input type="checkbox"
-          name="is_active"
-          value="1"
-          checked>
-
-        <span>
-          Aktif
-        </span>
-
-      </label>
-
-    </div>
-
-</div>
-
-{{-- ACTION --}}
-<div class="actions">
-
-  <button class="btn-save"
-    type="submit">
-
-    Simpan
-
-  </button>
-
-  <a href="{{ route('admin.students.index') }}"
-    class="btn-cancel">
-
-    Kembali
-
-  </a>
-
-</div>
-
-</form>
+  </form>
 
 </div>
 

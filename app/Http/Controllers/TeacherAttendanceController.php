@@ -11,7 +11,6 @@ class TeacherAttendanceController extends Controller
 {
     public function create()
     {
-    
         $today = now()->toDateString();
 
         $teacher = Teacher::where('user_id', Auth::id())->first();

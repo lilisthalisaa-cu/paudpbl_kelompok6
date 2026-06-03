@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class TeacherAttendance extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'teacher_id',
         'date',
-        'status',
-        'note',
         'jam_masuk',
         'jam_pulang',
+        'status',
+        'note',
         'surat',
     ];
 
@@ -24,7 +23,6 @@ class TeacherAttendance extends Model
         'jam_masuk' => 'string',
         'jam_pulang' => 'string',
     ];
-
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);

@@ -65,7 +65,6 @@
       @endif
 
     </div>
-
     @if($attendance && $attendance->jam_pulang)
 
     <div class="attendance-success">
@@ -117,22 +116,22 @@
 
         <div class="status-group">
 
-  <label class="status-option">
-    <input type="radio" name="status" value="IZIN" required>
-    <span>Izin</span>
-  </label>
+          <label class="status-option">
+            <input type="radio" name="status" value="IZIN" required>
+            <span>Izin</span>
+          </label>
 
-  <label class="status-option">
-    <input type="radio" name="status" value="SAKIT">
-    <span>Sakit</span>
-  </label>
+          <label class="status-option">
+            <input type="radio" name="status" value="SAKIT">
+            <span>Sakit</span>
+          </label>
 
-  <label class="status-option">
-    <input type="radio" name="status" value="CUTI">
-    <span>Cuti</span>
-  </label>
+          <label class="status-option">
+            <input type="radio" name="status" value="CUTI">
+            <span>Cuti</span>
+          </label>
 
-</div>
+        </div>
       </div>
 
       <div class="field">

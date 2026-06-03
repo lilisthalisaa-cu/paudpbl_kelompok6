@@ -20,6 +20,8 @@ use App\Http\Controllers\Api\ParentGrowthController;
 use App\Http\Controllers\Api\ParentPaymentController;
 use App\Http\Controllers\Api\TeacherActivityController;
 use App\Http\Controllers\Api\TeacherStudentController;
+use App\Http\Controllers\Api\TeacherAttendanceController;
+use App\Http\Controllers\Api\StudentAttendanceController;
 use App\Http\Controllers\Api\TeacherDevelopmentNoteController;
 use App\Http\Controllers\Api\StudentAttendanceController;
 // use App\Http\Controllers\Api\TeacherAttendanceController;
@@ -183,6 +185,7 @@ Route::prefix('admin')->group(function () {
     [RekapController::class, 'exportGuru']
     );
 });
+Route::get(
 
 Route::get(
     '/parent/payments',
@@ -248,6 +251,16 @@ Route::prefix('teacher')->group(function () {
             TeacherStudentController::class,
             'index'
         ]
+    );
+
+    Route::get(
+        '/attendance',
+        [TeacherAttendanceController::class, 'index']
+    );
+
+    Route::post(
+        '/attendance',
+        [TeacherAttendanceController::class, 'store']
     );
 
     Route::get(

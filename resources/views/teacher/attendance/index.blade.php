@@ -18,9 +18,9 @@
   <form method="GET" style="margin:16px 0;">
 
     <input type="month"
-           name="month"
-           value="{{ request('month') }}"
-           style="
+      name="month"
+      value="{{ request('month') }}"
+      style="
              padding:8px 12px;
              border-radius:8px;
              border:1px solid #e5e7eb;
@@ -28,7 +28,7 @@
            ">
 
     <button type="submit"
-            style="
+      style="
               padding:8px 14px;
               border-radius:8px;
               background:#111827;
@@ -45,15 +45,15 @@
   {{-- SUCCESS --}}
   @if(session('success'))
 
-    <div style="
+  <div style="
       background:#dcfce7;
       padding:10px;
       border-radius:8px;
       margin-bottom:12px;
       color:#166534;
     ">
-      {{ session('success') }}
-    </div>
+    {{ session('success') }}
+  </div>
 
   @endif
 
@@ -71,6 +71,9 @@
           <th>Status</th>
 
           <th>Catatan</th>
+          <th>Jam Masuk</th>
+
+          <th>Jam Pulang</th>
 
         </tr>
 
@@ -80,69 +83,75 @@
 
         @forelse($attendances as $a)
 
-          <tr>
+        <tr>
 
-            <td>
-              {{ \Carbon\Carbon::parse($a->date)->format('d M Y') }}
-            </td>
+          <td>
+            {{ \Carbon\Carbon::parse($a->date)->format('d M Y') }}
+          </td>
 
-            <td>
+          <td>
 
-              @if($a->status == 'HADIR')
+            @if($a->status == 'HADIR')
 
-                <span class="badge badge-hadir">
-                  Hadir
-                </span>
+            <span class="badge badge-hadir">
+              Hadir
+            </span>
 
-              @elseif($a->status == 'IZIN')
+            @elseif($a->status == 'IZIN')
 
-                <span class="badge badge-izin">
-                  Izin
-                </span>
+            <span class="badge badge-izin">
+              Izin
+            </span>
 
-              @elseif($a->status == 'SAKIT')
+            @elseif($a->status == 'SAKIT')
 
-                <span class="badge badge-sakit">
-                  Sakit
-                </span>
+            <span class="badge badge-sakit">
+              Sakit
+            </span>
 
-              @elseif($a->status == 'CUTI')
+            @elseif($a->status == 'CUTI')
 
-                <span class="badge badge-izin">
-                  Cuti
-                </span>
+            <span class="badge badge-izin">
+              Cuti
+            </span>
 
-              @else
+            @else
 
-                <span class="badge badge-alpa">
-                  Alpa
-                </span>
+            <span class="badge badge-alpa">
+              Alpa
+            </span>
 
-              @endif
+            @endif
 
-            </td>
+          </td>
 
-            <td>
-              {{ $a->note ?? '-' }}
-            </td>
+          <td>
+            {{ $a->note ?? '-' }}
+          </td>
 
-          </tr>
+          <td>
+            {{ $a->jam_masuk ?? '-' }}
+          </td>
+
+          <td>
+            {{ $a->jam_pulang ?? '-' }}
+          </td>
+
+        </tr>
 
         @empty
 
-          <tr>
+        <tr>
 
-            <td colspan="3"
-                style="
-                  text-align:center;
-                  padding:20px;
-                ">
+          <td colspan="5"
+            style="
+        text-align:center;
+        padding:20px;
+    ">
+            Belum ada data
+          </td>
 
-              Belum ada data
-
-            </td>
-
-          </tr>
+        </tr>
 
         @endforelse
 

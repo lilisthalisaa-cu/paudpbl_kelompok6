@@ -35,6 +35,23 @@ class TeacherAttendanceController extends Controller
 
     public function store(Request $request)
     {
+
+        if ($request->filled('status')) {
+
+            $attendance = TeacherAttendance::create([
+                'teacher_id' => $request->teacher_id,
+                'date'       => $request->date,
+                'status'     => strtoupper($request->status),
+                'note'       => $request->note,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'type'    => 'permission',
+                'data'    => $attendance,
+            ]);
+        }
+
         $attendance = TeacherAttendance::where(
             'teacher_id',
             $request->teacher_id
@@ -42,32 +59,35 @@ class TeacherAttendanceController extends Controller
             ->whereDate('date', $request->date)
             ->first();
 
-        // ABSEN MASUK
+
+        // HADIR
         if (!$attendance) {
 
             $attendance = TeacherAttendance::create([
                 'teacher_id' => $request->teacher_id,
                 'date'       => $request->date,
-                'check_in'   => now()->format('H:i:s'),
+                'status'     => 'HADIR',
+                'jam_masuk'   => now()->format('H:i:s'),
             ]);
 
             return response()->json([
                 'success' => true,
-                'type'    => 'check_in',
+                'type'    => 'jam_masuk',
                 'data'    => $attendance,
             ]);
         }
 
+        
         // ABSEN PULANG
-        if (!$attendance->check_out) {
+        if (!$attendance->jam_pulang) {
 
             $attendance->update([
-                'check_out' => now()->format('H:i:s'),
+                'jam_pulang' => now()->format('H:i:s'),
             ]);
 
             return response()->json([
                 'success' => true,
-                'type'    => 'check_out',
+                'type'    => 'jam_pulang',
                 'data'    => $attendance,
             ]);
         }

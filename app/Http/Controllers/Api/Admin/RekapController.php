@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\TeacherAttendance;
+use App\Exports\RekapGuruExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\Request;
 
 class RekapController extends Controller
 {
@@ -19,13 +22,13 @@ class RekapController extends Controller
                 'id' => $teacher->id,
 
                 'name' =>
-                    $teacher->user?->name ?? '-',
+                $teacher->user?->name ?? '-',
 
                 'hadir' =>
-                    TeacherAttendance::where(
-                        'teacher_id',
-                        $teacher->id
-                    )
+                TeacherAttendance::where(
+                    'teacher_id',
+                    $teacher->id
+                )
                     ->where(
                         'status',
                         'HADIR'
@@ -33,10 +36,10 @@ class RekapController extends Controller
                     ->count(),
 
                 'izin' =>
-                    TeacherAttendance::where(
-                        'teacher_id',
-                        $teacher->id
-                    )
+                TeacherAttendance::where(
+                    'teacher_id',
+                    $teacher->id
+                )
                     ->where(
                         'status',
                         'IZIN'
@@ -44,10 +47,10 @@ class RekapController extends Controller
                     ->count(),
 
                 'sakit' =>
-                    TeacherAttendance::where(
-                        'teacher_id',
-                        $teacher->id
-                    )
+                TeacherAttendance::where(
+                    'teacher_id',
+                    $teacher->id
+                )
                     ->where(
                         'status',
                         'SAKIT'
@@ -55,10 +58,10 @@ class RekapController extends Controller
                     ->count(),
 
                 'alpha' =>
-                    TeacherAttendance::where(
-                        'teacher_id',
-                        $teacher->id
-                    )
+                TeacherAttendance::where(
+                    'teacher_id',
+                    $teacher->id
+                )
                     ->where(
                         'status',
                         'CUTI'
@@ -92,21 +95,21 @@ class RekapController extends Controller
                 return [
 
                     'tanggal' =>
-                        $item->date
-                            ? $item->date->format('d-m-Y')
-                            : '-',
+                    $item->date
+                        ? $item->date->format('d-m-Y')
+                        : '-',
 
                     'status' =>
-                        $item->status ?? '-',
+                    $item->status ?? '-',
 
                     'jam_masuk' =>
-                        $item->jam_masuk ?? '-',
+                    $item->jam_masuk ?? '-',
 
                     'jam_pulang' =>
-                        $item->jam_pulang ?? '-',
+                    $item->jam_pulang ?? '-',
 
                     'catatan' =>
-                        $item->note ?? '-',
+                    $item->note ?? '-',
                 ];
             });
 
@@ -115,14 +118,28 @@ class RekapController extends Controller
             'teacher' => [
 
                 'id' =>
-                    $teacher->id,
+                $teacher->id,
 
                 'name' =>
-                    $teacher->user?->name ?? '-',
+                $teacher->user?->name ?? '-',
             ],
 
             'attendances' =>
-                $attendances,
+            $attendances,
         ]);
+    }
+
+    public function exportGuru(Request $request)
+    {
+        $bulan = $request->bulan ?? date('m');
+        $tahun = $request->tahun ?? date('Y');
+
+        return Excel::download(
+            new RekapGuruExport(
+                $bulan,
+                $tahun
+            ),
+            'rekap_guru.xlsx'
+        );
     }
 }

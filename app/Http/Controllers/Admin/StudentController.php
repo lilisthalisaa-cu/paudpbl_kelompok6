@@ -7,6 +7,7 @@ use App\Models\SchoolClass;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -15,126 +16,298 @@ class StudentController extends Controller
     {
         $q = $request->query('q');
 
-        $students = Student::with('schoolClass')
-            ->when($q, function ($query) use ($q) {
-                $query->where(function ($sub) use ($q) {
-                    $sub->where('name', 'like', "%{$q}%")
-                        ->orWhere('nisn', 'like', "%{$q}%")
-                        ->orWhere('parent_name', 'like', "%{$q}%");
-                });
-            })
-            ->orderBy('school_class_id')
-            ->orderBy('name')
-            ->paginate(10)
-            ->withQueryString();
+        $students = Student::with([
+            'schoolClass',
+            'parent'
+        ])
+        ->when($q, function ($query) use ($q) {
 
-        return view('admin.students.index', compact('students', 'q'));
+            $query->where(function ($sub) use ($q) {
+
+                $sub->where(
+                    'name',
+                    'like',
+                    "%{$q}%"
+                )
+
+                ->orWhere(
+                    'nisn',
+                    'like',
+                    "%{$q}%"
+                )
+
+                ->orWhere(
+                    'parent_name',
+                    'like',
+                    "%{$q}%"
+                );
+            });
+        })
+        ->orderBy('school_class_id')
+        ->orderBy('name')
+        ->paginate(10)
+        ->withQueryString();
+
+        return view(
+            'admin.students.index',
+            compact(
+                'students',
+                'q'
+            )
+        );
     }
 
     public function create()
     {
-        $classes = SchoolClass::orderBy('name')->get();
+        $classes = SchoolClass::orderBy(
+            'name'
+        )->get();
 
-        return view('admin.students.create', compact('classes'));
+        return view(
+            'admin.students.create',
+            compact(
+                'classes'
+            )
+        );
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'nisn' => ['required', 'string', 'max:50', 'unique:students,nisn'],
-            'gender' => ['nullable', 'in:L,P'],
-            'school_class_id' => ['nullable', 'exists:school_classes,id'],
-            'parent_name' => ['required', 'string'],
-            'parent_phone' => ['nullable', 'string'],
-            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
-            'password' => ['required', 'string', 'min:6'],
 
+            'name' =>
+            'required|string|max:255',
 
-            'address' => ['nullable', 'string'],
-            'is_active' => ['nullable'],
+            'nisn' =>
+            'required|string|max:50|unique:students,nisn',
+
+            'gender' =>
+            'nullable|in:L,P',
+
+            'school_class_id' =>
+            'nullable|exists:school_classes,id',
+
+            'parent_name' =>
+            'required|string',
+
+            'parent_phone' =>
+            'nullable|string',
+
+            'username' =>
+            'required|string|max:255|unique:users,username',
+
+            'password' =>
+            'required|string|min:6',
+
+            'address' =>
+            'nullable|string',
+
+            'is_active' =>
+            'nullable',
         ]);
 
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] =
+            $request->has('is_active');
 
-        $student = Student::create($data);
+        DB::transaction(function () use ($data) {
 
-        $user = User::create([
-            'name' => $student->parent_name,
-            'username' => $data['username'],
-            'password' => Hash::make($data['password']),
-            'role' => 'parent',
-        ]);
+            $user = User::create([
 
-        dd($user);
+                'name' =>
+                $data['parent_name'],
+
+                'username' =>
+                $data['username'],
+
+                'email' =>
+                filter_var(
+                    $data['username'],
+                    FILTER_VALIDATE_EMAIL
+                )
+                    ? $data['username']
+                    : null,
+
+                'password' =>
+                Hash::make(
+                    $data['password']
+                ),
+
+                'role' =>
+                'parent',
+            ]);
+
+            Student::create([
+
+                'parent_id' =>
+                $user->id,
+
+                'name' =>
+                $data['name'],
+
+                'nisn' =>
+                $data['nisn'],
+
+                'gender' =>
+                $data['gender'],
+
+                'school_class_id' =>
+                $data['school_class_id'],
+
+                'parent_name' =>
+                $data['parent_name'],
+
+                'parent_phone' =>
+                $data['parent_phone'],
+
+                'address' =>
+                $data['address'],
+
+                'is_active' =>
+                $data['is_active'],
+            ]);
+        });
+
         return redirect()
-            ->route('admin.students.index')
-            ->with('success', 'Siswa berhasil ditambahkan');
+            ->route(
+                'admin.students.index'
+            )
+            ->with(
+                'success',
+                'Siswa berhasil ditambahkan'
+            );
     }
 
     public function edit(Student $student)
     {
-        $classes = SchoolClass::orderBy('name')->get();
+        $classes = SchoolClass::orderBy(
+            'name'
+        )->get();
 
-        return view('admin.students.edit', compact('student', 'classes'));
+        return view(
+            'admin.students.edit',
+            compact(
+                'student',
+                'classes'
+            )
+        );
     }
 
-    public function update(Request $request, Student $student)
-    {
-        $oldNisn = $student->nisn;
+    public function update(
+        Request $request,
+        Student $student
+    ) {
 
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'nisn' => [
-                'required',
-                'string',
-                'max:50',
-                'unique:students,nisn,' . $student->id
-            ],
-            'gender' => ['nullable', 'in:L,P'],
-            'school_class_id' => ['nullable', 'exists:school_classes,id'],
 
-            'parent_name' => ['required', 'string'],
-            'parent_phone' => ['nullable', 'string'],
+            'name' =>
+            'required|string|max:255',
 
-            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
-            'password' => ['required', 'string', 'min:6'],
+            'nisn' =>
+            'required|string|max:50|unique:students,nisn,' .
+            $student->id,
 
-            'address' => ['nullable', 'string'],
-            'is_active' => ['nullable'],
+            'gender' =>
+            'nullable|in:L,P',
+
+            'school_class_id' =>
+            'nullable|exists:school_classes,id',
+
+            'parent_name' =>
+            'required|string',
+
+            'parent_phone' =>
+            'nullable|string',
+
+            'address' =>
+            'nullable|string',
+
+            'is_active' =>
+            'nullable',
         ]);
 
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] =
+            $request->has('is_active');
 
-        $student->update($data);
+        DB::transaction(function () use (
+            $student,
+            $data
+        ) {
 
-        $parentUser = User::where('username', $oldNisn)
-            ->where('role', 'parent')
-            ->first();
+            $student->update([
 
-        if ($parentUser) {
+                'name' =>
+                $data['name'],
 
-            $parentUser->update([
-                'name' => $student->parent_name,
-                'username' => $student->nisn,
+                'nisn' =>
+                $data['nisn'],
+
+                'gender' =>
+                $data['gender'],
+
+                'school_class_id' =>
+                $data['school_class_id'],
+
+                'parent_name' =>
+                $data['parent_name'],
+
+                'parent_phone' =>
+                $data['parent_phone'],
+
+                'address' =>
+                $data['address'],
+
+                'is_active' =>
+                $data['is_active'],
             ]);
-        }
+
+            $parentUser =
+                User::find(
+                    $student->parent_id
+                );
+
+            if ($parentUser) {
+
+                $parentUser->update([
+
+                    'name' =>
+                    $data['parent_name'],
+                ]);
+            }
+        });
 
         return redirect()
-            ->route('admin.students.index')
-            ->with('success', 'Siswa berhasil diperbarui');
+            ->route(
+                'admin.students.index'
+            )
+            ->with(
+                'success',
+                'Siswa berhasil diperbarui'
+            );
     }
 
-    public function destroy(Student $student)
-    {
-        User::where('username', $student->nisn)
-            ->where('role', 'parent')
-            ->delete();
+    public function destroy(
+        Student $student
+    ) {
 
-        $student->delete();
+        DB::transaction(function () use (
+            $student
+        ) {
+
+            User::where(
+                'id',
+                $student->parent_id
+            )->delete();
+
+            $student->delete();
+        });
 
         return redirect()
-            ->route('admin.students.index')
-            ->with('success', 'Siswa berhasil dihapus');
+            ->route(
+                'admin.students.index'
+            )
+            ->with(
+                'success',
+                'Siswa berhasil dihapus'
+            );
     }
 }

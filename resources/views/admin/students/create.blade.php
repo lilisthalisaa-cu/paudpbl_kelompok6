@@ -77,7 +77,7 @@
               {{ old('gender') == 'L' ? 'checked' : '' }}>
 
             <span>
-              Laki-laki
+              L
             </span>
 
           </label>
@@ -91,7 +91,7 @@
               {{ old('gender') == 'P' ? 'checked' : '' }}>
 
             <span>
-              Perempuan
+              P
             </span>
 
           </label>
@@ -186,73 +186,112 @@
           Password Parent
         </label>
 
-        <input
-          type="password"
-          class="input"
-          name="password"
-          placeholder="Password login parent">
+        <div class="password-wrapper">
 
-      </div>
+          <input
+            type="password"
+            class="input"
+            id="studentPassword"
+            name="password"
+            placeholder="Password login parent">
 
-      {{-- ALAMAT --}}
-      <div class="full">
+          <button
+            type="button"
+            class="toggle-password"
+            id="toggleStudentPassword">
 
-        <label class="label">
-          Alamat
-        </label>
+            👁
 
-        <textarea
-          class="textarea"
-          name="address"
-          placeholder="Alamat siswa">{{ old('address') }}</textarea>
+          </button>
 
-      </div>
-
-      {{-- STATUS --}}
-      <div class="full">
-
-        <label class="label">
-          Status
-        </label>
-
-        <label class="status-check">
-
-          <input type="checkbox"
-            name="is_active"
-            value="1"
-            checked>
-
-          <span>
-            Aktif
-          </span>
-
-        </label>
+        </div>
 
       </div>
 
     </div>
 
-    {{-- ACTION --}}
-    <div class="actions">
+    {{-- ALAMAT --}}
+    <div class="full">
 
-      <button class="btn-save"
-        type="submit">
+      <label class="label">
+        Alamat
+      </label>
 
-        Simpan
-
-      </button>
-
-      <a href="{{ route('admin.students.index') }}"
-        class="btn-cancel">
-
-        Kembali
-
-      </a>
+      <textarea
+        class="textarea"
+        name="address"
+        placeholder="Alamat siswa">{{ old('address') }}</textarea>
 
     </div>
 
-  </form>
+    {{-- STATUS --}}
+    <div class="full">
+
+      <label class="label">
+        Status
+      </label>
+
+      <label class="status-check">
+
+        <input type="checkbox"
+          name="is_active"
+          value="1"
+          checked>
+
+        <span>
+          Aktif
+        </span>
+
+      </label>
+
+    </div>
 
 </div>
+
+{{-- ACTION --}}
+<div class="actions">
+
+  <button class="btn-save"
+    type="submit">
+
+    Simpan
+
+  </button>
+
+  <a href="{{ route('admin.students.index') }}"
+    class="btn-cancel">
+
+    Kembali
+
+  </a>
+
+</div>
+
+</form>
+
+</div>
+
+<script>
+  document
+    .getElementById('toggleStudentPassword')
+    .addEventListener('click', function() {
+
+      const password =
+        document.getElementById('studentPassword');
+
+      if (password.type === 'password') {
+
+        password.type = 'text';
+        this.innerHTML = '🙈';
+
+      } else {
+
+        password.type = 'password';
+        this.innerHTML = '👁';
+
+      }
+
+    });
+</script>
 
 @endsection

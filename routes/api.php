@@ -23,7 +23,6 @@ use App\Http\Controllers\Api\TeacherStudentController;
 use App\Http\Controllers\Api\TeacherAttendanceController;
 use App\Http\Controllers\Api\StudentAttendanceController;
 use App\Http\Controllers\Api\TeacherDevelopmentNoteController;
-use App\Http\Controllers\Api\StudentAttendanceController;
 // use App\Http\Controllers\Api\TeacherAttendanceController;
 
 Route::post(
@@ -185,7 +184,6 @@ Route::prefix('admin')->group(function () {
     [RekapController::class, 'exportGuru']
     );
 });
-Route::get(
 
 Route::get(
     '/parent/payments',

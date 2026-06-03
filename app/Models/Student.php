@@ -4,33 +4,43 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\SchoolClass;
+use App\Models\User;
 
 class Student extends Model
 {
     protected $fillable = [
+
         'nisn',
         'name',
         'gender',
         'address',
         'parent_name',
         'parent_phone',
-        'school_class_id', 
+        'school_class_id',
         'is_active',
         'parent_id'
     ];
 
     public function schoolClass()
     {
-        return $this->belongsTo(SchoolClass::class, 'school_class_id');
+        return $this->belongsTo(
+            SchoolClass::class,
+            'school_class_id'
+        );
     }
 
     public function payments()
     {
-        return $this->hasMany(\App\Models\Payment::class);
+        return $this->hasMany(
+            \App\Models\Payment::class
+        );
     }
 
     public function parent()
     {
-        return $this->belongsTo(\App\Models\ParentAccount::class, 'parent_id');
+        return $this->belongsTo(
+            User::class,
+            'parent_id'
+        );
     }
 }

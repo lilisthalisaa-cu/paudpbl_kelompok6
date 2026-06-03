@@ -4350,3 +4350,24 @@ button.btn-update-fix {
     display: flex;
     align-items: center;
 }
+
+
+.password-wrapper{
+    position: relative;
+}
+
+.password-wrapper .input{
+    padding-right: 60px;
+}
+
+.toggle-password{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10;
+}

@@ -69,12 +69,26 @@
                     Password
                 </label>
 
-                <input
-                    type="password"
-                    class="input"
-                    name="password"
-                    placeholder="Minimal 6 karakter"
-                    required>
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        class="input"
+                        id="teacherPassword"
+                        name="password"
+                        placeholder="Minimal 6 karakter"
+                        required>
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="toggleTeacherPassword">
+
+                        👁
+
+                    </button>
+
+                </div>
 
             </div>
 
@@ -178,5 +192,28 @@
     </form>
 
 </div>
+
+<script>
+    document
+        .getElementById('toggleTeacherPassword')
+        .addEventListener('click', function() {
+
+            const password =
+                document.getElementById('teacherPassword');
+
+            if (password.type === 'password') {
+
+                password.type = 'text';
+                this.innerHTML = '🙈';
+
+            } else {
+
+                password.type = 'password';
+                this.innerHTML = '👁';
+
+            }
+
+        });
+</script>
 
 @endsection

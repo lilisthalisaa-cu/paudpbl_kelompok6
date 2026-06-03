@@ -170,6 +170,11 @@ Route::prefix('admin')->group(function () {
     );
 
     Route::get(
+    '/rekap/guru/export',
+    [RekapController::class, 'exportGuru']
+    );
+
+    Route::get(
         '/rekap/guru',
         [RekapController::class, 'guru']
     );
@@ -178,11 +183,17 @@ Route::prefix('admin')->group(function () {
         '/rekap/guru/{id}',
         [RekapController::class, 'detailGuru']
     );
-
+    
     Route::get(
-    '/rekap/guru/export',
-    [RekapController::class, 'exportGuru']
+    '/rekap/siswa',
+    [RekapController::class, 'siswa']
     );
+    
+    Route::get(
+    '/rekap/siswa/{id}',
+    [RekapController::class, 'detailSiswa']
+    );
+
 });
 
 Route::get(

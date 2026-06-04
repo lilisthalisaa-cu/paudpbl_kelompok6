@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProgramController extends Controller
 {
@@ -18,16 +19,20 @@ class ProgramController extends Controller
 
                 return [
 
-                    'id' => $p->id,
+                    'id' =>
+                        $p->id,
 
-                    'title' => $p->title,
+                    'title' =>
+                        $p->title,
 
                     'description' =>
                         $p->description,
 
-                    'type' => $p->type,
+                    'type' =>
+                        $p->type,
 
-                    'image' => $p->image
+                    'image' =>
+                        $p->image
                         ? asset(
                             'storage/' .
                             $p->image
@@ -38,8 +43,10 @@ class ProgramController extends Controller
         );
     }
 
-    public function store(Request $request)
-    {
+    public function store(
+        Request $request
+    ) {
+
         try {
 
             $request->validate([
@@ -52,19 +59,43 @@ class ProgramController extends Controller
 
                 'description' =>
                     'required',
+
+                'image' =>
+                    'nullable|image',
             ]);
 
-            $program = Program::create([
+            $image = null;
 
-                'title' =>
-                    $request->title,
+            if (
+                $request->hasFile(
+                    'image'
+                )
+            ) {
 
-                'type' =>
-                    $request->type,
+                $image =
+                    $request
+                        ->file('image')
+                        ->store(
+                            'programs',
+                            'public'
+                        );
+            }
 
-                'description' =>
-                    $request->description,
-            ]);
+            $program =
+                Program::create([
+
+                    'title' =>
+                        $request->title,
+
+                    'type' =>
+                        $request->type,
+
+                    'description' =>
+                        $request->description,
+
+                    'image' =>
+                        $image,
+                ]);
 
             return response()->json([
 
@@ -97,7 +128,9 @@ class ProgramController extends Controller
         try {
 
             $program =
-                Program::findOrFail($id);
+                Program::findOrFail(
+                    $id
+                );
 
             $request->validate([
 
@@ -111,6 +144,42 @@ class ProgramController extends Controller
                     'required',
             ]);
 
+            $image =
+                $program->image;
+
+            if (
+                $request->hasFile(
+                    'image'
+                )
+            ) {
+
+                if (
+
+                    $program->image &&
+
+                    Storage::disk(
+                        'public'
+                    )->exists(
+                        $program->image
+                    )
+                ) {
+
+                    Storage::disk(
+                        'public'
+                    )->delete(
+                        $program->image
+                    );
+                }
+
+                $image =
+                    $request
+                        ->file('image')
+                        ->store(
+                            'programs',
+                            'public'
+                        );
+            }
+
             $program->update([
 
                 'title' =>
@@ -121,6 +190,9 @@ class ProgramController extends Controller
 
                 'description' =>
                     $request->description,
+
+                'image' =>
+                    $image,
             ]);
 
             return response()->json([
@@ -146,12 +218,34 @@ class ProgramController extends Controller
         }
     }
 
-    public function destroy($id)
-    {
+    public function destroy(
+        $id
+    ) {
+
         try {
 
             $program =
-                Program::findOrFail($id);
+                Program::findOrFail(
+                    $id
+                );
+
+            if (
+
+                $program->image &&
+
+                Storage::disk(
+                    'public'
+                )->exists(
+                    $program->image
+                )
+            ) {
+
+                Storage::disk(
+                    'public'
+                )->delete(
+                    $program->image
+                );
+            }
 
             $program->delete();
 

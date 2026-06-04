@@ -87,7 +87,7 @@
                             <button
                                 type="submit"
                                 class="btn-structure-delete"
-                            >
+                                onclick="confirmDelete(event, this.form, 'Hapus Data Struktur?')">
 
                                 Hapus
 
@@ -164,7 +164,7 @@
                                 <button
                                     type="submit"
                                     class="btn-structure-delete"
-                                >
+                                    onclick="confirmDelete(event, this.form, 'Hapus Data Struktur?')">
 
                                     Hapus
 

@@ -30,10 +30,26 @@
 
   {{-- ERROR --}}
   @if ($errors->any())
-  <div style="background:#fee2e2;padding:10px;border-radius:8px;margin-bottom:16px;color:#991b1b;">
-    {{ $errors->first() }}
-  </div>
-  @endif
+
+<div class="error-box">
+
+    <strong>
+        Gagal mengirim presensi
+    </strong>
+
+    <ul>
+
+        @foreach ($errors->all() as $error)
+
+            <li>{{ $error }}</li>
+
+        @endforeach
+
+    </ul>
+
+</div>
+
+@endif
 
   {{-- INFO --}}
   <div class="attendance-box">
@@ -117,17 +133,27 @@
         <div class="status-group">
 
           <label class="status-option">
-            <input type="radio" name="status" value="IZIN" required>
+            <input type="radio" 
+                   name="status" 
+                   value="IZIN" 
+                   {{ old('status') == 'IZIN' ? 'checked' : '' }}
+                   required>
             <span>Izin</span>
           </label>
 
           <label class="status-option">
-            <input type="radio" name="status" value="SAKIT">
+            <input type="radio" 
+                   name="status" 
+                   value="SAKIT"
+                   {{ old('status') == 'SAKIT' ? 'checked' : '' }}>
             <span>Sakit</span>
           </label>
 
           <label class="status-option">
-            <input type="radio" name="status" value="CUTI">
+            <input type="radio" 
+                   name="status" 
+                   value="CUTI"
+                   {{ old('status') == 'CUTI' ? 'checked' : '' }}>
             <span>Cuti</span>
           </label>
 
@@ -140,7 +166,7 @@
         <textarea name="note"
           class="input"
           rows="4"
-          placeholder="Masukkan alasan"></textarea>
+          placeholder="Masukkan keterangan">{{ old('note') }}</textarea>
       </div>
 
       <div class="field">

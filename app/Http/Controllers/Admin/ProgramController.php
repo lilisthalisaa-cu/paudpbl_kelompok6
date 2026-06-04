@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProgramController extends Controller
 {
@@ -36,8 +37,13 @@ class ProgramController extends Controller
             'title'       => 'required',
             'description' => 'required',
             'type'        => 'required',
-            'image'       => 'required|image'
-
+            'image'       => 'required|image|mimes:jpg,jpeg,png,webp|max:2048'
+            ],
+            [
+            'image.required' => 'Foto program wajib diunggah.',
+            'image.image'    => 'File yang diunggah harus berupa gambar.',
+            'image.mimes'    => 'Format gambar hanya boleh JPG, JPEG, PNG, atau WEBP.',
+            'image.max'      => 'Ukuran gambar maksimal 2 MB.'
         ]);
 
         $image = $request
@@ -74,11 +80,19 @@ class ProgramController extends Controller
             'title'       => 'required',
             'description' => 'required',
             'type'        => 'required',
-            'image'       => 'nullable|image'
-
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            ],
+            [
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Format gambar hanya boleh JPG, JPEG, PNG, atau WEBP.',
+            'image.max'   => 'Ukuran gambar maksimal 2 MB.'
         ]);
 
         if ($request->hasFile('image')) {
+
+            if ($program->image) {
+                Storage::disk('public')->delete($program->image);
+            }
 
             $data['image'] = $request
                 ->file('image')
@@ -94,9 +108,15 @@ class ProgramController extends Controller
 
     public function destroy($id)
     {
-        Program::findOrFail($id)->delete();
+    $program = Program::findOrFail($id);
 
-        return back()
-            ->with('success', 'Program berhasil dihapus');
+    if ($program->image) {
+        Storage::disk('public')->delete($program->image);
+    }
+
+    $program->delete();
+
+    return back()
+        ->with('success', 'Program berhasil dihapus');
     }
 }

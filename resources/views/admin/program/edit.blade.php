@@ -8,6 +8,28 @@
 
     <div class="program-form-wrapper">
 
+        @if ($errors->any())
+
+    <div class="error-box">
+
+        <strong>
+            Gagal menyimpan program
+        </strong>
+
+        <ul>
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
+
         {{-- HEADER --}}
         <div class="program-form-header">
 

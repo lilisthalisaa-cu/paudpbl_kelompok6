@@ -1864,6 +1864,36 @@ button.btn-update-fix {
 
 }
 
+.payment-filter{
+  margin-bottom:20px;
+}
+
+.payment-filter select{
+  min-width:180px;
+  height:44px;
+
+  padding:0 14px;
+
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+
+  background:#fff;
+
+  font-size:14px;
+  font-weight:500;
+
+  color:#111827;
+
+  cursor:pointer;
+
+  outline:none;
+}
+
+.payment-filter select:focus{
+  border-color:#0f766e;
+  box-shadow:0 0 0 3px rgba(15,118,110,.12);
+}
+
 /* data siswa */
 .student-table {
   width: 100%;

@@ -150,6 +150,11 @@ Route::prefix('admin')->group(function () {
     );
 
     Route::get(
+    '/gallery/{id}',
+    [GalleryController::class, 'show']
+    );
+
+    Route::get(
         '/structures',
         [StructureController::class, 'index']
     );

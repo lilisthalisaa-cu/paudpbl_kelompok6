@@ -2176,26 +2176,22 @@ footer{
 @media(max-width:768px){
 
     #menu{
-        display: flex;
         flex-direction: column;
-
-        gap: 0; /* penting */
-
+        gap: 0;
         padding: 20px 0;
+    }
+
+    #menu.active{
+        display: flex;
     }
 
     #menu a{
         display: block;
-
         padding: 18px 20px;
-
         margin: 0;
-
         font-size: 18px;
         font-weight: 600;
-
         color: #374151;
-
         line-height: 1.2;
     }
 

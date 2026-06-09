@@ -208,8 +208,6 @@
 
       </div>
 
-    </div>
-
       {{-- ALAMAT --}}
       <div class="full">
 
@@ -233,7 +231,8 @@
 
         <label class="status-check">
 
-          <input type="checkbox"
+          <input
+            type="checkbox"
             name="is_active"
             value="1"
             checked>
@@ -246,17 +245,21 @@
 
       </div>
 
+    </div>
+
     {{-- ACTION --}}
     <div class="actions">
 
-      <button class="btn-save"
+      <button
+        class="btn-save"
         type="submit">
 
         Simpan
 
       </button>
 
-      <a href="{{ route('admin.students.index') }}"
+      <a
+        href="{{ route('admin.students.index') }}"
         class="btn-cancel">
 
         Kembali

@@ -41,7 +41,24 @@
                 <input
                     type="text"
                     class="input"
-                    value="{{ $teacher->user->name }}"
+                    name="name"
+                    value="{{ old('name', $teacher->user->name) }}"
+                    readonly>
+
+            </div>
+
+            {{-- USERNAME --}}
+            <div class="full-width">
+
+                <label class="label">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    class="input"
+                    name="username"
+                    value="{{ old('username', $teacher->user->username) }}"
                     readonly>
 
             </div>

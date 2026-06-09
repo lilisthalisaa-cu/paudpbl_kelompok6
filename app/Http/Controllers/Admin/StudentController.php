@@ -20,33 +20,33 @@ class StudentController extends Controller
             'schoolClass',
             'parent'
         ])
-        ->when($q, function ($query) use ($q) {
+            ->when($q, function ($query) use ($q) {
 
-            $query->where(function ($sub) use ($q) {
+                $query->where(function ($sub) use ($q) {
 
-                $sub->where(
-                    'name',
-                    'like',
-                    "%{$q}%"
-                )
+                    $sub->where(
+                        'name',
+                        'like',
+                        "%{$q}%"
+                    )
 
-                ->orWhere(
-                    'nisn',
-                    'like',
-                    "%{$q}%"
-                )
+                        ->orWhere(
+                            'nisn',
+                            'like',
+                            "%{$q}%"
+                        )
 
-                ->orWhere(
-                    'parent_name',
-                    'like',
-                    "%{$q}%"
-                );
-            });
-        })
-        ->orderBy('school_class_id')
-        ->orderBy('name')
-        ->paginate(10)
-        ->withQueryString();
+                        ->orWhere(
+                            'parent_name',
+                            'like',
+                            "%{$q}%"
+                        );
+                });
+            })
+            ->orderBy('school_class_id')
+            ->orderBy('name')
+            ->paginate(10)
+            ->withQueryString();
 
         return view(
             'admin.students.index',
@@ -148,19 +148,16 @@ class StudentController extends Controller
                 $data['nisn'],
 
                 'gender' =>
-                $data['gender'],
+                $data['gender'] ?? null,
 
                 'school_class_id' =>
-                $data['school_class_id'],
-
-                'parent_name' =>
-                $data['parent_name'],
+                $data['school_class_id'] ?? null,
 
                 'parent_phone' =>
-                $data['parent_phone'],
+                $data['parent_phone'] ?? null,
 
                 'address' =>
-                $data['address'],
+                $data['address'] ?? null,
 
                 'is_active' =>
                 $data['is_active'],
@@ -204,7 +201,7 @@ class StudentController extends Controller
 
             'nisn' =>
             'required|string|max:50|unique:students,nisn,' .
-            $student->id,
+                $student->id,
 
             'gender' =>
             'nullable|in:L,P',
@@ -242,19 +239,16 @@ class StudentController extends Controller
                 $data['nisn'],
 
                 'gender' =>
-                $data['gender'],
+                $data['gender'] ?? null,
 
                 'school_class_id' =>
-                $data['school_class_id'],
-
-                'parent_name' =>
-                $data['parent_name'],
+                $data['school_class_id'] ?? null,
 
                 'parent_phone' =>
-                $data['parent_phone'],
+                $data['parent_phone'] ?? null,
 
                 'address' =>
-                $data['address'],
+                $data['address'] ?? null,
 
                 'is_active' =>
                 $data['is_active'],

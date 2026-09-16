@@ -12,29 +12,22 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
-    $class = $request->class;
+        $students = Student::with('schoolClass')
 
-    $classes = SchoolClass::orderBy('name')->get();
+            ->orderBy('school_class_id')
 
-    $students = Student::with('schoolClass')
+            ->orderBy('name')
 
-        ->when($class, function ($query) use ($class) {
-            $query->where('school_class_id', $class);
-        })
+            ->get();
 
-        ->orderBy('name')
-
-        ->get();
-
-    return view(
-        'admin.payments.index',
-        compact(
-            'students',
-            'classes',
-            'class'
-        )
-    );
+        return view(
+            'admin.payments.index',
+            compact(
+                'students'
+            )
+        );
     }
+
 
     public function show($id)
     {
@@ -76,7 +69,7 @@ class PaymentController extends Controller
             'payments' => $data
         ]);
     }
-   
+
     public function store(Request $request)
     {
         $data = $request->validate([

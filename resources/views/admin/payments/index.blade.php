@@ -6,6 +6,7 @@
 
 <div class="payment-page">
 
+
   <div class="payment-card">
 
     <div class="card-head">
@@ -23,32 +24,6 @@
       </div>
 
     </div>
-
-    <form id="filterForm" method="GET" class="payment-filter">
-
-    <select
-    name="class"
-    onchange="document.getElementById('filterForm').submit()">
-
-    <option value="">
-        Semua Kelas
-    </option>
-
-    @foreach($classes as $c)
-
-        <option
-            value="{{ $c->id }}"
-            {{ ($class ?? '') == $c->id ? 'selected' : '' }}>
-
-            {{ $c->name }}
-
-        </option>
-
-    @endforeach
-
-</select>
-
-</form>
 
     <table class="payment-table">
 
@@ -88,8 +63,9 @@
 
           <td>
 
-            <a href="{{ route('admin.payment.show', $s->id) }}"
-               class="btn-detail">
+            <a
+              href="{{ route('admin.payment.show', $s->id) }}"
+              class="btn-detail">
 
               Lihat
 
@@ -106,6 +82,7 @@
     </table>
 
   </div>
+
 
 </div>
 

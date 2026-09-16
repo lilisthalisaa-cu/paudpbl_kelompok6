@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -10,20 +11,25 @@ return new class extends Migration
     {
         Schema::table('teacher_attendances', function (Blueprint $table) {
 
-            $table->enum('status', [
-                'HADIR',
-                'IZIN',
-                'CUTI',
-                'SAKIT'
-            ])->default('HADIR');
+            if (!Schema::hasColumn('teacher_attendances', 'status')) {
+                $table->enum('status', [
+                    'HADIR',
+                    'IZIN',
+                    'CUTI',
+                    'SAKIT'
+                ])->default('HADIR');
+            }
 
-            $table->text('note')
-                ->nullable()
-                ->after('status');
+            if (!Schema::hasColumn('teacher_attendances', 'note')) {
+                $table->text('note')
+                    ->nullable();
+            }
 
-            $table->string('surat')
-                ->nullable()
-                ->after('note');
+            if (!Schema::hasColumn('teacher_attendances', 'surat')) {
+                $table->string('surat')
+                    ->nullable();
+            }
+
         });
     }
 
@@ -31,11 +37,24 @@ return new class extends Migration
     {
         Schema::table('teacher_attendances', function (Blueprint $table) {
 
-            $table->dropColumn([
-                'status',
-                'note',
-                'surat'
-            ]);
+            $columns = [];
+
+            if (Schema::hasColumn('teacher_attendances', 'status')) {
+                $columns[] = 'status';
+            }
+
+            if (Schema::hasColumn('teacher_attendances', 'note')) {
+                $columns[] = 'note';
+            }
+
+            if (Schema::hasColumn('teacher_attendances', 'surat')) {
+                $columns[] = 'surat';
+            }
+
+            if (!empty($columns)) {
+                $table->dropColumn($columns);
+            }
+
         });
     }
 };

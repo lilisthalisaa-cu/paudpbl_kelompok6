@@ -32,6 +32,8 @@ class TeacherController extends Controller
             });
 
         })
+        ->orderBy('school_class_id')
+        ->orderBy('nip')
         ->paginate(10);
 
         return view(

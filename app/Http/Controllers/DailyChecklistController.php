@@ -88,7 +88,12 @@ class DailyChecklistController extends Controller
 
             'date' => [
                 'required',
-                'date'
+                'date',
+                function ($attribute, $value, $fail) {
+                    if (date('N', strtotime($value)) == 6) {
+                        $fail('Checklist harian tidak dapat diinput pada hari Sabtu.');
+                    }
+                },
             ],
 
             'theme' => [
@@ -122,7 +127,7 @@ class DailyChecklistController extends Controller
                 'in:SM,BM'
             ],
 
-            'checklists.*.note' => [
+            'checklists.*.notes' => [
                 'nullable',
                 'string'
             ],
@@ -161,8 +166,8 @@ class DailyChecklistController extends Controller
                 'status' =>
                     $item['status'] ?? 'BM',
 
-                'note' =>
-                    $item['note'] ?? null,
+                'notes' =>
+                    $item['notes'] ?? null,
 
             ]);
         }

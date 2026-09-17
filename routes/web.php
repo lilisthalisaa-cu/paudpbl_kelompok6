@@ -11,6 +11,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DevelopmentNoteController;
 use App\Http\Controllers\TeacherStudentController;
 use App\Http\Controllers\RekapAbsensiController;
+use App\Http\Controllers\ChecklistPdfController;
 use App\Http\Controllers\Parent\ParentDashboardController;
 use App\Http\Controllers\Parent\PaymentController as ParentPaymentController;
 use App\Http\Controllers\Website\HomeController;
@@ -167,6 +168,10 @@ Route::middleware('auth')->prefix('teacher')->name('teacher.')->group(function (
             'show'
         )->name('checklist.show');
     });
+        Route::get(
+            '/checklist/{date}/export',
+            [ChecklistPdfController::class, 'export']
+        )->name('checklist.export');
 });
 
 

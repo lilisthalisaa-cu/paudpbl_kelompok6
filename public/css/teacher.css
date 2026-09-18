@@ -2399,3 +2399,459 @@ textarea.form-control {
         width: 100%;
     }
 }
+
+/* =========================================================
+   DAFTAR CHECKLIST - INDEX
+   ========================================================= */
+
+/* Header card daftar */
+.checklist-page .checklist-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.checklist-page .checklist-card-header h2 {
+    margin: 0 0 8px;
+}
+
+.checklist-page .checklist-card-header p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+.checklist-page .checklist-filter {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.checklist-page .checklist-filter-group {
+    min-width: 0;
+}
+
+.checklist-page .checklist-filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #24344d;
+}
+
+.checklist-page .checklist-filter-group .form-control {
+    width: 100%;
+    height: 52px;
+    box-sizing: border-box;
+}
+
+
+/* Tombol Cari + Reset */
+.checklist-page .checklist-filter-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 52px;
+}
+
+.checklist-page .checklist-filter-actions .btn {
+    height: 52px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TOMBOL
+   ========================================================= */
+
+.checklist-page .btn-export {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.checklist-page .btn-search {
+    background: #0f766e;
+    color: #ffffff;
+    border: 1px solid #0f766e;
+}
+
+.checklist-page .btn-search:hover {
+    background: #115e59;
+}
+
+.checklist-page .btn-reset {
+    background: #ffffff;
+    color: #475569;
+    border: 1px solid #dbe3ec;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.checklist-page .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+}
+
+.checklist-page .checklist-table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.checklist-page .checklist-table th {
+    padding: 16px 18px;
+    background: #f1f5f9;
+    color: #17233b;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.checklist-page .checklist-table td {
+    padding: 16px 18px;
+    border-top: 1px solid #e8edf3;
+    color: #334155;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.checklist-page .checklist-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* Kolom tertentu */
+.checklist-page .checklist-table th:first-child,
+.checklist-page .checklist-table td:first-child {
+    width: 55px;
+    text-align: center;
+}
+
+.checklist-page .checklist-table th:nth-child(2),
+.checklist-page .checklist-table td:nth-child(2) {
+    min-width: 150px;
+}
+
+.checklist-page .checklist-table th:nth-child(3),
+.checklist-page .checklist-table td:nth-child(3) {
+    min-width: 105px;
+    white-space: nowrap;
+}
+
+.checklist-page .checklist-table th:nth-child(4),
+.checklist-page .checklist-table td:nth-child(4) {
+    min-width: 100px;
+}
+
+.checklist-page .checklist-table th:nth-child(5),
+.checklist-page .checklist-table td:nth-child(5) {
+    min-width: 130px;
+}
+
+.checklist-page .checklist-table th:nth-child(6),
+.checklist-page .checklist-table td:nth-child(6) {
+    min-width: 190px;
+}
+
+.checklist-page .checklist-table th:nth-child(7),
+.checklist-page .checklist-table td:nth-child(7) {
+    min-width: 180px;
+}
+
+.checklist-page .checklist-table th:nth-child(8),
+.checklist-page .checklist-table td:nth-child(8) {
+    min-width: 120px;
+}
+
+.checklist-page .checklist-table th:nth-child(9),
+.checklist-page .checklist-table td:nth-child(9) {
+    min-width: 160px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.checklist-page .status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.checklist-page .status-sm {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.checklist-page .status-bm {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+/* =========================================================
+   DATA KOSONG
+   ========================================================= */
+
+.checklist-page .empty-checklist {
+    padding: 55px 20px !important;
+    text-align: center !important;
+    color: #64748b;
+}
+
+.checklist-page .empty-checklist .empty-icon {
+    margin-bottom: 12px;
+    font-size: 30px;
+}
+
+.checklist-page .empty-checklist strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #334155;
+    font-size: 14px;
+}
+
+.checklist-page .empty-checklist p {
+    margin: 0 0 18px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.checklist-page .checklist-pagination {
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .checklist-page .checklist-filter {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .checklist-page .checklist-filter-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .checklist-page .checklist-card-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .checklist-page .checklist-filter {
+        grid-template-columns: 1fr;
+    }
+
+    .checklist-page .checklist-filter-actions {
+        grid-column: auto;
+        width: 100%;
+    }
+
+    .checklist-page .checklist-filter-actions .btn {
+        flex: 1;
+    }
+
+}
+/* =========================================================
+   EXPORT PDF
+   ========================================================= */
+
+.checklist-page .btn-export {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 130px;
+    height: 48px;
+
+    padding: 0 18px;
+
+    border: 1px solid #0f766e;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #0f766e;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.checklist-page .btn-export:hover {
+    background: #0f766e;
+    color: #ffffff;
+}
+
+.checklist-page .btn-export:active {
+    transform: translateY(1px);
+}
+
+/* =========================================================
+   PDF CHECKLIST HARIAN
+   ========================================================= */
+
+.pdf-checklist-page {
+    font-family: DejaVu Sans, sans-serif;
+    font-size: 11px;
+    color: #17233b;
+    margin: 0;
+    padding: 0;
+}
+
+.pdf-checklist-header {
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0f766e;
+}
+
+.pdf-checklist-header h1 {
+    margin: 0 0 5px;
+    color: #0f766e;
+    font-size: 22px;
+}
+
+.pdf-checklist-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 11px;
+}
+
+.pdf-checklist-info {
+    margin-bottom: 15px;
+}
+
+.pdf-checklist-info table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pdf-checklist-info td {
+    border: none;
+    padding: 3px 0;
+}
+
+.pdf-checklist-info td:first-child {
+    width: 80px;
+}
+
+.pdf-checklist-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.pdf-checklist-table th {
+    background: #f1f5f9;
+    color: #17233b;
+    border: 1px solid #dbe3ea;
+    padding: 7px;
+    text-align: left;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.pdf-checklist-table td {
+    border: 1px solid #dbe3ea;
+    padding: 7px;
+    vertical-align: top;
+    font-size: 9px;
+    word-wrap: break-word;
+}
+
+.pdf-checklist-table th:nth-child(1),
+.pdf-checklist-table td:nth-child(1) {
+    width: 4%;
+    text-align: center;
+}
+
+.pdf-checklist-table th:nth-child(2),
+.pdf-checklist-table td:nth-child(2) {
+    width: 13%;
+}
+
+.pdf-checklist-table th:nth-child(3),
+.pdf-checklist-table td:nth-child(3) {
+    width: 9%;
+}
+
+.pdf-checklist-table th:nth-child(4),
+.pdf-checklist-table td:nth-child(4) {
+    width: 9%;
+}
+
+.pdf-checklist-table th:nth-child(5),
+.pdf-checklist-table td:nth-child(5) {
+    width: 12%;
+}
+
+.pdf-checklist-table th:nth-child(6),
+.pdf-checklist-table td:nth-child(6) {
+    width: 17%;
+}
+
+.pdf-checklist-table th:nth-child(7),
+.pdf-checklist-table td:nth-child(7) {
+    width: 17%;
+}
+
+.pdf-checklist-table th:nth-child(8),
+.pdf-checklist-table td:nth-child(8) {
+    width: 9%;
+}
+
+.pdf-checklist-table th:nth-child(9),
+.pdf-checklist-table td:nth-child(9) {
+    width: 10%;
+}
+
+.pdf-checklist-empty {
+    text-align: center;
+    padding: 20px !important;
+}
+
+.pdf-checklist-footer {
+    margin-top: 18px;
+    text-align: right;
+    color: #64748b;
+    font-size: 8px;
+}

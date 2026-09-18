@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
@@ -51,7 +52,7 @@ class GalleryController extends Controller
     {
         $request->validate([
             'title' => 'required|unique:galleries,title',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
 
         $data = $request->only([
@@ -79,7 +80,7 @@ class GalleryController extends Controller
     public function update(Request $request, $id)
     {
         $gallery = Gallery::findOrFail($id);
-
+        
         $request->validate([
             'title' => 'required|unique:galleries,title,' . $gallery->id,
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
@@ -90,10 +91,17 @@ class GalleryController extends Controller
             'category'
         ]);
 
-        // upload gambar baru
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('galleries', 'public');
-        }
+        /// upload gambar baru
+    if ($request->hasFile('image')) {
+
+    if ($gallery->image) {
+        Storage::disk('public')->delete($gallery->image);
+    }
+
+    $data['image'] = $request
+        ->file('image')
+        ->store('galleries', 'public');
+    }   
 
         $gallery->update($data);
 
@@ -103,9 +111,16 @@ class GalleryController extends Controller
     // hapus data
     public function destroy($id)
     {
-        $gallery = Gallery::findOrFail($id);
-        $gallery->delete();
+    $gallery = Gallery::findOrFail($id);
 
-        return redirect()->route('admin.gallery.index')->with('success', 'Data berhasil dihapus');
+    if ($gallery->image) {
+        Storage::disk('public')->delete($gallery->image);
+    }
+
+    $gallery->delete();
+
+    return redirect()
+        ->route('admin.gallery.index')
+        ->with('success', 'Data berhasil dihapus');
     }
 }

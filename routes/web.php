@@ -11,6 +11,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DevelopmentNoteController;
 use App\Http\Controllers\TeacherStudentController;
 use App\Http\Controllers\RekapAbsensiController;
+use App\Http\Controllers\ChecklistPdfController;
 use App\Http\Controllers\Parent\ParentDashboardController;
 use App\Http\Controllers\Parent\PaymentController as ParentPaymentController;
 use App\Http\Controllers\Website\HomeController;
@@ -64,19 +65,19 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('profile', AdminProfileController::class);
     Route::resource('gallery', AdminGalleryController::class);
     Route::resource(
-    'program',
-    AdminProgramController::class
-);
+        'program',
+        AdminProgramController::class
+    );
 
-Route::resource(
-    'structure',
-    AdminStructureController::class
-);
+    Route::resource(
+        'structure',
+        AdminStructureController::class
+    );
 
-Route::resource(
-    'contact',
-    AdminContactController::class
-);
+    Route::resource(
+        'contact',
+        AdminContactController::class
+    );
 
     Route::get('/konten', function () {
         return view('admin.konten.index');
@@ -142,6 +143,35 @@ Route::middleware('auth')->prefix('teacher')->name('teacher.')->group(function (
         Route::get('/development/{development}/edit', 'edit')->name('development.edit');
         Route::put('/development/{development}', 'update')->name('development.update');
     });
+
+    Route::controller(
+        \App\Http\Controllers\DailyChecklistController::class
+    )->group(function () {
+
+        Route::get(
+            '/checklist',
+            'index'
+        )->name('checklist.index');
+
+        Route::get(
+            '/checklist/create',
+            'create'
+        )->name('checklist.create');
+
+        Route::post(
+            '/checklist/store',
+            'store'
+        )->name('checklist.store');
+
+        Route::get(
+            '/checklist/{id}',
+            'show'
+        )->name('checklist.show');
+    });
+        Route::get(
+            '/checklist/{date}/export',
+            [ChecklistPdfController::class, 'export']
+        )->name('checklist.export');
 });
 
 
@@ -166,7 +196,6 @@ Route::middleware(['auth', 'role:parent'])
 
             Route::get('/activity', 'activity')
                 ->name('activity');
-
         });
 
         Route::get(
@@ -178,7 +207,6 @@ Route::middleware(['auth', 'role:parent'])
             '/payment',
             [ParentPaymentController::class, 'index']
         )->name('payment');
-
     });
 
 

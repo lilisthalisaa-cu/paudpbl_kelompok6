@@ -7,8 +7,29 @@
 <div class="program-form-page">
 
     <div class="program-form-wrapper">
+            @if ($errors->any())
 
-        <div class="program-form-header">
+        <div class="error-box">
+
+            <strong>
+                Gagal menyimpan data struktur
+            </strong>
+
+            <ul>
+
+                @foreach ($errors->all() as $error)
+
+                    <li>{{ $error }}</li>
+
+                @endforeach
+
+            </ul>
+
+            </div>
+
+                @endif
+
+            <div class="program-form-header">
 
             <h1>
                 Tambah Struktur

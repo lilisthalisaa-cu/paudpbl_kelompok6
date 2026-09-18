@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Structure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StructureController extends Controller
 {
@@ -32,7 +33,12 @@ class StructureController extends Controller
             'description' => 'nullable',
             'type' => 'required',
 
-            'image' => 'nullable|image'
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            ],
+            [
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Format gambar hanya boleh JPG, JPEG, PNG, atau WEBP.',
+            'image.max'   => 'Ukuran gambar maksimal 2 MB.'
 
         ]);
 
@@ -67,11 +73,19 @@ class StructureController extends Controller
             'description' => 'nullable',
             'type' => 'required',
 
-            'image' => 'nullable|image'
-
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            ],
+            [
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Format gambar hanya boleh JPG, JPEG, PNG, atau WEBP.',
+            'image.max'   => 'Ukuran gambar maksimal 2 MB.'
         ]);
 
         if ($request->hasFile('image')) {
+
+            if ($structure->image) {
+                Storage::disk('public')->delete($structure->image);
+            }
 
             $data['image'] = $request
                 ->file('image')
@@ -87,10 +101,14 @@ class StructureController extends Controller
 
     public function destroy(Structure $structure)
     {
-        $structure->delete();
+    if ($structure->image) {
+        Storage::disk('public')->delete($structure->image);
+    }
 
-        return redirect()
-            ->route('admin.structure.index')
-            ->with('success', 'Data struktur berhasil dihapus');
+    $structure->delete();
+
+    return redirect()
+        ->route('admin.structure.index')
+        ->with('success', 'Data struktur berhasil dihapus');
     }
 }

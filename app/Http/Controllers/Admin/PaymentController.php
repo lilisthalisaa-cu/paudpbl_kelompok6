@@ -6,14 +6,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Payment;
+use App\Models\SchoolClass;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::all();
-        return view('admin.payments.index', compact('students'));
+        $students = Student::with('schoolClass')
+
+            ->orderBy('school_class_id')
+
+            ->orderBy('name')
+
+            ->get();
+
+        return view(
+            'admin.payments.index',
+            compact(
+                'students'
+            )
+        );
     }
+
 
     public function show($id)
     {
@@ -55,7 +69,7 @@ class PaymentController extends Controller
             'payments' => $data
         ]);
     }
-   
+
     public function store(Request $request)
     {
         $data = $request->validate([

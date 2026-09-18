@@ -110,7 +110,14 @@ class TeacherAttendanceController extends Controller
         $request->validate([
             'status' => 'required|in:IZIN,CUTI,SAKIT',
             'note' => 'required|string|max:255',
-            'surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            ],
+            [
+            'status.required' => 'Status presensi wajib dipilih.',
+            'status.in'       => 'Status presensi tidak valid.',
+            'surat.mimes'     => 'File surat hanya boleh PDF, JPG, JPEG, atau PNG.',
+            'surat.max'       => 'Ukuran surat maksimal 2 MB.',
+            'note.required'   => 'Keterangan wajib diisi.',
         ]);
 
         $teacher = Teacher::where('user_id', Auth::id())->first();

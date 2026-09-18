@@ -21,7 +21,7 @@
   </div>
 
   <form method="POST"
-        action="{{ route('admin.students.store') }}">
+    action="{{ route('admin.students.store') }}">
 
     @csrf
 
@@ -77,7 +77,7 @@
               {{ old('gender') == 'L' ? 'checked' : '' }}>
 
             <span>
-              Laki-laki
+              L
             </span>
 
           </label>
@@ -91,7 +91,7 @@
               {{ old('gender') == 'P' ? 'checked' : '' }}>
 
             <span>
-              Perempuan
+              P
             </span>
 
           </label>
@@ -111,19 +111,19 @@
 
           @foreach($classes as $c)
 
-            <label class="class-button">
+          <label class="class-button">
 
-              <input
-                type="radio"
-                name="school_class_id"
-                value="{{ $c->id }}"
-                {{ old('school_class_id') == $c->id ? 'checked' : '' }}>
+            <input
+              type="radio"
+              name="school_class_id"
+              value="{{ $c->id }}"
+              {{ old('school_class_id') == $c->id ? 'checked' : '' }}>
 
-              <span>
-                Kelas {{ $c->name }}
-              </span>
+            <span>
+              Kelas {{ $c->name }}
+            </span>
 
-            </label>
+          </label>
 
           @endforeach
 
@@ -163,6 +163,51 @@
 
       </div>
 
+      {{-- USERNAME PARENT --}}
+      <div>
+
+        <label class="label">
+          Username Parent
+        </label>
+
+        <input
+          type="text"
+          class="input"
+          name="username"
+          value="{{ old('username') }}"
+          placeholder="Username login parent">
+
+      </div>
+
+      {{-- PASSWORD PARENT --}}
+      <div>
+
+        <label class="label">
+          Password Parent
+        </label>
+
+        <div class="password-wrapper">
+
+          <input
+            type="password"
+            class="input"
+            id="studentPassword"
+            name="password"
+            placeholder="Password login parent">
+
+          <button
+            type="button"
+            class="toggle-password"
+            id="toggleStudentPassword">
+
+            👁
+
+          </button>
+
+        </div>
+
+      </div>
+
       {{-- ALAMAT --}}
       <div class="full">
 
@@ -186,10 +231,11 @@
 
         <label class="status-check">
 
-          <input type="checkbox"
-                 name="is_active"
-                 value="1"
-                 checked>
+          <input
+            type="checkbox"
+            name="is_active"
+            value="1"
+            checked>
 
           <span>
             Aktif
@@ -204,15 +250,17 @@
     {{-- ACTION --}}
     <div class="actions">
 
-      <button class="btn-save"
-              type="submit">
+      <button
+        class="btn-save"
+        type="submit">
 
         Simpan
 
       </button>
 
-      <a href="{{ route('admin.students.index') }}"
-         class="btn-cancel">
+      <a
+        href="{{ route('admin.students.index') }}"
+        class="btn-cancel">
 
         Kembali
 
@@ -223,5 +271,28 @@
   </form>
 
 </div>
+
+<script>
+  document
+    .getElementById('toggleStudentPassword')
+    .addEventListener('click', function() {
+
+      const password =
+        document.getElementById('studentPassword');
+
+      if (password.type === 'password') {
+
+        password.type = 'text';
+        this.innerHTML = '🙈';
+
+      } else {
+
+        password.type = 'password';
+        this.innerHTML = '👁';
+
+      }
+
+    });
+</script>
 
 @endsection

@@ -6,6 +6,7 @@
 
 <div class="payment-page">
 
+
   <div class="payment-card">
 
     <div class="card-head">
@@ -62,8 +63,9 @@
 
           <td>
 
-            <a href="{{ route('admin.payment.show', $s->id) }}"
-               class="btn-detail">
+            <a
+              href="{{ route('admin.payment.show', $s->id) }}"
+              class="btn-detail">
 
               Lihat
 
@@ -80,6 +82,7 @@
     </table>
 
   </div>
+
 
 </div>
 

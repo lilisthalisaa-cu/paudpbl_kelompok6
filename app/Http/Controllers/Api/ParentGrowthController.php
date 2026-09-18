@@ -13,7 +13,7 @@ class ParentGrowthController extends Controller
     {
         $student = Student::where(
             'nisn',
-            '3221935788'
+            $request->nisn
         )->first();
 
         if (!$student) {

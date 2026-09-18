@@ -122,7 +122,7 @@
                             <button
                                 type="submit"
                                 class="btn-program-delete"
-                                onclick="return confirm('Yakin ingin menghapus program?')"
+                                onclick="confirmDelete(event, this.form, 'Hapus Data Program?')"
                             >
 
                                 Hapus
@@ -148,5 +148,29 @@
     </div>
 
 </div>
+
+<script>
+function confirmDelete(event, form) {
+
+    event.preventDefault();
+
+    Swal.fire({
+        title: 'Hapus Program?',
+        text: 'Data yang dihapus tidak dapat dikembalikan.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Ya, Hapus',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            form.submit();
+        }
+
+    });
+}
+</script>
 
 @endsection

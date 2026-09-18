@@ -42,17 +42,51 @@ class ActivityController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $request->validate(
 
-            'activity_date' => ['required', 'date'],
+    [
 
-            'title_1' => ['required'],
-            'title_2' => ['nullable'],
-            'title_3' => ['nullable'],
+        'activity_date' => ['required', 'date'],
 
-            'activities' => ['required', 'array'],
+        'title_1' => ['required'],
+        'title_2' => ['nullable'],
+        'title_3' => ['nullable'],
 
-        ]);
+        'activities' => ['required', 'array'],
+
+        'activities.*.desc_1' => ['required'],
+        'activities.*.desc_2' => ['nullable'],
+        'activities.*.desc_3' => ['nullable'],
+
+        'activities.*.photo' => [
+            'nullable',
+            'image',
+            'mimes:jpg,jpeg,png,webp',
+            'max:2048'
+        ],
+
+    ],
+
+    [
+
+        'title_1.required' =>
+            'Pelajaran 1 wajib diisi.',
+
+        'activities.*.photo.image' =>
+            'File yang diupload harus berupa gambar.',
+
+        'activities.*.photo.mimes' =>
+            'Format gambar hanya JPG, JPEG, PNG, atau WEBP.',
+
+        'activities.*.photo.max' =>
+            'Ukuran gambar maksimal 2 MB.',
+
+        'activities.*.desc_1.required' =>
+            'Kegiatan 1 setiap siswa wajib diisi.',
+
+    ]
+
+);
 
         $teacher = $this->teacherData();
 
@@ -98,7 +132,7 @@ class ActivityController extends Controller
             ) {
 
                 $photoPath = $item['photo']
-                    ->store('activities');
+                    ->store('activities', 'private');
             }
 
             ActivityStudent::create([
@@ -128,26 +162,79 @@ class ActivityController extends Controller
             );
     }
 
-    public function index()
-    {
-        $teacher = $this->teacherData();
+    public function index(Request $request)
+{
+    $teacher = $this->teacherData();
 
-        $activities = Activity::with('activityStudents')
+    $studentId = $request->student_id;
+    $month = $request->month;
 
-            ->where(
-                'school_class_id',
-                $teacher->school_class_id
-            )
+    $activities = Activity::with([
+            'activityStudents.student'
+        ])
+        ->where(
+            'school_class_id',
+            $teacher->school_class_id
+        )
 
-            ->latest()
+        ->when($month, function ($query) use ($month) {
 
-            ->paginate(10);
+            $query->whereMonth(
+                'date',
+                date('m', strtotime($month))
+            );
 
-        return view(
-            'teacher.activity.index',
-            compact('activities')
+            $query->whereYear(
+                'date',
+                date('Y', strtotime($month))
+            );
+        })
+
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+    $activities->getCollection()->transform(function ($activity) use ($studentId) {
+
+        $students = $activity->activityStudents;
+
+        if ($studentId) {
+
+            $students = $students->where(
+                'student_id',
+                $studentId
+            );
+        }
+
+        $activity->setRelation(
+            'activityStudents',
+            $students
+                ->sortBy(function ($item) {
+                    return $item->student->name ?? '';
+                })
+                ->values()
         );
-    }
+
+        return $activity;
+    });
+
+    $students = Student::where(
+            'school_class_id',
+            $teacher->school_class_id
+        )
+        ->orderBy('name')
+        ->get();
+
+    return view(
+        'teacher.activity.index',
+        compact(
+            'activities',
+            'students',
+            'studentId',
+            'month'
+        )
+    );
+}
 
     public function viewPhoto($id)
 {
@@ -162,12 +249,12 @@ class ActivityController extends Controller
         abort(404);
     }
 
-    if (!Storage::exists($activity->photo)) {
-        abort(404);
+    if (!Storage::disk('private')->exists($activity->photo)) {
+    abort(404);
     }
 
-    $file = Storage::path($activity->photo);
-
+    $file = Storage::disk('private')->path($activity->photo);
+    
     return response()->file($file, [
         'Content-Type' => mime_content_type($file)
     ]);

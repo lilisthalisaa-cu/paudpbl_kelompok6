@@ -37,6 +37,40 @@
 
     @endif
 
+    <form method="GET" class="filter-bar">
+
+    <select
+        name="student_id"
+        class="input filter-select-fix"
+        onchange="this.form.submit()">
+
+        <option value="">
+            Semua Siswa
+        </option>
+
+        @foreach($students as $student)
+
+            <option
+                value="{{ $student->id }}"
+                {{ $studentId == $student->id ? 'selected' : '' }}>
+
+                {{ $student->name }}
+
+            </option>
+
+        @endforeach
+
+    </select>
+
+    <input
+        type="month"
+        name="month"
+        value="{{ $month }}"
+        class="input filter-select-fix"
+        onchange="this.form.submit()">
+
+</form>
+
     <div class="table-wrap">
 
         <table class="activity-table">

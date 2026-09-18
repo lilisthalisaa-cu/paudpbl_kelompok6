@@ -126,7 +126,8 @@
                             @method('DELETE')
 
                             <button type="submit"
-                                    class="gallery-btn-delete">
+                                    class="gallery-btn-delete"
+                                    onclick="confirmDelete(event, this.form, 'Hapus Data Galeri?')">
                                 Hapus
                             </button>
 

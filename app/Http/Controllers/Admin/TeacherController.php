@@ -7,6 +7,9 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class TeacherController extends Controller
 {
@@ -18,22 +21,19 @@ class TeacherController extends Controller
             'user',
             'schoolClass'
         ])
-
         ->when($q, function ($query) use ($q) {
 
-            $query->whereHas(
-                'user',
-                function ($sub) use ($q) {
+            $query->whereHas('user', function ($sub) use ($q) {
 
-                    $sub->where(
-                        'name',
-                        'like',
-                        "%$q%"
-                    );
-                }
-            );
+                $sub->where('name', 'like', "%{$q}%")
+                    ->orWhere('username', 'like', "%{$q}%")
+                    ->orWhere('email', 'like', "%{$q}%");
+
+            });
+
         })
-
+        ->orderBy('school_class_id')
+        ->orderBy('nip')
         ->paginate(10);
 
         return view(
@@ -47,87 +47,90 @@ class TeacherController extends Controller
 
     public function create()
     {
-        $classes =
-            SchoolClass::all();
-
-        $users =
-            User::where(
-                'role',
-                'teacher'
-            )
-
-            ->whereDoesntHave(
-                'teacher'
-            )
-
-            ->get();
+        $classes = SchoolClass::all();
 
         return view(
             'admin.teacher.create',
-            compact(
-                'classes',
-                'users'
-            )
+            compact('classes')
         );
     }
 
     public function store(Request $request)
     {
-        $data =
-            $request->validate([
+        $data = $request->validate([
 
-                'user_id' =>
-                    'required|exists:users,id',
+            'name' =>
+                'required|string|max:255',
 
-                'class_id' =>
-                    'nullable|exists:school_classes,id',
+            'username' =>
+                'required|string|max:255|unique:users,username',
 
-                'phone' =>
-                    'nullable|string|max:20',
+            'password' =>
+                'required|string|min:6',
 
-                'address' =>
-                    'nullable|string|max:255',
-
-                'nip' =>
-                    'nullable|string|max:50',
-            ]);
-
-        Teacher::create([
-
-            'user_id' =>
-                $data['user_id'],
-
-            'school_class_id' =>
-                $data['class_id'],
+            'class_id' =>
+                'nullable|exists:school_classes,id',
 
             'phone' =>
-                $data['phone'],
+                'nullable|string|max:20',
 
             'address' =>
-                $data['address'],
+                'nullable|string|max:255',
 
             'nip' =>
-                $data['nip'],
+                'nullable|string|max:50',
         ]);
 
+        DB::transaction(function () use ($data) {
+
+            $user = User::create([
+
+                'name' =>
+                    $data['name'],
+
+                'username' =>
+                    $data['username'],
+
+                'email' =>
+                    $data['username'],
+
+                'password' =>
+                    Hash::make($data['password']),
+
+                'role' =>
+                    'teacher',
+            ]);
+
+            Teacher::create([
+
+                'user_id' =>
+                    $user->id,
+
+                'school_class_id' =>
+                    $data['class_id'] ?? null,
+
+                'phone' =>
+                    $data['phone'] ?? null,
+
+                'address' =>
+                    $data['address'] ?? null,
+
+                'nip' =>
+                    $data['nip'] ?? null,
+            ]);
+        });
+
         return redirect()
-
-            ->route(
-                'admin.teachers.index'
-            )
-
+            ->route('admin.teachers.index')
             ->with(
                 'success',
                 'Guru berhasil ditambahkan'
             );
     }
 
-    public function edit(
-        Teacher $teacher
-    ) {
-
-        $classes =
-            SchoolClass::all();
+    public function edit(Teacher $teacher)
+    {
+        $classes = SchoolClass::all();
 
         return view(
             'admin.teacher.edit',
@@ -143,61 +146,89 @@ class TeacherController extends Controller
         Teacher $teacher
     ) {
 
-        $data =
-            $request->validate([
+        $data = $request->validate([
 
-                'class_id' =>
-                    'nullable|exists:school_classes,id',
+            'name' =>
+                'required|string|max:255',
 
-                'phone' =>
-                    'nullable|string|max:20',
+            'username' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('users', 'username')
+                    ->ignore($teacher->user_id),
+            ],
 
-                'address' =>
-                    'nullable|string|max:255',
-
-                'nip' =>
-                    'nullable|string|max:50',
-            ]);
-
-        $teacher->update([
-
-            'school_class_id' =>
-                $data['class_id'],
+            'class_id' =>
+                'nullable|exists:school_classes,id',
 
             'phone' =>
-                $data['phone'],
+                'nullable|string|max:20',
 
             'address' =>
-                $data['address'],
+                'nullable|string|max:255',
 
             'nip' =>
-                $data['nip'],
+                'nullable|string|max:50',
         ]);
 
+        DB::transaction(function () use (
+            $teacher,
+            $data
+        ) {
+
+            if ($teacher->user) {
+
+                $teacher->user->update([
+
+                    'name' =>
+                        $data['name'],
+
+                    'username' =>
+                        $data['username'],
+
+                    'email' =>
+                        $data['username'],
+                ]);
+            }
+
+            $teacher->update([
+
+                'school_class_id' =>
+                    $data['class_id'] ?? null,
+
+                'phone' =>
+                    $data['phone'] ?? null,
+
+                'address' =>
+                    $data['address'] ?? null,
+
+                'nip' =>
+                    $data['nip'] ?? null,
+            ]);
+        });
+
         return redirect()
-
-            ->route(
-                'admin.teachers.index'
-            )
-
+            ->route('admin.teachers.index')
             ->with(
                 'success',
                 'Guru berhasil diperbarui'
             );
     }
 
-    public function destroy(
-        Teacher $teacher
-    ) {
+    public function destroy(Teacher $teacher)
+    {
+        DB::transaction(function () use ($teacher) {
 
-        $teacher->delete();
+            if ($teacher->user) {
+                $teacher->user->delete();
+            }
+
+            $teacher->delete();
+        });
 
         return redirect()
-
-            ->route(
-                'admin.teachers.index'
-            )
-
+            ->route('admin.teachers.index')
             ->with(
                 'success',
                 'Guru berhasil dihapus'

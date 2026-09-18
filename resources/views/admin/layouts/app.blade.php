@@ -16,7 +16,7 @@
         rel="stylesheet">
 
 </head>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <body>
 
     <!-- TOPBAR -->
@@ -199,6 +199,32 @@
                 .querySelector('.website-dropdown')
                 .classList
                 .toggle('active');
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmDelete(event, form, title = 'Hapus Data?') {
+
+            event.preventDefault();
+
+            Swal.fire({
+                title: title,
+                text: 'Data yang dihapus tidak dapat dikembalikan.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+
+            });
         }
     </script>
 

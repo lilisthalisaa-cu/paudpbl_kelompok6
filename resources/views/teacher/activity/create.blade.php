@@ -37,6 +37,28 @@
 
     @endif
 
+    @if ($errors->any())
+
+    <div class="error-box">
+
+        <strong>
+            ⚠ Gagal menyimpan kegiatan
+        </strong>
+
+        <ul>
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
+
     <form method="POST"
           action="{{ route('teacher.activity.store') }}"
           enctype="multipart/form-data">
@@ -54,7 +76,7 @@
                 <input type="date"
                        name="activity_date"
                        class="input"
-                       value="{{ date('Y-m-d') }}">
+                       value="{{ old('activity_date', date('Y-m-d')) }}">
 
             </div>
 
@@ -67,7 +89,8 @@
                 <input type="text"
                        name="title_1"
                        class="input"
-                       placeholder="Contoh: Mewarnai">
+                       placeholder="Contoh: Mewarnai"
+                       value="{{ old('title_1') }}">
 
             </div>
 
@@ -80,7 +103,8 @@
                 <input type="text"
                        name="title_2"
                        class="input"
-                       placeholder="Contoh: Bernyanyi">
+                       placeholder="Contoh: Bernyanyi"
+                       value="{{ old('title_2') }}">
 
             </div>
 
@@ -93,7 +117,8 @@
                 <input type="text"
                        name="title_3"
                        class="input"
-                       placeholder="Contoh: Senam">
+                       placeholder="Contoh: Senam"
+                       value="{{ old('title_3') }}">
 
             </div>
 
@@ -146,7 +171,7 @@
                             <textarea
                                 name="activities[{{ $student->id }}][desc_1]"
                                 class="input activity-textarea"
-                                placeholder="Keterangan kegiatan"></textarea>
+                                placeholder="Keterangan kegiatan">{{ old("activities.$student->id.desc_1") }}</textarea>
 
                         </td>
 
@@ -155,7 +180,7 @@
                             <textarea
                                 name="activities[{{ $student->id }}][desc_2]"
                                 class="input activity-textarea"
-                                placeholder="Keterangan kegiatan"></textarea>
+                                placeholder="Keterangan kegiatan">{{ old("activities.$student->id.desc_2") }}</textarea>
 
                         </td>
 
@@ -164,7 +189,7 @@
                             <textarea
                                 name="activities[{{ $student->id }}][desc_3]"
                                 class="input activity-textarea"
-                                placeholder="Keterangan kegiatan"></textarea>
+                                placeholder="Keterangan kegiatan">{{ old("activities.$student->id.desc_3") }}</textarea>
 
                         </td>
 
@@ -177,9 +202,12 @@
                                 <input type="file"
                                        name="activities[{{ $student->id }}][photo]"
                                        class="hidden-file-input"
-                                       accept="image/*">
+                                       accept="image/*"
+                                       onchange="updateFileName(this)">
 
                             </label>
+
+                            <div class="file-name"></div>
 
                         </td>
 
@@ -207,5 +235,20 @@
     </form>
 
 </div>
+
+<script>
+function updateFileName(input) {
+
+    let fileName = '';
+
+    if (input.files.length) {
+        fileName = input.files[0].name;
+    }
+
+    input.closest('td')
+         .querySelector('.file-name')
+         .textContent = fileName;
+}
+</script>
 
 @endsection

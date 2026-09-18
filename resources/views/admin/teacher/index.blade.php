@@ -7,181 +7,188 @@
 
   <div class="toolbar">
 
-    <div>
-      <h2 class="card-title">
-        Data Guru
-      </h2>
+<div>
 
-      <div class="muted">
-        Kelola data guru PAUD.
-      </div>
-    </div>
+  <h2 class="card-title">
+    Data Guru
+  </h2>
 
-    <a
-      class="btn-add-teacher"
-      href="{{ route('admin.teachers.create') }}">
+  <div class="muted">
+    Kelola data guru PAUD.
+  </div>
 
-      + Tambah Guru
+</div>
 
-    </a>
+<a
+  class="btn-add-teacher"
+  href="{{ route('admin.teachers.create') }}">
+
+  + Tambah Guru
+
+</a>
+
 
   </div>
 
   <form class="search-box" method="GET">
 
-    <input
-      class="input"
-      name="q"
-      value="{{ request('q') }}"
-      placeholder="Cari nama / NIP / email">
+<input
+  class="input"
+  name="q"
+  value="{{ request('q') }}"
+  placeholder="Cari nama / username / email">
 
-    <button
-      class="btn-search"
-      type="submit">
+<button
+  class="btn-search"
+  type="submit">
 
-      Cari
+  Cari
 
-    </button>
+</button>
+
 
   </form>
 
   <div class="table-wrapper">
 
-    <table class="table teacher-table">
+<table class="table teacher-table">
 
-      <thead>
+  <thead>
 
-        <tr>
-          <th>Nama</th>
-          <th>NIP</th>
-          <th>Email</th>
-          <th>Telepon</th>
-          <th>Kelas</th>
-          <th>Role</th>
-          <th>Status</th>
-          <th style="width:220px;">
-            Aksi
-          </th>
-        </tr>
+    <tr>
+      <th>Nama</th>
+      <th>NIP</th>
+      <th>Email</th>
+      <th>Telepon</th>
+      <th>Kelas</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th style="width:220px;">
+        Aksi
+      </th>
+    </tr>
 
-      </thead>
+  </thead>
 
-      <tbody>
+  <tbody>
 
-        @forelse($teachers as $t)
+    @forelse($teachers as $t)
 
-        <tr>
+    <tr>
 
-          <td>
-            {{ $t->user->name ?? '-' }}
-          </td>
+      <td>
+        {{ $t->user->name ?? '-' }}
+      </td>
 
-          <td>
-            {{ $t->nip ?? '-' }}
-          </td>
+      <td>
+        {{ $t->nip ?? '-' }}
+      </td>
 
-          <td>
-            {{ $t->user->email ?? '-' }}
-          </td>
+      <td>
+        {{ $t->user->email ?? '-' }}
+      </td>
 
-          <td>
-            {{ $t->phone ?? '-' }}
-          </td>
+      <td>
+        {{ $t->phone ?? '-' }}
+      </td>
 
-          <td>
-            {{ $t->schoolClass->name ?? '-' }}
-          </td>
+      <td>
+        {{ $t->schoolClass->name ?? '-' }}
+      </td>
 
-          <td>
+      <td>
 
-            @if($t->user->role == 'operator')
+        @if($t->user->role == 'operator')
 
-              Operator
+          Operator
 
-            @elseif($t->user->role == 'teacher')
+        @elseif($t->user->role == 'teacher')
 
-              Guru
+          Guru
 
-            @elseif($t->user->role == 'admin')
+        @elseif($t->user->role == 'admin')
 
-              Admin
+          Admin
 
-            @else
+        @else
 
-              -
+          -
 
-            @endif
+        @endif
 
-          </td>
+      </td>
 
-          <td>
+      <td>
 
-            <span class="status-badge">
+        <span class="status-badge">
 
-              Aktif
+          Aktif
 
-            </span>
+        </span>
 
-          </td>
+      </td>
 
-          <td class="action-buttons">
+      <td class="action-buttons">
 
-            <a
-              class="btn-edit"
-              href="{{ route('admin.teachers.edit',$t) }}">
+        <a
+          class="btn-edit"
+          href="{{ route('admin.teachers.edit',$t) }}">
 
-              Edit
+          Edit
 
-            </a>
+        </a>
 
-            <form
-              method="POST"
-              action="{{ route('admin.teachers.destroy',$t) }}"
-              style="display:inline-block;"
-              onsubmit="return confirm('Hapus data guru ini?')">
+        <form
+          method="POST"
+          action="{{ route('admin.teachers.destroy',$t) }}"
+          style="display:inline-block;"
+          onsubmit="return confirm('Hapus data guru ini?')">
 
-              @csrf
-              @method('DELETE')
+          @csrf
+          @method('DELETE')
 
-              <button
-                class="btn-delete"
-                type="submit">
+          <button
+            class="btn-delete"
+            type="submit">
 
-                Hapus
+            Hapus
 
-              </button>
+          </button>
 
-            </form>
+        </form>
 
-          </td>
+      </td>
 
-        </tr>
+    </tr>
 
-        @empty
+    @empty
 
-        <tr>
+    <tr>
 
-          <td
-            colspan="8"
-            class="empty-text">
+      <td
+        colspan="8"
+        class="empty-text">
 
-            Belum ada data guru.
+        Belum ada data guru.
 
-          </td>
+      </td>
 
-        </tr>
+    </tr>
 
-        @endforelse
+    @endforelse
 
-      </tbody>
+  </tbody>
 
-    </table>
+</table>
+
 
   </div>
 
   <div class="pagination-wrap">
 
-    {{ $teachers->links() }}
+
+{{ $teachers->links() }}
+
 
   </div>
 
@@ -210,7 +217,7 @@
 }
 
 .search-box .input{
-  max-width:360px;
+  width:360px;
 }
 
 .table-wrapper{
@@ -245,17 +252,12 @@
   display:inline-flex;
   align-items:center;
   justify-content:center;
-
   padding:8px 18px;
-
   background:#dcfce7;
   color:#166534;
-
   border-radius:999px;
-
   font-size:14px;
   font-weight:700;
-
   border:1px solid #bbf7d0;
 }
 
@@ -272,70 +274,38 @@
   border-radius:18px;
   font-weight:800;
   text-decoration:none;
-  transition:.2s;
-}
-
-.btn-add-teacher:hover{
-  background:#ea980c;
 }
 
 .btn-edit{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-
   padding:12px 22px;
-
   border-radius:16px;
-
   background:white;
   color:#111827;
-
   border:1px solid #d1d5db;
-
   font-weight:700;
   text-decoration:none;
-
-  transition:.2s;
-}
-
-.btn-edit:hover{
-  background:#f9fafb;
 }
 
 .btn-delete{
   border:none;
-
   background:#ef4444;
   color:white;
-
   padding:12px 22px;
-
   border-radius:16px;
-
   font-weight:700;
-
   cursor:pointer;
-
-  transition:.2s;
-}
-
-.btn-delete:hover{
-  background:#dc2626;
 }
 
 .btn-search{
   border:none;
-
   background:#111827;
   color:white;
-
   padding:12px 18px;
-
   border-radius:14px;
-
   font-weight:700;
-
   cursor:pointer;
 }
 
@@ -347,6 +317,16 @@
 
 .pagination-wrap{
   margin-top:20px;
+}
+
+.pagination-wrap svg{
+  width:18px !important;
+  height:18px !important;
+}
+
+.pagination-wrap span,
+.pagination-wrap a{
+  font-size:14px !important;
 }
 
 </style>

@@ -1871,3 +1871,531 @@ input[type="month"]{
 }
 
 }
+
+
+/* =========================================
+   SIPARI - CHECKLIST HARIAN GURU
+   COMPACT VERSION
+   ========================================= */
+
+.checklist-page {
+    background: #f8fafc;
+    min-height: 100vh;
+    padding: 24px 32px;
+    color: #334155;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.checklist-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.checklist-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    background: #e0f2fe;
+    border-radius: 14px;
+}
+
+.checklist-heading h1 {
+    color: #0f766e;
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.checklist-heading p {
+    color: #64748b;
+    font-size: 13px;
+    margin: 3px 0 0;
+}
+
+/* =========================================
+   TABS
+   ========================================= */
+
+.checklist-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.checklist-tabs a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #334155;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.checklist-tabs a.active {
+    background: #0f766e;
+    border-color: #0f766e;
+    color: #ffffff;
+}
+
+/* =========================================
+   MAIN CARD
+   ========================================= */
+
+.checklist-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.checklist-card h2 {
+    color: #0f766e;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 22px;
+    display: inline-block;
+    padding-bottom: 7px;
+    border-bottom: 2px solid #0f766e;
+}
+
+/* =========================================
+   FORM BAGIAN ATAS
+   ========================================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.form-group label {
+    color: #334155;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.required {
+    color: #ef4444;
+}
+
+/* =========================================
+   INPUT
+   ========================================= */
+
+.form-control {
+    width: 100%;
+    min-height: 40px;
+    padding: 9px 12px;
+    box-sizing: border-box;
+    border: 1px solid #d8e0e8;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #475569;
+    font-family: inherit;
+    font-size: 12px;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+}
+
+.form-control:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.08);
+}
+
+textarea.form-control {
+    min-height: 78px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+/* =========================================
+   DATA PENGAMATAN SISWA
+   ========================================= */
+
+.student-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+}
+
+.student-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.student-number {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ccfbf1;
+    color: #0f766e;
+    border-radius: 13px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.student-info h3,
+.student-name {
+    margin: 0;
+    color: #0f172a;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.student-info p,
+.student-nisn {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* =========================================
+   FORM SISWA - 3 KOLOM MENYAMPING
+   ========================================= */
+
+.student-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px 20px;
+}
+
+.student-form .form-group {
+    gap: 7px;
+    min-width: 0;
+}
+
+.student-form textarea.form-control {
+    min-height: 150px;
+}
+
+/* Status dan catatan berada di baris bawah */
+.student-form .observation-status-grid {
+    grid-column: 1 / -1;
+}
+
+/* =========================================
+   HASIL PENGAMATAN + STATUS
+   ========================================= */
+
+.observation-status-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.status-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.status-options {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.status-option {
+    position: relative;
+}
+
+.status-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.status-option label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 126px;
+    min-height: 42px;
+    padding: 9px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.status-option input:checked + label {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #166534;
+    box-shadow: 0 3px 8px rgba(34, 197, 94, 0.12);
+}
+
+/* =========================================
+   COUNTER TEXTAREA
+   ========================================= */
+
+.textarea-wrapper {
+    position: relative;
+}
+
+.textarea-wrapper textarea {
+    padding-bottom: 24px;
+}
+
+.counter {
+    text-align: right;
+    color: #94a3b8;
+    font-size: 10px;
+    margin-top: -20px;
+    margin-right: 10px;
+    position: relative;
+    pointer-events: none;
+}
+
+/* =========================================
+   CATATAN TAMBAHAN
+   ========================================= */
+
+.notes-group {
+    margin-top: 0;
+}
+
+.notes-group textarea {
+    min-height: 82px;
+}
+
+/* =========================================
+   ACTION BUTTON
+   ========================================= */
+
+.checklist-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.checklist-page .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.checklist-page .btn-reset {
+    background: #ffffff;
+    border: 1px solid #d8e0e8;
+    color: #475569;
+}
+
+.checklist-page .btn-reset:hover {
+    background: #f8fafc;
+}
+
+.checklist-page .btn-submit {
+    background: #0f766e;
+    border: 1px solid #0f766e;
+    color: #ffffff;
+}
+
+.checklist-page .btn-submit:hover {
+    background: #115e59;
+}
+
+/* =========================================
+   ERROR
+   ========================================= */
+
+.alert-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 11px 12px;
+    font-size: 12px;
+    margin-bottom: 16px;
+}
+
+/* =========================================
+   RESPONSIVE TABLET
+   ========================================= */
+
+@media (max-width: 1000px) {
+    .checklist-page {
+        padding: 22px 24px;
+    }
+
+    .checklist-card {
+        padding: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .student-form {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .student-form .observation-status-grid {
+        grid-column: auto;
+    }
+
+    .student-form textarea.form-control {
+        min-height: 100px;
+    }
+
+    .observation-status-grid,
+    .form-grid-textarea {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+/* =========================================
+   RESPONSIVE MOBILE
+   ========================================= */
+
+@media (max-width: 640px) {
+    .checklist-page {
+        padding: 16px;
+    }
+
+    .checklist-heading {
+        gap: 10px;
+    }
+
+    .checklist-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 28px;
+    }
+
+    .checklist-heading h1 {
+        font-size: 22px;
+    }
+
+    .checklist-heading p {
+        font-size: 12px;
+    }
+
+    .checklist-tabs {
+        flex-wrap: wrap;
+    }
+
+    .checklist-tabs a {
+        padding: 9px 13px;
+        font-size: 12px;
+    }
+
+    .checklist-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .checklist-card h2 {
+        font-size: 16px;
+        margin-bottom: 18px;
+    }
+
+    .form-grid,
+    .form-grid-textarea,
+    .observation-status-grid,
+    .student-form {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .student-form .observation-status-grid {
+        grid-column: auto;
+    }
+
+    .student-form textarea.form-control {
+        min-height: 100px;
+    }
+
+    .student-card {
+        padding: 16px;
+        border-radius: 11px;
+    }
+
+    .student-header {
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .student-number {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+        font-size: 18px;
+    }
+
+    .student-info h3,
+    .student-name {
+        font-size: 16px;
+    }
+
+    .status-options {
+        gap: 8px;
+    }
+
+    .status-option label {
+        min-width: 115px;
+        font-size: 12px;
+    }
+
+    .checklist-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .checklist-page .btn {
+        width: 100%;
+    }
+}

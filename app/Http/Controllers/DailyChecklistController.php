@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\DailyChecklist;
 use App\Models\Student;
-use App\Models\SchoolClass;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DailyChecklistController extends Controller
 {
-    
     private function teacherData()
     {
         return Teacher::where(
@@ -20,8 +18,6 @@ class DailyChecklistController extends Controller
         )->firstOrFail();
     }
 
-
-   
     public function index(Request $request)
     {
         $teacher = $this->teacherData();
@@ -56,8 +52,6 @@ class DailyChecklistController extends Controller
         );
     }
 
-
-    
     public function create()
     {
         $teacher = $this->teacherData();
@@ -78,26 +72,16 @@ class DailyChecklistController extends Controller
         );
     }
 
-
-
     public function store(Request $request)
     {
         $teacher = $this->teacherData();
 
+        // Tanggal otomatis sesuai tanggal saat checklist disimpan
+        $today = now()->toDateString();
+
         $request->validate([
-
-            'date' => [
-                'required',
-                'date',
-                function ($attribute, $value, $fail) {
-                    if (date('N', strtotime($value)) == 6) {
-                        $fail('Checklist harian tidak dapat diinput pada hari Sabtu.');
-                    }
-                },
-            ],
-
             'theme' => [
-                'required',
+                'nullable',
                 'string',
                 'max:255'
             ],
@@ -131,7 +115,6 @@ class DailyChecklistController extends Controller
                 'nullable',
                 'string'
             ],
-
         ]);
 
         foreach ($request->checklists as $item) {
@@ -147,41 +130,30 @@ class DailyChecklistController extends Controller
             }
 
             DailyChecklist::create([
-
                 'teacher_id' => $teacher->id,
-
                 'student_id' => $student->id,
-
                 'school_class_id' => $teacher->school_class_id,
+                'date' => $today,
 
-                'date' => $request->date,
+                'theme' => $request->theme ?: 'Kegiatan Harian',
 
-                'theme' => $request->theme,
+                // Kolom wajib pada database
+                'learning_objective' => $item['observation'] ?? '',
 
                 'context' => $item['context'],
-
-                'observation' =>
-                    $item['observation'] ?? null,
-
-                'status' =>
-                    $item['status'] ?? 'BM',
-
-                'notes' =>
-                    $item['notes'] ?? null,
-
+                'observation' => $item['observation'] ?? null,
+                'status' => $item['status'] ?? 'BM',
+                'notes' => $item['notes'] ?? null,
             ]);
         }
 
         return redirect()
-
             ->route('teacher.checklist.index')
-
             ->with(
                 'success',
                 'Checklist harian berhasil disimpan.'
             );
     }
-
 
     public function show($id)
     {

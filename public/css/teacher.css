@@ -2493,6 +2493,35 @@ textarea.form-control {
     border: 1px solid #dbe3ec;
 }
 
+/* Tombol Kembali pada Detail Checklist */
+.checklist-page .btn-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 116px;
+    height: 48px;
+    padding: 0 18px;
+    border: 1px solid #0f766e;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #0f766e;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.checklist-page .btn-back:hover {
+    background: #0f766e;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.checklist-page .btn-back:active {
+    transform: translateY(1px);
+}
 
 /* =========================================================
    TABLE
@@ -2724,134 +2753,4 @@ textarea.form-control {
 
 .checklist-page .btn-export:active {
     transform: translateY(1px);
-}
-
-/* =========================================================
-   PDF CHECKLIST HARIAN
-   ========================================================= */
-
-.pdf-checklist-page {
-    font-family: DejaVu Sans, sans-serif;
-    font-size: 11px;
-    color: #17233b;
-    margin: 0;
-    padding: 0;
-}
-
-.pdf-checklist-header {
-    margin-bottom: 18px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #0f766e;
-}
-
-.pdf-checklist-header h1 {
-    margin: 0 0 5px;
-    color: #0f766e;
-    font-size: 22px;
-}
-
-.pdf-checklist-header p {
-    margin: 0;
-    color: #64748b;
-    font-size: 11px;
-}
-
-.pdf-checklist-info {
-    margin-bottom: 15px;
-}
-
-.pdf-checklist-info table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.pdf-checklist-info td {
-    border: none;
-    padding: 3px 0;
-}
-
-.pdf-checklist-info td:first-child {
-    width: 80px;
-}
-
-.pdf-checklist-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.pdf-checklist-table th {
-    background: #f1f5f9;
-    color: #17233b;
-    border: 1px solid #dbe3ea;
-    padding: 7px;
-    text-align: left;
-    font-size: 9px;
-    font-weight: 700;
-}
-
-.pdf-checklist-table td {
-    border: 1px solid #dbe3ea;
-    padding: 7px;
-    vertical-align: top;
-    font-size: 9px;
-    word-wrap: break-word;
-}
-
-.pdf-checklist-table th:nth-child(1),
-.pdf-checklist-table td:nth-child(1) {
-    width: 4%;
-    text-align: center;
-}
-
-.pdf-checklist-table th:nth-child(2),
-.pdf-checklist-table td:nth-child(2) {
-    width: 13%;
-}
-
-.pdf-checklist-table th:nth-child(3),
-.pdf-checklist-table td:nth-child(3) {
-    width: 9%;
-}
-
-.pdf-checklist-table th:nth-child(4),
-.pdf-checklist-table td:nth-child(4) {
-    width: 9%;
-}
-
-.pdf-checklist-table th:nth-child(5),
-.pdf-checklist-table td:nth-child(5) {
-    width: 12%;
-}
-
-.pdf-checklist-table th:nth-child(6),
-.pdf-checklist-table td:nth-child(6) {
-    width: 17%;
-}
-
-.pdf-checklist-table th:nth-child(7),
-.pdf-checklist-table td:nth-child(7) {
-    width: 17%;
-}
-
-.pdf-checklist-table th:nth-child(8),
-.pdf-checklist-table td:nth-child(8) {
-    width: 9%;
-}
-
-.pdf-checklist-table th:nth-child(9),
-.pdf-checklist-table td:nth-child(9) {
-    width: 10%;
-}
-
-.pdf-checklist-empty {
-    text-align: center;
-    padding: 20px !important;
-}
-
-.pdf-checklist-footer {
-    margin-top: 18px;
-    text-align: right;
-    color: #64748b;
-    font-size: 8px;
 }

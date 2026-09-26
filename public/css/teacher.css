@@ -2855,3 +2855,126 @@ textarea.form-control {
     color: #64748b;
     font-size: 8px;
 }
+
+/* =========================================================
+   TABEL INPUT CHECKLIST HARIAN
+   Khusus halaman Input Checklist
+   ========================================================= */
+
+.checklist-input-table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.checklist-input-table-wrapper .checklist-table {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+/* Nomor */
+.checklist-input-table-wrapper .col-no {
+    width: 40px;
+}
+
+/* Tujuan Pembelajaran */
+.checklist-input-table-wrapper .col-objective {
+    width: 20%;
+}
+
+/* Konteks */
+.checklist-input-table-wrapper .col-context {
+    width: 23%;
+}
+
+/* Kolom siswa */
+.checklist-input-table-wrapper .student-group {
+    width: 12%;
+}
+
+/* Kolom keterangan */
+.checklist-input-table-wrapper .col-notes {
+    width: 12%;
+}
+
+/* Semua isi tabel */
+.checklist-input-table-wrapper .checklist-table th,
+.checklist-input-table-wrapper .checklist-table td {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Tujuan */
+.checklist-input-table-wrapper .objective-cell {
+    padding: 10px;
+    vertical-align: top;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* KONTEKS */
+.checklist-input-table-wrapper .context-cell {
+    padding: 10px;
+    vertical-align: top;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Nama siswa */
+.checklist-input-table-wrapper .student-name {
+    padding: 8px 4px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+/* SM / BM */
+.checklist-input-table-wrapper .status-header,
+.checklist-input-table-wrapper .status-cell {
+    padding: 8px 3px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* Radio */
+.checklist-input-table-wrapper .status-cell label {
+    font-size: 10px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Keterangan */
+.checklist-input-table-wrapper .notes-cell {
+    padding: 8px;
+    vertical-align: middle;
+}
+
+.checklist-input-table-wrapper .notes-cell textarea {
+    display: block;
+    width: 100%;
+    height: 58px;
+    min-height: 58px;
+    max-height: 58px;
+    box-sizing: border-box;
+
+    padding: 6px;
+    resize: none;
+
+    font-family: inherit;
+    font-size: 11px;
+    line-height: 1.3;
+}

@@ -173,21 +173,13 @@
 
                         <th>No</th>
 
-                        <th>Nama Anak</th>
-
                         <th>Tanggal</th>
 
                         <th>Kelas</th>
 
                         <th>Tema</th>
 
-                        <th>Konteks Kegiatan</th>
-
-                        <th>Observasi</th>
-
-                        <th>Status</th>
-
-                        <th>Catatan</th>
+                        <th>Jumlah Anak</th>
 
                         <th>Aksi</th>
 
@@ -207,14 +199,6 @@
                         </td>
 
 
-                        {{-- NAMA --}}
-                        <td>
-                            <strong>
-                                {{ $checklist->student->name ?? '-' }}
-                            </strong>
-                        </td>
-
-
                         {{-- TANGGAL --}}
                         <td>
                             {{ \Carbon\Carbon::parse($checklist->date)->format('d/m/Y') }}
@@ -223,7 +207,9 @@
 
                         {{-- KELAS --}}
                         <td>
-                            {{ $checklist->schoolClass->name ?? '-' }}
+                            <strong>
+                                {{ $checklist->class_name ?? '-' }}
+                            </strong>
                         </td>
 
 
@@ -233,41 +219,9 @@
                         </td>
 
 
-                        {{-- KONTEKS --}}
+                        {{-- JUMLAH ANAK --}}
                         <td>
-                            {{ $checklist->context ?: '-' }}
-                        </td>
-
-
-                        {{-- OBSERVASI --}}
-                        <td>
-                            {{ $checklist->observation ?: '-' }}
-                        </td>
-
-
-                        {{-- STATUS --}}
-                        <td>
-
-                            @if ($checklist->status === 'SM')
-
-                            <span class="status-badge status-sm">
-                                Sudah Muncul
-                            </span>
-
-                            @else
-
-                            <span class="status-badge status-bm">
-                                Belum Muncul
-                            </span>
-
-                            @endif
-
-                        </td>
-
-
-                        {{-- CATATAN --}}
-                        <td>
-                            {{ $checklist->notes ?: '-' }}
+                            {{ $checklist->student_count ?? 0 }} anak
                         </td>
 
 
@@ -275,7 +229,7 @@
                         <td>
 
                             <a
-                                href="{{ route('teacher.checklist.show', $checklist->id) }}"
+                                href="{{ route('teacher.checklist.show', $checklist->checklist_id) }}"
                                 class="btn btn-detail">
                                 Lihat
                             </a>
@@ -289,7 +243,7 @@
                     <tr>
 
                         <td
-                            colspan="10"
+                            colspan="6"
                             class="empty-checklist">
 
                             <div class="empty-icon">

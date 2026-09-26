@@ -48,159 +48,200 @@
     <form action="{{ route('teacher.checklist.store') }}" method="POST">
         @csrf
 
-        {{-- DATA DEFAULT UNTUK CONTROLLER --}}
-        <input type="hidden" name="date" value="{{ date('Y-m-d') }}">
-        <input type="hidden" name="class_id" value="1">
-        <input type="hidden" name="theme" value="">
+        {{-- DATA DEFAULT --}}
+        <input type="hidden" name="date" value="{{ $today }}">
 
         <div class="checklist-card">
 
-            <h2>Data Pengamatan Anak</h2>
+            <h2>Data Checklist Harian</h2>
 
-            <div class="student-card">
+            {{-- TEMA --}}
+            @if ($checklistData)
+                <div class="form-group">
+                    <label>Tema</label>
 
-                <div class="student-header">
-                    <div class="student-number">
-                        1
-                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="{{ $checklistData['theme'] }}"
+                        readonly
+                    >
 
-                    <div class="student-info">
-                        <h3>Data Pengamatan Siswa</h3>
-                        <p>Pilih anak dan isi hasil pengamatannya.</p>
-                    </div>
+                    <input
+                        type="hidden"
+                        name="theme"
+                        value="{{ $checklistData['theme'] }}"
+                    >
+                </div>
+            @endif
+
+            {{-- TABEL CHECKLIST --}}
+            @if ($checklistData)
+
+                <div class="form-group">
+                    <label>
+                        Hasil Pengamatan
+                    </label>
                 </div>
 
-                <div class="student-form">
+                <div class="checklist-input-table-wrapper">
 
-                    {{-- NAMA ANAK --}}
-                    <div class="form-group">
-                        <label for="student_id">
-                            Nama Anak <span class="required">*</span>
-                        </label>
+                    <table class="checklist-table">
 
-                        <select
-                            name="checklists[0][student_id]"
-                            id="student_id"
-                            class="form-control"
-                            required
-                        >
-                            <option value="">Pilih Nama Anak</option>
+                        <thead>
 
-                            @foreach ($students as $student)
-                                <option
-                                    value="{{ $student->id }}"
-                                    {{ old('checklists.0.student_id') == $student->id ? 'selected' : '' }}
+                            {{-- BARIS JUDUL --}}
+                            <tr>
+                                <th rowspan="2" class="col-no">
+                                    No
+                                </th>
+
+                                <th rowspan="2" class="col-objective">
+                                    Tujuan Pembelajaran
+                                </th>
+
+                                <th rowspan="2" class="col-context">
+                                    Konteks
+                                </th>
+
+                                <th
+                                    colspan="{{ $students->count() * 2 }}"
+                                    class="col-observation"
                                 >
-                                    {{ $student->name }}
+                                    Hasil Pengamatan
+                                </th>
 
-                                    @if (!empty($student->nisn))
-                                        - {{ $student->nisn }}
-                                    @endif
-                                </option>
+                                <th rowspan="2" class="col-notes">
+                                    Ket
+                                </th>
+                            </tr>
+
+                            {{-- NAMA SISWA --}}
+                            <tr>
+
+                                @foreach ($students as $student)
+
+                                    <th
+                                        colspan="2"
+                                        class="student-name"
+                                    >
+                                        {{ $student->name }}
+                                    </th>
+
+                                @endforeach
+
+                            </tr>
+
+                            {{-- SM / BM --}}
+                            <tr>
+
+                                <th></th>
+                                <th></th>
+                                <th></th>
+
+                                @foreach ($students as $student)
+
+                                    <th class="status-header">
+                                        SM
+                                    </th>
+
+                                    <th class="status-header">
+                                        BM
+                                    </th>
+
+                                @endforeach
+
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach ($checklistData['learning_objectives'] as $index => $objective)
+
+                                <tr>
+
+                                    {{-- NOMOR --}}
+                                    <td class="text-center">
+                                        {{ $index + 1 }}
+                                    </td>
+
+                                    {{-- TUJUAN PEMBELAJARAN --}}
+                                    <td class="objective-cell">
+                                        {{ $objective }}
+                                    </td>
+
+                                    {{-- KONTEKS --}}
+                                    <td class="context-cell">
+                                         {{ $checklistData['contexts'][$index] }}
+                                    </td>
+
+                                    {{-- STATUS SETIAP SISWA --}}
+                                    @foreach ($students as $student)
+
+                                        <td class="status-cell">
+
+                                            <input
+                                                type="radio"
+                                                name="checklists[{{ $index }}][students][{{ $student->id }}][status]"
+                                                value="SM"
+                                                id="sm_{{ $index }}_{{ $student->id }}"
+                                                required
+                                            >
+
+                                            <label
+                                                for="sm_{{ $index }}_{{ $student->id }}"
+                                                class="status-radio"
+                                            >
+                                                SM
+                                            </label>
+
+                                        </td>
+
+                                        <td class="status-cell">
+
+                                            <input
+                                                type="radio"
+                                                name="checklists[{{ $index }}][students][{{ $student->id }}][status]"
+                                                value="BM"
+                                                id="bm_{{ $index }}_{{ $student->id }}"
+                                            >
+
+                                            <label
+                                                for="bm_{{ $index }}_{{ $student->id }}"
+                                                class="status-radio"
+                                            >
+                                                BM
+                                            </label>
+
+                                        </td>
+
+                                    @endforeach
+
+                                    {{-- KETERANGAN PER TUJUAN --}}
+                                    <td class="notes-cell">
+
+                                        <textarea
+                                            name="checklists[{{ $index }}][notes]"
+                                            placeholder="Keterangan..."
+                                            maxlength="500"
+                                        >{{ old("checklists.$index.notes") }}</textarea>
+
+                                    </td>
+
+                                </tr>
+
                             @endforeach
-                        </select>
-                    </div>
 
-                    {{-- TUJUAN PEMBELAJARAN --}}
-                    <div class="form-group">
-                        <label for="observation">
-                            Tujuan Pembelajaran <span class="required">*</span>
-                        </label>
+                        </tbody>
 
-                        <textarea
-                            name="checklists[0][observation]"
-                            id="observation"
-                            class="form-control"
-                            placeholder="Tuliskan tujuan pembelajaran atau hasil pengamatan anak..."
-                            required
-                        >{{ old('checklists.0.observation') }}</textarea>
-                    </div>
-
-                    {{-- KONTEKS KEGIATAN --}}
-                    <div class="form-group">
-                        <label for="context">
-                            Konteks Kegiatan <span class="required">*</span>
-                        </label>
-
-                        <textarea
-                            name="checklists[0][context]"
-                            id="context"
-                            class="form-control"
-                            placeholder="Tuliskan kegiatan yang dilakukan anak..."
-                            required
-                        >{{ old('checklists.0.context') }}</textarea>
-                    </div>
-
-                    {{-- STATUS DAN CATATAN --}}
-                    <div class="observation-status-grid">
-
-                        <div class="status-group">
-
-                            <div class="form-group">
-                                <label>
-                                    Status Pengamatan <span class="required">*</span>
-                                </label>
-
-                                <div class="status-options">
-
-                                    <div class="status-option">
-                                        <input
-                                            type="radio"
-                                            name="checklists[0][status]"
-                                            id="status_sm"
-                                            value="SM"
-                                            {{ old('checklists.0.status') == 'SM' ? 'checked' : '' }}
-                                            required
-                                        >
-
-                                        <label for="status_sm">
-                                            Sudah Muncul
-                                        </label>
-                                    </div>
-
-                                    <div class="status-option">
-                                        <input
-                                            type="radio"
-                                            name="checklists[0][status]"
-                                            id="status_bm"
-                                            value="BM"
-                                            {{ old('checklists.0.status') == 'BM' ? 'checked' : '' }}
-                                        >
-
-                                        <label for="status_bm">
-                                            Belum Muncul
-                                        </label>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="notes">
-                                Keterangan Tambahan
-                            </label>
-
-                            <div class="textarea-wrapper">
-                                <textarea
-                                    name="checklists[0][notes]"
-                                    id="notes"
-                                    class="form-control"
-                                    maxlength="500"
-                                    placeholder="Tambahkan keterangan jika diperlukan..."
-                                >{{ old('checklists.0.notes') }}</textarea>
-
-                                <div class="counter">
-                                    Maksimal 500 karakter
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    </table>
 
                 </div>
-            </div>
+
+            @endif
 
             {{-- BUTTON --}}
             <div class="checklist-actions">
@@ -216,6 +257,7 @@
             </div>
 
         </div>
+
     </form>
 
 </div>

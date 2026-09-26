@@ -2493,6 +2493,35 @@ textarea.form-control {
     border: 1px solid #dbe3ec;
 }
 
+/* Tombol Kembali pada Detail Checklist */
+.checklist-page .btn-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 116px;
+    height: 48px;
+    padding: 0 18px;
+    border: 1px solid #0f766e;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #0f766e;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.checklist-page .btn-back:hover {
+    background: #0f766e;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.checklist-page .btn-back:active {
+    transform: translateY(1px);
+}
 
 /* =========================================================
    TABLE

@@ -23,13 +23,17 @@ class DailyChecklist extends Model
 
         'theme',
 
+        'learning_objective',
+
         'context',
 
         'observation',
 
         'status',
 
-        'note',
+        'notes',
+
+        'evidence',
 
     ];
 

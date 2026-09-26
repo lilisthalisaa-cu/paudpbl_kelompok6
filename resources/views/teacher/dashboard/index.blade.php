@@ -1,185 +1,219 @@
 @extends('teacher.layouts.app')
 
-@section('title','Dashboard Teacher')
+@section('title', 'Dashboard Teacher')
 
 @section('content')
 
 <style>
 .grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 18px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
 }
 
 .card-menu {
-  background: #fff;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-  transition: 0.2s;
-  border: 1px solid #f3f4f6;
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: 0.2s;
+    border: 1px solid #f3f4f6;
 }
 
 .card-menu:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .icon {
-  font-size: 20px;
-  margin-bottom: 6px;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 
 <div class="card">
 
-  @if(session('success'))
-    <div style="
-      background:#d1fae5;
-      padding:12px;
-      border-radius:10px;
-      margin-bottom:16px;
-      color:#065f46;
-      font-weight:500;
-    ">
-      {{ session('success') }}
+    @if(session('success'))
+        <div style="
+            background:#d1fae5;
+            padding:12px;
+            border-radius:10px;
+            margin-bottom:16px;
+            color:#065f46;
+            font-weight:500;
+        ">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <div class="card-head">
+        <div>
+            <h2 class="card-title">
+                Dashboard Teacher 👋
+            </h2>
+
+            <div class="muted">
+                Selamat datang,
+                <strong>
+                    {{ auth()->user()->name ?? 'Teacher' }}
+                </strong>
+            </div>
+        </div>
     </div>
-  @endif
 
-  <div class="card-head">
-    <div>
-      <h2 class="card-title">Dashboard Teacher 👋</h2>
+    <div class="grid teacher-grid">
 
-      <div class="muted">
-        Selamat datang,
-        <strong>{{ auth()->user()->name ?? 'Teacher' }}</strong>
-      </div>
-    </div>
-  </div>
+        {{-- DATA SISWA --}}
+        <div class="card-menu">
 
-  <div class="grid teacher-grid">
+            <div class="icon">
+                👨‍🎓
+            </div>
 
-    {{-- DATA SISWA --}}
-    <div class="card-menu">
+            <div class="card-menu-content">
 
-      <div class="icon">
-        👨‍🎓
-      </div>
+                <div class="menu-title">
+                    Data Siswa
+                </div>
 
-      <div class="card-menu-content">
+                <a href="{{ route('teacher.students.index') }}"
+                   class="card-action">
+                    Lihat Data →
+                </a>
 
-        <div class="menu-title">
-          Data Siswa
+            </div>
+
         </div>
 
-        <a href="{{ route('teacher.students.index') }}"
-           class="card-action">
+        {{-- PRESENSI GURU --}}
+        <div class="card-menu">
 
-          Lihat Data →
+            <div class="icon">
+                🧑‍🏫
+            </div>
 
-        </a>
+            <div class="card-menu-content">
 
-      </div>
+                <div class="menu-title">
+                    Presensi Guru
+                </div>
 
-    </div>
+                <a href="{{ route('teacher.attendance.create') }}"
+                   class="card-action">
+                    Buka Form →
+                </a>
 
-    {{-- PRESENSI GURU --}}
-    <div class="card-menu">
+            </div>
 
-      <div class="icon">
-        🧑‍🏫
-      </div>
-
-      <div class="card-menu-content">
-
-        <div class="menu-title">
-          Presensi Guru
         </div>
 
-        <a href="{{ route('teacher.attendance.create') }}"
-           class="card-action">
+        {{-- PRESENSI SISWA --}}
+        <div class="card-menu">
 
-          Buka Form →
+            <div class="icon">
+                👦
+            </div>
 
-        </a>
+            <div class="card-menu-content">
 
-      </div>
+                <div class="menu-title">
+                    Presensi Siswa
+                </div>
 
-    </div>
+                <a href="{{ route('teacher.student_attendance.bulk_create') }}"
+                   class="card-action">
+                    Buka Form →
+                </a>
 
-    {{-- PRESENSI SISWA --}}
-    <div class="card-menu">
+            </div>
 
-      <div class="icon">
-        👦
-      </div>
-
-      <div class="card-menu-content">
-
-        <div class="menu-title">
-          Presensi Siswa
         </div>
 
-        <a href="{{ route('teacher.student_attendance.bulk_create') }}"
-           class="card-action">
+        {{-- KEGIATAN HARIAN --}}
+        <div class="card-menu">
 
-          Buka Form →
+            <div class="icon">
+                📘
+            </div>
 
-        </a>
+            <div class="card-menu-content">
 
-      </div>
+                <div class="menu-title">
+                    Kegiatan Harian
+                </div>
 
-    </div>
+                <a href="{{ route('teacher.activity.create') }}"
+                   class="card-action">
+                    Buka Form →
+                </a>
 
-    {{-- KEGIATAN --}}
-    <div class="card-menu">
+            </div>
 
-      <div class="icon">
-        📘
-      </div>
-
-      <div class="card-menu-content">
-
-        <div class="menu-title">
-          Kegiatan Harian
         </div>
 
-        <a href="{{ route('teacher.activity.create') }}"
-           class="card-action">
+        {{-- PERKEMBANGAN ANAK --}}
+        <div class="card-menu">
 
-          Buka Form →
+            <div class="icon">
+                📈
+            </div>
 
-        </a>
+            <div class="card-menu-content">
 
-      </div>
+                <div class="menu-title">
+                    Perkembangan Anak
+                </div>
 
-    </div>
+                <a href="{{ route('teacher.development.create') }}"
+                   class="card-action">
+                    Buka Form →
+                </a>
 
-    {{-- PERKEMBANGAN --}}
-    <div class="card-menu">
+            </div>
 
-      <div class="icon">
-        📈
-      </div>
-
-      <div class="card-menu-content">
-
-        <div class="menu-title">
-          Perkembangan Anak
         </div>
 
-        <a href="{{ route('teacher.development.create') }}"
-           class="card-action">
+        {{-- CHECKLIST HARIAN --}}
+        <div class="card-menu">
 
-          Buka Form →
+            <div class="icon">
+                📋
+            </div>
 
-        </a>
+            <div class="card-menu-content">
 
-      </div>
+                <div class="menu-title">
+                    Checklist Harian
+                </div>
+
+                <a href="{{ route('teacher.checklist.create') }}"
+                   class="card-action">
+                    Buka Form →
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
-
-  </div>
 
 </div>
 

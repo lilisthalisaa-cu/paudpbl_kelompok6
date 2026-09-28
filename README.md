@@ -5,6 +5,13 @@ SIPARI (Sistem Informasi PAUD Roudlotul Ilmi) merupakan aplikasi berbasis web ya
 
 Aplikasi ini bertujuan untuk membantu digitalisasi administrasi dan penyampaian informasi di PAUD Roudlotul Ilmi, Banyuwangi. Sistem mendukung pengelolaan data guru, siswa, kegiatan harian, perkembangan siswa, presensi, pembayaran SPP, hingga website profil sekolah sehingga proses administrasi menjadi lebih efektif, terintegrasi, dan mudah diakses.
 
+## Identitas Kelompok
+Kelas: 3B TRPL
+1. Lilis Thalisa 
+2. Ajeng Maulida Puspita
+3. Nisa Eka Kholifaturrizkiah
+4. Siti Faiqotul Kifiyah
+
 ---
 
 # Fitur Utama

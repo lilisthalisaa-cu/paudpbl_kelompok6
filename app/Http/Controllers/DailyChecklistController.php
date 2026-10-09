@@ -455,57 +455,56 @@ class DailyChecklistController extends Controller
     }
 
     public function show($id)
-    {
-        $teacher = $this->teacherData();
+{
+    $teacher = $this->teacherData();
 
-        // Ambil satu data sebagai acuan tanggal dan kelas
-        $firstChecklist = DailyChecklist::where(
-            'teacher_id',
-            $teacher->id
-        )->findOrFail($id);
+    // Ambil satu data sebagai acuan tanggal dan kelas
+    $firstChecklist = DailyChecklist::where(
+        'teacher_id',
+        $teacher->id
+    )->findOrFail($id);
 
-        // Ambil seluruh checklist pada tanggal dan kelas yang sama
-        $checklists = DailyChecklist::with([
-            'student',
+    // Ambil seluruh checklist pada tanggal dan kelas yang sama
+    $checklists = DailyChecklist::with([
+        'student',
+        'teacher',
+        'schoolClass'
+    ])
+    ->where(
+        'teacher_id',
+        $teacher->id
+    )
+    ->whereDate(
+        'date',
+        $firstChecklist->date
+    )
+    ->where(
+        'school_class_id',
+        $firstChecklist->school_class_id
+    )
+    ->orderBy('id')
+    ->get();
+
+    // Ambil seluruh siswa pada kelas tersebut
+    $students = Student::where(
+        'school_class_id',
+        $firstChecklist->school_class_id
+    )
+    ->orderBy('name')
+    ->get();
+
+    // Kelompokkan berdasarkan tujuan pembelajaran
+    $objectives = $checklists->groupBy('learning_objective');
+
+    return view(
+        'teacher.checklist.show',
+        compact(
             'teacher',
-            'schoolClass'
-        ])
-        ->where(
-            'teacher_id',
-            $teacher->id
+            'firstChecklist',
+            'checklists',
+            'students',
+            'objectives'
         )
-        ->whereDate(
-            'date',
-            $firstChecklist->date
-        )
-        ->where(
-            'school_class_id',
-            $firstChecklist->school_class_id
-        )
-        ->orderBy('id')
-        ->get();
-
-        // Ambil seluruh siswa pada kelas tersebut
-        $students = Student::where(
-            'school_class_id',
-            $firstChecklist->school_class_id
-        )
-        ->orderBy('name')
-        ->get();
-
-        // Kelompokkan berdasarkan tujuan pembelajaran
-        $objectives = $checklists
-            ->groupBy('learning_objective');
-
-        return view(
-            'teacher.checklist.show',
-            compact(
-                'teacher',
-                'firstChecklist',
-                'checklists',
-                'students',
-                'objectives'
-            )
-        );
-    }
+    )->with('checklist', $firstChecklist);
+}
 }

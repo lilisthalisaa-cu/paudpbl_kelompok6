@@ -3007,3 +3007,1141 @@ textarea.form-control {
     font-size: 11px;
     line-height: 1.3;
 }
+
+
+
+/* =========================================================
+   CHECKLIST HARIAN - BINTANGCERIA
+   File: public/css/teacher.css
+   ========================================================= */
+
+.daily-checklist {
+    width: 100%;
+    padding: 10px;
+    color: #102653;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.daily-checklist *,
+.daily-checklist *::before,
+.daily-checklist *::after {
+    box-sizing: border-box;
+}
+
+/* PANEL UTAMA */
+.daily-checklist .dc-panel {
+    width: 100%;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e8eef5;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(25, 56, 92, 0.035);
+}
+
+/* HEADER */
+.daily-checklist .dc-heading {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.daily-checklist .dc-icon {
+    display: flex;
+    flex: 0 0 60px;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #e4f6f4;
+    font-size: 30px;
+}
+
+.daily-checklist .dc-heading h1 {
+    margin: 0 0 5px;
+    color: #0f766e;
+    font-size: 28px;
+    font-weight: 750;
+    line-height: 1.3;
+}
+
+.daily-checklist .dc-heading p {
+    margin: 0;
+    color: #536b91;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* INFORMASI TANGGAL, TEMA, DAN KELAS */
+.daily-checklist .dc-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid #d0eeeb;
+    border-radius: 9px;
+    background: #effaf9;
+}
+
+.daily-checklist .dc-summary-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    padding: 15px 20px;
+    border-right: 1px solid #d1e8e7;
+}
+
+.daily-checklist .dc-summary-item:last-child {
+    border-right: 0;
+}
+
+.daily-checklist .dc-summary-icon {
+    display: flex;
+    flex: 0 0 40px;
+    width: 40px;
+    align-items: center;
+    justify-content: center;
+    color: #0f827b;
+    font-size: 31px;
+}
+
+.daily-checklist .dc-summary-item small {
+    display: block;
+    margin-bottom: 3px;
+    color: #536b91;
+    font-size: 14px;
+}
+
+.daily-checklist .dc-summary-item strong {
+    display: block;
+    color: #102653;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+/* FILTER TUJUAN DAN KONTEKS */
+.daily-checklist .dc-filter {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+.daily-checklist .dc-field {
+    min-width: 0;
+}
+
+.daily-checklist .dc-field > label {
+    display: block;
+    margin-bottom: 7px;
+    color: #102653;
+    font-size: 15px;
+    font-weight: 650;
+}
+
+.daily-checklist .dc-filter select {
+    display: block;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 36px 10px 13px;
+    border: 1px solid #cbd8eb;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #102653;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.daily-checklist .dc-filter select:focus,
+.daily-checklist .dc-search-wrap input:focus,
+.daily-checklist .dc-notes-input textarea:focus {
+    outline: 2px solid rgba(15, 118, 110, 0.17);
+    border-color: #0f827b;
+}
+
+/* INFORMASI TUJUAN DAN KONTEKS TERPILIH */
+.daily-checklist .dc-info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+    border-radius: 9px;
+    background: #effaf9;
+}
+
+.daily-checklist .dc-info-item {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    min-width: 0;
+}
+
+.daily-checklist .dc-info-item + .dc-info-item {
+    padding-left: 22px;
+    border-left: 1px solid #cde5e4;
+}
+
+.daily-checklist .dc-info-icon {
+    display: flex;
+    flex: 0 0 48px;
+    width: 48px;
+    align-items: center;
+    justify-content: center;
+    color: #0f827b;
+    font-size: 34px;
+}
+
+.daily-checklist .dc-info-item strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #102653;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.daily-checklist .dc-info-item p {
+    margin: 0;
+    color: #102653;
+    font-size: 14px;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+
+/* DAFTAR SISWA */
+.daily-checklist .dc-students {
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.daily-checklist .dc-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.daily-checklist .dc-list-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.daily-checklist .dc-student-icon {
+    color: #0f827b;
+    font-size: 30px;
+}
+
+.daily-checklist .dc-list-title h2 {
+    margin: 0;
+    color: #102653;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.daily-checklist .dc-list-title h2 span {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.daily-checklist .dc-list-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.daily-checklist .dc-list-tools > label,
+.daily-checklist .dc-list-tools > span {
+    color: #102653;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* PENCARIAN SISWA */
+.daily-checklist .dc-search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 260px;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid #cbd8eb;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.daily-checklist .dc-search-wrap > span {
+    color: #102653;
+    font-size: 23px;
+}
+
+.daily-checklist .dc-search-wrap input {
+    width: 100%;
+    min-width: 0;
+    padding: 9px 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #102653;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.daily-checklist .dc-per-page {
+    min-height: 39px;
+    padding: 8px 12px;
+    border: 1px solid #cbd8eb;
+    border-radius: 8px;
+    background: #fff;
+    color: #102653;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+/* TABEL SISWA */
+.daily-checklist .dc-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e1eaf4;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.daily-checklist .dc-table {
+    width: 100%;
+    min-width: 540px;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: auto;
+}
+
+.daily-checklist .dc-table thead th {
+    padding: 11px 14px;
+    background: #edf5f9;
+    color: #102653;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.daily-checklist .dc-table thead th:first-child {
+    width: 65px;
+    text-align: center;
+}
+
+.daily-checklist .dc-table thead th.dc-status-heading {
+    text-align: center;
+}
+
+.daily-checklist .dc-table tbody td {
+    padding: 9px 14px;
+    border-top: 1px solid #e5edf5;
+    color: #102653;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.daily-checklist .dc-table tbody td:first-child {
+    text-align: center;
+}
+
+.daily-checklist .dc-table tbody tr:hover td {
+    background: #f8fcfc;
+}
+
+.daily-checklist .dc-table tbody tr[hidden],
+.daily-checklist .dc-objective-body[hidden] {
+    display: none !important;
+}
+
+.daily-checklist .dc-student-name {
+    width: 50%;
+    overflow-wrap: anywhere;
+}
+
+.daily-checklist .dc-radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 23px;
+    color: #536b91;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.daily-checklist .dc-radio input {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: #0f827b;
+    cursor: pointer;
+}
+
+.daily-checklist .dc-empty {
+    padding: 25px !important;
+    color: #71819a !important;
+    text-align: center !important;
+}
+
+/* PAGINATION */
+.daily-checklist .dc-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.daily-checklist .dc-pages {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.daily-checklist .dc-page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 39px;
+    min-height: 38px;
+    padding: 8px 12px;
+    border: 1px solid #cbd8eb;
+    border-radius: 7px;
+    background: #fff;
+    color: #102653;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.daily-checklist .dc-page-btn:hover:not(:disabled) {
+    border-color: #0f827b;
+}
+
+.daily-checklist .dc-page-btn.active {
+    border-color: #0f766e;
+    background: #0f766e;
+    color: #fff;
+}
+
+.daily-checklist .dc-page-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.daily-checklist #pageInfo {
+    color: #536b91;
+    font-size: 13px;
+}
+
+/* KETERANGAN KEGIATAN UNTUK SEMUA SISWA */
+.daily-checklist .dc-notes {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.8fr);
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    padding: 20px 24px;
+    margin-top: 20px;
+    border: 1px solid #e1f2f0;
+    border-radius: 10px;
+    background: #effaf9;
+}
+
+.daily-checklist .dc-notes-description {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+}
+
+.daily-checklist .dc-notes-icon {
+    display: flex;
+    flex: 0 0 48px;
+    width: 48px;
+    align-items: center;
+    justify-content: center;
+    color: #0f827b;
+    font-size: 34px;
+}
+
+.daily-checklist .dc-notes h3 {
+    margin: 0 0 6px;
+    color: #102653;
+    font-size: 16px;
+    line-height: 1.45;
+}
+
+.daily-checklist .dc-notes p {
+    margin: 0;
+    color: #536b91;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.daily-checklist .dc-notes-input {
+    width: 100%;
+    min-width: 0;
+}
+
+.daily-checklist .dc-notes-input textarea {
+    display: block;
+    width: 100%;
+    min-height: 110px;
+    padding: 14px 16px;
+    border: 1px solid #cbd8eb;
+    border-radius: 8px;
+    background: #fff;
+    color: #102653;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.daily-checklist .dc-notes-input textarea:focus {
+    outline: 2px solid rgba(15, 118, 110, 0.17);
+    border-color: #0f827b;
+}
+
+.daily-checklist .dc-notes-input textarea::placeholder {
+    color: #7186a7;
+}
+
+.daily-checklist .dc-counter {
+    margin-top: 5px;
+    color: #536b91;
+    font-size: 12px;
+    text-align: right;
+}
+
+/* TOMBOL RESET DAN SIMPAN */
+.daily-checklist .dc-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.daily-checklist .dc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 45px;
+    padding: 11px 23px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.daily-checklist .dc-btn > span {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.daily-checklist .dc-reset {
+    border: 1px solid #536b91;
+    background: #fff;
+    color: #102653;
+}
+
+.daily-checklist .dc-reset:hover {
+    background: #f1f5f9;
+}
+
+.daily-checklist .dc-save {
+    border: 1px solid #0f766e;
+    background: #0f827b;
+    color: #fff;
+}
+
+.daily-checklist .dc-save:hover {
+    border-color: #0b625c;
+    background: #0b625c;
+}
+
+/* PESAN VALIDASI */
+.daily-checklist .dc-alert {
+    padding: 14px 17px;
+    margin-bottom: 18px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #fff1f1;
+    color: #a51d2d;
+}
+
+.daily-checklist .dc-alert ul {
+    padding-left: 20px;
+    margin: 7px 0 0;
+}
+
+/* RESPONSIVE TABLET */
+@media (max-width: 1100px) {
+    .daily-checklist .dc-panel {
+        padding: 18px;
+    }
+
+    .daily-checklist .dc-list-heading {
+        align-items: flex-start;
+    }
+
+    .daily-checklist .dc-list-tools {
+        justify-content: flex-start;
+    }
+
+    .daily-checklist .dc-search-wrap {
+        width: 220px;
+    }
+}
+
+/* RESPONSIVE HP */
+@media (max-width: 800px) {
+    .daily-checklist {
+        padding: 8px;
+    }
+
+    .daily-checklist .dc-panel {
+        padding: 14px;
+    }
+
+    .daily-checklist .dc-heading {
+        gap: 12px;
+    }
+
+    .daily-checklist .dc-icon {
+        flex-basis: 48px;
+        width: 48px;
+        height: 48px;
+        font-size: 25px;
+    }
+
+    .daily-checklist .dc-heading h1 {
+        font-size: 22px;
+    }
+
+    .daily-checklist .dc-heading p {
+        font-size: 13px;
+    }
+
+    .daily-checklist .dc-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .daily-checklist .dc-summary-item {
+        padding: 13px 15px;
+        border-right: 0;
+        border-bottom: 1px solid #d1e8e7;
+    }
+
+    .daily-checklist .dc-summary-item:last-child {
+        border-bottom: 0;
+    }
+
+    .daily-checklist .dc-filter,
+    .daily-checklist .dc-info,
+    .daily-checklist .dc-notes {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .daily-checklist .dc-info {
+        padding: 15px;
+    }
+
+    .daily-checklist .dc-info-item + .dc-info-item {
+        padding: 15px 0 0;
+        border-top: 1px solid #cde5e4;
+        border-left: 0;
+    }
+
+    .daily-checklist .dc-list-tools {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        width: 100%;
+        gap: 9px;
+    }
+
+    .daily-checklist .dc-search-wrap {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .daily-checklist .dc-list-tools .dc-per-page {
+        width: 100%;
+    }
+
+    .daily-checklist .dc-table {
+        min-width: 500px;
+    }
+
+    .daily-checklist .dc-notes {
+        padding: 16px;
+    }
+
+    .daily-checklist .dc-notes-input textarea {
+        min-height: 120px;
+    }
+
+    .daily-checklist .dc-actions {
+        flex-direction: column;
+    }
+
+    .daily-checklist .dc-btn {
+        width: 100%;
+    }
+}
+
+
+/* Tab kecil navigasi checklist */
+.dc-mini-tabs {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5edf5;
+}
+
+.dc-mini-tabs a {
+    display: inline-block;
+    padding: 10px 2px;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.dc-mini-tabs a.active,
+.dc-mini-tabs a:hover {
+    color: #0f766e;
+    border-bottom-color: #0f766e;
+}
+
+
+/* ===== DAFTAR CHECKLIST HARIAN ===== */
+.checklist-page {
+    padding: 24px;
+    color: #102b50;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+}
+
+.checklist-page-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.checklist-page-icon {
+    width: 74px;
+    height: 74px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #dff5f2;
+    border-radius: 16px;
+    font-size: 36px;
+    flex-shrink: 0;
+}
+
+.checklist-page-header h1 {
+    margin: 0 0 6px;
+    color: #0f766e;
+    font-size: 28px;
+    font-weight: 750;
+}
+
+.checklist-page-header p,
+.checklist-table-heading p {
+    margin: 0;
+    color: #526b8d;
+}
+
+/* ===== KARTU FILTER DAN TABEL ===== */
+.checklist-filter,
+.checklist-table-card {
+    background: #fff;
+    border: 1px solid #e0eaf2;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(15, 50, 80, .04);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+}
+
+.checklist-filter {
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* ===== FILTER CHECKLIST HARIAN ===== */
+.checklist-filter {
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    background: #fff;
+    border: 1px solid #e0eaf2;
+    border-radius: 14px;
+    box-sizing: border-box;
+}
+
+.checklist-filter-form {
+    display: grid;
+    grid-template-columns: 220px 220px minmax(200px, 1fr) auto auto auto;
+    grid-template-areas:
+        "tanggal tema kosong kosong kosong kosong"
+        "siswa siswa siswa cari reset export";
+    align-items: end;
+    gap: 14px;
+}
+
+.checklist-filter-form .filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+    min-width: 0;
+}
+
+.checklist-filter-form .filter-field:nth-child(1) {
+    grid-area: tanggal;
+}
+
+.checklist-filter-form .filter-field:nth-child(2) {
+    grid-area: tema;
+}
+
+.checklist-filter-form .filter-field:nth-child(3) {
+    grid-area: siswa;
+}
+
+.checklist-filter-form .btn-search {
+    grid-area: cari;
+}
+
+.checklist-filter-form .btn-reset {
+    grid-area: reset;
+}
+
+.checklist-filter-form .btn-export {
+    grid-area: export;
+}
+
+.checklist-filter-form .filter-field label {
+    display: block;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.checklist-filter-form .filter-field input {
+    display: block;
+    width: 100%;
+    height: 42px;
+    min-width: 0;
+    padding: 9px 12px;
+    border: 1px solid #d5e1ef;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.checklist-filter-form .btn-search,
+.checklist-filter-form .btn-reset,
+.checklist-filter-form .btn-export {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    min-height: 42px;
+    padding: 0 16px;
+    margin: 0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.checklist-filter-form .btn-search {
+    background: #0f766e;
+    color: #fff;
+    border: 1px solid #0f766e;
+}
+
+.checklist-filter-form .btn-reset {
+    background: #fff;
+    color: #102b50;
+    border: 1px solid #d5e1ef;
+}
+
+.checklist-filter-form .btn-export {
+    background: #fff;
+    color: #0f766e;
+    border: 1px solid #0f9488;
+}
+
+@media (max-width: 1100px) {
+    .checklist-filter-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "tanggal tema"
+            "siswa siswa"
+            "cari reset"
+            "export export";
+    }
+
+    .checklist-filter-form .btn-search,
+    .checklist-filter-form .btn-reset,
+    .checklist-filter-form .btn-export {
+        width: 100%;
+    }
+}
+/* ===== KARTU TABEL ===== */
+.checklist-table-card {
+    padding: 20px;
+    min-width: 0;
+}
+
+.checklist-table-heading {
+    margin-bottom: 16px;
+}
+
+.checklist-table-heading h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    color: #102b50;
+}
+
+/* ===== TABEL CHECKLIST ===== */
+.checklist-table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dce8f1;
+    border-radius: 10px;
+}
+
+.checklist-result-table {
+    width: 100%;
+    min-width: 1150px;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-size: 12px;
+}
+
+.checklist-result-table th,
+.checklist-result-table td {
+    padding: 9px 7px;
+    border-right: 1px solid #e1eaf2;
+    border-bottom: 1px solid #e1eaf2;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+}
+
+.checklist-result-table th {
+    background: #edf8f7;
+    color: #102b50;
+    text-align: center;
+    font-weight: 700;
+}
+
+.checklist-result-table td {
+    background: #fff;
+    color: #405675;
+}
+
+.checklist-result-table tbody tr:hover td {
+    background: #f8fcfc;
+}
+
+/* Semua header tujuan pembelajaran satu warna */
+.checklist-result-table th.objective-1,
+.checklist-result-table th.objective-2,
+.checklist-result-table th.objective-3,
+.checklist-result-table th.objective-4 {
+    background: #edf8f7 !important;
+    color: #102b50;
+}
+
+/* Lebar kolom */
+.checklist-result-table .col-no {
+    width: 45px;
+}
+
+.checklist-result-table .col-student {
+    width: 125px;
+}
+
+.checklist-result-table .col-notes {
+    width: 145px;
+}
+
+.checklist-result-table .col-action {
+    width: 85px;
+}
+
+.checklist-result-table .col-status {
+    width: 55px;
+}
+
+.checklist-result-table .student-name {
+    font-weight: 650;
+    color: #102b50;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ===== STATUS SM/BM ===== */
+.status-badge {
+    display: inline-flex;
+    min-width: 0;
+    justify-content: center;
+    padding: 4px 7px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-sm {
+    background: #10b981;
+    color: white;
+}
+
+.status-bm {
+    background: #dce3ec;
+    color: #405675;
+}
+
+/* ===== TOMBOL AKSI ===== */
+.checklist-actions {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 6px 8px;
+    border: 1px solid;
+    border-radius: 7px;
+    background: white;
+    font-size: 11px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-view {
+    border-color: #0f9488;
+    color: #0f766e;
+}
+
+.btn-delete {
+    border-color: #ef4444;
+    color: #dc2626;
+}
+
+.empty-data {
+    padding: 28px !important;
+    text-align: center;
+}
+
+.checklist-table-footer {
+    padding-top: 16px;
+    color: #526b8d;
+    font-size: 13px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+    .checklist-filter-form {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-areas:
+            "tanggal tema tema"
+            "siswa siswa siswa"
+            "cari reset export";
+    }
+
+    .checklist-filter-form .btn-search,
+    .checklist-filter-form .btn-reset,
+    .checklist-filter-form .btn-export {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .checklist-page {
+        padding: 12px;
+    }
+
+    .checklist-page-header {
+        gap: 12px;
+    }
+
+    .checklist-page-header h1 {
+        font-size: 22px;
+    }
+
+    .checklist-table-card {
+        padding: 12px;
+    }
+
+    .checklist-table-heading h2 {
+        font-size: 19px;
+    }
+
+    .checklist-filter-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "tanggal tema"
+            "siswa siswa"
+            "cari reset"
+            "export export";
+    }
+}
+
+@media (max-width: 480px) {
+    .checklist-filter-form {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "tanggal"
+            "tema"
+            "siswa"
+            "cari"
+            "reset"
+            "export";
+    }
+}

@@ -107,7 +107,7 @@ class ParentUserSeeder extends Seeder
             ],
 
             [
-                'name' => 'NAMA ORANG TUA BINTANG',
+                'name' => 'NUR QIBTIYAH',
                 'username' => '3203081582',
                 'password' => 'Vz@82Hy6',
             ],
@@ -162,15 +162,25 @@ class ParentUserSeeder extends Seeder
 
         ];
 
+
         foreach ($parents as $parent) {
+            $user = User::where('username', $parent['username'])->first();
 
-            User::create([
-                'name' => $parent['name'],
-                'username' => $parent['username'],
-                'password' => Hash::make($parent['password']),
-                'role' => 'parent',
-            ]);
-
+            if ($user) {
+                // Perbarui nama akun yang sudah ada tanpa mengganti password.
+                $user->update([
+                    'name' => $parent['name'],
+                    'role' => 'parent',
+                ]);
+            } else {
+                // Buat akun hanya jika username belum tersedia.
+                User::create([
+                    'name' => $parent['name'],
+                    'username' => $parent['username'],
+                    'password' => Hash::make($parent['password']),
+                    'role' => 'parent',
+                ]);
+            }
         }
     }
 }

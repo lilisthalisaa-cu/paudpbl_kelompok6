@@ -12,6 +12,14 @@
         </div>
     </div>
 
+        {{-- TOMBOL KEMBALI KE INPUT CHECKLIST --}}
+    <div class="checklist-back-action">
+        <a href="{{ route('teacher.checklist.create') }}"
+           class="checklist-back-button">
+            &larr; Kembali ke Input Checklist
+        </a>
+    </div>
+
     {{-- FILTER --}}
     <div class="checklist-filter">
         <form method="GET"
@@ -53,11 +61,6 @@
                 Reset
             </a>
 
-            {{-- Sesuaikan dengan route PDF yang tersedia --}}
-            <a href="{{ route('teacher.checklist.index') }}"
-               class="btn-export">
-                📄 Export PDF
-            </a>
         </form>
     </div>
 

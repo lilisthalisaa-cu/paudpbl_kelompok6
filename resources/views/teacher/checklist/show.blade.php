@@ -1,474 +1,136 @@
 @extends('teacher.layouts.app')
 
-@section('title', 'Detail Checklist Harian')
-
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/teacher/checklist.css') }}">
-@endpush
-
 @section('content')
+@php
+    $firstChecklist = $checklists->first();
+    $studentGroups = $checklists->groupBy('student_id');
 
-<div class="checklist-page">
+    $objectives = $checklists
+        ->pluck('learning_objective')
+        ->filter()
+        ->unique()
+        ->values();
+@endphp
 
-    {{-- ================= HEADER ================= --}}
-    <div class="checklist-heading">
-
-        <div class="checklist-icon">
-            📋
-        </div>
-
-        <div>
-            <h1>Detail Checklist Harian</h1>
-            <p>Hasil pengamatan perkembangan anak.</p>
-        </div>
-
-    </div>
-
-
-    {{-- ================= TAB ================= --}}
-    <div class="checklist-tabs">
-
-        <a href="{{ route('teacher.checklist.create') }}">
-            📝 Input Checklist
+<div class="report-page">
+    <div class="report-actions">
+        <a href="{{ route('teacher.checklist.index') }}" class="report-back">
+            &larr; Kembali ke Daftar Checklist
         </a>
 
-        <a href="{{ route('teacher.checklist.index') }}">
-            📄 Daftar Checklist
-        </a>
-
+        <button type="button" onclick="window.print()" class="report-print">
+            Export File
+        </button>
     </div>
 
-
-    {{-- ================= CARD INFORMASI ================= --}}
-    <div class="checklist-card">
-
-        <div class="checklist-card-header">
-
-            <div>
-                <h2>Checklist Harian</h2>
-
-                <p>
-                    Tanggal:
-                    <strong>
-                        {{ \Carbon\Carbon::parse($firstChecklist->date)->format('d/m/Y') }}
-                    </strong>
-                </p>
-
-                <p>
-                    Kelas:
-                    <strong>
-                        {{ $firstChecklist->schoolClass->name ?? '-' }}
-                    </strong>
-                </p>
-
-                <p>
-                    Tema:
-                    <strong>
-                        {{ $firstChecklist->theme ?? '-' }}
-                    </strong>
-                </p>
-            </div>
-
-            <div>
-                <a
-                    href="{{ route('teacher.checklist.index') }}"
-                    class="btn btn-reset"
+    <div class="report-paper">
+        <header class="report-header">
+            <div class="report-logo">
+                <img
+                    src="{{ asset('images/LogoPaud.jpeg') }}"
+                    alt="Logo KB Roudlotul Ilmi"
                 >
-                    ← Kembali
-                </a>
             </div>
 
+            <div class="report-heading">
+                <h1>CEKLIST HARIAN</h1>
+                <h2>KB ROUDLOTUL ILMI</h2>
+                <h3>2026/2027</h3>
+            </div>
+
+            <div class="report-date">
+                Singojuruh,
+                {{ $firstChecklist?->date
+                    ? \Carbon\Carbon::parse($firstChecklist->date)->translatedFormat('d F Y')
+                    : now()->translatedFormat('d F Y') }}
+            </div>
+        </header>
+
+        <div class="report-theme">
+            TEMA : {{ strtoupper($firstChecklist?->theme ?? '-') }}
         </div>
 
-
-        {{-- ================= REKAP CHECKLIST ================= --}}
-        <div class="table-wrapper">
-
-            <table class="checklist-table">
-
+        <div class="report-table-wrapper">
+            <table class="report-table">
                 <thead>
-
                     <tr>
-
-                        <th>No</th>
-
-                        <th>
+                        <th rowspan="2" class="number-column">No</th>
+                        <th rowspan="2" class="objective-column">
                             Tujuan Pembelajaran
                         </th>
-
-                        <th>
-                            Konteks Kegiatan
+                        <th colspan="{{ $studentGroups->count() + 2 }}">
+                            Hasil Pengamatan
                         </th>
+                    </tr>
+                    <tr>
+                        <th class="context-column">Konteks</th>
 
-                        @foreach ($students as $student)
-
-                            <th>
-                                {{ $student->name }}
+                        @foreach ($studentGroups as $studentChecklists)
+                            <th class="student-column">
+                                {{ $studentChecklists->first()->student?->name ?? 'Siswa' }}
                             </th>
-
                         @endforeach
 
+                        <th class="notes-column">Keterangan</th>
                     </tr>
-
                 </thead>
 
-
                 <tbody>
+                    @forelse ($objectives as $objective)
+                        @php
+                            $objectiveItems = $checklists->where(
+                                'learning_objective',
+                                $objective
+                            );
 
-                    @forelse ($objectives as $objective => $objectiveChecklists)
+                            $firstItem = $objectiveItems->first();
+                        @endphp
 
                         <tr>
+                            <td class="center">{{ $loop->iteration }}</td>
 
-                            {{-- NO --}}
-                            <td>
-                                {{ $loop->iteration }}
-                            </td>
+                            <td>{{ $objective }}</td>
 
+                            <td>{{ $firstItem?->context ?? '-' }}</td>
 
-                            {{-- TUJUAN PEMBELAJARAN --}}
-                            <td>
-                                {{ $objective ?: '-' }}
-                            </td>
-
-
-                            {{-- KONTEKS --}}
-                            <td>
-                                {{ $objectiveChecklists->first()->context ?? '-' }}
-                            </td>
-
-
-                            {{-- STATUS SETIAP ANAK --}}
-                            @foreach ($students as $student)
-
+                            @foreach ($studentGroups as $studentChecklists)
                                 @php
-                                    $studentChecklist = $objectiveChecklists
-                                        ->firstWhere('student_id', $student->id);
+                                    $studentItem = $studentChecklists->firstWhere(
+                                        'learning_objective',
+                                        $objective
+                                    );
                                 @endphp
 
-                                <td>
-
-                                    @if ($studentChecklist)
-
-                                        @if ($studentChecklist->status === 'SM')
-
-                                            <span class="status-badge status-sm">
-                                                SM
-                                            </span>
-
-                                        @elseif ($studentChecklist->status === 'BM')
-
-                                            <span class="status-badge status-bm">
-                                                BM
-                                            </span>
-
-                                        @else
-
-                                            -
-
-                                        @endif
-
-                                    @else
-
-                                        -
-
-                                    @endif
-
+                                <td class="center">
+                                    {{ $studentItem?->status ?? '-' }}
                                 </td>
-
                             @endforeach
 
+                            <td>{{ $firstItem?->notes ?: '-' }}</td>
                         </tr>
-
                     @empty
-
                         <tr>
-
-                            <td
-                                colspan="{{ 3 + $students->count() }}"
-                                style="text-align: center;"
-                            >
+                            <td colspan="{{ $studentGroups->count() + 3 }}" class="center">
                                 Belum ada data checklist.
                             </td>
-
                         </tr>
-
                     @endforelse
-
                 </tbody>
-
             </table>
-
         </div>
 
-
-        {{-- ================= KETERANGAN ================= --}}
-        <div class="checklist-card-header">
-
-            <div>
-
-                <h2>Keterangan</h2>
-
-                @php
-                    $notes = $checklists
-                        ->pluck('notes')
-                        ->filter()
-                        ->unique();
-                @endphp
-
-                @forelse ($notes as $note)
-
-                    <p>
-                        {{ $note }}
-                    </p>
-
-                @empty
-
-                    <p>
-                        Tidak ada keterangan.
-                    </p>
-
-                @endforelse
-
+        <footer class="report-signatures">
+            <div class="signature-principal">
+                <p>Mengetahui,</p>
+                <p>Kepala KB Roudlotul Ilmi</p>
+                <strong>WIDYAWATI, S.Pd</strong>
             </div>
 
-        </div>
-
-
-        {{-- ================= DETAIL PENGAMATAN ================= --}}
-        <div class="checklist-card-header">
-
-            <div>
-
-                <h2>Detail Pengamatan Anak</h2>
-
-                <p>
-                    Informasi checklist harian yang telah disimpan.
-                </p>
-
+            <div class="signature-teacher">
+                <p>Wali Kelas {{ $firstChecklist?->schoolClass?->name ?? '-' }}</p>
+                <strong>________________________</strong>
             </div>
-
-        </div>
-
-
-        {{-- ================= DETAIL SETIAP ANAK ================= --}}
-        @forelse ($checklists as $index => $checklist)
-
-            <div class="student-card">
-
-                <div class="student-header">
-
-                    <div class="student-number">
-                        {{ $index + 1 }}
-                    </div>
-
-                    <div class="student-info">
-
-                        <h3>
-                            {{ $checklist->student->name ?? '-' }}
-                        </h3>
-
-                        <p>
-                            Detail hasil pengamatan siswa
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="student-form">
-
-                    {{-- NAMA ANAK --}}
-                    <div class="form-group">
-
-                        <label>
-                            Nama Anak
-                        </label>
-
-                        <div class="form-control">
-                            {{ $checklist->student->name ?? '-' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- TANGGAL --}}
-                    <div class="form-group">
-
-                        <label>
-                            Tanggal
-                        </label>
-
-                        <div class="form-control">
-                            {{ \Carbon\Carbon::parse($checklist->date)->format('d/m/Y') }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- KELAS --}}
-                    <div class="form-group">
-
-                        <label>
-                            Kelas
-                        </label>
-
-                        <div class="form-control">
-                            {{ $checklist->schoolClass->name ?? '-' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- TEMA --}}
-                    <div class="form-group">
-
-                        <label>
-                            Tema
-                        </label>
-
-                        <div class="form-control">
-                            {{ $checklist->theme ?: '-' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- TUJUAN PEMBELAJARAN --}}
-                    <div class="form-group">
-
-                        <label>
-                            Tujuan Pembelajaran
-                        </label>
-
-                        <div class="form-control">
-                            {{ $checklist->learning_objective ?: '-' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- KONTEKS KEGIATAN --}}
-                    <div class="form-group">
-
-                        <label>
-                            Konteks Kegiatan
-                        </label>
-
-                        <div class="form-control">
-                            {{ $checklist->context ?: '-' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- OBSERVASI --}}
-                    <div class="form-group">
-
-                        <label>
-                            Hasil Pengamatan
-                        </label>
-
-                        <div class="form-control">
-                            {{ $checklist->observation ?: '-' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- STATUS --}}
-                    <div class="form-group">
-
-                        <label>
-                            Status Pengamatan
-                        </label>
-
-                        <div>
-
-                            @if ($checklist->status === 'SM')
-
-                                <span class="status-badge status-sm">
-                                    Sudah Muncul
-                                </span>
-
-                            @elseif ($checklist->status === 'BM')
-
-                                <span class="status-badge status-bm">
-                                    Belum Muncul
-                                </span>
-
-                            @else
-
-                                <span class="status-badge">
-                                    -
-
-                                </span>
-
-                            @endif
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- KETERANGAN --}}
-                    <div class="form-group">
-
-                        <label>
-                            Keterangan Tambahan
-                        </label>
-
-                        <div class="form-control">
-                            {{ $checklist->notes ?: '-' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- GURU --}}
-                    <div class="form-group">
-
-                        <label>
-                            Guru
-                        </label>
-
-                        <div class="form-control">
-                            {{ $checklist->teacher->name ?? '-' }}
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        @empty
-
-            <div class="student-card">
-
-                <p>
-                    Belum ada detail pengamatan anak.
-                </p>
-
-            </div>
-
-        @endforelse
-
-
-        {{-- ================= TOMBOL KEMBALI ================= --}}
-        <div class="checklist-actions">
-
-            <a
-                href="{{ route('teacher.checklist.index') }}"
-                class="btn btn-reset"
-            >
-                ← Kembali ke Daftar Checklist
-            </a>
-
-        </div>
-
+        </footer>
     </div>
-
 </div>
-
 @endsection

@@ -11,13 +11,36 @@ class AcademicCalendarController extends Controller
     /**
      * Menampilkan seluruh agenda kalender akademik.
      */
-    public function index()
+    
+    public function index(Request $request)
     {
-        $calendars = AcademicCalendar::orderBy('start_date')
-            ->get();
+        $query = AcademicCalendar::query();
+
+        // Filter berdasarkan bulan dan tahun.
+        if ($request->filled('month') && $request->filled('year')) {
+            $request->validate([
+                'month' => 'required|integer|min:1|max:12',
+                'year' => 'required|integer|min:2000|max:2100',
+            ]);
+
+            $query->whereMonth('start_date', $request->month)
+                ->whereYear('start_date', $request->year);
+        }
+
+        // Filter berdasarkan kategori.
+        if ($request->filled('category')) {
+            $request->validate([
+                'category' => 'string|max:100',
+            ]);
+
+            $query->where('category', $request->category);
+        }
+
+        $calendars = $query->orderBy('start_date')->get();
 
         return response()->json($calendars);
     }
+
 
     /**
      * Menampilkan detail satu agenda.
@@ -53,6 +76,7 @@ class AcademicCalendarController extends Controller
     /**
      * Memperbarui agenda kalender akademik.
      */
+    
     public function update(
         Request $request,
         AcademicCalendar $academicCalendar
@@ -61,9 +85,29 @@ class AcademicCalendarController extends Controller
             'title' => 'sometimes|required|string|max:255',
             'description' => 'sometimes|nullable|string',
             'start_date' => 'sometimes|required|date',
-            'end_date' => 'sometimes|nullable|date|after_or_equal:start_date',
+            'end_date' => 'sometimes|nullable|date',
             'category' => 'sometimes|required|string|max:100',
         ]);
+
+        // Gunakan tanggal baru jika dikirim, jika tidak gunakan tanggal tersimpan.
+        $startDate = $data['start_date']
+            ?? $academicCalendar->start_date->toDateString();
+
+        $endDate = array_key_exists('end_date', $data)
+            ? $data['end_date']
+            : $academicCalendar->end_date?->toDateString();
+
+        // Pastikan tanggal akhir tidak lebih awal dari tanggal mulai.
+        if ($endDate !== null && $endDate < $startDate) {
+            return response()->json([
+                'message' => 'Tanggal akhir tidak boleh lebih awal dari tanggal mulai.',
+                'errors' => [
+                    'end_date' => [
+                        'Tanggal akhir harus sama dengan atau setelah tanggal mulai.',
+                    ],
+                ],
+            ], 422);
+        }
 
         $academicCalendar->update($data);
 
@@ -72,6 +116,7 @@ class AcademicCalendarController extends Controller
             'data' => $academicCalendar->fresh(),
         ]);
     }
+
 
     /**
      * Menghapus agenda kalender akademik.

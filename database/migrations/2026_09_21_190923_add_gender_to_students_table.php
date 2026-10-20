@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -8,16 +9,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->enum('gender', ['L', 'P'])
-                ->after('nisn');
-        });
+        if (!Schema::hasColumn('students', 'gender')) {
+            Schema::table('students', function (Blueprint $table) {
+                $table->enum('gender', ['L', 'P'])
+                    ->after('nisn');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->dropColumn('gender');
-        });
+        if (Schema::hasColumn('students', 'gender')) {
+            Schema::table('students', function (Blueprint $table) {
+                $table->dropColumn('gender');
+            });
+        }
     }
 };

@@ -1316,3 +1316,1123 @@ body {
   }
 
 }
+
+ /* ================= KALENDER ================= */
+
+/* =========================================
+   KALENDER AKADEMIK - ORANG TUA
+   ========================================= */
+
+.academic-page {
+    --academic-green: #087e73;
+    --academic-green-dark: #06665f;
+    --academic-green-soft: #e5f5f2;
+    --academic-text: #172b4d;
+    --academic-muted: #64748b;
+    --academic-border: #e2e8f0;
+
+    color: var(--academic-text);
+    padding: 8px 0 28px;
+}
+
+.academic-page * {
+    box-sizing: border-box;
+}
+
+.academic-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.academic-heading-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: var(--academic-green-soft);
+    color: var(--academic-green);
+    font-size: 27px;
+}
+
+.academic-heading-text h2 {
+    margin: 0 0 6px;
+    color: var(--academic-green-dark);
+    font-size: 25px;
+    font-weight: 750;
+}
+
+.academic-heading-text p {
+    margin: 0;
+    color: var(--academic-muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Filter */
+
+.academic-toolbar {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.academic-filters {
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 12px;
+    flex: 1;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 115px;
+}
+
+.filter-group label {
+    color: var(--academic-text);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.filter-group select {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 30px 9px 12px;
+    border: 1px solid #dbe3ed;
+    border-radius: 9px;
+    background: #fff;
+    color: var(--academic-text);
+    font-size: 13px;
+}
+
+.filter-group select:focus {
+    border-color: var(--academic-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(8, 126, 115, .1);
+}
+
+.academic-filter-button,
+.today-button {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border: 1px solid var(--academic-green);
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.academic-filter-button {
+    background: var(--academic-green);
+    color: #fff;
+}
+
+.academic-filter-button:hover {
+    background: var(--academic-green-dark);
+    color: #fff;
+}
+
+.today-button {
+    background: #fff;
+    color: var(--academic-green);
+}
+
+.today-button:hover {
+    background: var(--academic-green-soft);
+    color: var(--academic-green-dark);
+}
+
+/* Navigasi bulan */
+
+.month-navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.month-arrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--academic-border);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--academic-text);
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.month-arrow:hover {
+    background: var(--academic-green-soft);
+    color: var(--academic-green);
+    border-color: #b5dfd8;
+}
+
+.month-title {
+    min-width: 130px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+/* Layout kalender */
+
+.academic-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr);
+    align-items: start;
+    gap: 20px;
+}
+
+.academic-calendar-card,
+.academic-agenda-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #edf0f5;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(20, 42, 70, .045);
+}
+
+.academic-card-heading {
+    min-height: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 15px 17px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+.academic-card-heading > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.academic-card-heading > div > i {
+    color: var(--academic-green);
+    font-size: 19px;
+}
+
+.academic-card-heading h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.academic-year-label,
+.agenda-count {
+    padding: 5px 9px;
+    border-radius: 7px;
+    background: var(--academic-green-soft);
+    color: var(--academic-green-dark);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Grid tanggal */
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    padding: 0 12px 12px;
+}
+
+.calendar-weekday {
+    padding: 14px 2px;
+    border-bottom: 1px solid #e5efef;
+    background: #f0f9f8;
+    color: #42606b;
+    font-size: 12px;
+    font-weight: 750;
+    text-align: center;
+}
+
+.calendar-weekday:first-child {
+    border-radius: 9px 0 0;
+}
+
+.calendar-weekday:last-child {
+    border-radius: 0 9px 0 0;
+}
+
+.calendar-weekday.weekend {
+    color: #e05252;
+}
+
+.calendar-day {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+    min-height: 88px;
+    padding: 9px 7px;
+    border-right: 1px solid #edf0f4;
+    border-bottom: 1px solid #edf0f4;
+    background: #fff;
+    color: var(--academic-text);
+    text-decoration: none;
+    transition: background .15s;
+}
+
+.calendar-day:nth-child(7n) {
+    border-right: 0;
+}
+
+.calendar-day:hover {
+    background: #f0faf8;
+}
+
+.calendar-day.outside-month {
+    background: #fafbfc;
+    color: #aab4c2;
+}
+
+.calendar-day.today .calendar-day-number {
+    border-radius: 50%;
+    background: var(--academic-green);
+    color: #fff;
+}
+
+.calendar-day.selected-day {
+    background: #e5f5f2;
+    box-shadow: inset 0 0 0 1px #91d3c8;
+}
+
+.calendar-day-number {
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.weekend-day .calendar-day-number {
+    color: #d65353;
+}
+
+.calendar-day.today .calendar-day-number {
+    color: #fff;
+}
+
+.outside-month .calendar-day-number {
+    color: #b7c0cb;
+}
+
+.calendar-event-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-left: 3px;
+}
+
+.event-dot,
+.legend-dot,
+.agenda-color-dot {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.dot-school { background: #0d9d8d; }
+.dot-student { background: #2999ed; }
+.dot-meeting { background: #9650e8; }
+.dot-holiday { background: #f05260; }
+.dot-exam { background: #e9a21b; }
+.dot-default { background: #91a2b5; }
+
+.calendar-event-labels {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+    min-width: 0;
+}
+
+.calendar-event-label {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    padding: 4px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.label-school { background: #e0f6f2; color: #087e73; }
+.label-student { background: #e4f2ff; color: #1675c6; }
+.label-meeting { background: #f1e8ff; color: #8240cc; }
+.label-holiday { background: #ffebed; color: #d63e4b; }
+.label-exam { background: #fff4d9; color: #a9760b; }
+.label-default { background: #eef2f7; color: #64748b; }
+
+.calendar-event-labels small {
+    color: var(--academic-muted);
+    font-size: 10px;
+}
+
+/* Legenda */
+
+.calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    padding: 14px 16px;
+    border-top: 1px solid #edf1f5;
+}
+
+.calendar-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #536477;
+    font-size: 11px;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+}
+
+/* Daftar agenda */
+
+.agenda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px 16px;
+    border-bottom: 1px solid #edf1f5;
+    color: inherit;
+    text-decoration: none;
+    transition: background .15s;
+}
+
+.agenda-item:last-child {
+    border-bottom: 0;
+}
+
+.agenda-item:hover {
+    background: #f6fbfa;
+}
+
+.agenda-color-dot {
+    width: 10px;
+    height: 10px;
+    margin-top: 5px;
+}
+
+.agenda-information {
+    flex: 1;
+    min-width: 0;
+}
+
+.agenda-information h4 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.agenda-date {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 0;
+    color: var(--academic-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.agenda-date i {
+    margin-top: 2px;
+}
+
+.agenda-description {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 6px 0 0;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.5;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.agenda-category {
+    flex-shrink: 0;
+    max-width: 110px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 650;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.category-school { background: #e0f6f2; color: #087e73; }
+.category-student { background: #e4f2ff; color: #1675c6; }
+.category-meeting { background: #f1e8ff; color: #8240cc; }
+.category-holiday { background: #ffebed; color: #d63e4b; }
+.category-exam { background: #fff4d9; color: #a9760b; }
+.category-default { background: #eef2f7; color: #64748b; }
+
+.agenda-chevron {
+    margin-top: 4px;
+    color: #91a0b2;
+    font-size: 12px;
+}
+
+/* Tampilan kosong */
+
+.academic-empty-state {
+    padding: 38px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 13px;
+    border-radius: 15px;
+    background: #edf8f6;
+    color: var(--academic-green);
+    font-size: 25px;
+}
+
+.academic-empty-state h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.academic-empty-state p {
+    margin: 0;
+    color: var(--academic-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.reset-date-link {
+    display: inline-block;
+    margin-top: 13px;
+    color: var(--academic-green);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Responsive tablet */
+
+@media (max-width: 1100px) {
+    .academic-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .academic-toolbar {
+        align-items: stretch;
+    }
+
+    .academic-filters {
+        flex: 1 1 100%;
+    }
+
+    .month-navigation {
+        justify-content: flex-end;
+    }
+
+    .calendar-day {
+        min-height: 78px;
+    }
+}
+
+/* Responsive HP */
+
+@media (max-width: 600px) {
+    .academic-page {
+        padding-top: 0;
+    }
+
+    .academic-heading {
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .academic-heading-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        font-size: 22px;
+    }
+
+    .academic-heading-text h2 {
+        font-size: 20px;
+    }
+
+    .academic-heading-text p {
+        font-size: 12px;
+    }
+
+    .academic-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .filter-group {
+        min-width: 0;
+    }
+
+    .filter-group select {
+        font-size: 12px;
+    }
+
+    .academic-filter-button {
+        width: 100%;
+        grid-column: 1 / -1;
+    }
+
+    .month-navigation {
+        width: 100%;
+        gap: 7px;
+    }
+
+    .month-title {
+        flex: 1;
+        min-width: 0;
+        font-size: 13px;
+    }
+
+    .month-arrow {
+        width: 35px;
+        height: 35px;
+    }
+
+    .today-button {
+        min-height: 35px;
+        padding: 7px 9px;
+        font-size: 11px;
+    }
+
+    .academic-card-heading {
+        padding: 13px 12px;
+    }
+
+    .academic-card-heading h3 {
+        font-size: 13px;
+    }
+
+    .calendar-grid {
+        padding: 0 5px 8px;
+    }
+
+    .calendar-weekday {
+        padding: 11px 0;
+        font-size: 10px;
+    }
+
+    .calendar-day {
+        min-height: 52px;
+        align-items: center;
+        gap: 3px;
+        padding: 5px 2px;
+    }
+
+    .calendar-day-number {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .calendar-event-labels {
+        display: none;
+    }
+
+    .calendar-event-dots {
+        justify-content: center;
+        gap: 3px;
+        padding-left: 0;
+    }
+
+    .event-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .calendar-legend {
+        gap: 9px 12px;
+        padding: 12px;
+    }
+
+    .calendar-legend span {
+        font-size: 10px;
+    }
+
+    .agenda-item {
+        gap: 8px;
+        padding: 13px 11px;
+    }
+
+    .agenda-information h4 {
+        font-size: 12px;
+    }
+
+    .agenda-category {
+        max-width: 83px;
+        padding: 5px 6px;
+        font-size: 9px;
+    }
+
+    .agenda-chevron {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .academic-page *,
+    .academic-page *::before,
+    .academic-page *::after {
+        transition: none !important;
+    }
+}
+
+
+/* ================= show blade ================= */
+
+/* ================================
+   DETAIL KALENDER AKADEMIK ORANG TUA
+================================ */
+
+.academic-detail-page {
+    max-width: 1086px;
+    margin: 32px auto 48px;
+    color: #173b49;
+}
+
+.academic-detail-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 24px;
+    color: #087f78;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.academic-detail-back:hover {
+    color: #075e58;
+}
+
+.academic-detail-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+.academic-detail-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: #e3f5f2;
+    color: #07877e;
+    font-size: 27px;
+}
+
+.academic-detail-heading h1 {
+    margin: 0 0 5px;
+    color: #087c76;
+    font-size: 28px;
+    font-weight: 750;
+}
+
+.academic-detail-heading p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+}
+
+.academic-detail-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e8eef1;
+    border-radius: 18px;
+    box-shadow: 0 8px 26px rgba(31, 65, 79, 0.06);
+}
+
+.academic-detail-banner {
+    position: relative;
+    padding: 34px 36px 30px;
+    background: linear-gradient(120deg, #e8f8f5 0%, #f6fbfa 100%);
+    border-bottom: 1px solid #e5f0ee;
+}
+
+.academic-detail-banner-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    border-radius: 15px;
+    background: #ffffff;
+    color: #07877e;
+    font-size: 25px;
+    box-shadow: 0 3px 12px rgba(8, 127, 120, 0.08);
+}
+
+.academic-detail-eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    color: #07877e;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 1.5px;
+}
+
+.academic-detail-banner h2 {
+    margin: 0 0 16px;
+    color: #173b49;
+    font-size: 25px;
+    line-height: 1.4;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.academic-detail-category {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 13px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.detail-badge-holiday {
+    background: #fff0e8;
+    color: #bd5b25;
+}
+
+.detail-badge-activity {
+    background: #e3f5ec;
+    color: #21865c;
+}
+
+.detail-badge-academic {
+    background: #e6efff;
+    color: #3767b1;
+}
+
+.detail-badge-exam {
+    background: #f2eaff;
+    color: #7951aa;
+}
+
+.detail-badge-default {
+    background: #e3f5f2;
+    color: #087f78;
+}
+
+.academic-detail-content {
+    padding: 30px 36px;
+}
+
+.academic-detail-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #173b49;
+    font-size: 16px;
+    font-weight: 750;
+}
+
+.academic-detail-section-title > i {
+    color: #07877e;
+    font-size: 19px;
+}
+
+.academic-detail-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.academic-detail-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid #e9eff1;
+    border-radius: 13px;
+    background: #ffffff;
+}
+
+.academic-detail-info-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #e8f7f4;
+    color: #07877e;
+    font-size: 19px;
+}
+
+.academic-detail-info-item > div:last-child {
+    min-width: 0;
+}
+
+.academic-detail-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #7a8996;
+    font-size: 12px;
+}
+
+.academic-detail-info-item strong {
+    display: block;
+    color: #233f4c;
+    font-size: 14px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.academic-detail-description {
+    margin-top: 30px;
+    padding-top: 27px;
+    border-top: 1px solid #edf1f3;
+}
+
+.academic-detail-description p {
+    margin: 0;
+    color: #596d7b;
+    font-size: 14px;
+    line-height: 1.9;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.academic-detail-description .academic-detail-empty-description {
+    color: #8b98a3;
+    font-style: italic;
+}
+
+.academic-detail-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    margin-top: 26px;
+    padding: 15px 17px;
+    border: 1px solid #d9efeb;
+    border-radius: 11px;
+    background: #f1faf8;
+    color: #54756f;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.academic-detail-note i {
+    margin-top: 2px;
+    color: #07877e;
+    font-size: 16px;
+}
+
+.academic-detail-footer {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px 36px;
+    border-top: 1px solid #edf1f3;
+    background: #fcfdfd;
+}
+
+.academic-detail-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 1px solid #07877e;
+    border-radius: 10px;
+    background: #07877e;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 650;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.academic-detail-button:hover {
+    border-color: #066c65;
+    background: #066c65;
+    color: #ffffff;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .academic-detail-page {
+        margin: 24px auto 36px;
+    }
+
+    .academic-detail-heading h1 {
+        font-size: 24px;
+    }
+
+    .academic-detail-banner {
+        padding: 27px 24px;
+    }
+
+    .academic-detail-banner h2 {
+        font-size: 22px;
+    }
+
+    .academic-detail-content {
+        padding: 25px 24px;
+    }
+
+    .academic-detail-footer {
+        padding: 18px 24px;
+    }
+
+    .academic-detail-info-grid {
+        gap: 12px;
+    }
+
+    .academic-detail-info-item {
+        padding: 14px;
+    }
+}
+
+/* HP */
+@media (max-width: 576px) {
+    .academic-detail-page {
+        margin: 20px auto 30px;
+    }
+
+    .academic-detail-heading {
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .academic-detail-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
+        font-size: 23px;
+    }
+
+    .academic-detail-heading h1 {
+        font-size: 21px;
+    }
+
+    .academic-detail-heading p {
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .academic-detail-back {
+        margin-bottom: 19px;
+        font-size: 13px;
+    }
+
+    .academic-detail-card {
+        border-radius: 14px;
+    }
+
+    .academic-detail-banner {
+        padding: 23px 19px;
+    }
+
+    .academic-detail-banner-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 22px;
+    }
+
+    .academic-detail-banner h2 {
+        font-size: 20px;
+    }
+
+    .academic-detail-content {
+        padding: 22px 18px;
+    }
+
+    .academic-detail-section-title {
+        font-size: 15px;
+    }
+
+    .academic-detail-info-grid {
+        grid-template-columns: 1fr;
+        gap: 11px;
+    }
+
+    .academic-detail-info-item {
+        padding: 14px;
+    }
+
+    .academic-detail-description {
+        margin-top: 24px;
+        padding-top: 22px;
+    }
+
+    .academic-detail-note {
+        padding: 12px;
+    }
+
+    .academic-detail-footer {
+        padding: 16px 18px;
+    }
+
+    .academic-detail-button {
+        width: 100%;
+        padding: 11px 12px;
+        font-size: 12px;
+    }
+}

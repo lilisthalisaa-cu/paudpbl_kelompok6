@@ -16,11 +16,12 @@
             <span style="color:#f59e0b;">KB Roudlotul Ilmi</span>
           </div>
           <div class="hero-sub">
-            Kelola data guru, siswa, dan pantau rekap presensi dengan cepat.
+            Kelola data guru, siswa, kalender akademik, dan pantau rekap presensi dengan cepat.
           </div>
           <div class="hero-actions">
-            <a class="btn-orange" style="text-decoration:none;display:inline-block;" href="{{ route('admin.teachers.index') }}">Kelola Guru</a>
+            <a class="btn-orange" style="text-decoration:none;display:inline-block;" href="{{ route('admin.teachers.create') }}">Kelola Guru</a>
             <a class="btn-ghost" href="{{ route('admin.students.index') }}">Kelola Siswa</a>
+           <a class="btn-ghost" href="{{ route('admin.academic-calendars.index') }}">Kalender Akademik</a>
           </div>
         </div>
       </div>
@@ -39,7 +40,6 @@
 
           <div class="stat">
             <small>Presensi Hari Ini</small>
-
             <strong>
               {{
                 \App\Models\StudentAttendance::whereDate('date', today())
@@ -52,7 +52,6 @@
               Siswa hadir hari ini
             </div>
           </div>
-
         </div>
       </div>
 

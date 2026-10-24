@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -134,6 +133,10 @@ Route::middleware('auth')
             [AdminAcademicCalendarController::class, 'store']
         )->name('academic-calendars.store');
 
+        Route::get('/academic-calendars/create', function () {
+                return view('admin.academic-calendars.create');
+                })->name('/academic-calendars.create');
+
         Route::get(
             '/academic-calendars/{academicCalendar}',
             [AdminAcademicCalendarController::class, 'show']
@@ -149,7 +152,11 @@ Route::middleware('auth')
             [AdminAcademicCalendarController::class, 'destroy']
         )->name('academic-calendars.destroy');
 
+        Route::get('/academic-calendars/{academicCalendar}/edit', [
+        \App\Http\Controllers\Admin\AcademicCalendarController::class,'edit'
+        ])->name('academic-calendars.edit');
 
+    
         /*
         |--------------------------------------------------------------------------
         | KONTEN ADMIN

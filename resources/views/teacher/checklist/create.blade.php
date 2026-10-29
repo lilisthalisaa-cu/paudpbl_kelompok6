@@ -1,3 +1,4 @@
+
 @extends('teacher.layouts.app')
 
 @section('title', 'Input Checklist Harian')
@@ -8,34 +9,32 @@
 
 @section('content')
 @php
-$objectives = [
-1 => [
-'objective' => 'Anak mengenal doa sebelum bepergian',
-'context' => 'Mengajak anak membaca doa sebelum bepergian bersama-sama.',
-],
-2 => [
-'objective' => 'Anak berhitung sederhana jumlah benda/objek di tempat rekreasi (jumlah pohon, hewan).',
-'context' => 'Menunjukkan gambar atau mainan hewan dan menyebutkan namanya.',
-],
-3 => [
-'objective' => 'Anak percaya diri menceritakan pengalaman rekreasinya',
-'context' => 'Membacakan buku cerita “Pergi ke Kebun Binatang” dengan gambar menarik.',
-],
-4 => [
-'objective' => 'Anak mencoba aktivitas seni seperti menggambar atau mewarnai tempat rekreasi',
-'context' => 'Anak mewarnai gambar hewan favorit mereka, seperti gajah atau singa.',
-],
-];
+    $objectives = [
+        1 => [
+            'objective' => 'Anak mengenal doa sebelum bepergian',
+            'context' => 'Mengajak anak membaca doa sebelum bepergian bersama-sama.',
+        ],
+        2 => [
+            'objective' => 'Anak berhitung sederhana jumlah benda/objek di tempat rekreasi (jumlah pohon, hewan).',
+            'context' => 'Menunjukkan gambar atau mainan hewan dan menyebutkan namanya.',
+        ],
+        3 => [
+            'objective' => 'Anak percaya diri menceritakan pengalaman rekreasinya',
+            'context' => 'Membacakan buku cerita “Pergi ke Kebun Binatang” dengan gambar menarik.',
+        ],
+        4 => [
+            'objective' => 'Anak mencoba aktivitas seni seperti menggambar atau mewarnai tempat rekreasi',
+            'context' => 'Anak mewarnai gambar hewan favorit mereka, seperti gajah atau singa.',
+        ],
+    ];
 
-$theme = 'REKREASI (1)';
-$students = $students->values();
+    $theme = 'REKREASI (1)';
+    $students = $students->values();
 @endphp
 
 <div class="daily-checklist">
     <div class="dc-panel">
 
-
-        {{-- HEADER --}}
         <header class="dc-heading">
             <div class="dc-icon">📋</div>
             <div>
@@ -44,31 +43,34 @@ $students = $students->values();
             </div>
         </header>
 
-        {{-- TAB INPUT DAN DAFTAR CHECKLIST --}}
         <div class="dc-mini-tabs">
             <a href="{{ route('teacher.checklist.create') }}" class="active">
                 Input Checklist
             </a>
-
             <a href="{{ route('teacher.checklist.index') }}">
                 Daftar Checklist
             </a>
         </div>
 
-
-        {{-- VALIDASI --}}
         @if ($errors->any())
-        <div class="dc-alert">
-            <strong>Periksa kembali data berikut:</strong>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="dc-alert">
+                <strong>Periksa kembali data berikut:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
-        {{-- INFORMASI TANGGAL, TEMA, DAN KELAS --}}
+        @if (session('error'))
+            <div class="dc-alert">{{ session('error') }}</div>
+        @endif
+
+        @if (session('success'))
+            <div class="dc-alert">{{ session('success') }}</div>
+        @endif
+
         <section class="dc-summary">
             <div class="dc-summary-item">
                 <span class="dc-summary-icon">▦</span>
@@ -95,27 +97,27 @@ $students = $students->values();
             </div>
         </section>
 
-        <form id="dailyChecklistForm" action="{{ route('teacher.checklist.store') }}" method="POST">
+        <form id="dailyChecklistForm"
+              action="{{ route('teacher.checklist.store') }}"
+              method="POST">
             @csrf
 
             <input type="hidden" name="date" value="{{ now()->toDateString() }}">
             <input type="hidden" name="theme" value="{{ $theme }}">
 
-            {{-- PILIH TUJUAN PEMBELAJARAN SAJA --}}
             <section class="dc-filter dc-filter-single">
                 <div class="dc-field">
                     <label for="objectiveSelect">Pilih Tujuan Pembelajaran</label>
                     <select id="objectiveSelect">
                         @foreach ($objectives as $id => $item)
-                        <option value="{{ $id }}">
-                            {{ $id }}. {{ $item['objective'] }}
-                        </option>
+                            <option value="{{ $id }}">
+                                {{ $id }}. {{ $item['objective'] }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
             </section>
 
-            {{-- INFORMASI TUJUAN DAN KONTEKS OTOMATIS --}}
             <section class="dc-info">
                 <div class="dc-info-item">
                     <span class="dc-info-icon">◎</span>
@@ -134,7 +136,6 @@ $students = $students->values();
                 </div>
             </section>
 
-            {{-- DAFTAR SISWA --}}
             <section class="dc-students">
                 <div class="dc-list-heading">
                     <div class="dc-list-title">
@@ -148,8 +149,9 @@ $students = $students->values();
                     <div class="dc-list-tools">
                         <div class="dc-search-wrap">
                             <span>⌕</span>
-                            <input type="search" id="studentSearch" placeholder="Cari nama siswa..."
-                                aria-label="Cari nama siswa">
+                            <input type="search" id="studentSearch"
+                                   placeholder="Cari nama siswa..."
+                                   aria-label="Cari nama siswa">
                         </div>
 
                         <label for="perPage">Tampilkan</label>
@@ -176,69 +178,71 @@ $students = $students->values();
                         </thead>
 
                         @foreach ($objectives as $objectiveId => $item)
-                        <tbody class="dc-objective-body" data-objective="{{ $objectiveId }}" @if ($objectiveId !==1)
-                            hidden @endif>
-                            @forelse ($students as $index => $student)
-                            <tr class="dc-student-row" data-name="{{ strtolower($student->name) }}">
-                                <td class="dc-row-number">
-                                    {{ $index + 1 }}
-                                </td>
+                            <tbody class="dc-objective-body"
+                                   data-objective="{{ $objectiveId }}"
+                                   @if ($objectiveId != 1) hidden @endif>
 
-                                <td class="dc-student-name">
-                                    {{ $student->name }}
+                                @forelse ($students as $index => $student)
+                                    <tr class="dc-student-row"
+                                        data-name="{{ strtolower($student->name) }}">
+                                        <td class="dc-row-number">{{ $index + 1 }}</td>
 
-                                    <input type="hidden" name="checklists[{{ $index }}][student_id]"
-                                        value="{{ $student->id }}">
+                                        <td class="dc-student-name">
+                                            {{ $student->name }}
 
-                                    <input type="hidden"
-                                        name="checklists[{{ $index }}][objectives][{{ $objectiveId }}][learning_objective]"
-                                        value="{{ $item['objective'] }}">
+                                            <input type="hidden"
+                                                   name="checklists[{{ $objectiveId - 1 }}][students][{{ $student->id }}][student_id]"
+                                                   value="{{ $student->id }}">
 
-                                    <input type="hidden"
-                                        name="checklists[{{ $index }}][objectives][{{ $objectiveId }}][context]"
-                                        value="{{ $item['context'] }}">
-                                </td>
+                                            <input type="hidden"
+                                                   name="checklists[{{ $objectiveId - 1 }}][learning_objective]"
+                                                   value="{{ $item['objective'] }}">
 
-                                <td>
-                                    <label class="dc-radio">
-                                        <input type="radio"
-                                            name="checklists[{{ $index }}][objectives][{{ $objectiveId }}][status]"
-                                            value="SM"
-                                            @checked(old("checklists.$index.objectives.$objectiveId.status")==='SM' )>
-                                        <span>SM</span>
-                                    </label>
-                                </td>
+                                            <input type="hidden"
+                                                   name="checklists[{{ $objectiveId - 1 }}][context]"
+                                                   value="{{ $item['context'] }}">
+                                        </td>
 
-                                <td>
-                                    <label class="dc-radio">
-                                        <input type="radio"
-                                            name="checklists[{{ $index }}][objectives][{{ $objectiveId }}][status]"
-                                            value="BM"
-                                            @checked(old("checklists.$index.objectives.$objectiveId.status")==='BM' )>
-                                        <span>BM</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="4" class="dc-empty">
-                                    Belum ada siswa pada kelas ini.
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
+                                        <td>
+                                            <label class="dc-radio">
+                                                <input type="radio"
+                                                       name="checklists[{{ $objectiveId - 1 }}][students][{{ $student->id }}][status]"
+                                                       value="SM"
+                                                       required
+                                                       @checked(old("checklists." . ($objectiveId - 1) . ".students." . $student->id . ".status") === 'SM')>
+                                                <span>SM</span>
+                                            </label>
+                                        </td>
+
+                                        <td>
+                                            <label class="dc-radio">
+                                                <input type="radio"
+                                                       name="checklists[{{ $objectiveId - 1 }}][students][{{ $student->id }}][status]"
+                                                       value="BM"
+                                                       required
+                                                       @checked(old("checklists." . ($objectiveId - 1) . ".students." . $student->id . ".status") === 'BM')>
+                                                <span>BM</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="dc-empty">
+                                            Belum ada siswa pada kelas ini.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
                         @endforeach
                     </table>
                 </div>
 
-                {{-- PAGINATION --}}
                 <div class="dc-pagination">
                     <div class="dc-pages" id="pagination"></div>
                     <span id="pageInfo" aria-live="polite"></span>
                 </div>
             </section>
 
-            {{-- SATU KETERANGAN UNTUK SEMUA SISWA --}}
             <section class="dc-notes">
                 <div class="dc-notes-description">
                     <span class="dc-notes-icon">▤</span>
@@ -249,25 +253,22 @@ $students = $students->values();
                 </div>
 
                 <div class="dc-notes-input">
-                    <textarea id="sharedNotes" name="notes" rows="3" maxlength="500"
-                        placeholder="Tulis keterangan kegiatan...">{{ old('notes') }}</textarea>
-
+                    <textarea id="sharedNotes" name="notes" rows="3"
+                              maxlength="500"
+                              placeholder="Tulis keterangan kegiatan...">{{ old('notes') }}</textarea>
                     <div class="dc-counter">
                         <span id="notesCount">{{ strlen(old('notes', '')) }}</span>/500
                     </div>
                 </div>
             </section>
 
-            {{-- TOMBOL --}}
             <div class="dc-actions">
                 <button type="reset" class="dc-btn dc-reset">
-                    <span>↻</span>
-                    Reset Semua
+                    <span>↻</span> Reset Semua
                 </button>
 
                 <button type="submit" class="dc-btn dc-save">
-                    <span>▣</span>
-                    Simpan Checklist
+                    <span>▣</span> Simpan Checklist
                 </button>
             </div>
         </form>
@@ -279,7 +280,7 @@ $students = $students->values();
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const objectiveSelect = document.getElementById('objectiveSelect');
     const objectiveText = document.getElementById('objectiveText');
     const contextText = document.getElementById('contextText');
@@ -291,10 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const notes = document.getElementById('sharedNotes');
     const notesCount = document.getElementById('notesCount');
     const form = document.getElementById('dailyChecklistForm');
-
-    const objectives = JSON.parse(
-        document.getElementById('objectiveData').textContent
-    );
+    const objectives = JSON.parse(document.getElementById('objectiveData').textContent);
 
     let currentPage = 1;
 
@@ -305,52 +303,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!activeBody) return;
 
-        const rows = Array.from(
-            activeBody.querySelectorAll('.dc-student-row')
-        );
-
+        const rows = Array.from(activeBody.querySelectorAll('.dc-student-row'));
         const keyword = search.value.trim().toLowerCase();
-
-        const filteredRows = rows.filter(row =>
-            row.dataset.name.includes(keyword)
-        );
-
+        const filteredRows = rows.filter(row => row.dataset.name.includes(keyword));
         const limit = Number(perPage.value);
-        const totalPages = Math.max(
-            1,
-            Math.ceil(filteredRows.length / limit)
-        );
+        const totalPages = Math.max(1, Math.ceil(filteredRows.length / limit));
 
         currentPage = Math.min(currentPage, totalPages);
 
-        rows.forEach(row => {
-            row.hidden = true;
-        });
+        rows.forEach(row => row.hidden = true);
 
         filteredRows.forEach((row, index) => {
             row.querySelector('.dc-row-number').textContent = index + 1;
-
-            row.hidden = !(
-                index >= (currentPage - 1) * limit &&
-                index < currentPage * limit
-            );
+            row.hidden = !(index >= (currentPage - 1) * limit &&
+                           index < currentPage * limit);
         });
 
         pagination.innerHTML = '';
 
         function addPage(label, page, active = false, disabled = false) {
             const button = document.createElement('button');
-
             button.type = 'button';
             button.className = 'dc-page-btn' + (active ? ' active' : '');
             button.textContent = label;
             button.disabled = disabled;
-
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 currentPage = page;
                 renderStudents();
             });
-
             pagination.appendChild(button);
         }
 
@@ -360,26 +340,17 @@ document.addEventListener('DOMContentLoaded', function() {
             addPage(String(page), page, page === currentPage);
         }
 
-        addPage(
-            '›',
-            Math.min(totalPages, currentPage + 1),
-            false,
-            currentPage === totalPages
-        );
+        addPage('›', Math.min(totalPages, currentPage + 1),
+                false, currentPage === totalPages);
 
-        const start = filteredRows.length ?
-            (currentPage - 1) * limit + 1 :
-            0;
-
+        const start = filteredRows.length ? (currentPage - 1) * limit + 1 : 0;
         const end = Math.min(currentPage * limit, filteredRows.length);
 
-        pageInfo.textContent =
-            `${start}–${end} dari ${filteredRows.length} siswa`;
+        pageInfo.textContent = `${start}–${end} dari ${filteredRows.length} siswa`;
     }
 
     function changeObjective(id) {
         const item = objectives[id];
-
         if (!item) return;
 
         objectiveSelect.value = String(id);
@@ -394,26 +365,26 @@ document.addEventListener('DOMContentLoaded', function() {
         renderStudents();
     }
 
-    objectiveSelect.addEventListener('change', function() {
+    objectiveSelect.addEventListener('change', function () {
         changeObjective(this.value);
     });
 
-    search.addEventListener('input', function() {
+    search.addEventListener('input', function () {
         currentPage = 1;
         renderStudents();
     });
 
-    perPage.addEventListener('change', function() {
+    perPage.addEventListener('change', function () {
         currentPage = 1;
         renderStudents();
     });
 
-    notes.addEventListener('input', function() {
+    notes.addEventListener('input', function () {
         notesCount.textContent = this.value.length;
     });
 
-    form.addEventListener('reset', function() {
-        setTimeout(function() {
+    form.addEventListener('reset', function () {
+        setTimeout(function () {
             search.value = '';
             perPage.value = '10';
             currentPage = 1;
@@ -422,12 +393,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 0);
     });
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         const activeBody = bodies.find(
             body => body.dataset.objective === objectiveSelect.value
         );
 
-        if (!activeBody) return;
+        if (!activeBody) {
+            event.preventDefault();
+            return;
+        }
 
         const incomplete = Array.from(
             activeBody.querySelectorAll('.dc-student-row')
@@ -435,10 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (incomplete) {
             event.preventDefault();
-
-            alert(
-                'Status SM/BM belum lengkap untuk semua siswa pada tujuan pembelajaran yang dipilih.'
-            );
+            alert('Pilih status SM atau BM untuk semua siswa pada tujuan pembelajaran yang dipilih.');
         }
     });
 

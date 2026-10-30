@@ -178,6 +178,50 @@
                         </thead>
 
                         @foreach ($objectives as $objectiveId => $item)
+
+                        <tbody class="dc-objective-body" data-objective="{{ $objectiveId }}" @if ($objectiveId !==1)
+                            hidden @endif>
+                            @forelse ($students as $index => $student)
+                            <tr class="dc-student-row" data-name="{{ strtolower($student->name) }}">
+                                <td class="dc-row-number">
+                                    {{ $index + 1 }}
+                                </td>
+
+                                <td class="dc-student-name">
+                                    {{ $student->name }}
+                                </td>
+
+
+                                <td>
+                                    <label class="dc-radio">
+                                        <input type="radio"
+                                            name="checklists[{{ $objectiveId - 1 }}][students][{{ $student->id }}][status]"
+                                            value="SM"
+                                            @checked(old("checklists." . ($objectiveId - 1) . ".students." . $student->id . ".status") === 'SM')>
+                                        <span>SM</span>
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label class="dc-radio">
+                                        <input type="radio"
+                                            name="checklists[{{ $objectiveId - 1 }}][students][{{ $student->id }}][status]"
+                                            value="BM"
+                                            @checked(old("checklists." . ($objectiveId - 1) . ".students." . $student->id . ".status") === 'BM')>
+                                        <span>BM</span>
+                                    </label>
+                                </td>
+
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="dc-empty">
+                                    Belum ada siswa pada kelas ini.
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                        
                             <tbody class="dc-objective-body"
                                    data-objective="{{ $objectiveId }}"
                                    @if ($objectiveId != 1) hidden @endif>
@@ -233,6 +277,7 @@
                                     </tr>
                                 @endforelse
                             </tbody>
+
                         @endforeach
                     </table>
                 </div>
@@ -276,10 +321,37 @@
 </div>
 
 <script type="application/json" id="objectiveData">
-@json($objectives)
+    @json($objectives)
 </script>
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const objectiveSelect = document.getElementById('objectiveSelect');
+        const objectiveText = document.getElementById('objectiveText');
+        const contextText = document.getElementById('contextText');
+        const bodies = Array.from(document.querySelectorAll('.dc-objective-body'));
+        const search = document.getElementById('studentSearch');
+        const perPage = document.getElementById('perPage');
+        const pagination = document.getElementById('pagination');
+        const pageInfo = document.getElementById('pageInfo');
+        const notes = document.getElementById('sharedNotes');
+        const notesCount = document.getElementById('notesCount');
+        const form = document.getElementById('dailyChecklistForm');
+
+        const objectives = JSON.parse(
+            document.getElementById('objectiveData').textContent
+        );
+
+        let currentPage = 1;
+
+        function renderStudents() {
+            const activeBody = bodies.find(
+                body => body.dataset.objective === objectiveSelect.value
+            );
+
+            if (!activeBody) return;
+
 document.addEventListener('DOMContentLoaded', function () {
     const objectiveSelect = document.getElementById('objectiveSelect');
     const objectiveText = document.getElementById('objectiveText');
@@ -309,8 +381,24 @@ document.addEventListener('DOMContentLoaded', function () {
         const limit = Number(perPage.value);
         const totalPages = Math.max(1, Math.ceil(filteredRows.length / limit));
 
-        currentPage = Math.min(currentPage, totalPages);
 
+            const rows = Array.from(
+                activeBody.querySelectorAll('.dc-student-row')
+            );
+
+
+            const keyword = search.value.trim().toLowerCase();
+
+            const filteredRows = rows.filter(row =>
+                row.dataset.name.includes(keyword)
+            );
+
+            const limit = Number(perPage.value);
+            const totalPages = Math.max(
+                1,
+                Math.ceil(filteredRows.length / limit)
+            );
+            
         rows.forEach(row => row.hidden = true);
 
         filteredRows.forEach((row, index) => {
@@ -319,7 +407,24 @@ document.addEventListener('DOMContentLoaded', function () {
                            index < currentPage * limit);
         });
 
-        pagination.innerHTML = '';
+
+            currentPage = Math.min(currentPage, totalPages);
+
+
+            rows.forEach(row => {
+                row.hidden = true;
+            });
+
+            filteredRows.forEach((row, index) => {
+                row.querySelector('.dc-row-number').textContent = index + 1;
+
+                row.hidden = !(
+                    index >= (currentPage - 1) * limit &&
+                    index < currentPage * limit
+                );
+            });
+
+            pagination.innerHTML = '';
 
         function addPage(label, page, active = false, disabled = false) {
             const button = document.createElement('button');
@@ -334,11 +439,40 @@ document.addEventListener('DOMContentLoaded', function () {
             pagination.appendChild(button);
         }
 
-        addPage('‹', Math.max(1, currentPage - 1), false, currentPage === 1);
 
-        for (let page = 1; page <= totalPages; page++) {
-            addPage(String(page), page, page === currentPage);
-        }
+            function addPage(label, page, active = false, disabled = false) {
+                const button = document.createElement('button');
+
+                button.type = 'button';
+                button.className = 'dc-page-btn' + (active ? ' active' : '');
+                button.textContent = label;
+                button.disabled = disabled;
+
+
+                button.addEventListener('click', function() {
+                    currentPage = page;
+                    renderStudents();
+                });
+
+                pagination.appendChild(button);
+            }
+
+            addPage('‹', Math.max(1, currentPage - 1), false, currentPage === 1);
+
+            for (let page = 1; page <= totalPages; page++) {
+                addPage(String(page), page, page === currentPage);
+            }
+
+            addPage(
+                '›',
+                Math.min(totalPages, currentPage + 1),
+                false,
+                currentPage === totalPages
+            );
+
+            const start = filteredRows.length ?
+                (currentPage - 1) * limit + 1 :
+                0;
 
         addPage('›', Math.min(totalPages, currentPage + 1),
                 false, currentPage === totalPages);
@@ -353,17 +487,36 @@ document.addEventListener('DOMContentLoaded', function () {
         const item = objectives[id];
         if (!item) return;
 
-        objectiveSelect.value = String(id);
-        objectiveText.textContent = item.objective;
-        contextText.textContent = item.context;
 
-        bodies.forEach(body => {
-            body.hidden = body.dataset.objective !== String(id);
+            const end = Math.min(currentPage * limit, filteredRows.length);
+
+            pageInfo.textContent =
+                `${start}–${end} dari ${filteredRows.length} siswa`;
+        }
+
+        function changeObjective(id) {
+            const item = objectives[id];
+
+]
+            if (!item) return;
+
+            objectiveSelect.value = String(id);
+            objectiveText.textContent = item.objective;
+            contextText.textContent = item.context;
+
+            bodies.forEach(body => {
+                body.hidden = body.dataset.objective !== String(id);
+            });
+
+            currentPage = 1;
+            renderStudents();
+        }
+
+        objectiveSelect.addEventListener('change', function() {
+            changeObjective(this.value);
         });
 
-        currentPage = 1;
-        renderStudents();
-    }
+        search.addEventListener('input', function() {
 
     objectiveSelect.addEventListener('change', function () {
         changeObjective(this.value);
@@ -387,11 +540,30 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             search.value = '';
             perPage.value = '10';
+
             currentPage = 1;
-            changeObjective('1');
-            notesCount.textContent = notes.value.length;
-        }, 0);
-    });
+            renderStudents();
+        });
+
+
+        perPage.addEventListener('change', function() {
+            currentPage = 1;
+            renderStudents();
+        });
+
+        notes.addEventListener('input', function() {
+            notesCount.textContent = this.value.length;
+        });
+
+        form.addEventListener('reset', function() {
+            setTimeout(function() {
+                search.value = '';
+                perPage.value = '10';
+                currentPage = 1;
+                changeObjective('1');
+                notesCount.textContent = notes.value.length;
+            }, 0);
+        });
 
     form.addEventListener('submit', function (event) {
         const activeBody = bodies.find(
@@ -403,9 +575,31 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const incomplete = Array.from(
-            activeBody.querySelectorAll('.dc-student-row')
-        ).some(row => !row.querySelector('input[type="radio"]:checked'));
+
+
+
+        form.addEventListener('submit', function(event) {
+            let incomplete = false;
+
+            bodies.forEach(body => {
+                const rows = body.querySelectorAll('.dc-student-row');
+
+                rows.forEach(row => {
+                    if (!row.querySelector('input[type="radio"]:checked')) {
+                        incomplete = true;
+                    }
+                });
+            });
+
+            if (incomplete) {
+                event.preventDefault();
+
+                alert(
+                    'Silakan lengkapi status SM/BM semua siswa pada setiap tujuan pembelajaran.'
+                );
+            }
+        });
+
 
         if (incomplete) {
             event.preventDefault();
@@ -413,7 +607,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    changeObjective('1');
-});
+
+        changeObjective('1');
+    });
 </script>
 @endsection

@@ -2,14 +2,19 @@
 
 @section('content')
 @php
-    $firstChecklist = $checklists->first();
-    $studentGroups = $checklists->groupBy('student_id');
+$firstChecklist = $checklists->first();
+$studentGroups = $checklists->groupBy('student_id');
 
-    $objectives = $checklists
-        ->pluck('learning_objective')
-        ->filter()
-        ->unique()
-        ->values();
+$sharedNotes = $checklists
+->pluck('notes')
+->filter(fn ($note) => !empty(trim($note)))
+->first();
+
+$objectives = $checklists
+->pluck('learning_objective')
+->filter()
+->unique()
+->values();
 @endphp
 
 <div class="report-page">
@@ -28,8 +33,7 @@
             <div class="report-logo">
                 <img
                     src="{{ asset('images/LogoPaud.jpeg') }}"
-                    alt="Logo KB Roudlotul Ilmi"
-                >
+                    alt="Logo KB Roudlotul Ilmi">
             </div>
 
             <div class="report-heading">
@@ -66,9 +70,9 @@
                         <th class="context-column">Konteks</th>
 
                         @foreach ($studentGroups as $studentChecklists)
-                            <th class="student-column">
-                                {{ $studentChecklists->first()->student?->name ?? 'Siswa' }}
-                            </th>
+                        <th class="student-column">
+                            {{ $studentChecklists->first()->student?->name ?? 'Siswa' }}
+                        </th>
                         @endforeach
 
                         <th class="notes-column">Keterangan</th>
@@ -77,43 +81,47 @@
 
                 <tbody>
                     @forelse ($objectives as $objective)
-                        @php
-                            $objectiveItems = $checklists->where(
-                                'learning_objective',
-                                $objective
-                            );
+                    @php
+                    $objectiveItems = $checklists->where(
+                    'learning_objective',
+                    $objective
+                    );
 
-                            $firstItem = $objectiveItems->first();
+                    $firstItem = $objectiveItems->first();
+                    @endphp
+
+                    <tr>
+                        <td class="center">{{ $loop->iteration }}</td>
+
+                        <td>{{ $objective }}</td>
+
+                        <td>{{ $firstItem?->context ?? '-' }}</td>
+
+                        @foreach ($studentGroups as $studentChecklists)
+                        @php
+                        $studentItem = $studentChecklists->firstWhere(
+                        'learning_objective',
+                        $objective
+                        );
                         @endphp
 
-                        <tr>
-                            <td class="center">{{ $loop->iteration }}</td>
+                        <td class="center">
+                            {{ $studentItem?->status ?? '-' }}
+                        </td>
+                        @endforeach
 
-                            <td>{{ $objective }}</td>
-
-                            <td>{{ $firstItem?->context ?? '-' }}</td>
-
-                            @foreach ($studentGroups as $studentChecklists)
-                                @php
-                                    $studentItem = $studentChecklists->firstWhere(
-                                        'learning_objective',
-                                        $objective
-                                    );
-                                @endphp
-
-                                <td class="center">
-                                    {{ $studentItem?->status ?? '-' }}
-                                </td>
-                            @endforeach
-
-                            <td>{{ $firstItem?->notes ?: '-' }}</td>
-                        </tr>
+                        @if ($loop->first)
+                        <td rowspan="{{ $objectives->count() }}">
+                            {{ $sharedNotes ?: '-' }}
+                        </td>
+                        @endif
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="{{ $studentGroups->count() + 3 }}" class="center">
-                                Belum ada data checklist.
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="{{ $studentGroups->count() + 3 }}" class="center">
+                            Belum ada data checklist.
+                        </td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>

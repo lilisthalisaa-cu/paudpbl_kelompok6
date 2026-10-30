@@ -186,25 +186,15 @@ $students = $students->values();
 
                                 <td class="dc-student-name">
                                     {{ $student->name }}
-
-                                    <input type="hidden" name="checklists[{{ $index }}][student_id]"
-                                        value="{{ $student->id }}">
-
-                                    <input type="hidden"
-                                        name="checklists[{{ $index }}][objectives][{{ $objectiveId }}][learning_objective]"
-                                        value="{{ $item['objective'] }}">
-
-                                    <input type="hidden"
-                                        name="checklists[{{ $index }}][objectives][{{ $objectiveId }}][context]"
-                                        value="{{ $item['context'] }}">
                                 </td>
+
 
                                 <td>
                                     <label class="dc-radio">
                                         <input type="radio"
-                                            name="checklists[{{ $index }}][objectives][{{ $objectiveId }}][status]"
+                                            name="checklists[{{ $objectiveId - 1 }}][students][{{ $student->id }}][status]"
                                             value="SM"
-                                            @checked(old("checklists.$index.objectives.$objectiveId.status")==='SM' )>
+                                            @checked(old("checklists." . ($objectiveId - 1) . ".students." . $student->id . ".status") === 'SM')>
                                         <span>SM</span>
                                     </label>
                                 </td>
@@ -212,12 +202,13 @@ $students = $students->values();
                                 <td>
                                     <label class="dc-radio">
                                         <input type="radio"
-                                            name="checklists[{{ $index }}][objectives][{{ $objectiveId }}][status]"
+                                            name="checklists[{{ $objectiveId - 1 }}][students][{{ $student->id }}][status]"
                                             value="BM"
-                                            @checked(old("checklists.$index.objectives.$objectiveId.status")==='BM' )>
+                                            @checked(old("checklists." . ($objectiveId - 1) . ".students." . $student->id . ".status") === 'BM')>
                                         <span>BM</span>
                                     </label>
                                 </td>
+
                             </tr>
                             @empty
                             <tr>
@@ -275,174 +266,178 @@ $students = $students->values();
 </div>
 
 <script type="application/json" id="objectiveData">
-@json($objectives)
+    @json($objectives)
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const objectiveSelect = document.getElementById('objectiveSelect');
-    const objectiveText = document.getElementById('objectiveText');
-    const contextText = document.getElementById('contextText');
-    const bodies = Array.from(document.querySelectorAll('.dc-objective-body'));
-    const search = document.getElementById('studentSearch');
-    const perPage = document.getElementById('perPage');
-    const pagination = document.getElementById('pagination');
-    const pageInfo = document.getElementById('pageInfo');
-    const notes = document.getElementById('sharedNotes');
-    const notesCount = document.getElementById('notesCount');
-    const form = document.getElementById('dailyChecklistForm');
+    document.addEventListener('DOMContentLoaded', function() {
+        const objectiveSelect = document.getElementById('objectiveSelect');
+        const objectiveText = document.getElementById('objectiveText');
+        const contextText = document.getElementById('contextText');
+        const bodies = Array.from(document.querySelectorAll('.dc-objective-body'));
+        const search = document.getElementById('studentSearch');
+        const perPage = document.getElementById('perPage');
+        const pagination = document.getElementById('pagination');
+        const pageInfo = document.getElementById('pageInfo');
+        const notes = document.getElementById('sharedNotes');
+        const notesCount = document.getElementById('notesCount');
+        const form = document.getElementById('dailyChecklistForm');
 
-    const objectives = JSON.parse(
-        document.getElementById('objectiveData').textContent
-    );
-
-    let currentPage = 1;
-
-    function renderStudents() {
-        const activeBody = bodies.find(
-            body => body.dataset.objective === objectiveSelect.value
+        const objectives = JSON.parse(
+            document.getElementById('objectiveData').textContent
         );
 
-        if (!activeBody) return;
+        let currentPage = 1;
 
-        const rows = Array.from(
-            activeBody.querySelectorAll('.dc-student-row')
-        );
-
-        const keyword = search.value.trim().toLowerCase();
-
-        const filteredRows = rows.filter(row =>
-            row.dataset.name.includes(keyword)
-        );
-
-        const limit = Number(perPage.value);
-        const totalPages = Math.max(
-            1,
-            Math.ceil(filteredRows.length / limit)
-        );
-
-        currentPage = Math.min(currentPage, totalPages);
-
-        rows.forEach(row => {
-            row.hidden = true;
-        });
-
-        filteredRows.forEach((row, index) => {
-            row.querySelector('.dc-row-number').textContent = index + 1;
-
-            row.hidden = !(
-                index >= (currentPage - 1) * limit &&
-                index < currentPage * limit
+        function renderStudents() {
+            const activeBody = bodies.find(
+                body => body.dataset.objective === objectiveSelect.value
             );
-        });
 
-        pagination.innerHTML = '';
+            if (!activeBody) return;
 
-        function addPage(label, page, active = false, disabled = false) {
-            const button = document.createElement('button');
+            const rows = Array.from(
+                activeBody.querySelectorAll('.dc-student-row')
+            );
 
-            button.type = 'button';
-            button.className = 'dc-page-btn' + (active ? ' active' : '');
-            button.textContent = label;
-            button.disabled = disabled;
+            const keyword = search.value.trim().toLowerCase();
 
-            button.addEventListener('click', function() {
-                currentPage = page;
-                renderStudents();
+            const filteredRows = rows.filter(row =>
+                row.dataset.name.includes(keyword)
+            );
+
+            const limit = Number(perPage.value);
+            const totalPages = Math.max(
+                1,
+                Math.ceil(filteredRows.length / limit)
+            );
+
+            currentPage = Math.min(currentPage, totalPages);
+
+            rows.forEach(row => {
+                row.hidden = true;
             });
 
-            pagination.appendChild(button);
+            filteredRows.forEach((row, index) => {
+                row.querySelector('.dc-row-number').textContent = index + 1;
+
+                row.hidden = !(
+                    index >= (currentPage - 1) * limit &&
+                    index < currentPage * limit
+                );
+            });
+
+            pagination.innerHTML = '';
+
+            function addPage(label, page, active = false, disabled = false) {
+                const button = document.createElement('button');
+
+                button.type = 'button';
+                button.className = 'dc-page-btn' + (active ? ' active' : '');
+                button.textContent = label;
+                button.disabled = disabled;
+
+                button.addEventListener('click', function() {
+                    currentPage = page;
+                    renderStudents();
+                });
+
+                pagination.appendChild(button);
+            }
+
+            addPage('‹', Math.max(1, currentPage - 1), false, currentPage === 1);
+
+            for (let page = 1; page <= totalPages; page++) {
+                addPage(String(page), page, page === currentPage);
+            }
+
+            addPage(
+                '›',
+                Math.min(totalPages, currentPage + 1),
+                false,
+                currentPage === totalPages
+            );
+
+            const start = filteredRows.length ?
+                (currentPage - 1) * limit + 1 :
+                0;
+
+            const end = Math.min(currentPage * limit, filteredRows.length);
+
+            pageInfo.textContent =
+                `${start}–${end} dari ${filteredRows.length} siswa`;
         }
 
-        addPage('‹', Math.max(1, currentPage - 1), false, currentPage === 1);
+        function changeObjective(id) {
+            const item = objectives[id];
 
-        for (let page = 1; page <= totalPages; page++) {
-            addPage(String(page), page, page === currentPage);
+            if (!item) return;
+
+            objectiveSelect.value = String(id);
+            objectiveText.textContent = item.objective;
+            contextText.textContent = item.context;
+
+            bodies.forEach(body => {
+                body.hidden = body.dataset.objective !== String(id);
+            });
+
+            currentPage = 1;
+            renderStudents();
         }
 
-        addPage(
-            '›',
-            Math.min(totalPages, currentPage + 1),
-            false,
-            currentPage === totalPages
-        );
-
-        const start = filteredRows.length ?
-            (currentPage - 1) * limit + 1 :
-            0;
-
-        const end = Math.min(currentPage * limit, filteredRows.length);
-
-        pageInfo.textContent =
-            `${start}–${end} dari ${filteredRows.length} siswa`;
-    }
-
-    function changeObjective(id) {
-        const item = objectives[id];
-
-        if (!item) return;
-
-        objectiveSelect.value = String(id);
-        objectiveText.textContent = item.objective;
-        contextText.textContent = item.context;
-
-        bodies.forEach(body => {
-            body.hidden = body.dataset.objective !== String(id);
+        objectiveSelect.addEventListener('change', function() {
+            changeObjective(this.value);
         });
 
-        currentPage = 1;
-        renderStudents();
-    }
-
-    objectiveSelect.addEventListener('change', function() {
-        changeObjective(this.value);
-    });
-
-    search.addEventListener('input', function() {
-        currentPage = 1;
-        renderStudents();
-    });
-
-    perPage.addEventListener('change', function() {
-        currentPage = 1;
-        renderStudents();
-    });
-
-    notes.addEventListener('input', function() {
-        notesCount.textContent = this.value.length;
-    });
-
-    form.addEventListener('reset', function() {
-        setTimeout(function() {
-            search.value = '';
-            perPage.value = '10';
+        search.addEventListener('input', function() {
             currentPage = 1;
-            changeObjective('1');
-            notesCount.textContent = notes.value.length;
-        }, 0);
+            renderStudents();
+        });
+
+        perPage.addEventListener('change', function() {
+            currentPage = 1;
+            renderStudents();
+        });
+
+        notes.addEventListener('input', function() {
+            notesCount.textContent = this.value.length;
+        });
+
+        form.addEventListener('reset', function() {
+            setTimeout(function() {
+                search.value = '';
+                perPage.value = '10';
+                currentPage = 1;
+                changeObjective('1');
+                notesCount.textContent = notes.value.length;
+            }, 0);
+        });
+
+
+        form.addEventListener('submit', function(event) {
+            let incomplete = false;
+
+            bodies.forEach(body => {
+                const rows = body.querySelectorAll('.dc-student-row');
+
+                rows.forEach(row => {
+                    if (!row.querySelector('input[type="radio"]:checked')) {
+                        incomplete = true;
+                    }
+                });
+            });
+
+            if (incomplete) {
+                event.preventDefault();
+
+                alert(
+                    'Silakan lengkapi status SM/BM semua siswa pada setiap tujuan pembelajaran.'
+                );
+            }
+        });
+
+
+        changeObjective('1');
     });
-
-    form.addEventListener('submit', function(event) {
-        const activeBody = bodies.find(
-            body => body.dataset.objective === objectiveSelect.value
-        );
-
-        if (!activeBody) return;
-
-        const incomplete = Array.from(
-            activeBody.querySelectorAll('.dc-student-row')
-        ).some(row => !row.querySelector('input[type="radio"]:checked'));
-
-        if (incomplete) {
-            event.preventDefault();
-
-            alert(
-                'Status SM/BM belum lengkap untuk semua siswa pada tujuan pembelajaran yang dipilih.'
-            );
-        }
-    });
-
-    changeObjective('1');
-});
 </script>
 @endsection

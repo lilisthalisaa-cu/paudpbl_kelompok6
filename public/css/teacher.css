@@ -2966,15 +2966,15 @@ textarea.form-control {
 }
 
 /* Nama siswa */
-.checklist-input-table-wrapper .student-name {
-  padding: 8px 4px;
-  text-align: center;
-  vertical-align: middle;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: normal;
-  font-size: 11px;
-  line-height: 1.2;
+/* Nama siswa pada tabel daftar checklist */
+.checklist-result-table .student-name {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    padding: 8px;
+    white-space: nowrap;
+    text-align: left;
+    vertical-align: middle;
 }
 
 /* SM / BM */
@@ -3957,7 +3957,7 @@ textarea.form-control {
 
 .checklist-result-table {
   width: 100%;
-  min-width: 1150px;
+  min-width: 1250px;
   border-collapse: separate;
   border-spacing: 0;
   table-layout: fixed;
@@ -3966,11 +3966,12 @@ textarea.form-control {
 
 .checklist-result-table th,
 .checklist-result-table td {
-  padding: 9px 7px;
+  padding: 12px 10px;
   border-right: 1px solid #e1eaf2;
   border-bottom: 1px solid #e1eaf2;
   vertical-align: middle;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: normal;
   line-height: 1.4;
 }
 
@@ -3990,6 +3991,55 @@ textarea.form-control {
   background: #f8fcfc;
 }
 
+/* Lebar kolom */
+.checklist-result-table .col-no {
+  width: 55px;
+}
+
+.checklist-result-table .col-student {
+  width: 160px;
+}
+
+.checklist-result-table .col-notes {
+  width: 150px;
+}
+
+.checklist-result-table .col-action {
+  width: 80px;
+  min-width: 80px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.checklist-result-table .objective {
+  width: 190px;
+}
+
+/* Nama siswa */
+.checklist-result-table .student-name {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 12px 8px;
+  text-align: left;
+  vertical-align: middle;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* Kolom konteks */
+.checklist-result-table td:nth-child(3),
+.checklist-result-table td:nth-child(5),
+.checklist-result-table td:nth-child(7),
+.checklist-result-table td:nth-child(9) {
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Kolom nilai */
+.checklist-result-table .col-status {
+  width: 65px;
+}
 /* Semua header tujuan pembelajaran satu warna */
 .checklist-result-table th.objective-1,
 .checklist-result-table th.objective-2,
@@ -4054,22 +4104,25 @@ textarea.form-control {
 .checklist-actions {
   display: flex;
   justify-content: center;
-  gap: 5px;
-  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
 }
 
 .btn-action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 32px;
-  padding: 6px 8px;
+  width: 55px;
+  min-height: 44px;
+  padding: 8px;
   border: 1px solid;
-  border-radius: 7px;
+  border-radius: 9px;
   background: white;
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .btn-view {
@@ -4080,17 +4133,6 @@ textarea.form-control {
 .btn-delete {
   border-color: #ef4444;
   color: #dc2626;
-}
-
-.empty-data {
-  padding: 28px !important;
-  text-align: center;
-}
-
-.checklist-table-footer {
-  padding-top: 16px;
-  color: #526b8d;
-  font-size: 13px;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -4645,4 +4687,15 @@ textarea.form-control {
     padding: 9px 12px;
     font-size: 13px;
   }
+}
+
+/* Keterangan berlaku untuk semua siswa */
+.checklist-result-table .shared-notes {
+    text-align: center;
+    vertical-align: middle;
+    min-width: 180px;
+    max-width: 240px;
+    white-space: normal;
+    line-height: 1.6;
+    padding: 16px;
 }

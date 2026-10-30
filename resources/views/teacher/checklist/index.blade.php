@@ -2,8 +2,6 @@
 
 @section('content')
 <div class="checklist-page">
-
-    {{-- HEADER --}}
     <div class="checklist-page-header">
         <div class="checklist-page-icon">📋</div>
         <div>
@@ -12,16 +10,22 @@
         </div>
     </div>
 
+
     {{-- TOMBOL KEMBALI --}}
     <div class="checklist-back-action">
         <a href="{{ route('teacher.checklist.create') }}"
             class="checklist-back-button">
+
+    <div class="checklist-back-action">
+        <a href="{{ route('teacher.checklist.create') }}" class="checklist-back-button">
+
             &larr; Kembali ke Input Checklist
         </a>
     </div>
 
     {{-- FILTER --}}
     <div class="checklist-filter">
+
         <form method="GET"
             action="{{ route('teacher.checklist.index') }}"
             class="checklist-filter-form">
@@ -32,10 +36,17 @@
                     id="tanggal"
                     name="date"
                     value="{{ request('date') }}">
+
+        <form method="GET" action="{{ route('teacher.checklist.index') }}" class="checklist-filter-form">
+            <div class="filter-field">
+                <label for="tanggal">Tanggal</label>
+                <input type="date" id="tanggal" name="date" value="{{ request('date') }}">
+
             </div>
 
             <div class="filter-field">
                 <label for="tema">Tema</label>
+
                 <input type="text"
                     id="tema"
                     name="theme"
@@ -61,15 +72,21 @@
                 Reset
             </a>
 
+
+                <input type="text" id="tema" name="theme" placeholder="Cari tema..." value="{{ request('theme') }}">
+            </div>
+
+            <button type="submit" class="btn-search">🔍 Cari</button>
+            <a href="{{ route('teacher.checklist.index') }}" class="btn-reset">Reset</a>
+
         </form>
     </div>
 
-    {{-- TABEL DAFTAR CHECKLIST --}}
+    {{-- TABEL CHECKLIST --}}
     <div class="checklist-table-card">
-
         <div class="checklist-table-heading">
             <h2>Daftar Checklist Harian</h2>
-            <p>Detail hasil checklist siswa per hari, tema, dan tujuan pembelajaran.</p>
+            <p>Detail hasil checklist siswa berdasarkan tanggal, tema, dan tujuan pembelajaran.</p>
         </div>
 
         @php
@@ -78,7 +95,6 @@
 
         <div class="checklist-table-wrapper">
             <table class="checklist-result-table">
-
                 <thead>
                     <tr>
                         <th rowspan="2" class="col-no">No</th>
@@ -89,18 +105,15 @@
                         </th>
 
                         <th colspan="2" class="objective objective-2">
-                            2. Anak berhitung sederhana jumlah benda/objek
-                            di tempat rekreasi
+                            2. Anak berhitung sederhana jumlah benda/objek di tempat rekreasi
                         </th>
 
                         <th colspan="2" class="objective objective-3">
-                            3. Anak percaya diri menceritakan pengalaman
-                            rekreasinya
+                            3. Anak percaya diri menceritakan pengalaman rekreasinya
                         </th>
 
                         <th colspan="2" class="objective objective-4">
-                            4. Anak mencoba aktivitas seni seperti
-                            menggambar atau mewarnai
+                            4. Anak mencoba aktivitas seni seperti menggambar atau mewarnai
                         </th>
 
                         <th rowspan="2" class="col-notes">
@@ -128,15 +141,14 @@
                 <tbody>
                     @forelse ($checklists as $checklist)
                     <tr>
-                        {{-- NOMOR --}}
                         <td class="text-center">
                             {{ $checklists->firstItem() + $loop->index }}
                         </td>
 
-                        {{-- NAMA SISWA --}}
                         <td class="student-name">
                             {{ $checklist->student->name ?? '-' }}
                         </td>
+
 
                         {{-- TUJUAN 1 --}}
                         <td>{{ $checklist->objective1_context ?? '-' }}</td>
@@ -199,6 +211,34 @@
                             <div class="checklist-actions">
                                 <a href="{{ route('teacher.checklist.show', $checklist->checklist_id) }}"
                                     class="btn-action btn-view">
+
+                        @for ($i = 1; $i <= 4; $i++)
+                            @php
+                                $context = $checklist->{'objective_' . $i . '_context'} ?? '-';
+                                $status = $checklist->{'objective_' . $i . '_status'} ?? '-';
+                            @endphp
+
+                            <td>{{ $context }}</td>
+
+                            <td class="text-center">
+                                @if ($status === 'SM')
+                                    <span class="status-badge status-sm">SM</span>
+                                @elseif ($status === 'BM')
+                                    <span class="status-badge status-bm">BM</span>
+                                @else
+                                    -
+                                @endif
+                            </td>
+                        @endfor
+
+                        <td>{{ $checklist->notes ?: '-' }}</td>
+
+                        <td>
+                            <div class="checklist-actions">
+                                <a href="{{ route('teacher.checklist.show', $checklist->checklist_id) }}"
+                                   class="btn-action btn-view"
+                                   title="Lihat detail">
+
                                     Lihat
                                 </a>
                             </div>
@@ -221,13 +261,18 @@
                 Menampilkan {{ $checklists->count() }} data checklist
             </span>
 
+
             @if (method_exists($checklists, 'links'))
             <div class="checklist-pagination">
                 {{ $checklists->links() }}
             </div>
             @endif
-        </div>
 
+            <div class="checklist-pagination">
+                {{ $checklists->links() }}
+            </div>
+
+        </div>
     </div>
 </div>
 @endsection
